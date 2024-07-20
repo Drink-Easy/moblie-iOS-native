@@ -14,6 +14,25 @@
 		16B97CE02C4BEB0A00D8B453 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 16B97CDF2C4BEB0A00D8B453 /* Base */; };
 		16B97CE92C4BF29F00D8B453 /* SecondScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CE82C4BF29F00D8B453 /* SecondScreenViewController.swift */; };
 		16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CEB2C4BF37E00D8B453 /* Constant.swift */; };
+		16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CFD2C4BFC2300D8B453 /* HomeViewController.swift */; };
+		16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CFF2C4BFC7300D8B453 /* ShoppingCartListViewController.swift */; };
+		16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D012C4BFC9800D8B453 /* SearchHomeViewController.swift */; };
+		16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D032C4C0CD700D8B453 /* WineInfoViewController.swift */; };
+		16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D052C4C0CF800D8B453 /* WineStoreListViewController.swift */; };
+		16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D072C4C0D8100D8B453 /* WineOrderViewController.swift */; };
+		16B97D0A2C4C0D8F00D8B453 /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D092C4C0D8F00D8B453 /* NoteListViewController.swift */; };
+		16B97D0C2C4C0DAA00D8B453 /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D0B2C4C0DAA00D8B453 /* AddNewNoteViewController.swift */; };
+		16B97D0E2C4C0E6300D8B453 /* WriteNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D0D2C4C0E6300D8B453 /* WriteNoteViewController.swift */; };
+		16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D0F2C4C0E9000D8B453 /* NoteInfoViewController.swift */; };
+		16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D112C4C0F2400D8B453 /* WineClassMainViewController.swift */; };
+		16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */; };
+		16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */; };
+		16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */; };
+		16B97D1A2C4C0F8200D8B453 /* CommunityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D192C4C0F8200D8B453 /* CommunityMainViewController.swift */; };
+		16B97D1E2C4C0FCA00D8B453 /* CommunityInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D1D2C4C0FCA00D8B453 /* CommunityInfoViewController.swift */; };
+		16B97D202C4C0FDB00D8B453 /* SearchCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D1F2C4C0FDB00D8B453 /* SearchCommunityViewController.swift */; };
+		16B97D222C4C0FEB00D8B453 /* CommunityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */; };
+		16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +45,25 @@
 		16B97CE12C4BEB0A00D8B453 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16B97CE82C4BF29F00D8B453 /* SecondScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondScreenViewController.swift; sourceTree = "<group>"; };
 		16B97CEB2C4BF37E00D8B453 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		16B97CFD2C4BFC2300D8B453 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		16B97CFF2C4BFC7300D8B453 /* ShoppingCartListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartListViewController.swift; sourceTree = "<group>"; };
+		16B97D012C4BFC9800D8B453 /* SearchHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeViewController.swift; sourceTree = "<group>"; };
+		16B97D032C4C0CD700D8B453 /* WineInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineInfoViewController.swift; sourceTree = "<group>"; };
+		16B97D052C4C0CF800D8B453 /* WineStoreListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineStoreListViewController.swift; sourceTree = "<group>"; };
+		16B97D072C4C0D8100D8B453 /* WineOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineOrderViewController.swift; sourceTree = "<group>"; };
+		16B97D092C4C0D8F00D8B453 /* NoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
+		16B97D0B2C4C0DAA00D8B453 /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
+		16B97D0D2C4C0E6300D8B453 /* WriteNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteNoteViewController.swift; sourceTree = "<group>"; };
+		16B97D0F2C4C0E9000D8B453 /* NoteInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInfoViewController.swift; sourceTree = "<group>"; };
+		16B97D112C4C0F2400D8B453 /* WineClassMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineClassMainViewController.swift; sourceTree = "<group>"; };
+		16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassVideoViewController.swift; sourceTree = "<group>"; };
+		16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingVideoViewController.swift; sourceTree = "<group>"; };
+		16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoViewController.swift; sourceTree = "<group>"; };
+		16B97D192C4C0F8200D8B453 /* CommunityMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainViewController.swift; sourceTree = "<group>"; };
+		16B97D1D2C4C0FCA00D8B453 /* CommunityInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityInfoViewController.swift; sourceTree = "<group>"; };
+		16B97D1F2C4C0FDB00D8B453 /* SearchCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCommunityViewController.swift; sourceTree = "<group>"; };
+		16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityListViewController.swift; sourceTree = "<group>"; };
+		16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCommViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				16B97CF52C4BFAEC00D8B453 /* Default */,
+				16B97CFC2C4BFBD300D8B453 /* Main */,
 				16B97CF62C4BFAFD00D8B453 /* Search */,
 				16B97CF72C4BFB0900D8B453 /* TastingNote */,
 				16B97CF82C4BFB2400D8B453 /* WineClass */,
@@ -158,6 +197,10 @@
 		16B97CF62C4BFAFD00D8B453 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				16B97D012C4BFC9800D8B453 /* SearchHomeViewController.swift */,
+				16B97D032C4C0CD700D8B453 /* WineInfoViewController.swift */,
+				16B97D052C4C0CF800D8B453 /* WineStoreListViewController.swift */,
+				16B97D072C4C0D8100D8B453 /* WineOrderViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -165,6 +208,10 @@
 		16B97CF72C4BFB0900D8B453 /* TastingNote */ = {
 			isa = PBXGroup;
 			children = (
+				16B97D092C4C0D8F00D8B453 /* NoteListViewController.swift */,
+				16B97D0B2C4C0DAA00D8B453 /* AddNewNoteViewController.swift */,
+				16B97D0D2C4C0E6300D8B453 /* WriteNoteViewController.swift */,
+				16B97D0F2C4C0E9000D8B453 /* NoteInfoViewController.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
@@ -172,6 +219,10 @@
 		16B97CF82C4BFB2400D8B453 /* WineClass */ = {
 			isa = PBXGroup;
 			children = (
+				16B97D112C4C0F2400D8B453 /* WineClassMainViewController.swift */,
+				16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */,
+				16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */,
+				16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */,
 			);
 			path = WineClass;
 			sourceTree = "<group>";
@@ -179,6 +230,11 @@
 		16B97CF92C4BFB4700D8B453 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				16B97D192C4C0F8200D8B453 /* CommunityMainViewController.swift */,
+				16B97D1D2C4C0FCA00D8B453 /* CommunityInfoViewController.swift */,
+				16B97D1F2C4C0FDB00D8B453 /* SearchCommunityViewController.swift */,
+				16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */,
+				16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -188,6 +244,15 @@
 			children = (
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		16B97CFC2C4BFBD300D8B453 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				16B97CFD2C4BFC2300D8B453 /* HomeViewController.swift */,
+				16B97CFF2C4BFC7300D8B453 /* ShoppingCartListViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,11 +325,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16B97D222C4C0FEB00D8B453 /* CommunityListViewController.swift in Sources */,
 				16B97CE92C4BF29F00D8B453 /* SecondScreenViewController.swift in Sources */,
+				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
+				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
+				16B97D1A2C4C0F8200D8B453 /* CommunityMainViewController.swift in Sources */,
 				16B97CD82C4BEB0900D8B453 /* ViewController.swift in Sources */,
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
+				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
+				16B97D0C2C4C0DAA00D8B453 /* AddNewNoteViewController.swift in Sources */,
+				16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */,
+				16B97D0E2C4C0E6300D8B453 /* WriteNoteViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
+				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
+				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
+				16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */,
+				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
+				16B97D0A2C4C0D8F00D8B453 /* NoteListViewController.swift in Sources */,
+				16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */,
+				16B97D1E2C4C0FCA00D8B453 /* CommunityInfoViewController.swift in Sources */,
+				16B97D202C4C0FDB00D8B453 /* SearchCommunityViewController.swift in Sources */,
+				16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */,
+				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
+				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
