@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct K {
+    static let appname = "Drink-EG"
+    
+}

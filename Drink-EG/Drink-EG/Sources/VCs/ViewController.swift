@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupButton()
         view.backgroundColor = .systemBackground
-        title = "First Screen"
+        title = K.appname
         navigationController?.navigationBar.prefersLargeTitles = true
         // Do any additional setup after loading the view.
     }

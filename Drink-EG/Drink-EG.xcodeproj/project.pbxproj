@@ -115,6 +115,12 @@
 		16B97CF12C4BF3F700D8B453 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				16B97CF52C4BFAEC00D8B453 /* Default */,
+				16B97CF62C4BFAFD00D8B453 /* Search */,
+				16B97CF72C4BFB0900D8B453 /* TastingNote */,
+				16B97CF82C4BFB2400D8B453 /* WineClass */,
+				16B97CF92C4BFB4700D8B453 /* Community */,
+				16B97CFB2C4BFB5E00D8B453 /* Settings */,
 				16B97CD72C4BEB0900D8B453 /* ViewController.swift */,
 				16B97CE82C4BF29F00D8B453 /* SecondScreenViewController.swift */,
 			);
@@ -140,6 +146,48 @@
 			children = (
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		16B97CF52C4BFAEC00D8B453 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Default;
+			sourceTree = "<group>";
+		};
+		16B97CF62C4BFAFD00D8B453 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		16B97CF72C4BFB0900D8B453 /* TastingNote */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TastingNote;
+			sourceTree = "<group>";
+		};
+		16B97CF82C4BFB2400D8B453 /* WineClass */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WineClass;
+			sourceTree = "<group>";
+		};
+		16B97CF92C4BFB4700D8B453 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
+		16B97CFB2C4BFB5E00D8B453 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
