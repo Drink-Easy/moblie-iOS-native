@@ -7,13 +7,11 @@ assignees: ''
 
 ---
 
-🔨 Describe
+# 🔨 Describe
 - 
 
-✅ Tasks
-- [ ]
-- [ ]
-- [ ]
-- [ ]
+# ✅ Tasks
+- [ ] 
 
-⏰ Due Date
+# ⏰ Due Date
+- 1차 마감 : `2024.07.21`
