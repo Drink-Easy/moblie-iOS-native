@@ -43,11 +43,38 @@ class NoteCollectionViewCell: UICollectionViewCell { // 셀에 이미지와 labe
     }
 }
 
+class NewNoteFooter: UICollectionReusableView {
+    let button = UIButton(type: .system)
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(button)
+
+        button.setTitle("+ 새로 적기", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.backgroundColor = .clear
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
+        button.addTarget(self, action: #selector(newButtonTapped), for: .touchUpInside)
+        button.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(10)
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func newButtonTapped() {
+        print("새로운 창")
+    }
+}
+
 class NoteListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
    
     let noteListLabel = UILabel() // 노트 보관함 Label
     var noteListGrid: UICollectionView!
-    let newListButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,13 +84,11 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         setupLabel()
         setupNoteListLabelConstraints()
         setupNoteCollectionViewConstraints()
-        setupNewListButtonConstraints()
     }
     
     func setupView() {
         view.addSubview(noteListLabel)
         view.addSubview(noteListGrid)
-        view.addSubview(newListButton)
     }
     // MARK: 노트 보관함에 관한 UI
     func setupLabel() {
@@ -86,6 +111,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         layout.minimumLineSpacing = 100
         layout.minimumInteritemSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.footerReferenceSize = CGSize(width: view.frame.width, height: 60)
         
         noteListGrid = UICollectionView(frame: .zero, collectionViewLayout: layout)
         noteListGrid.backgroundColor = .purple
@@ -93,6 +119,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         noteListGrid.dataSource = self
         noteListGrid.delegate = self
         noteListGrid.register(NoteCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        noteListGrid.register(NewNoteFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footer")
     }
     
     func setupNoteCollectionViewConstraints() {
@@ -127,20 +154,12 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
             return 10
         }
    // MARK: "새로 적기" 버튼에 관한 UI
-    func setupButton() {
-        newListButton.setTitle("+ 새로 적기", for: .normal)
-        newListButton.backgroundColor = .clear
-        newListButton.setTitleColor(.black, for: .normal)
-        newListButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-        newListButton.layer.borderWidth = 2
-        newListButton.layer.borderColor = UIColor.black.cgColor
-    }
-    
-    func setupNewListButtonConstraints() {
-        newListButton.snp.makeConstraints{ make in
-            make.leading.equalTo(noteListGrid.snp.leading).offset(30)
-            make.trailing.equalTo(noteListGrid.snp.trailing).offset(-30)
-            make.bottom.equalTo(noteListGrid.snp.bottom).offset(-30)
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+            if kind == UICollectionView.elementKindSectionFooter {
+                let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footer", for: indexPath) as! NewNoteFooter
+                return footer
+            }
+            return UICollectionReusableView()
         }
-    }
+
 }
