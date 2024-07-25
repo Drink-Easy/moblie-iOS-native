@@ -12,6 +12,10 @@ class HomeViewController: UIViewController {
     
     let searchButton = UIButton(type: .system)
     let cartButton = UIButton(type: .system)
+    let firstLine = UILabel()
+    typealias ImageCell = AdImageCollectionViewCell
+    
+    private var cardContents: [String] = ["red.png", "orange.png", "yellow.png", "green.png", "blue.png"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +29,8 @@ class HomeViewController: UIViewController {
         configureSearchButton()
         // 장바구니 버튼 설정
         configureCartButton()
+        // label 설정
+        configureLabel()
                 
         // StackView 설정
         let stackView = UIStackView(arrangedSubviews: [searchButton, cartButton])
@@ -48,6 +54,30 @@ class HomeViewController: UIViewController {
         cartButton.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.15)
         }
+                
+        view.addSubview(AdImageCollectionView)
+        view.addSubview(pageControl)
+                
+        let edge = view.frame.width - 50
+                
+        AdImageCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(stackView.snp.bottom).offset(18)
+            make.center.equalToSuperview()
+            make.width.equalTo(edge)
+        }
+                
+        pageControl.snp.makeConstraints { make in
+            make.top.equalTo(AdImageCollectionView.snp.bottom).offset(-30)
+            make.left.right.equalToSuperview()
+        }
+        
+        view.addSubview(firstLine)
+        
+        firstLine.snp.makeConstraints {make in
+            make.top.equalTo(AdImageCollectionView.snp.bottom).offset(23)
+            make.leading.trailing.equalTo(AdImageCollectionView)
+        }
+        
     }
     
     private func configureSearchButton() {
@@ -98,4 +128,75 @@ class HomeViewController: UIViewController {
         let shoppingCartListViewController = ShoppingCartListViewController()
         navigationController?.pushViewController(shoppingCartListViewController, animated: true)
     }
+    
+    private func configureLabel() {
+        firstLine.numberOfLines = 0  // 여러 줄을 지원하도록 설정
+        firstLine.text = "션/위승주 님이 좋아할 만한 술"
+        firstLine.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        guard let text = self.firstLine.text else { return }
+        
+        let attributedStr = NSMutableAttributedString(string: text)
+        attributedStr.addAttribute(.font, value: UIFont.systemFont(ofSize: 27, weight: .bold), range: (text as NSString).range(of: "션/위승주"))
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.orange, range: (text as NSString).range(of: "션/위승주"))
+        self.firstLine.attributedText = attributedStr
+    }
+    
+    lazy var AdImageCollectionView: UICollectionView = {
+        // collection view layout setting
+        let layout = UICollectionViewFlowLayout.init()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.footerReferenceSize = .zero
+        layout.headerReferenceSize = .zero
+                
+        // collection view setting
+        let x = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        x.isScrollEnabled = true
+        x.isPagingEnabled = true
+        x.showsHorizontalScrollIndicator = false
+        x.register(ImageCell.self, forCellWithReuseIdentifier: "ImageCell")
+        x.delegate = self
+        x.dataSource = self
+                
+        // UI setting
+        x.backgroundColor = UIColor.black
+        x.layer.cornerRadius = 16
+                
+        return x
+    }()
+    
+    lazy var pageControl = UIPageControl()
 }
+
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // page control 설정.
+        if scrollView.frame.size.width != 0 {
+            let value = (scrollView.contentOffset.x / scrollView.frame.width)
+            pageControl.currentPage = Int(round(value))
+        }
+    }
+}
+
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        pageControl.numberOfPages = cardContents.count
+        return self.cardContents.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
+        
+        cell.configure(image: cardContents[indexPath.item])
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+          return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+}
+    
+    
+
