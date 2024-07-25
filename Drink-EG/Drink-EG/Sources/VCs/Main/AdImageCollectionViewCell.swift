@@ -9,9 +9,9 @@ import UIKit
 
 class AdImageCollectionViewCell : UICollectionViewCell {
     private let imageView: UIImageView = {
-        let v = UIImageView()
-        v.contentMode = .scaleAspectFit
-        return v
+        let x = UIImageView()
+        x.contentMode = .scaleAspectFill
+        return x
     }()
         
     override init(frame: CGRect) {

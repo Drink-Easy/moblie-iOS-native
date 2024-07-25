@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     let searchButton = UIButton(type: .system)
     let cartButton = UIButton(type: .system)
     let firstLine = UILabel()
+    let secondLine = UILabel()
     typealias ImageCell = AdImageCollectionViewCell
     
     private var cardContents: [String] = ["red.png", "orange.png", "yellow.png", "green.png", "blue.png"]
@@ -62,21 +63,29 @@ class HomeViewController: UIViewController {
                 
         AdImageCollectionView.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(18)
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.width.equalTo(edge)
+            make.height.equalTo(229)
         }
                 
         pageControl.snp.makeConstraints { make in
             make.top.equalTo(AdImageCollectionView.snp.bottom).offset(-30)
-            make.left.right.equalToSuperview()
+            make.centerX.equalToSuperview()
         }
         
         view.addSubview(firstLine)
         
         firstLine.snp.makeConstraints {make in
-            make.top.equalTo(AdImageCollectionView.snp.bottom).offset(23)
+            make.top.equalTo(AdImageCollectionView.snp.bottom).offset(20)
             make.leading.trailing.equalTo(AdImageCollectionView)
         }
+        
+        view.addSubview(secondLine)
+        
+//        firstLine.snp.makeConstraints { make in
+//            make.top.equalTo(firstLine.snp.bottom).offset(10)
+//            make.leading.trailing.equalTo(firstLine)
+//        }
         
     }
     
@@ -130,7 +139,6 @@ class HomeViewController: UIViewController {
     }
     
     private func configureLabel() {
-        firstLine.numberOfLines = 0  // 여러 줄을 지원하도록 설정
         firstLine.text = "션/위승주 님이 좋아할 만한 술"
         firstLine.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         guard let text = self.firstLine.text else { return }
@@ -139,6 +147,15 @@ class HomeViewController: UIViewController {
         attributedStr.addAttribute(.font, value: UIFont.systemFont(ofSize: 27, weight: .bold), range: (text as NSString).range(of: "션/위승주"))
         attributedStr.addAttribute(.foregroundColor, value: UIColor.orange, range: (text as NSString).range(of: "션/위승주"))
         self.firstLine.attributedText = attributedStr
+        
+//        secondLine.text = "최근 스파클링 와인을 자주 즐기고, 한 주에 5만원 이하로 쓰셨군요!"
+//        secondLine.font = UIFont.systemFont(ofSize: 10)
+//        guard let text1 = self.secondLine.text else { return }
+        
+//        let attributedStr1 = NSMutableAttributedString(string: text1)
+//        attributedStr1.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 10), range: (text1 as NSString).range(of: "스파클링 와인"))
+//        attributedStr1.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 10), range: (text1 as NSString).range(of: "5만원 이하"))
+//        self.secondLine.attributedText = attributedStr1
     }
     
     lazy var AdImageCollectionView: UICollectionView = {
