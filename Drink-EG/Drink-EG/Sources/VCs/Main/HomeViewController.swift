@@ -14,9 +14,9 @@ class HomeViewController: UIViewController {
     let cartButton = UIButton(type: .system)
     let firstLine = UILabel()
     let secondLine = UILabel()
-    typealias ImageCell = AdImageCollectionViewCell
     
-    private var cardContents: [String] = ["red.png", "orange.png", "yellow.png", "green.png", "blue.png"]
+    private var AdContents: [String] = ["red.png", "orange.png", "yellow.png", "green.png", "blue.png"]
+    private var RecomContents: [String] = ["Red Label\\2019.jpeg", "Castello Monaci\\1998.jpeg", "Loxton\\1995.jpeg"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +86,16 @@ class HomeViewController: UIViewController {
 //            make.top.equalTo(firstLine.snp.bottom).offset(10)
 //            make.leading.trailing.equalTo(firstLine)
 //        }
+        
+        view.addSubview(RecomCollectionView)
+        
+        RecomCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(firstLine.snp.bottom).offset(13)
+            make.centerX.equalToSuperview()
+            make.leading.trailing.equalTo(AdImageCollectionView)
+            make.height.equalTo(166)
+        }
+        
         
     }
     
@@ -160,7 +170,7 @@ class HomeViewController: UIViewController {
     
     lazy var AdImageCollectionView: UICollectionView = {
         // collection view layout setting
-        let layout = UICollectionViewFlowLayout.init()
+        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
@@ -168,22 +178,42 @@ class HomeViewController: UIViewController {
         layout.headerReferenceSize = .zero
                 
         // collection view setting
-        let x = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        x.isScrollEnabled = true
-        x.isPagingEnabled = true
-        x.showsHorizontalScrollIndicator = false
-        x.register(ImageCell.self, forCellWithReuseIdentifier: "ImageCell")
-        x.delegate = self
-        x.dataSource = self
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.isScrollEnabled = true
+        cv.isPagingEnabled = true
+        cv.showsHorizontalScrollIndicator = false
+        cv.register(AdImageCollectionViewCell.self, forCellWithReuseIdentifier: "AdImageCollectionViewCell")
+        cv.delegate = self
+        cv.dataSource = self
+        cv.tag = 1
                 
         // UI setting
-        x.backgroundColor = UIColor.black
-        x.layer.cornerRadius = 16
+        cv.backgroundColor = UIColor.black
+        cv.layer.cornerRadius = 16
                 
-        return x
+        return cv
     }()
     
     lazy var pageControl = UIPageControl()
+    
+    lazy var RecomCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(RecomCollectionViewCell.self, forCellWithReuseIdentifier: "RecomCollectionViewCell")
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.showsHorizontalScrollIndicator = false
+        cv.delegate = self
+        cv.dataSource = self
+        cv.tag = 2
+        
+        cv.decelerationRate = .fast
+        cv.backgroundColor = .clear
+        cv.layer.cornerRadius = 10
+        
+        return cv
+    }()
 }
 
 extension HomeViewController: UIScrollViewDelegate {
@@ -198,20 +228,41 @@ extension HomeViewController: UIScrollViewDelegate {
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        pageControl.numberOfPages = cardContents.count
-        return self.cardContents.count
+        if collectionView.tag == 1 {
+            pageControl.numberOfPages = AdContents.count
+            return  self.AdContents.count
+        }
+        else if collectionView.tag == 2 {
+            return 3
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
-        
-        cell.configure(image: cardContents[indexPath.item])
-        
-        return cell
+        if collectionView.tag == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdImageCollectionViewCell", for: indexPath) as! AdImageCollectionViewCell
+            
+            cell.configure(image: AdContents[indexPath.item])
+            return cell
+        }
+        else if collectionView.tag == 2 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecomCollectionViewCell", for: indexPath) as! RecomCollectionViewCell
+            
+            cell.configure(imageName: RecomContents[indexPath.item])
+            return cell
+            
+        }
+        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-          return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        if collectionView.tag == 1 {
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        }
+        else if collectionView.tag == 2 {
+            return CGSize(width: collectionView.frame.height - 4, height: collectionView.frame.height)
+        }
+        return CGSize.zero
     }
 }
     
