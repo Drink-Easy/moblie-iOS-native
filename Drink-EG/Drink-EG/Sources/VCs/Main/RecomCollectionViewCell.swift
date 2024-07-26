@@ -15,7 +15,7 @@ class RecomCollectionViewCell: UICollectionViewCell {
     
     private let label: UILabel = {
         let l = UILabel()
-        l.font = .systemFont(ofSize: 10)
+        l.font = .systemFont(ofSize: 15, weight: .bold)
         l.textColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
         l.numberOfLines = 0
         return l

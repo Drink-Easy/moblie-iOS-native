@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     let secondLine = UILabel()
     
     private var AdContents: [String] = ["red.png", "orange.png", "yellow.png", "green.png", "blue.png"]
-    private var RecomContents: [String] = ["Red Label\\2019.jpeg", "Castello Monaci\\1998.jpeg", "Loxton\\1995.jpeg"]
+    private var RecomContents: [String] = ["Red Label", "Castello Monaci", "Loxton"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,7 +149,7 @@ class HomeViewController: UIViewController {
     }
     
     private func configureLabel() {
-        firstLine.text = "션/위승주 님이 좋아할 만한 술"
+        firstLine.text = "션/위승주 님이 좋아할 만한 와인"
         firstLine.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         guard let text = self.firstLine.text else { return }
         
@@ -230,10 +230,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 1 {
             pageControl.numberOfPages = AdContents.count
-            return  self.AdContents.count
+            return self.AdContents.count
         }
         else if collectionView.tag == 2 {
-            return 3
+            return self.RecomContents.count
         }
         return 0
     }
