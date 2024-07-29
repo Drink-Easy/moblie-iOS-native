@@ -100,7 +100,6 @@ class HomeViewController: UIViewController {
         searchButton.backgroundColor = UIColor(hue: 0/360, saturation: 0/100, brightness: 89/100, alpha: 1.0)
         searchButton.layer.cornerRadius = 10
         searchButton.layer.borderWidth = 0
-        searchButton.layer.borderColor = UIColor.systemGray4.cgColor
         
         // 돋보기 이미지 설정
         let magnifyingGlassImage = UIImage(named: "icon_search")

@@ -38,6 +38,12 @@
 		16B97D352C4D062E00D8B453 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D342C4D062E00D8B453 /* SnapKit */; };
 		1F598EEA2C5227C5000CE79F /* AdImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EE92C5227C5000CE79F /* AdImageCollectionViewCell.swift */; };
 		1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EEB2C524D2E000CE79F /* RecomCollectionViewCell.swift */; };
+		1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EFA2C5814F9000CE79F /* EnterLoginViewController.swift */; };
+		1F598EFD2C58150E000CE79F /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EFC2C58150E000CE79F /* JoinViewController.swift */; };
+		1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */; };
+		1F598F012C581573000CE79F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F002C581573000CE79F /* LoginViewController.swift */; };
+		1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */; };
+		1F598F052C582D9F000CE79F /* StartLoginPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F042C582D9F000CE79F /* StartLoginPageControl.swift */; };
 		1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */; };
 		1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */; };
 /* End PBXBuildFile section */
@@ -71,6 +77,12 @@
 		16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCommViewController.swift; sourceTree = "<group>"; };
 		1F598EE92C5227C5000CE79F /* AdImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F598EEB2C524D2E000CE79F /* RecomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F598EFA2C5814F9000CE79F /* EnterLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterLoginViewController.swift; sourceTree = "<group>"; };
+		1F598EFC2C58150E000CE79F /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+		1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLoginViewController.swift; sourceTree = "<group>"; };
+		1F598F002C581573000CE79F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLoginCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F598F042C582D9F000CE79F /* StartLoginPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLoginPageControl.swift; sourceTree = "<group>"; };
 		1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingMainController.swift; path = "Drink-EG/Sources/VCs/Main/SettingMainController.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -167,6 +179,8 @@
 		16B97CF12C4BF3F700D8B453 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				1F598EF02C581376000CE79F /* TasteTest */,
+				1F598EEF2C58136B000CE79F /* Login */,
 				16B97CF52C4BFAEC00D8B453 /* Default */,
 				16B97CFC2C4BFBD300D8B453 /* Main */,
 				16B97CF62C4BFAFD00D8B453 /* Search */,
@@ -271,6 +285,26 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		1F598EEF2C58136B000CE79F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1F598EFA2C5814F9000CE79F /* EnterLoginViewController.swift */,
+				1F598EFC2C58150E000CE79F /* JoinViewController.swift */,
+				1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */,
+				1F598F002C581573000CE79F /* LoginViewController.swift */,
+				1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */,
+				1F598F042C582D9F000CE79F /* StartLoginPageControl.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1F598EF02C581376000CE79F /* TasteTest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TasteTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -361,6 +395,7 @@
 				1F598EEA2C5227C5000CE79F /* AdImageCollectionViewCell.swift in Sources */,
 				16B97D1A2C4C0F8200D8B453 /* CommunityMainViewController.swift in Sources */,
 				1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */,
+				1F598EFD2C58150E000CE79F /* JoinViewController.swift in Sources */,
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				16B97D0C2C4C0DAA00D8B453 /* AddNewNoteViewController.swift in Sources */,
@@ -372,14 +407,19 @@
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
 				16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */,
+				1F598F012C581573000CE79F /* LoginViewController.swift in Sources */,
 				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
 				16B97D0A2C4C0D8F00D8B453 /* NoteListViewController.swift in Sources */,
 				16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */,
 				16B97D1E2C4C0FCA00D8B453 /* CommunityInfoViewController.swift in Sources */,
+				1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */,
 				16B97D202C4C0FDB00D8B453 /* SearchCommunityViewController.swift in Sources */,
 				16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */,
 				1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */,
+				1F598F052C582D9F000CE79F /* StartLoginPageControl.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
+				1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */,
+				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
