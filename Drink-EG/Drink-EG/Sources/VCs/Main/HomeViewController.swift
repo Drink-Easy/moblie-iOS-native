@@ -212,7 +212,7 @@ extension HomeViewController: UIScrollViewDelegate {
     }
 }
 
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, RecomCollectionViewCellDelegate {
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 1 {
             pageControl.numberOfPages = AdContents.count
@@ -235,11 +235,17 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecomCollectionViewCell", for: indexPath) as! RecomCollectionViewCell
             
             cell.configure(imageName: RecomContents[indexPath.item])
-            cell.delegate = self
             return cell
             
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView.tag == 2 {
+            let wineInfoViewController = WineInfoViewController()
+            navigationController?.pushViewController(wineInfoViewController, animated: true)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -250,11 +256,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return CGSize(width: collectionView.frame.height - 4, height: collectionView.frame.height)
         }
         return CGSize.zero
-    }
-    
-    func didTapImageButton(in cell: RecomCollectionViewCell) {
-        let wineInfoViewController = WineInfoViewController()
-        navigationController?.pushViewController(wineInfoViewController, animated: true)
     }
 }
     

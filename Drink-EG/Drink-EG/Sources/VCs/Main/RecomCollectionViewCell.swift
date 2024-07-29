@@ -7,23 +7,12 @@
 
 import UIKit
 
-protocol RecomCollectionViewCellDelegate: AnyObject {
-    func didTapImageButton(in cell: RecomCollectionViewCell)
-}
-
 class RecomCollectionViewCell: UICollectionViewCell {
     
-    weak var delegate: RecomCollectionViewCellDelegate?
-    
-    private let imageButton: UIButton = {
-        let ib = UIButton()
-        
-        return ib
+    private let imageView: UIImageView = {
+            let iv = UIImageView()
+            return iv
     }()
-    
-    @objc private func imageButtonTapped() {
-        delegate?.didTapImageButton(in: self)
-    }
     
     private let label1: UILabel = {
         let l1 = UILabel()
@@ -59,21 +48,19 @@ class RecomCollectionViewCell: UICollectionViewCell {
     
     //레이아웃까지
     private func setupUI() {
-        self.contentView.addSubview(imageButton)
+        self.contentView.addSubview(imageView)
         self.contentView.addSubview(view)
         self.contentView.addSubview(label1)
         self.contentView.addSubview(label2)
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.masksToBounds = true
-        
-        imageButton.addTarget(self, action: #selector(imageButtonTapped), for: .touchUpInside)
-            
-        imageButton.snp.makeConstraints { make in
+  
+        imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
         label1.snp.makeConstraints { make in
-            make.leading.equalTo(imageButton.snp.leading).offset(9)
+            make.leading.equalTo(imageView.snp.leading).offset(9)
             make.top.equalTo(view.snp.top).offset(10)
         }
         
@@ -84,7 +71,7 @@ class RecomCollectionViewCell: UICollectionViewCell {
         
         view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(imageButton.snp.bottom)
+            make.bottom.equalTo(imageView.snp.bottom)
             make.height.equalTo(51)
             make.width.equalToSuperview()
         }
@@ -95,7 +82,7 @@ class RecomCollectionViewCell: UICollectionViewCell {
         if let image = UIImage(named: imageName) {
             label1.text = imageName
             label2.text = "2024"
-            imageButton.setImage(image, for: .normal)
+            imageView.image = image
         }
     }
 }
