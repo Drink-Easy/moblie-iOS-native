@@ -13,9 +13,8 @@ class HomeViewController: UIViewController {
     let searchButton = UIButton(type: .system)
     let cartButton = UIButton(type: .system)
     let firstLine = UILabel()
-    let secondLine = UILabel()
     
-    private var AdContents: [String] = ["red.png", "orange.png", "yellow.png", "green.png", "blue.png"]
+    private var AdContents: [String] = ["1", "2"]
     private var RecomContents: [String] = ["Red Label", "Castello Monaci", "Loxton"]
 
     override func viewDidLoad() {
@@ -44,48 +43,40 @@ class HomeViewController: UIViewController {
         // SnapKit을 사용하여 제약 조건 설정
         stackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(38)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(34)
         }
                 
         searchButton.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.85)
+            make.width.equalToSuperview().multipliedBy(0.88)
         }
                 
         cartButton.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.15)
+            make.width.equalToSuperview().multipliedBy(0.12)
         }
                 
         view.addSubview(AdImageCollectionView)
         view.addSubview(pageControl)
-                
-        let edge = view.frame.width - 50
-                
+                                
         AdImageCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(18)
+            make.top.equalTo(stackView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.width.equalTo(edge)
-            make.height.equalTo(229)
+            make.leading.trailing.equalTo(stackView)
+            make.width.equalTo(356)
+            make.height.equalTo(247)
         }
                 
         pageControl.snp.makeConstraints { make in
-            make.top.equalTo(AdImageCollectionView.snp.bottom).offset(-30)
+            make.top.equalTo(AdImageCollectionView.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
         }
         
         view.addSubview(firstLine)
         
         firstLine.snp.makeConstraints {make in
-            make.top.equalTo(AdImageCollectionView.snp.bottom).offset(20)
+            make.top.equalTo(pageControl.snp.bottom).offset(12)
             make.leading.trailing.equalTo(AdImageCollectionView)
         }
-        
-        view.addSubview(secondLine)
-        
-//        firstLine.snp.makeConstraints { make in
-//            make.top.equalTo(firstLine.snp.bottom).offset(10)
-//            make.leading.trailing.equalTo(firstLine)
-//        }
         
         view.addSubview(RecomCollectionView)
         
@@ -101,20 +92,20 @@ class HomeViewController: UIViewController {
     
     private func configureSearchButton() {
         searchButton.setTitle(" 관심있는 와인을 검색해 보세요!", for: .normal)
-        searchButton.setTitleColor(.gray, for: .normal)
+        searchButton.setTitleColor(UIColor(hue: 0, saturation: 0, brightness: 0.45, alpha: 1.0), for: .normal)
         searchButton.contentHorizontalAlignment = .left
         searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 0)
         
         // 검색 버튼의 레이아웃 설정
-        searchButton.backgroundColor = .systemGray6
+        searchButton.backgroundColor = UIColor(hue: 0/360, saturation: 0/100, brightness: 89/100, alpha: 1.0)
         searchButton.layer.cornerRadius = 10
-        searchButton.layer.borderWidth = 1
+        searchButton.layer.borderWidth = 0
         searchButton.layer.borderColor = UIColor.systemGray4.cgColor
         
         // 돋보기 이미지 설정
-        let magnifyingGlassImage = UIImage(systemName: "magnifyingglass")
+        let magnifyingGlassImage = UIImage(named: "icon_search")
         searchButton.setImage(magnifyingGlassImage, for: .normal)
-        searchButton.tintColor = .gray
+        searchButton.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1.0)
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         
         // 버튼 액션 추가
@@ -125,9 +116,9 @@ class HomeViewController: UIViewController {
         cartButton.setTitle("", for: .normal)
             
         // 장바구니 이미지 설정
-        let cartImage = UIImage(systemName: "cart")
+        let cartImage = UIImage(named: "icon_cart")
         cartButton.setImage(cartImage, for: .normal)
-        cartButton.tintColor = .black
+        cartButton.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1.0)
             
         // 장바구니 버튼의 레이아웃 설정
         cartButton.backgroundColor = .clear  // 배경색 제거
@@ -150,22 +141,12 @@ class HomeViewController: UIViewController {
     
     private func configureLabel() {
         firstLine.text = "션/위승주 님이 좋아할 만한 와인"
-        firstLine.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        firstLine.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         guard let text = self.firstLine.text else { return }
         
         let attributedStr = NSMutableAttributedString(string: text)
-        attributedStr.addAttribute(.font, value: UIFont.systemFont(ofSize: 27, weight: .bold), range: (text as NSString).range(of: "션/위승주"))
-        attributedStr.addAttribute(.foregroundColor, value: UIColor.orange, range: (text as NSString).range(of: "션/위승주"))
+        attributedStr.addAttribute(.font, value: UIFont.systemFont(ofSize: 24, weight: .bold), range: (text as NSString).range(of: "션/위승주"))
         self.firstLine.attributedText = attributedStr
-        
-//        secondLine.text = "최근 스파클링 와인을 자주 즐기고, 한 주에 5만원 이하로 쓰셨군요!"
-//        secondLine.font = UIFont.systemFont(ofSize: 10)
-//        guard let text1 = self.secondLine.text else { return }
-        
-//        let attributedStr1 = NSMutableAttributedString(string: text1)
-//        attributedStr1.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 10), range: (text1 as NSString).range(of: "스파클링 와인"))
-//        attributedStr1.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 10), range: (text1 as NSString).range(of: "5만원 이하"))
-//        self.secondLine.attributedText = attributedStr1
     }
     
     lazy var AdImageCollectionView: UICollectionView = {
@@ -188,13 +169,18 @@ class HomeViewController: UIViewController {
         cv.tag = 1
                 
         // UI setting
-        cv.backgroundColor = UIColor.black
+        cv.backgroundColor = .clear
         cv.layer.cornerRadius = 16
                 
         return cv
     }()
     
-    lazy var pageControl = UIPageControl()
+    lazy var pageControl: UIPageControl = {
+        let p = UIPageControl()
+        p.pageIndicatorTintColor = UIColor(hue: 0, saturation: 0, brightness: 0.85, alpha: 1.0)
+        p.currentPageIndicatorTintColor = UIColor(hue: 0, saturation: 0, brightness: 0.46, alpha: 1.0)
+        return p
+    }()
     
     lazy var RecomCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -226,7 +212,7 @@ extension HomeViewController: UIScrollViewDelegate {
     }
 }
 
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, RecomCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 1 {
             pageControl.numberOfPages = AdContents.count
@@ -249,6 +235,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecomCollectionViewCell", for: indexPath) as! RecomCollectionViewCell
             
             cell.configure(imageName: RecomContents[indexPath.item])
+            cell.delegate = self
             return cell
             
         }
@@ -263,6 +250,11 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return CGSize(width: collectionView.frame.height - 4, height: collectionView.frame.height)
         }
         return CGSize.zero
+    }
+    
+    func didTapImageButton(in cell: RecomCollectionViewCell) {
+        let wineInfoViewController = WineInfoViewController()
+        navigationController?.pushViewController(wineInfoViewController, animated: true)
     }
 }
     
