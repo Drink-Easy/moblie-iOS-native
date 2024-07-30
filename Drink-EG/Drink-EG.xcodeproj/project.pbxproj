@@ -40,6 +40,7 @@
 		16B97D322C4CE68A00D8B453 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D312C4CE68A00D8B453 /* KakaoSDK */; };
 		16B97D352C4D062E00D8B453 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D342C4D062E00D8B453 /* SnapKit */; };
 		16B97D372C4D062E00D8B453 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D362C4D062E00D8B453 /* SnapKit-Dynamic */; };
+		5E23147F2C5901BB004E2013 /* Hexcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E23147E2C5901BB004E2013 /* Hexcode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		16B97D1F2C4C0FDB00D8B453 /* SearchCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCommunityViewController.swift; sourceTree = "<group>"; };
 		16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityListViewController.swift; sourceTree = "<group>"; };
 		16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCommViewController.swift; sourceTree = "<group>"; };
+		5E23147E2C5901BB004E2013 /* Hexcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Hexcode.swift; path = "Drink-EG/Sources/VCs/TastingNote/Hexcode.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 		16B97CED2C4BF3B700D8B453 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5E23147E2C5901BB004E2013 /* Hexcode.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				16B97D222C4C0FEB00D8B453 /* CommunityListViewController.swift in Sources */,
 				16B97CE92C4BF29F00D8B453 /* SecondScreenViewController.swift in Sources */,
 				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
+				5E23147F2C5901BB004E2013 /* Hexcode.swift in Sources */,
 				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
 				16B97D1A2C4C0F8200D8B453 /* CommunityMainViewController.swift in Sources */,
 				16B97CD82C4BEB0900D8B453 /* ViewController.swift in Sources */,
