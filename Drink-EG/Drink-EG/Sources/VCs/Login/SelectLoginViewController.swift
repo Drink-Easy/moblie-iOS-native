@@ -14,6 +14,20 @@ class SelectLoginViewController: UIViewController {
     let kakaoButton = UIButton(type: .system)
     let appleButton = UIButton(type: .system)
     
+    private let imageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "select1")
+        return iv
+    }()
+    
+    private let label: UILabel = {
+        let l = UILabel()
+        l.text = "아직 회원이 아니신가요?"
+        l.textColor = UIColor(hue: 0, saturation: 0, brightness: 0.71, alpha: 1.0)
+        //l.font = UIFont(name: system, size: 14)
+        
+        return l
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +44,19 @@ class SelectLoginViewController: UIViewController {
         configureKakaoButton()
         configureAppleButton()
         
+        let stackView = UIStackView(arrangedSubviews: [kakaoButton, appleButton])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 12
+                
+        view.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(view).offset(449)
+            make.leading.trailing.equalToSuperview().inset(33)
+            make.width.equalTo(327)
+            make.height.equalTo(132)
+        }
+        
         view.addSubview(loginButton)
         loginButton.snp.makeConstraints { make in
             make.top.equalTo(view).offset(651)
@@ -39,22 +66,11 @@ class SelectLoginViewController: UIViewController {
             make.width.equalTo(327)
         }
         
-        view.addSubview(kakaoButton)
-        kakaoButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(500)
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.bottom.equalTo(stackView.snp.top).offset(-100)
             make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
-        view.addSubview(appleButton)
-        appleButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(600)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
+            make.width.height.equalTo(165)
         }
     }
     
