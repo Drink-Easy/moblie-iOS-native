@@ -34,12 +34,10 @@
 		16B97D222C4C0FEB00D8B453 /* CommunityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */; };
 		16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */; };
 		16B97D272C4CE5A100D8B453 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D262C4CE5A100D8B453 /* Alamofire */; };
-		16B97D292C4CE5A100D8B453 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D282C4CE5A100D8B453 /* AlamofireDynamic */; };
 		16B97D2C2C4CE5CE00D8B453 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D2B2C4CE5CE00D8B453 /* Toast */; };
 		16B97D2F2C4CE61100D8B453 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D2E2C4CE61100D8B453 /* Moya */; };
 		16B97D322C4CE68A00D8B453 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D312C4CE68A00D8B453 /* KakaoSDK */; };
 		16B97D352C4D062E00D8B453 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D342C4D062E00D8B453 /* SnapKit */; };
-		16B97D372C4D062E00D8B453 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D362C4D062E00D8B453 /* SnapKit-Dynamic */; };
 		5E23147F2C5901BB004E2013 /* Hexcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E23147E2C5901BB004E2013 /* Hexcode.swift */; };
 /* End PBXBuildFile section */
 
@@ -85,8 +83,6 @@
 				16B97D272C4CE5A100D8B453 /* Alamofire in Frameworks */,
 				16B97D352C4D062E00D8B453 /* SnapKit in Frameworks */,
 				16B97D2F2C4CE61100D8B453 /* Moya in Frameworks */,
-				16B97D372C4D062E00D8B453 /* SnapKit-Dynamic in Frameworks */,
-				16B97D292C4CE5A100D8B453 /* AlamofireDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,12 +286,10 @@
 			name = "Drink-EG";
 			packageProductDependencies = (
 				16B97D262C4CE5A100D8B453 /* Alamofire */,
-				16B97D282C4CE5A100D8B453 /* AlamofireDynamic */,
 				16B97D2B2C4CE5CE00D8B453 /* Toast */,
 				16B97D2E2C4CE61100D8B453 /* Moya */,
 				16B97D312C4CE68A00D8B453 /* KakaoSDK */,
 				16B97D342C4D062E00D8B453 /* SnapKit */,
-				16B97D362C4D062E00D8B453 /* SnapKit-Dynamic */,
 			);
 			productName = "Drink-EG";
 			productReference = 16B97CD02C4BEB0900D8B453 /* Drink-EG.app */;
@@ -645,11 +639,6 @@
 			package = 16B97D252C4CE5A100D8B453 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		16B97D282C4CE5A100D8B453 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 16B97D252C4CE5A100D8B453 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
-		};
 		16B97D2B2C4CE5CE00D8B453 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 16B97D2A2C4CE5CE00D8B453 /* XCRemoteSwiftPackageReference "toast-swift" */;
@@ -669,11 +658,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 16B97D332C4D062E00D8B453 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		16B97D362C4D062E00D8B453 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 16B97D332C4D062E00D8B453 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
