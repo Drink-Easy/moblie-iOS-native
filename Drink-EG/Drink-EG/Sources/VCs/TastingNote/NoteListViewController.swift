@@ -63,9 +63,8 @@ class NewNoteFooter: UICollectionReusableView {
         button.setTitle("+ 새로 적기", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.black.cgColor
+        button.backgroundColor = UIColor(hex: "FFEA75")
+        button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(newNoteButtonTapped), for: .touchUpInside)
         button.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(10)
@@ -112,7 +111,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     func setupNoteListLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         noteListLabel.snp.makeConstraints{ make in
             make.top.equalTo(100)
-            make.leading.equalTo(45)
+            make.leading.equalTo(16)
         }
     }
     
