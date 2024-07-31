@@ -93,17 +93,18 @@ class HomeViewController: UIViewController {
     private func configureSearchButton() {
         searchButton.setTitle(" 관심있는 와인을 검색해 보세요!", for: .normal)
         searchButton.setTitleColor(UIColor(hue: 0, saturation: 0, brightness: 0.45, alpha: 1.0), for: .normal)
+        searchButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12) 
         searchButton.contentHorizontalAlignment = .left
-        searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 0)
+        searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 0)
         
         // 검색 버튼의 레이아웃 설정
         searchButton.backgroundColor = UIColor(hue: 0/360, saturation: 0/100, brightness: 89/100, alpha: 1.0)
-        searchButton.layer.cornerRadius = 10
+        searchButton.layer.cornerRadius = 8
+        searchButton.layer.masksToBounds = true
         searchButton.layer.borderWidth = 0
         
         // 돋보기 이미지 설정
-        let magnifyingGlassImage = UIImage(named: "icon_search")
-        searchButton.setImage(magnifyingGlassImage, for: .normal)
+        searchButton.setImage(UIImage(named: "icon_search"), for: .normal)
         searchButton.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1.0)
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         

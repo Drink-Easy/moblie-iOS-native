@@ -37,8 +37,7 @@ class MainTabBarViewController : UITabBarController {
         nav5.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "TabSetting"), tag: 4)
         
         tabBar.tintColor = .label
-        tabBar.backgroundColor = .black
-        tabBar.alpha = 0.6
+        tabBar.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.6)
         tabBar.layer.cornerRadius = 20
         tabBar.layer.masksToBounds = true
         

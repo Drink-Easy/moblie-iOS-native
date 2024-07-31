@@ -43,7 +43,6 @@
 		1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */; };
 		1F598F012C581573000CE79F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F002C581573000CE79F /* LoginViewController.swift */; };
 		1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */; };
-		1F598F052C582D9F000CE79F /* StartLoginPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F042C582D9F000CE79F /* StartLoginPageControl.swift */; };
 		1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */; };
 		1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */; };
 /* End PBXBuildFile section */
@@ -82,7 +81,6 @@
 		1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLoginViewController.swift; sourceTree = "<group>"; };
 		1F598F002C581573000CE79F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLoginCollectionViewCell.swift; sourceTree = "<group>"; };
-		1F598F042C582D9F000CE79F /* StartLoginPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLoginPageControl.swift; sourceTree = "<group>"; };
 		1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingMainController.swift; path = "Drink-EG/Sources/VCs/Main/SettingMainController.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -293,7 +291,6 @@
 				1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */,
 				1F598F002C581573000CE79F /* LoginViewController.swift */,
 				1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */,
-				1F598F042C582D9F000CE79F /* StartLoginPageControl.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -416,7 +413,6 @@
 				16B97D202C4C0FDB00D8B453 /* SearchCommunityViewController.swift in Sources */,
 				16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */,
 				1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */,
-				1F598F052C582D9F000CE79F /* StartLoginPageControl.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
 				1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */,
 				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
@@ -564,7 +560,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83K577A944;
+				DEVELOPMENT_TEAM = UKY6HK6U6Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Drink-EG/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -591,7 +587,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83K577A944;
+				DEVELOPMENT_TEAM = UKY6HK6U6Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Drink-EG/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
