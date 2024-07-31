@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
-		16B97CD82C4BEB0900D8B453 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD72C4BEB0900D8B453 /* ViewController.swift */; };
 		16B97CDD2C4BEB0A00D8B453 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16B97CDC2C4BEB0A00D8B453 /* Assets.xcassets */; };
 		16B97CE02C4BEB0A00D8B453 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 16B97CDF2C4BEB0A00D8B453 /* Base */; };
-		16B97CE92C4BF29F00D8B453 /* SecondScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CE82C4BF29F00D8B453 /* SecondScreenViewController.swift */; };
 		16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CEB2C4BF37E00D8B453 /* Constant.swift */; };
 		16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CFD2C4BFC2300D8B453 /* HomeViewController.swift */; };
 		16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CFF2C4BFC7300D8B453 /* ShoppingCartListViewController.swift */; };
@@ -38,6 +36,15 @@
 		16B97D2F2C4CE61100D8B453 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D2E2C4CE61100D8B453 /* Moya */; };
 		16B97D322C4CE68A00D8B453 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D312C4CE68A00D8B453 /* KakaoSDK */; };
 		16B97D352C4D062E00D8B453 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D342C4D062E00D8B453 /* SnapKit */; };
+		1F598EEA2C5227C5000CE79F /* AdImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EE92C5227C5000CE79F /* AdImageCollectionViewCell.swift */; };
+		1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EEB2C524D2E000CE79F /* RecomCollectionViewCell.swift */; };
+		1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EFA2C5814F9000CE79F /* EnterLoginViewController.swift */; };
+		1F598EFD2C58150E000CE79F /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EFC2C58150E000CE79F /* JoinViewController.swift */; };
+		1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */; };
+		1F598F012C581573000CE79F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F002C581573000CE79F /* LoginViewController.swift */; };
+		1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */; };
+		1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */; };
+		1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */; };
 		5E23147F2C5901BB004E2013 /* Hexcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E23147E2C5901BB004E2013 /* Hexcode.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,11 +52,9 @@
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		16B97CD72C4BEB0900D8B453 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		16B97CDC2C4BEB0A00D8B453 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16B97CDF2C4BEB0A00D8B453 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		16B97CE12C4BEB0A00D8B453 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		16B97CE82C4BF29F00D8B453 /* SecondScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondScreenViewController.swift; sourceTree = "<group>"; };
 		16B97CEB2C4BF37E00D8B453 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		16B97CFD2C4BFC2300D8B453 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		16B97CFF2C4BFC7300D8B453 /* ShoppingCartListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartListViewController.swift; sourceTree = "<group>"; };
@@ -70,7 +75,15 @@
 		16B97D1F2C4C0FDB00D8B453 /* SearchCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCommunityViewController.swift; sourceTree = "<group>"; };
 		16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityListViewController.swift; sourceTree = "<group>"; };
 		16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCommViewController.swift; sourceTree = "<group>"; };
-		5E23147E2C5901BB004E2013 /* Hexcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Hexcode.swift; path = "Drink-EG/Sources/VCs/TastingNote/Hexcode.swift"; sourceTree = SOURCE_ROOT; };
+		1F598EE92C5227C5000CE79F /* AdImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F598EEB2C524D2E000CE79F /* RecomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F598EFA2C5814F9000CE79F /* EnterLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterLoginViewController.swift; sourceTree = "<group>"; };
+		1F598EFC2C58150E000CE79F /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+		1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLoginViewController.swift; sourceTree = "<group>"; };
+		1F598F002C581573000CE79F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLoginCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingMainController.swift; path = "Drink-EG/Sources/VCs/Main/SettingMainController.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +179,8 @@
 		16B97CF12C4BF3F700D8B453 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				1F598EF02C581376000CE79F /* TasteTest */,
+				1F598EEF2C58136B000CE79F /* Login */,
 				16B97CF52C4BFAEC00D8B453 /* Default */,
 				16B97CFC2C4BFBD300D8B453 /* Main */,
 				16B97CF62C4BFAFD00D8B453 /* Search */,
@@ -173,8 +188,6 @@
 				16B97CF82C4BFB2400D8B453 /* WineClass */,
 				16B97CF92C4BFB4700D8B453 /* Community */,
 				16B97CFB2C4BFB5E00D8B453 /* Settings */,
-				16B97CD72C4BEB0900D8B453 /* ViewController.swift */,
-				16B97CE82C4BF29F00D8B453 /* SecondScreenViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -255,6 +268,7 @@
 		16B97CFB2C4BFB5E00D8B453 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -264,8 +278,30 @@
 			children = (
 				16B97CFD2C4BFC2300D8B453 /* HomeViewController.swift */,
 				16B97CFF2C4BFC7300D8B453 /* ShoppingCartListViewController.swift */,
+				1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */,
+				1F598EE92C5227C5000CE79F /* AdImageCollectionViewCell.swift */,
+				1F598EEB2C524D2E000CE79F /* RecomCollectionViewCell.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		1F598EEF2C58136B000CE79F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1F598EFA2C5814F9000CE79F /* EnterLoginViewController.swift */,
+				1F598EFC2C58150E000CE79F /* JoinViewController.swift */,
+				1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */,
+				1F598F002C581573000CE79F /* LoginViewController.swift */,
+				1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1F598EF02C581376000CE79F /* TasteTest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TasteTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,15 +389,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				16B97D222C4C0FEB00D8B453 /* CommunityListViewController.swift in Sources */,
-				16B97CE92C4BF29F00D8B453 /* SecondScreenViewController.swift in Sources */,
 				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
 				5E23147F2C5901BB004E2013 /* Hexcode.swift in Sources */,
 				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
+				1F598EEA2C5227C5000CE79F /* AdImageCollectionViewCell.swift in Sources */,
 				16B97D1A2C4C0F8200D8B453 /* CommunityMainViewController.swift in Sources */,
-				16B97CD82C4BEB0900D8B453 /* ViewController.swift in Sources */,
+				1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */,
+				1F598EFD2C58150E000CE79F /* JoinViewController.swift in Sources */,
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				16B97D0C2C4C0DAA00D8B453 /* AddNewNoteViewController.swift in Sources */,
+				1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */,
 				16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */,
 				16B97D0E2C4C0E6300D8B453 /* WriteNoteViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
@@ -369,13 +407,18 @@
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
 				16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */,
+				1F598F012C581573000CE79F /* LoginViewController.swift in Sources */,
 				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
 				16B97D0A2C4C0D8F00D8B453 /* NoteListViewController.swift in Sources */,
 				16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */,
 				16B97D1E2C4C0FCA00D8B453 /* CommunityInfoViewController.swift in Sources */,
+				1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */,
 				16B97D202C4C0FDB00D8B453 /* SearchCommunityViewController.swift in Sources */,
 				16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */,
+				1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
+				1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */,
+				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,7 +563,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83K577A944;
+				DEVELOPMENT_TEAM = UKY6HK6U6Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Drink-EG/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -547,7 +590,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83K577A944;
+				DEVELOPMENT_TEAM = UKY6HK6U6Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Drink-EG/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

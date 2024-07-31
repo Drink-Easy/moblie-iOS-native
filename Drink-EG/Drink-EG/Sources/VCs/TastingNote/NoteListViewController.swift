@@ -187,4 +187,3 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         present(nextVC, animated: true, completion: nil)
     }
 }
-
