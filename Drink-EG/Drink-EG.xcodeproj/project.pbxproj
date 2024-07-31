@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
 		16B97CDD2C4BEB0A00D8B453 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16B97CDC2C4BEB0A00D8B453 /* Assets.xcassets */; };
@@ -45,10 +46,11 @@
 		1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */; };
 		1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */; };
 		1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */; };
-		5E23147F2C5901BB004E2013 /* Hexcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E23147E2C5901BB004E2013 /* Hexcode.swift */; };
+		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,7 +148,7 @@
 		16B97CED2C4BF3B700D8B453 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5E23147E2C5901BB004E2013 /* Hexcode.swift */,
+				16752F9C2C5A7FB90001907D /* HexCode.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -390,7 +392,8 @@
 			files = (
 				16B97D222C4C0FEB00D8B453 /* CommunityListViewController.swift in Sources */,
 				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
-				5E23147F2C5901BB004E2013 /* Hexcode.swift in Sources */,
+				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
+				5E23147F2C5901BB004E2013 /* (null) in Sources */,
 				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
 				1F598EEA2C5227C5000CE79F /* AdImageCollectionViewCell.swift in Sources */,
 				16B97D1A2C4C0F8200D8B453 /* CommunityMainViewController.swift in Sources */,
