@@ -103,10 +103,10 @@ class SelectLoginViewController: UIViewController {
         loginButton.layer.cornerRadius = 16
         loginButton.layer.borderWidth = 0
         
-        loginButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func startButtonTapped() {
+    @objc private func loginButtonTapped() {
         let loginViewController = LoginViewController()
         navigationController?.pushViewController(loginViewController, animated: true)
     }
@@ -122,7 +122,6 @@ class SelectLoginViewController: UIViewController {
         kakaoButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -18, bottom: 0, right: 0)
 
         kakaoButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
-        //kakaoButton.alpha = 0.5
         kakaoButton.layer.cornerRadius = 16
         kakaoButton.layer.borderWidth = 2
         kakaoButton.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
