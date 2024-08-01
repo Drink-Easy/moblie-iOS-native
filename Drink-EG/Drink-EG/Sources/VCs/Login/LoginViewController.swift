@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     let loginButton = UIButton(type: .system)
     let joinButton = UIButton(type: .system)
@@ -86,6 +86,9 @@ class LoginViewController: UIViewController {
         self.navigationItem.titleView = titleView
 
         view.backgroundColor = .black
+        
+        idTextField.delegate = self
+        pwTextField.delegate = self
         
         setupUI()
     }
@@ -259,43 +262,113 @@ class LoginViewController: UIViewController {
     }
     
     private func configureIdTextField() {
+        idTextField.tag = 1
         idTextField.attributedPlaceholder = NSAttributedString(string: "아이디를 입력해 주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex: "#999999")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .regular)])
         idTextField.textColor = .white
+        idTextField.tintColor = .white
         idTextField.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
         idTextField.layer.cornerRadius = 16
         idTextField.layer.borderWidth = 2
         idTextField.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
         idTextField.setIdIcon(UIImage(named: "icon_person")!)
+        idTextField.returnKeyType = .done
+        idTextField.clearButtonMode = .always
     }
     
     private func configurePwTextField() {
+        pwTextField.tag = 2
         pwTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해 주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex: "#999999")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .regular)])
         pwTextField.textColor = .white
+        pwTextField.tintColor = .white
         pwTextField.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
         pwTextField.layer.cornerRadius = 16
         pwTextField.layer.borderWidth = 2
         pwTextField.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
         pwTextField.setPwIcon(UIImage(named: "icon_lock")!)
+        pwTextField.returnKeyType = .done
+        pwTextField.textContentType = .password
+        pwTextField.isSecureTextEntry = true
+        pwTextField.clearButtonMode = .always
+    }
+    
+    // UITextFieldDelegate 메서드
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.becomeFirstResponder()
+        // 텍스트 필드가 선택되었을 때 배경색 변경
+        textField.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 0.2)
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor(hex: "#FFEA75")?.cgColor
+        if textField.tag == 1 {
+            textField.setIdIcon(UIImage(named: "icon_person_fill")!)
+        }
+        else if textField.tag == 2 {
+            textField.setPwIcon(UIImage(named: "icon_lock_fill")!)
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // 텍스트 필드가 선택 해제되었을 때 배경색 원래대로
+        textField.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
+        textField.layer.borderWidth = 2
+        textField.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
+        if textField.tag == 1 {
+            textField.setIdIcon(UIImage(named: "icon_person")!)
+        }
+        else if textField.tag == 2 {
+            textField.setPwIcon(UIImage(named: "icon_lock")!)
+        }
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == self.idTextField {
+            self.pwTextField.becomeFirstResponder()
+        } else if textField == self.pwTextField {
+            self.pwTextField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    // 배경 클릭시 키보드 내림  ==> view 에 터치가 들어오면 에디팅모드를 끝냄.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
 }
 
-extension UITextField {
-    func setIdIcon(_ image: UIImage) {
-        let iconView = UIImageView(frame: CGRect(x: 26, y: -9, width: 16, height: 16))
-        iconView.image = image
-        let iconContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 58, height: self.frame.height))
-        iconContainerView.addSubview(iconView)
-        leftView = iconContainerView
-        leftViewMode = ViewMode.always
-    }
+extension UITextField : UITextFieldDelegate {
     
+    private static let idIconTag = 1
+    private static let pwIconTag = 2
+    
+    func setIdIcon(_ image: UIImage) {
+        if let iconContainerView = leftView,
+            let iconView = iconContainerView.viewWithTag(UITextField.idIconTag) as? UIImageView {
+            iconView.image = image
+        } else {
+            let iconView = UIImageView(frame: CGRect(x: 26, y: -9, width: 16, height: 16))
+            iconView.image = image
+            iconView.tag = UITextField.idIconTag
+            let iconContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 58, height: self.frame.height))
+            iconContainerView.addSubview(iconView)
+            leftView = iconContainerView
+            leftViewMode = .always
+        }
+    }
+
     func setPwIcon(_ image: UIImage) {
-        let iconView = UIImageView(frame: CGRect(x: 28, y: -10, width: 13.5, height: 18))
-        iconView.image = image
-        let iconContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 58, height: self.frame.height))
-        iconContainerView.addSubview(iconView)
-        leftView = iconContainerView
-        leftViewMode = ViewMode.always
+        if let iconContainerView = leftView,
+            let iconView = iconContainerView.viewWithTag(UITextField.pwIconTag) as? UIImageView {
+            iconView.image = image
+        } else {
+            let iconView = UIImageView(frame: CGRect(x: 28, y: -10, width: 13.5, height: 18))
+            iconView.image = image
+            iconView.tag = UITextField.pwIconTag
+            let iconContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 58, height: self.frame.height))
+            iconContainerView.addSubview(iconView)
+            leftView = iconContainerView
+            leftViewMode = .always
+        }
     }
 }
 
