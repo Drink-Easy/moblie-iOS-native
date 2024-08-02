@@ -12,18 +12,15 @@ class ThirdTasteTestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
-    
+        super.viewDidLoad()
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationController?.navigationBar.tintColor = .black
+        
+        view.backgroundColor = .white
     }
-    */
 
 }

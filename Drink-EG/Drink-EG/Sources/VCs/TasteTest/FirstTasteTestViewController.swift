@@ -60,20 +60,17 @@ class FirstTasteTestViewController: UIViewController {
             make.height.equalTo(44)
         }
         
-        view.addSubview(newbeeButton)
-        newbeeButton.snp.makeConstraints { make in
+        let buttonStackView = UIStackView(arrangedSubviews: [newbeeButton, maniacButton])
+        buttonStackView.axis = .vertical
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 20
+                
+        view.addSubview(buttonStackView)
+        buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(view).offset(218)
             make.leading.equalToSuperview().offset(16)
             make.width.equalTo(361)
-            make.height.equalTo(154)
-        }
-        
-        view.addSubview(maniacButton)
-        maniacButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(392)
-            make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(361)
-            make.height.equalTo(154)
+            make.height.equalTo(328)
         }
     }
     
@@ -118,28 +115,7 @@ class FirstTasteTestViewController: UIViewController {
     }
     
     @objc private func optionButtonTapped(_ sender: UIButton) {
-        // 선택된 버튼 색상 변경
-//        sender.backgroundColor = UIColor(hex: "#FFEA75")
-//        sender.layer.cornerRadius = 16
-//        sender.layer.borderWidth = 0
         
-        // 다른 버튼들의 색상 초기화
-//        if sender != newbeeButton {
-//            maniacButton.isSelected = true
-//            newbeeButton.isSelected = false
-//            newbeeButton.backgroundColor = UIColor(hex: "#FFFCD6")
-//            newbeeButton.layer.cornerRadius = 16
-//            newbeeButton.layer.borderWidth = 3
-//            newbeeButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
-//        }
-//        if sender != maniacButton {
-//            newbeeButton.isSelected = true
-//            maniacButton.isSelected = false
-//            maniacButton.backgroundColor = UIColor(hex: "#FFFCD6")
-//            maniacButton.layer.cornerRadius = 16
-//            maniacButton.layer.borderWidth = 3
-//            maniacButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
-//        }
         for Btn in [newbeeButton, maniacButton] {
             if Btn == sender {
                 // 만약 현재 버튼이 이 함수를 호출한 버튼이라면
