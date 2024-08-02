@@ -50,8 +50,8 @@ class StartLoginCollectionViewCell: UICollectionViewCell {
         imageView.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(150)
             make.centerX.equalToSuperview()
-            make.width.equalTo(299)
-            make.height.equalTo(292)
+            make.width.equalTo(325)
+            make.height.equalTo(300)
         }
         
         label1.snp.makeConstraints { make in
