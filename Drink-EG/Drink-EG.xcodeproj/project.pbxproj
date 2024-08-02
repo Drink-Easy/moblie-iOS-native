@@ -44,6 +44,10 @@
 		1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */; };
 		1F598F012C581573000CE79F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F002C581573000CE79F /* LoginViewController.swift */; };
 		1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */; };
+		1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F0A2C5CBD9E000CE79F /* EnterTasteTestViewController.swift */; };
+		1F598F0F2C5CBE70000CE79F /* FirstTasteTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F0E2C5CBE70000CE79F /* FirstTasteTestViewController.swift */; };
+		1F598F112C5CBE7A000CE79F /* SecondTasteTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F102C5CBE7A000CE79F /* SecondTasteTestViewController.swift */; };
+		1F598F132C5CBE84000CE79F /* ThirdTasteTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F122C5CBE84000CE79F /* ThirdTasteTestViewController.swift */; };
 		1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */; };
 		1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -84,6 +88,10 @@
 		1F598EFE2C58151B000CE79F /* SelectLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLoginViewController.swift; sourceTree = "<group>"; };
 		1F598F002C581573000CE79F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLoginCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F598F0A2C5CBD9E000CE79F /* EnterTasteTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterTasteTestViewController.swift; sourceTree = "<group>"; };
+		1F598F0E2C5CBE70000CE79F /* FirstTasteTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTasteTestViewController.swift; sourceTree = "<group>"; };
+		1F598F102C5CBE7A000CE79F /* SecondTasteTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTasteTestViewController.swift; sourceTree = "<group>"; };
+		1F598F122C5CBE84000CE79F /* ThirdTasteTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdTasteTestViewController.swift; sourceTree = "<group>"; };
 		1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingMainController.swift; path = "Drink-EG/Sources/VCs/Main/SettingMainController.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -302,6 +310,10 @@
 		1F598EF02C581376000CE79F /* TasteTest */ = {
 			isa = PBXGroup;
 			children = (
+				1F598F0A2C5CBD9E000CE79F /* EnterTasteTestViewController.swift */,
+				1F598F0E2C5CBE70000CE79F /* FirstTasteTestViewController.swift */,
+				1F598F102C5CBE7A000CE79F /* SecondTasteTestViewController.swift */,
+				1F598F122C5CBE84000CE79F /* ThirdTasteTestViewController.swift */,
 			);
 			path = TasteTest;
 			sourceTree = "<group>";
@@ -392,7 +404,10 @@
 			files = (
 				16B97D222C4C0FEB00D8B453 /* CommunityListViewController.swift in Sources */,
 				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
+				1F598F132C5CBE84000CE79F /* ThirdTasteTestViewController.swift in Sources */,
+				1F598F0F2C5CBE70000CE79F /* FirstTasteTestViewController.swift in Sources */,
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
+				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
 				5E23147F2C5901BB004E2013 /* (null) in Sources */,
 				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
 				1F598EEA2C5227C5000CE79F /* AdImageCollectionViewCell.swift in Sources */,
@@ -406,6 +421,7 @@
 				16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */,
 				16B97D0E2C4C0E6300D8B453 /* WriteNoteViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
+				1F598F112C5CBE7A000CE79F /* SecondTasteTestViewController.swift in Sources */,
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
