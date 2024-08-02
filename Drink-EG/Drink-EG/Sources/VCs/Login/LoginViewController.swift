@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     let kakaoButton = UIButton(type: .system)
     let appleButton = UIButton(type: .system)
     
-    let idStoreButton = UIButton(type: .system)
+    let idStoreButton = UIButton(type: .custom)
     private let checkImage = UIImage(named: "icon_check_fill")
     private let ncheckImage = UIImage(named: "icon_check_nfill")
     

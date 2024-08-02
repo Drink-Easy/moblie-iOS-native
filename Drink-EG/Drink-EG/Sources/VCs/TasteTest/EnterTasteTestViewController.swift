@@ -86,7 +86,7 @@ class EnterTasteTestViewController: UIViewController {
     }
     
     @objc private func startButtonTapped() {
-        let FirstTasteTestViewController = FirstTasteTestViewController()
-        navigationController?.pushViewController(FirstTasteTestViewController, animated: true)
+        let firstTasteTestViewController = FirstTasteTestViewController()
+        navigationController?.pushViewController(firstTasteTestViewController, animated: true)
     }
 }

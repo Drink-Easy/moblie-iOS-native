@@ -142,8 +142,8 @@ class HomeViewController: UIViewController {
     private func configureLabel() {
         firstLine.text = "션/위승주 님이 좋아할 만한 와인"
         firstLine.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        guard let text = self.firstLine.text else { return }
         
+        guard let text = self.firstLine.text else { return }
         let attributedStr = NSMutableAttributedString(string: text)
         attributedStr.addAttribute(.font, value: UIFont.systemFont(ofSize: 24, weight: .bold), range: (text as NSString).range(of: "션/위승주"))
         self.firstLine.attributedText = attributedStr
