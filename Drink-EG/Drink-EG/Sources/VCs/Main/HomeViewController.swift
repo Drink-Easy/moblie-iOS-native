@@ -20,6 +20,12 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationController?.navigationBar.tintColor = .black
+        
         view.backgroundColor = .white
         setupUI()
     }

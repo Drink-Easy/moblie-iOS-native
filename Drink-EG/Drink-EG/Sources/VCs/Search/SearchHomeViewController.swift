@@ -35,37 +35,30 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
         return s
     }()
     
-    private let label: UILabel = {
-        let l = UILabel()
-        l.text = "와인 검색"
-        l.font = .systemFont(ofSize: 28, weight: .bold)
-        l.textColor = .black
-        l.numberOfLines = 0
-        return l
-    }()
-    
-    private let backButton: UIButton = {
-        let b = UIButton(type: .system)
-        b.setImage(UIImage(named: "icon_back"), for: .normal)
-        b.tintColor = .black
-        b.addTarget(SearchHomeViewController.self, action: #selector(backButtonTapped), for: .touchUpInside)
-        return b
-    }()
+//    private let label: UILabel = {
+//        let l = UILabel()
+//        l.text = "와인 검색"
+//        l.font = .systemFont(ofSize: 28, weight: .bold)
+//        l.textColor = .black
+//        l.numberOfLines = 0
+//        return l
+//    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationController?.navigationBar.tintColor = .black
         
-        navigationController!.isNavigationBarHidden = true
+        self.navigationController?.navigationBar.topItem?.title = "와인 검색"
+        self.navigationItem.largeTitleDisplayMode = .always
+        
+        view.backgroundColor = .white
 
         setupUI()
-    }
-    
-    @objc func backButtonTapped() {
-        
-        // 네비게이션 스택의 이전 화면으로 돌아가기
-        self.navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {
@@ -78,19 +71,11 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
             make.width.equalTo(361)
         }
         
-        view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(76)
-            make.leading.equalTo(view).offset(16)
-        }
-        
-        view.addSubview(backButton)
-        backButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(84)
-            make.leading.equalTo(view).offset(347)
-            make.width.equalTo(18)
-            make.height.equalTo(15)
-        }
+//        view.addSubview(label)
+//        label.snp.makeConstraints { make in
+//            make.top.equalTo(view).offset(76)
+//            make.leading.equalTo(view).offset(16)
+//        }
     }
     
     // UISearchBarDelegate 메서드 구현
