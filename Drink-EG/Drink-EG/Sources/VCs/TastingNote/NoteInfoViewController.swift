@@ -11,6 +11,7 @@ import SnapKit
 
 class NoteInfoViewController: UIViewController {
     
+    let tastingnoteLabel = UILabel()
     let pentagonChart = PolygonChartView()
     let wineView = UIView()
     let wineImageView = UIImageView()
@@ -23,7 +24,9 @@ class NoteInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        setupNavigationBarButton()
+        setupLabel()
+        setuptastingnoteLabelConstraints()
         setupWineView()
         setupWineViewConstraints()
         setupWineImageView()
@@ -38,6 +41,34 @@ class NoteInfoViewController: UIViewController {
         setupChooseColorLabelConstraints()
         setupColorButton()
         setupColorButtonConstraints()
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = true
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    func setupLabel() { // Label의 기본 속성을 설정하는 함수
+        view.addSubview(tastingnoteLabel)
+        tastingnoteLabel.text = "테이스팅 노트"
+        tastingnoteLabel.font = .boldSystemFont(ofSize: 30)
+        tastingnoteLabel.textAlignment = .center
+        tastingnoteLabel.textColor = .black
+    }
+    
+    func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
+        tastingnoteLabel.snp.makeConstraints{ make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+        }
     }
     
     func setupPentagonChart() {
@@ -64,8 +95,9 @@ class NoteInfoViewController: UIViewController {
     
     func setupWineViewConstraints() {
         wineView.snp.makeConstraints{ make in
-            make.top.equalTo(view.snp.top).offset(156)
-            make.centerX.equalTo(view.snp.centerX)
+            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(32)
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.leading.equalTo(tastingnoteLabel.snp.leading)
             make.width.equalTo(361)
             make.height.equalTo(94)
         }

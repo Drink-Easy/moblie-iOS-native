@@ -19,19 +19,46 @@ class WriteNoteViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setupNavigationBarButton()
+        setupLabel()
+        setuptastingnoteLabelConstraints()
         setupWineView()
         setupWineViewConstraints()
         setupWineImageView()
         setupWineImageViewConstraints()
-        setupShowPentagonButton()
-        setupShowPentagonButtonConstraints()
         setupWineName()
         setupWineNameConstraints()
         setupCategories()
         setupConstraints()
         setupCatagoriesView()
         setupCategoriesViewConstraints()
-        showPentagonButton.isHidden = true
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = true
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func setupLabel() { // Label의 기본 속성을 설정하는 함수
+        view.addSubview(tastingnoteLabel)
+        tastingnoteLabel.text = "테이스팅 노트"
+        tastingnoteLabel.font = .boldSystemFont(ofSize: 30)
+        tastingnoteLabel.textAlignment = .center
+        tastingnoteLabel.textColor = .black
+    }
+    
+    func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
+        tastingnoteLabel.snp.makeConstraints{ make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+        }
     }
     
     func setupWineView() {
@@ -42,8 +69,9 @@ class WriteNoteViewController: UIViewController {
     
     func setupWineViewConstraints() {
         wineView.snp.makeConstraints{ make in
-            make.top.equalTo(view.snp.top).offset(156)
-            make.centerX.equalTo(view.snp.centerX)
+            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(32)
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.leading.equalTo(tastingnoteLabel.snp.leading)
             make.width.equalTo(361)
             make.height.equalTo(94)
         }
@@ -70,7 +98,6 @@ class WriteNoteViewController: UIViewController {
     func setupWineName() {
         wineView.addSubview(wineName)
         wineName.text = "19 Crhnes"
-        
     }
     
     func setupWineNameConstraints() {
@@ -79,24 +106,6 @@ class WriteNoteViewController: UIViewController {
             make.leading.equalTo(wineImageView.snp.trailing).offset(25)
             make.top.equalTo(wineView.snp.top).offset(36)
             make.bottom.equalTo(wineView.snp.bottom).offset(-36)
-        }
-    }
-    
-    func setupShowPentagonButton() {
-        categoriesView.addSubview(showPentagonButton)
-        showPentagonButton.layer.cornerRadius = 10
-        showPentagonButton.setTitle("Next", for: .normal)
-        showPentagonButton.setTitleColor(.black, for: .normal)
-        showPentagonButton.backgroundColor = UIColor(hex: "FFD73880")
-        showPentagonButton.addTarget(self, action: #selector(showPentagonButtonTapped), for: .touchUpInside)
-    }
-    
-    func setupShowPentagonButtonConstraints() {
-        showPentagonButton.snp.makeConstraints{ make in
-            make.bottom.equalTo(categoriesView.snp.bottom).offset(-20)
-            make.centerX.equalTo(categoriesView.snp.centerX)
-            make.width.equalTo(100)
-            make.height.equalTo(50)
         }
     }
     
@@ -109,7 +118,7 @@ class WriteNoteViewController: UIViewController {
     func setupCategoriesViewConstraints() {
         categoriesView.snp.makeConstraints{ make in
             make.top.equalTo(wineView.snp.bottom).offset(10)
-            make.centerX.equalTo(view.snp.centerX)
+            make.centerX.equalTo(wineView.snp.centerX)
             make.width.equalTo(361)
             make.height.equalTo(543)
         }
@@ -193,9 +202,13 @@ class WriteNoteViewController: UIViewController {
     
     func checkIfAllSelected() {
         if selectedValues.count == categories.count {
-            showPentagonButton.isHidden = false
-        } else {
-            showPentagonButton.isHidden = true
+            let polygonVC = NoteInfoViewController()
+            var dataList: [RadarChartData] = []
+            for (type, value) in selectedValues {
+                dataList.append(RadarChartData(type: type, value: value))
+            }
+            polygonVC.dataList = dataList
+            navigationController?.pushViewController(polygonVC, animated: true)
         }
     }
     
@@ -215,14 +228,5 @@ class WriteNoteViewController: UIViewController {
         
         checkIfAllSelected()
     }
-    
-    @objc func showPentagonButtonTapped() {
-        let polygonVC = NoteInfoViewController()
-        var dataList: [RadarChartData] = []
-        for (type, value) in selectedValues {
-            dataList.append(RadarChartData(type: type, value: value))
-        }
-        polygonVC.dataList = dataList
-        navigationController?.pushViewController(polygonVC, animated: true)
-    }
+
 }

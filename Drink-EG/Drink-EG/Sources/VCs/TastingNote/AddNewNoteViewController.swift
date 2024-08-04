@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
+
 class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
     let tastingnoteLabel = UILabel()
@@ -27,12 +28,25 @@ class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableVi
         setupWineSearchBarConstraints()
         setupSuggestionTableView()
         setupSuggestionTableViewConstraints()
+        setupNavigationBarButton()
     }
     
     func setupView() {
         view.addSubview(tastingnoteLabel)
         view.addSubview(wineSearchBar)
         view.addSubview(suggestionTableView)
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = true
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
@@ -44,17 +58,18 @@ class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         tastingnoteLabel.snp.makeConstraints{ make in
-            make.top.equalTo(100)
-            make.leading.equalTo(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
         }
     }
     
     func setupWineSearchBar() {
+        wineSearchBar.isUserInteractionEnabled = true
         let searchIcon = UIImageView(image: UIImage(systemName: "magnifyingglass"))
         searchIcon.tintColor = UIColor(hex: "767676")
         searchIcon.contentMode = .scaleAspectFit
         
-        let iconContainer = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 23))
+        let iconContainer = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 34))
         iconContainer.addSubview(searchIcon)
         
         wineSearchBar.delegate = self
@@ -64,15 +79,24 @@ class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableVi
         wineSearchBar.layer.cornerRadius = 10
         wineSearchBar.leftView = iconContainer
         wineSearchBar.leftViewMode = .always
+        
+        searchIcon.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(13)
+            make.width.equalTo(18)
+            make.height.equalTo(17)
+        }
+        
     }
     
     func setupWineSearchBarConstraints() {
         wineSearchBar.snp.makeConstraints { make in
-            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(50)
+            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(55)
             make.leading.equalTo(tastingnoteLabel.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            make.height.equalTo(40)
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.height.equalTo(34)
         }
+        
     }
     
     func setupSuggestionTableView() {
