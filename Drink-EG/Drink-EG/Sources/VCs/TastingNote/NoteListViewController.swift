@@ -67,7 +67,7 @@ class NewNoteFooter: UICollectionReusableView {
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(newNoteButtonTapped), for: .touchUpInside)
         button.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(10)
+            make.edges.equalToSuperview().inset(16)
         }
     }
 
@@ -91,6 +91,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         view.backgroundColor = .white
         setupCollectionView()
         setupView()
+        setupNavigationBarButton()
         setupLabel()
         setupNoteListLabelConstraints()
         setupNoteCollectionViewConstraints()
@@ -100,6 +101,19 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         view.addSubview(noteListLabel)
         view.addSubview(noteListGrid)
     }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = true
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: 노트 보관함에 관한 UI
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
         noteListLabel.text = "노트 보관함"
@@ -110,8 +124,8 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func setupNoteListLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         noteListLabel.snp.makeConstraints{ make in
-            make.top.equalTo(100)
-            make.leading.equalTo(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
         }
     }
     
@@ -119,12 +133,13 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     func setupCollectionView() { // CollectionView의 기본 속성을 설정하는 함수
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 65, height: 65)
-        layout.minimumLineSpacing = 100
+        layout.minimumLineSpacing = 69
         layout.minimumInteritemSpacing = 22
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.footerReferenceSize = CGSize(width: view.frame.width, height: 60)
         noteListGrid = UICollectionView(frame: .zero, collectionViewLayout: layout)
         noteListGrid.backgroundColor = UIColor(hex: "EAEAEA")
+        noteListGrid.layer.cornerRadius = 10
         
         noteListGrid.dataSource = self
         noteListGrid.delegate = self
@@ -139,10 +154,11 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func setupNoteCollectionViewConstraints() { // CollectionView의 제약 조건을 설정하는 함수
         noteListGrid.snp.makeConstraints{ make in
-            make.top.equalTo(noteListLabel.snp.bottom).offset(50)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(15)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-15)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+            make.leading.equalTo(noteListLabel)
+            make.top.equalTo(view.snp.top).offset(187)
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(361)
+            make.height.equalTo(591)
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -164,7 +180,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
 
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { // 섹션 내의 셀 간의 세로 간격을 설정하는 메서드
-            return 134
+            return 69
         }
             
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat { // 섹션 내의 셀 간의 가로 간격을 설정하는 메서드
@@ -183,7 +199,6 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func didTapNewNoteButton() {
         let nextVC = AddNewNoteViewController()
-        nextVC.modalPresentationStyle = .fullScreen
-        present(nextVC, animated: true, completion: nil)
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 }

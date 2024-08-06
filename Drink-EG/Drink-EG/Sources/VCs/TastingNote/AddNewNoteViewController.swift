@@ -9,13 +9,38 @@ import Foundation
 import UIKit
 import SnapKit
 
-class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
+
+class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     let tastingnoteLabel = UILabel()
-    let wineSearchBar = UITextField()
     let suggestionTableView = UITableView()
     var suggestion: [String] = []
     var allSuggestion: [String] = ["Apple", "Banana", "Grape", "Orange", "Watermelon", "Strawberry"]
+    
+    lazy var wineSearchBar: UISearchBar = {
+        let s = UISearchBar()
+        s.delegate = self
+        //경계선 제거
+        s.searchBarStyle = .minimal
+        s.layer.cornerRadius = 8
+        s.layer.masksToBounds = true
+        
+        if let searchIcon = UIImage(named: "icon_search") {
+            s.setImage(searchIcon, for: .search, state: .normal)
+        }
+        if let textField = s.value(forKey: "searchField") as? UITextField {
+            // Placeholder 텍스트 속성 설정
+            let placeholderText = "와인 이름 검색"
+            let attributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor(hue: 0, saturation: 0, brightness: 0.45, alpha: 1.0), // 색상 설정
+                .font: UIFont.boldSystemFont(ofSize: 12) // 크기 설정
+            ]
+            textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
+        }
+        s.searchTextField.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.89, alpha: 1.0)
+        
+        return s
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,16 +48,28 @@ class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableVi
         setupView()
         setupLabel()
         setuptastingnoteLabelConstraints()
-        setupWineSearchBar()
         setupWineSearchBarConstraints()
         setupSuggestionTableView()
         setupSuggestionTableViewConstraints()
+        setupNavigationBarButton()
     }
     
     func setupView() {
         view.addSubview(tastingnoteLabel)
         view.addSubview(wineSearchBar)
         view.addSubview(suggestionTableView)
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = true
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
@@ -44,35 +81,19 @@ class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         tastingnoteLabel.snp.makeConstraints{ make in
-            make.top.equalTo(100)
-            make.leading.equalTo(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
         }
-    }
-    
-    func setupWineSearchBar() {
-        let searchIcon = UIImageView(image: UIImage(systemName: "magnifyingglass"))
-        searchIcon.tintColor = UIColor(hex: "767676")
-        searchIcon.contentMode = .scaleAspectFit
-        
-        let iconContainer = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 23))
-        iconContainer.addSubview(searchIcon)
-        
-        wineSearchBar.delegate = self
-        wineSearchBar.placeholder = "와인 이름 입력 검색"
-        wineSearchBar.textColor = UIColor(hex: "767676")
-        wineSearchBar.backgroundColor = UIColor(hex: "E5E5E5")
-        wineSearchBar.layer.cornerRadius = 10
-        wineSearchBar.leftView = iconContainer
-        wineSearchBar.leftViewMode = .always
     }
     
     func setupWineSearchBarConstraints() {
         wineSearchBar.snp.makeConstraints { make in
-            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(50)
+            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(46)
             make.leading.equalTo(tastingnoteLabel.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            make.height.equalTo(40)
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.height.equalTo(34)
         }
+        
     }
     
     func setupSuggestionTableView() {
@@ -89,11 +110,9 @@ class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            let currentText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-            filterSuggestions(with: currentText)
-            return true
-        }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterSuggestions(with: searchText)
+    }
 
     func filterSuggestions(with query: String) {
         if query.isEmpty {

@@ -50,6 +50,8 @@
 		1F598F132C5CBE84000CE79F /* ThirdTasteTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F122C5CBE84000CE79F /* ThirdTasteTestViewController.swift */; };
 		1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */; };
 		1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */; };
+		5E2218B12C5CA34B005849FB /* PolygonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B02C5CA34B005849FB /* PolygonChartView.swift */; };
+		5E2218B32C5DEC0D005849FB /* ChooseTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -94,6 +96,8 @@
 		1F598F122C5CBE84000CE79F /* ThirdTasteTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdTasteTestViewController.swift; sourceTree = "<group>"; };
 		1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingMainController.swift; path = "Drink-EG/Sources/VCs/Main/SettingMainController.swift"; sourceTree = SOURCE_ROOT; };
+		5E2218B02C5CA34B005849FB /* PolygonChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonChartView.swift; sourceTree = "<group>"; };
+		5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTasteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +252,8 @@
 				16B97D0B2C4C0DAA00D8B453 /* AddNewNoteViewController.swift */,
 				16B97D0D2C4C0E6300D8B453 /* WriteNoteViewController.swift */,
 				16B97D0F2C4C0E9000D8B453 /* NoteInfoViewController.swift */,
+				5E2218B02C5CA34B005849FB /* PolygonChartView.swift */,
+				5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
@@ -415,6 +421,7 @@
 				1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */,
 				1F598EFD2C58150E000CE79F /* JoinViewController.swift in Sources */,
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
+				5E2218B12C5CA34B005849FB /* PolygonChartView.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				16B97D0C2C4C0DAA00D8B453 /* AddNewNoteViewController.swift in Sources */,
 				1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */,
@@ -422,6 +429,7 @@
 				16B97D0E2C4C0E6300D8B453 /* WriteNoteViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
 				1F598F112C5CBE7A000CE79F /* SecondTasteTestViewController.swift in Sources */,
+				5E2218B32C5DEC0D005849FB /* ChooseTasteViewController.swift in Sources */,
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
