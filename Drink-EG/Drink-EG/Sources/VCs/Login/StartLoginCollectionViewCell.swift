@@ -48,19 +48,19 @@ class StartLoginCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(label2)
         
         imageView.snp.makeConstraints { make in
-            make.top.equalTo(contentView).offset(150)
+            make.top.equalTo(contentView).offset(50)
             make.centerX.equalToSuperview()
-            make.width.equalTo(325)
-            make.height.equalTo(300)
+            //make.width.equalTo(325)
+            //make.height.equalTo(300)
         }
         
         label1.snp.makeConstraints { make in
-            make.top.equalTo(contentView).offset(467)
+            make.top.equalTo(imageView.snp.bottom)
             make.centerX.equalToSuperview()
         }
         
         label2.snp.makeConstraints { make in
-            make.top.equalTo(contentView).offset(531)
+            make.top.equalTo(label1.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
         }
         
