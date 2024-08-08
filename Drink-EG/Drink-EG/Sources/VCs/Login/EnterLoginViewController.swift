@@ -51,7 +51,7 @@ class EnterLoginViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
             make.bottom.equalTo(view).inset(60)
-            make.height.equalTo(60)
+            make.height.greaterThanOrEqualTo(60)
         }
     }
     

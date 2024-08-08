@@ -10,9 +10,26 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isDirectionalLockEnabled = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    let contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = .clear
+        return contentView
+    }()
+    
     let searchButton = UIButton(type: .system)
     let cartButton = UIButton(type: .system)
+    let goToNoteButton = UIButton(type: .system)
     let firstLine = UILabel()
+    let NoteLabel = UILabel()
     
     private var AdContents: [String] = ["1", "2"]
     private var RecomContents: [String] = ["Red Label", "Castello Monaci", "Loxton"]
@@ -30,6 +47,39 @@ class HomeViewController: UIViewController {
         setupUI()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+            
+        // 버튼 하단에 노란색으로 칠하는 layer 추가
+        let yellowLayer = CALayer()
+        yellowLayer.frame = CGRect(x: 0, y: 72, width: goToNoteButton.frame.width, height: goToNoteButton.frame.height - 72)
+        yellowLayer.backgroundColor = UIColor(hue: 0.1528, saturation: 0.16, brightness: 1, alpha: 0.8).cgColor
+                    
+        // 버튼에 layer 추가
+        goToNoteButton.layer.addSublayer(yellowLayer)
+        
+        //layer 위에 label 추가
+        let titleLabel = UILabel()
+        titleLabel.text = "테이스팅 노트 바로가기"
+        titleLabel.textColor = .black
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.textAlignment = .left
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        goToNoteButton.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(86)
+            make.leading.equalToSuperview().offset(18)
+        }
+        
+        let goToIcon = UIImageView()
+        goToIcon.image = UIImage(named: "icon_goTo")
+        goToNoteButton.addSubview(goToIcon)
+        goToIcon.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(86)
+            make.trailing.equalToSuperview().inset(12)
+        }
+    }
+    
     private func setupUI() {
         // 검색 버튼 설정
         configureSearchButton()
@@ -37,7 +87,9 @@ class HomeViewController: UIViewController {
         configureCartButton()
         // label 설정
         configureLabel()
-                
+        // 노트 바로가기 버튼 설정
+        configureNoteButton()
+        
         // StackView 설정
         let stackView = UIStackView(arrangedSubviews: [searchButton, cartButton])
         stackView.axis = .horizontal
@@ -60,12 +112,28 @@ class HomeViewController: UIViewController {
         cartButton.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.12)
         }
+        
+        view.addSubview(scrollView)
+        
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(stackView.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.height.greaterThanOrEqualTo(scrollView.snp.height).priority(.low)
+            make.width.equalTo(scrollView.frameLayoutGuide)
+        }
                 
-        view.addSubview(AdImageCollectionView)
-        view.addSubview(pageControl)
+        contentView.addSubview(AdImageCollectionView)
+        contentView.addSubview(pageControl)
                                 
         AdImageCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(20)
+            make.top.equalTo(contentView.snp.top).offset(10)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(stackView)
             make.width.equalTo(356)
@@ -77,14 +145,14 @@ class HomeViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        view.addSubview(firstLine)
+        contentView.addSubview(firstLine)
         
         firstLine.snp.makeConstraints {make in
             make.top.equalTo(pageControl.snp.bottom).offset(12)
             make.leading.trailing.equalTo(AdImageCollectionView)
         }
         
-        view.addSubview(RecomCollectionView)
+        contentView.addSubview(RecomCollectionView)
         
         RecomCollectionView.snp.makeConstraints { make in
             make.top.equalTo(firstLine.snp.bottom).offset(13)
@@ -93,7 +161,23 @@ class HomeViewController: UIViewController {
             make.height.equalTo(166)
         }
         
+        contentView.addSubview(NoteLabel)
+        NoteLabel.snp.makeConstraints { make in
+            make.top.equalTo(RecomCollectionView.snp.bottom).offset(35)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(23)
+        }
         
+        contentView.addSubview(goToNoteButton)
+        goToNoteButton.snp.makeConstraints { make in
+            make.top.equalTo(NoteLabel.snp.bottom).offset(22)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(23)
+            make.height.greaterThanOrEqualTo(119)
+            make.bottom.equalToSuperview().inset(20)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(20)
+        }
     }
     
     private func configureSearchButton() {
@@ -153,6 +237,26 @@ class HomeViewController: UIViewController {
         let attributedStr = NSMutableAttributedString(string: text)
         attributedStr.addAttribute(.font, value: UIFont.systemFont(ofSize: 24, weight: .bold), range: (text as NSString).range(of: "션/위승주"))
         self.firstLine.attributedText = attributedStr
+        
+        NoteLabel.text = "테이스팅 노트"
+        NoteLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+    }
+    
+    private func configureNoteButton() {
+        goToNoteButton.backgroundColor = UIColor(hue: 0/360, saturation: 0/100, brightness: 89/100, alpha: 1.0)
+        goToNoteButton.layer.cornerRadius = 10
+        goToNoteButton.layer.masksToBounds = true
+        goToNoteButton.layer.borderWidth = 0
+        
+        goToNoteButton.setImage(UIImage(named: "HomeGoToTastingNote")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        goToNoteButton.addTarget(self, action: #selector(noteButtonTapped), for: .touchUpInside)
+
+    }
+    
+    @objc private func noteButtonTapped() {
+        let noteListViewController = NoteListViewController()
+        navigationController?.pushViewController(noteListViewController, animated: true)
     }
     
     lazy var AdImageCollectionView: UICollectionView = {
