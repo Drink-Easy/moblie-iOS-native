@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let vc = MainTabBarViewController()
         // NavigationController을 사용할 경우, MainViewController를 rootViewController로 갖는 NavigationController을 생성해야한다.
         let navigationController = UINavigationController(rootViewController: vc)
-        navigationController.isNavigationBarHidden = false
+        navigationController.isNavigationBarHidden = true
         // UIWindow의 시작 ViewController를 생성한 NavigationController로 지정
         window.rootViewController = navigationController
         // window 표시.

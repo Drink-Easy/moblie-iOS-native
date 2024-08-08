@@ -35,14 +35,14 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
         return s
     }()
     
-//    private let label: UILabel = {
-//        let l = UILabel()
-//        l.text = "와인 검색"
-//        l.font = .systemFont(ofSize: 28, weight: .bold)
-//        l.textColor = .black
-//        l.numberOfLines = 0
-//        return l
-//    }()
+    private let label: UILabel = {
+        let l = UILabel()
+        l.text = "와인 검색"
+        l.font = .systemFont(ofSize: 28, weight: UIFont.Weight(700))
+        l.textColor = .black
+        l.numberOfLines = 0
+        return l
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +53,6 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
-        self.navigationController?.navigationBar.topItem?.title = "와인 검색"
-        self.navigationItem.largeTitleDisplayMode = .always
-        
         view.backgroundColor = .white
 
         setupUI()
@@ -63,24 +60,29 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
     
     private func setupUI() {
         
-        view.addSubview(searchBar)
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(155)
-            make.leading.equalTo(view).offset(16)
-            make.height.equalTo(34)
-            make.width.equalTo(361)
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
-//        view.addSubview(label)
-//        label.snp.makeConstraints { make in
-//            make.top.equalTo(view).offset(76)
-//            make.leading.equalTo(view).offset(16)
-//        }
+        view.addSubview(searchBar)
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(label).offset(46)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.greaterThanOrEqualTo(34)
+        }
     }
     
     // UISearchBarDelegate 메서드 구현
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
         searchBar.resignFirstResponder()
+    }
+    
+    // 배경 클릭시 키보드 내림  ==> view 에 터치가 들어오면 에디팅모드를 끝냄.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
 }
