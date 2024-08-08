@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 
-class AddNewNoteViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     let tastingnoteLabel = UILabel()
     let suggestionTableView = UITableView()
