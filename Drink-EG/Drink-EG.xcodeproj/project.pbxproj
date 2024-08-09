@@ -53,6 +53,7 @@
 		5E2218B12C5CA34B005849FB /* PolygonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B02C5CA34B005849FB /* PolygonChartView.swift */; };
 		5E2218B32C5DEC0D005849FB /* ChooseTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */; };
 		5E2218B72C63897C005849FB /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B62C63897C005849FB /* CustomCollectionViewCell.swift */; };
+		5E2218B92C65C0FB005849FB /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B82C65C0FB005849FB /* ModalViewController.swift */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,7 @@
 		5E2218B02C5CA34B005849FB /* PolygonChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonChartView.swift; sourceTree = "<group>"; };
 		5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTasteViewController.swift; sourceTree = "<group>"; };
 		5E2218B62C63897C005849FB /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		5E2218B82C65C0FB005849FB /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +282,7 @@
 				16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */,
 				16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */,
 				5E2218B62C63897C005849FB /* CustomCollectionViewCell.swift */,
+				5E2218B82C65C0FB005849FB /* ModalViewController.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
 				16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */,
+				5E2218B92C65C0FB005849FB /* ModalViewController.swift in Sources */,
 				1F598F012C581573000CE79F /* LoginViewController.swift in Sources */,
 				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
 				16B97D0A2C4C0D8F00D8B453 /* NoteListViewController.swift in Sources */,

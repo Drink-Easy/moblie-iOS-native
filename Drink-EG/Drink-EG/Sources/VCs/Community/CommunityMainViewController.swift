@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CommunityMainViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class CommunityMainViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIViewControllerTransitioningDelegate{
     
     let communityLabel = UILabel()
     let suggestionTableView = UITableView()
@@ -249,7 +249,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     }
     
     func setupCommunityLowerCollectionView() {
-        for item in items {
+        for (index, item) in items.enumerated() {
             let collectionView = CustomCollectionViewCell(frame: .zero)
             collectionView.backgroundColor = UIColor(hex: "E5E5E5")
             collectionView.configure(title: item["title"]!, subtitle: item["subtitle"]! , detail: item["detail"]!, imageName: item["imageName"]!)
@@ -260,8 +260,34 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
             collectionView.snp.makeConstraints { make in
                 make.height.equalTo(109)
             }
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(lowerCollectionCellTapped(_:)))
+            collectionView.addGestureRecognizer(tapGesture)
+            collectionView.tag = index  // 나중에 셀을 인식하기 위해 tag 설정
             lowerCollectionStackView.addArrangedSubview(collectionView)
             communityLowerCollectionViews.append(collectionView)
+        }
+    }
+    
+    @objc func lowerCollectionCellTapped(_ sender: UITapGestureRecognizer) {
+        guard let tappedCell = sender.view as? CustomCollectionViewCell else { return }
+        
+        // 탭된 셀의 초기 프레임을 기억해 둡니다.
+        let initialFrame = tappedCell.frame
+        print(initialFrame)
+        // 셀을 상단으로 이동시키는 애니메이션
+        UIView.animate(withDuration: 0.5, animations: {
+            tappedCell.frame.origin.y = self.view.safeAreaInsets.top
+        }) { _ in
+            // 애니메이션이 끝난 후, 모달 뷰를 프레젠트
+            let modalVC = ModalViewController()
+            modalVC.modalPresentationStyle = .pageSheet
+            modalVC.modalTransitionStyle = .coverVertical
+            self.present(modalVC, animated: true) {
+                // 모달이 나타나고 나서 다시 셀의 위치를 원래대로 되돌림
+                UIView.animate(withDuration: 0.5) {
+                    tappedCell.frame = initialFrame
+                }
+            }
         }
     }
     
@@ -283,6 +309,30 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
         let item = items[indexPath.item]
         cell.configure(title: item["title"]!, subtitle: item["subtitle"]!, detail: item["detail"]!, imageName: item["imageName"]!)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
+        
+        // 셀의 초기 위치를 저장합니다.
+        let initialFrame = cell.frame
+        
+        // 셀을 상단으로 이동하는 애니메이션
+        UIView.animate(withDuration: 0.5, animations: {
+            cell.frame.origin.y = self.view.safeAreaInsets.top
+        }) { _ in
+            // 모달 뷰를 프레젠트
+            let modalVC = ModalViewController()
+            modalVC.modalPresentationStyle = .pageSheet
+            modalVC.modalTransitionStyle = .coverVertical
+            self.present(modalVC, animated: true) {
+                // 모달 뷰가 사라질 때 다시 셀을 원래 위치로 되돌립니다.
+                UIView.animate(withDuration: 0.5) {
+                    cell.frame = initialFrame
+                    collectionView.layoutIfNeeded() // 레이아웃 재적용
+                }
+            }
+        }
     }
     
     func setupPageControlConstraints() {

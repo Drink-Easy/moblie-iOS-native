@@ -64,8 +64,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(subtitleLabel.snp.bottom).offset(23)
             make.leading.equalTo(subtitleLabel.snp.leading)
         }
+        
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
