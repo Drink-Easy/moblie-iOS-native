@@ -271,19 +271,19 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     @objc func lowerCollectionCellTapped(_ sender: UITapGestureRecognizer) {
         guard let tappedCell = sender.view as? CustomCollectionViewCell else { return }
         
-        // 탭된 셀의 초기 프레임을 기억해 둡니다.
+        // 탭된 셀의 초기 프레임을 저장
         let initialFrame = tappedCell.frame
-        print(initialFrame)
-        // 셀을 상단으로 이동시키는 애니메이션
+
+        // 셀을 상단으로 이동시키는 애니메이션. 여기 왜 안 되지...
         UIView.animate(withDuration: 0.5, animations: {
             tappedCell.frame.origin.y = self.view.safeAreaInsets.top
         }) { _ in
-            // 애니메이션이 끝난 후, 모달 뷰를 프레젠트
+            // 애니메이션 후, 모달 뷰
             let modalVC = ModalViewController()
             modalVC.modalPresentationStyle = .pageSheet
             modalVC.modalTransitionStyle = .coverVertical
             self.present(modalVC, animated: true) {
-                // 모달이 나타나고 나서 다시 셀의 위치를 원래대로 되돌림
+                // 다시 셀의 위치를 원래대로 되돌림
                 UIView.animate(withDuration: 0.5) {
                     tappedCell.frame = initialFrame
                 }
@@ -313,26 +313,26 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
-        
-        // 셀의 초기 위치를 저장합니다.
-        let initialFrame = cell.frame
-        
-        // 셀을 상단으로 이동하는 애니메이션
-        UIView.animate(withDuration: 0.5, animations: {
-            cell.frame.origin.y = self.view.safeAreaInsets.top
-        }) { _ in
-            // 모달 뷰를 프레젠트
-            let modalVC = ModalViewController()
-            modalVC.modalPresentationStyle = .pageSheet
-            modalVC.modalTransitionStyle = .coverVertical
-            self.present(modalVC, animated: true) {
-                // 모달 뷰가 사라질 때 다시 셀을 원래 위치로 되돌립니다.
-                UIView.animate(withDuration: 0.5) {
-                    cell.frame = initialFrame
-                    collectionView.layoutIfNeeded() // 레이아웃 재적용
+            
+            // 셀의 초기 위치를 저장
+            let initialFrame = cell.frame
+            
+            // 셀을 상단으로 이동하는 애니메이션 이것도 안 돼..
+            UIView.animate(withDuration: 0.5, animations: {
+                cell.frame.origin.y = self.view.safeAreaInsets.top
+            }) { _ in
+                // 모달 뷰를 프레젠트
+                let modalVC = ModalViewController()
+                modalVC.modalPresentationStyle = .pageSheet
+                modalVC.modalTransitionStyle = .coverVertical
+                self.present(modalVC, animated: true) {
+                    // 다시 셀을 원래 위치
+                    UIView.animate(withDuration: 0.5) {
+                        cell.frame = initialFrame
+                        collectionView.layoutIfNeeded()
+                    }
                 }
             }
-        }
     }
     
     func setupPageControlConstraints() {

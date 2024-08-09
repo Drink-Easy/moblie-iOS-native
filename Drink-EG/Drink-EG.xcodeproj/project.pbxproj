@@ -54,6 +54,7 @@
 		5E2218B32C5DEC0D005849FB /* ChooseTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */; };
 		5E2218B72C63897C005849FB /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B62C63897C005849FB /* CustomCollectionViewCell.swift */; };
 		5E2218B92C65C0FB005849FB /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B82C65C0FB005849FB /* ModalViewController.swift */; };
+		5E2218BD2C65F528005849FB /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218BC2C65F528005849FB /* CustomTableViewCell.swift */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -102,6 +103,7 @@
 		5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTasteViewController.swift; sourceTree = "<group>"; };
 		5E2218B62C63897C005849FB /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		5E2218B82C65C0FB005849FB /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		5E2218BC2C65F528005849FB /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +285,7 @@
 				16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */,
 				5E2218B62C63897C005849FB /* CustomCollectionViewCell.swift */,
 				5E2218B82C65C0FB005849FB /* ModalViewController.swift */,
+				5E2218BC2C65F528005849FB /* CustomTableViewCell.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				1F598F112C5CBE7A000CE79F /* SecondTasteTestViewController.swift in Sources */,
 				5E2218B32C5DEC0D005849FB /* ChooseTasteViewController.swift in Sources */,
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
+				5E2218BD2C65F528005849FB /* CustomTableViewCell.swift in Sources */,
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
 				16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */,
