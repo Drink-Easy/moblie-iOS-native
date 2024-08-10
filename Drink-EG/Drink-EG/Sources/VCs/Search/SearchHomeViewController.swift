@@ -135,6 +135,7 @@ extension SearchHomeViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WineListCollectionViewCell", for: indexPath) as! WineListCollectionViewCell
             
         cell.configure(imageName: suggestion[indexPath.item])
@@ -143,8 +144,10 @@ extension SearchHomeViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let wineInfoViewController = WineInfoViewController()
-        navigationController?.pushViewController(wineInfoViewController, animated: true)
+//        let wineInfoViewController = WineInfoViewController()
+//        navigationController?.pushViewController(wineInfoViewController, animated: true)
+        WineInfoViewController().modalPresentationStyle = .fullScreen
+        self.present(WineInfoViewController(), animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
