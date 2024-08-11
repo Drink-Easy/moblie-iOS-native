@@ -160,7 +160,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
         communityLabel.text = "와인 모임"
-        communityLabel.font = .boldSystemFont(ofSize: 30)
+        communityLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
         communityLabel.textAlignment = .center
         communityLabel.textColor = .black
     }
@@ -214,7 +214,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     func setupDeadLineLabel() {
         deadlineLabel.text = "마감 임박!"
-        deadlineLabel.font = .boldSystemFont(ofSize: 20)
+        deadlineLabel.font = UIFont(name: "Pretendard-Bold", size: 20)
         deadlineLabel.textAlignment = .center
         deadlineLabel.textColor = .black
     }
@@ -228,7 +228,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     func setupNewCreateLabel() {
         newCreate.text = "방금 생겼어요"
-        newCreate.font = .boldSystemFont(ofSize: 20)
+        newCreate.font = UIFont(name: "Pretendard-Bold", size: 20)
         newCreate.textAlignment = .center
         newCreate.textColor = .black
     }

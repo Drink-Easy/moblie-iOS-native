@@ -33,7 +33,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
             let placeholderText = "와인 이름 검색"
             let attributes: [NSAttributedString.Key: Any] = [
                 .foregroundColor: UIColor(hue: 0, saturation: 0, brightness: 0.45, alpha: 1.0), // 색상 설정
-                .font: UIFont.boldSystemFont(ofSize: 12) // 크기 설정
+                .font: UIFont(name: "Pretendard-SemiBold", size: 12)! // 크기 설정
             ]
             textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
         }
@@ -74,7 +74,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
         tastingnoteLabel.text = "테이스팅 노트"
-        tastingnoteLabel.font = .boldSystemFont(ofSize: 30)
+        tastingnoteLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
         tastingnoteLabel.textAlignment = .center
         tastingnoteLabel.textColor = .black
     }
@@ -107,7 +107,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
             make.top.equalTo(wineSearchBar.snp.bottom).offset(35)
             make.leading.equalTo(wineSearchBar.snp.leading).offset(13)
             make.trailing.equalTo(wineSearchBar.snp.trailing).offset(-13)
-            make.height.equalTo(200)
+            make.height.greaterThanOrEqualTo(282)
         }
     }
     
@@ -139,7 +139,11 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 94
+        //return 94
+        let screenHeight = UIScreen.main.bounds.height
+        let cellHeight = screenHeight * 0.11
+        
+        return cellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

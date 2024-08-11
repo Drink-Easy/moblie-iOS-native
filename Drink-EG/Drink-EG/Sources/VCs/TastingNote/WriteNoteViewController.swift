@@ -11,14 +11,17 @@ class WriteNoteViewController: UIViewController {
     let showPentagonButton = UIButton()
     let categories = ["당도", "산도", "타닌", "바디", "알코올"]
     var categoryLabels: [UILabel] = []
-    var buttonGroups: [[UIButton]] = []
-    var connectingLinesGroups: [[UIView]] = []
+    var categorySliders: [UISlider] = []
     var selectedValues: [CharacteristicType: Int] = [:]
+    
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    let nextButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        setupScrollView()
         setupNavigationBarButton()
         setupLabel()
         setuptastingnoteLabelConstraints()
@@ -32,6 +35,24 @@ class WriteNoteViewController: UIViewController {
         setupConstraints()
         setupCatagoriesView()
         setupCategoriesViewConstraints()
+        setupNextButton()
+        setupNextButtonConstraints()
+    }
+    
+    func setupScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        scrollView.backgroundColor = .clear
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView)
+            make.height.greaterThanOrEqualTo(916)
+        }
     }
     
     func setupNavigationBarButton() {
@@ -47,22 +68,22 @@ class WriteNoteViewController: UIViewController {
     }
     
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
-        view.addSubview(tastingnoteLabel)
+        contentView.addSubview(tastingnoteLabel)
         tastingnoteLabel.text = "테이스팅 노트"
-        tastingnoteLabel.font = .boldSystemFont(ofSize: 30)
+        tastingnoteLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
         tastingnoteLabel.textAlignment = .center
         tastingnoteLabel.textColor = .black
     }
     
     func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         tastingnoteLabel.snp.makeConstraints{ make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).offset(46)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).offset(16)
         }
     }
     
     func setupWineView() {
-        view.addSubview(wineView)
+        contentView.addSubview(wineView)
         wineView.backgroundColor = UIColor(hex: "FF9F8E80")
         wineView.layer.cornerRadius = 10
     }
@@ -98,6 +119,7 @@ class WriteNoteViewController: UIViewController {
     func setupWineName() {
         wineView.addSubview(wineName)
         wineName.text = "19 Crhnes"
+        wineName.font = UIFont(name: "Pretendard-SemiBold", size: 18)
     }
     
     func setupWineNameConstraints() {
@@ -110,7 +132,7 @@ class WriteNoteViewController: UIViewController {
     }
     
     func setupCatagoriesView() {
-        view.addSubview(categoriesView)
+        contentView.addSubview(categoriesView)
         categoriesView.backgroundColor = UIColor(hex: "EAEAEA")
         categoriesView.layer.cornerRadius = 10
     }
@@ -119,8 +141,8 @@ class WriteNoteViewController: UIViewController {
         categoriesView.snp.makeConstraints{ make in
             make.top.equalTo(wineView.snp.bottom).offset(10)
             make.centerX.equalTo(wineView.snp.centerX)
-            make.width.equalTo(361)
-            make.height.equalTo(543)
+            make.leading.equalTo(wineView.snp.leading)
+            make.height.greaterThanOrEqualTo(482)
         }
     }
     
@@ -136,38 +158,24 @@ class WriteNoteViewController: UIViewController {
             categoryLabels.append(label)
             categoriesView.addSubview(label)
             
-            var buttons: [UIButton] = []
-            for buttonIndex in 0..<5 {
-                let button = UIButton()
-                button.layer.cornerRadius = 8
-                button.backgroundColor = UIColor(hex: "B3B3B3")
-                button.tag = categoryIndex * 5 + buttonIndex
-                button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-                buttons.append(button)
-               categoriesView.addSubview(button)
-            }
-            buttonGroups.append(buttons)
-            
-            var connectingLines: [UIView] = []
-            for _ in 0..<4 {
-                let line = UIView()
-                line.backgroundColor = UIColor.gray
-                connectingLines.append(line)
-                categoriesView.addSubview(line)
-            }
-            connectingLinesGroups.append(connectingLines)
+            let slider = CustomSlider()
+            slider.minimumValue = 0
+            slider.maximumValue = 100
+            slider.minimumTrackTintColor = UIColor(hex: "D3D3D3")
+            slider.thumbTintColor = UIColor(hex: "FA735B")
+            categorySliders.append(slider)
+            categoriesView.addSubview(slider)
         }
     }
     
     func setupConstraints() {
         for i in 0..<categories.count {
             let label = categoryLabels[i]
-            let buttons = buttonGroups[i]
-            let connectingLines = connectingLinesGroups[i]
+            let slider = categorySliders[i]
             
             label.snp.makeConstraints { make in
-                make.width.equalTo(71)
-                make.height.equalTo(39)
+                make.width.equalTo(categoriesView.snp.width).multipliedBy(0.19)
+                make.height.greaterThanOrEqualTo(39)
                 make.leading.equalTo(categoriesView.snp.leading).offset(17)
                 if i == 0 {
                     make.top.equalTo(categoriesView.snp.top).offset(23)
@@ -176,27 +184,12 @@ class WriteNoteViewController: UIViewController {
                 }
             }
             
-            for (index, button) in buttons.enumerated() {
-                button.snp.makeConstraints { make in
-                    make.centerY.equalTo(label.snp.centerY)
-                    if index == 0 {
-                        make.leading.equalTo(categoryLabels[i].snp.trailing).offset(15)
-                    } else {
-                        make.leading.equalTo(buttons[index - 1].snp.trailing).offset(40)
-                    }
-                    make.width.equalTo(16)
-                    make.height.equalTo(16)
-                }
-                
-                if index < buttons.count - 1 {
-                    connectingLines[index].snp.makeConstraints { make in
-                        make.centerY.equalTo(button.snp.centerY)
-                        make.leading.equalTo(button.snp.trailing)
-                        make.trailing.equalTo(buttons[index + 1].snp.leading)
-                        make.height.equalTo(2)
-                    }
-                }
+            slider.snp.makeConstraints { make in
+                make.leading.equalTo(label.snp.trailing).offset(25)
+                make.centerY.equalTo(label.snp.centerY)
+                make.trailing.equalTo(categoriesView.snp.trailing).offset(-18)
             }
+            
         }
     }
     
@@ -212,21 +205,58 @@ class WriteNoteViewController: UIViewController {
         }
     }
     
-    @objc func buttonTapped(_ sender: UIButton) {
-        let tag = sender.tag % 5 // 각 줄에서 몇 번째 버튼인지 계산
-        let row = sender.tag / 5 // 몇 번째 줄인지 계산
-        print("Row: \(row + 1), Button: \((tag + 1)*20)")
-        
-        for button in buttonGroups[row] {
-            button.backgroundColor = .lightGray
-        }
-        sender.backgroundColor = UIColor(hex: "FF9F8E80")
-        
-        let selectedValue = (tag + 1) * 20
-        let characteristic = categories[row]
-        selectedValues[CharacteristicType(rawValue: characteristic)!] = selectedValue
-        
-        checkIfAllSelected()
+    func setupNextButton() {
+        contentView.addSubview(nextButton)
+        nextButton.setTitle("다음 >", for: .normal)
+        nextButton.backgroundColor = UIColor(hex: "FA735B")
+        nextButton.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 20)
+        nextButton.titleLabel?.textColor = .white
+        nextButton.layer.cornerRadius = 16
+        nextButton.addTarget(self, action: #selector(nextButtonTapped(_:)), for: .touchUpInside)
     }
+    
+    func setupNextButtonConstraints() {
+        nextButton.snp.makeConstraints { make in
+            make.leading.equalTo(categoriesView.snp.leading).offset(17)
+            make.centerX.equalTo(categoriesView.snp.centerX)
+            make.top.equalTo(categoriesView.snp.bottom).offset(30)
+            make.height.greaterThanOrEqualTo(60)
+        }
+    }
+    
+    @objc func nextButtonTapped(_ sender: UIButton) {
+        for (index, slider) in categorySliders.enumerated() {
+            let value = Int(slider.value)
+            if let category = CharacteristicType(rawValue: categories[index]) {
+                selectedValues[category] = value
+            }
+        }
+        
+        // NoteInfoViewController로 값 전달
+        let polygonVC = NoteInfoViewController()
+        var dataList: [RadarChartData] = []
+        for (type, value) in selectedValues {
+            dataList.append(RadarChartData(type: type, value: value))
+        }
+        polygonVC.dataList = dataList
+        navigationController?.pushViewController(polygonVC, animated: true)
+    }
+    
+//    @objc func buttonTapped(_ sender: UIButton) {
+//        let tag = sender.tag % 5 // 각 줄에서 몇 번째 버튼인지 계산
+//        let row = sender.tag / 5 // 몇 번째 줄인지 계산
+//        print("Row: \(row + 1), Button: \((tag + 1)*20)")
+//        
+//        for button in buttonGroups[row] {
+//            button.backgroundColor = .lightGray
+//        }
+//        sender.backgroundColor = UIColor(hex: "FF9F8E80")
+//        
+//        let selectedValue = (tag + 1) * 20
+//        let characteristic = categories[row]
+//        selectedValues[CharacteristicType(rawValue: characteristic)!] = selectedValue
+//        
+//        checkIfAllSelected()
+//    }
 
 }

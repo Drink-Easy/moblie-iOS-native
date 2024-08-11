@@ -20,10 +20,13 @@ class NoteInfoViewController: UIViewController {
     let chooseColorLabel = UILabel()
     let chooseColorButtons = [UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton()]
     var dataList: [RadarChartData] = []
+    let scrollView = UIScrollView()
+    let contentView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupView()
         setupNavigationBarButton()
         setupLabel()
         setuptastingnoteLabelConstraints()
@@ -43,6 +46,22 @@ class NoteInfoViewController: UIViewController {
         setupColorButtonConstraints()
     }
     
+    func setupView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        scrollView.backgroundColor = .clear
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView)
+            make.height.greaterThanOrEqualTo(860)
+        }
+    }
+    
     func setupNavigationBarButton() {
         navigationItem.hidesBackButton = true
         let backArrow = UIImage(systemName: "chevron.backward")
@@ -57,22 +76,22 @@ class NoteInfoViewController: UIViewController {
     
     
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
-        view.addSubview(tastingnoteLabel)
+        contentView.addSubview(tastingnoteLabel)
         tastingnoteLabel.text = "테이스팅 노트"
-        tastingnoteLabel.font = .boldSystemFont(ofSize: 30)
+        tastingnoteLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
         tastingnoteLabel.textAlignment = .center
         tastingnoteLabel.textColor = .black
     }
     
     func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         tastingnoteLabel.snp.makeConstraints{ make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).offset(46)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).offset(16)
         }
     }
     
     func setupPentagonChart() {
-        view.addSubview(pentagonChart)
+        contentView.addSubview(pentagonChart)
         pentagonChart.dataList = dataList
         pentagonChart.layer.cornerRadius = 10
         pentagonChart.addTarget(self, action: #selector(pentagonButtonTapped), for: .touchUpInside)
@@ -81,16 +100,18 @@ class NoteInfoViewController: UIViewController {
     func setupPentagonChartConstraints() {
         pentagonChart.snp.makeConstraints{ make in
             make.top.equalTo(wineView.snp.bottom).offset(10)
-            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(361)
-            make.height.equalTo(349)
+            make.centerX.equalTo(contentView.safeAreaLayoutGuide.snp.centerX)
+            make.leading.equalTo(wineView.snp.leading)
+            make.height.greaterThanOrEqualTo(349)
         }
     }
     
     func setupWineView() {
-        view.addSubview(wineView)
+        contentView.addSubview(wineView)
         wineView.backgroundColor = UIColor(hex: "FF9F8E80")
         wineView.layer.cornerRadius = 10
+        wineView.layer.borderWidth = 2
+        wineView.layer.borderColor = UIColor(hex: "FA735B")?.cgColor
     }
     
     func setupWineViewConstraints() {
@@ -98,8 +119,7 @@ class NoteInfoViewController: UIViewController {
             make.top.equalTo(tastingnoteLabel.snp.bottom).offset(32)
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
             make.leading.equalTo(tastingnoteLabel.snp.leading)
-            make.width.equalTo(361)
-            make.height.equalTo(94)
+            make.height.greaterThanOrEqualTo(83)
         }
     }
     
@@ -137,7 +157,7 @@ class NoteInfoViewController: UIViewController {
     }
     
     func setupChooseColorView() {
-        view.addSubview(chooseColorView)
+        contentView.addSubview(chooseColorView)
         chooseColorView.backgroundColor = .white
         chooseColorView.layer.borderWidth = 2
         chooseColorView.layer.cornerRadius = 10
@@ -148,8 +168,8 @@ class NoteInfoViewController: UIViewController {
         chooseColorView.snp.makeConstraints{ make in
             make.top.equalTo(pentagonChart.snp.bottom).offset(10)
             make.centerX.equalTo(wineView.snp.centerX)
-            make.width.equalTo(361)
-            make.height.equalTo(317)
+            make.leading.equalTo(pentagonChart.snp.leading)
+            make.height.greaterThanOrEqualTo(317)
         }
     }
     
@@ -158,6 +178,7 @@ class NoteInfoViewController: UIViewController {
         chooseColorLabel.text = "색상 선택"
         chooseColorLabel.textAlignment = .center
         chooseColorLabel.textColor = .black
+        chooseColorLabel.font = UIFont(name: "Pretendard-Bold", size: 22)
     }
     
     func setupChooseColorLabelConstraints() {
@@ -173,6 +194,7 @@ class NoteInfoViewController: UIViewController {
         for i in chooseColorButtons {
             chooseColorView.addSubview(i)
             i.layer.cornerRadius = 10
+            i.addTarget(self, action: #selector(colorButtonTapped(_:)), for: .touchUpInside)
         }
         
         chooseColorButtons[0].backgroundColor = UIColor(hex: "FFFBD8")
@@ -181,6 +203,7 @@ class NoteInfoViewController: UIViewController {
         chooseColorButtons[3].backgroundColor = UIColor(hex: "BA2121")
         chooseColorButtons[4].backgroundColor = UIColor(hex: "892222")
         chooseColorButtons[5].backgroundColor = UIColor(hex: "521515")
+        
     }
     
     func setupColorButtonConstraints() {
@@ -188,7 +211,7 @@ class NoteInfoViewController: UIViewController {
             let button = chooseColorButtons[i]
             button.snp.makeConstraints{ make in
                 make.top.equalTo(chooseColorLabel.snp.bottom).offset(10)
-                make.width.height.equalTo(40)
+                make.width.height.equalTo(40) // 수정 필요
                 if i == 0 {
                     make.leading.equalTo(chooseColorView.snp.leading).offset(19)
                 } else {
@@ -202,5 +225,27 @@ class NoteInfoViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc func colorButtonTapped(_ sender: UIButton) {
+        let vc = ChooseTasteViewController()
+        let buttonColor = sender.backgroundColor?.toHex()
+        
+        vc.receivedColor = buttonColor!
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
+}
+
+extension UIColor {
+    func toHex() -> String? {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        
+        if self.getRed(&r, green: &g, blue: &b, alpha: &a) {
+            let rgb: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
+            return String(format: "#%06x", rgb)
+        }
+        return nil
+    }
 }

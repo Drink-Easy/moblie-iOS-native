@@ -35,7 +35,7 @@ class CustomSuggestionCell: UITableViewCell {
         suggestionImageView.clipsToBounds = true
 
         // 라벨 설정
-        suggestionLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        suggestionLabel.font = UIFont(name: "Pretendard-SemiBold", size: 18)
         suggestionLabel.textColor = .black
 
         // 선택된 상태를 나타내는 이미지 (체크박스 같은 용도)
