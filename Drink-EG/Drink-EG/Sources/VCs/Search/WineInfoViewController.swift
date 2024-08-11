@@ -10,6 +10,8 @@ import SnapKit
 
 class WineInfoViewController: UIViewController {
     
+    var wine: String?
+    
     let pentagonChart = PolygonChartView()
     var dataList: [RadarChartData] = [RadarChartData(type: .sweetness, value: 80),
                                       RadarChartData(type: .acid, value: 60),
@@ -31,17 +33,21 @@ class WineInfoViewController: UIViewController {
         return v
     }()
     
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "Loxton")
+        if let wine = wine {
+            iv.image = UIImage(named: wine)
+        }
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
         return iv
     }()
     
-    private let name: UILabel = {
+    private lazy var name: UILabel = {
         let l = UILabel()
-        l.text = "Loxton"
+        if let wine = wine {
+            l.text = wine
+        }
         l.font = .boldSystemFont(ofSize: 18)
         l.textColor = .black
         l.numberOfLines = 0

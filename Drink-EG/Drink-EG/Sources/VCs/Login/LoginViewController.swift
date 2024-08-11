@@ -288,6 +288,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         pwTextField.returnKeyType = .done
         pwTextField.textContentType = .password
         pwTextField.isSecureTextEntry = true
+        pwTextField.textContentType = .newPassword
         pwTextField.clearButtonMode = .always
     }
     

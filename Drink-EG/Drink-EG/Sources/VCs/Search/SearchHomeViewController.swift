@@ -10,6 +10,7 @@ import SnapKit
 
 class SearchHomeViewController : UIViewController, UISearchBarDelegate {
     
+    var selectedWine: String?
     var suggestion: [String] = []
     var allSuggestion: [String] = ["Castello Monaci", "Dos Copas", "Loxton", "Red Label", "Samos", "Vendredi"]
 
@@ -146,8 +147,11 @@ extension SearchHomeViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let wineInfoViewController = WineInfoViewController()
 //        navigationController?.pushViewController(wineInfoViewController, animated: true)
-        WineInfoViewController().modalPresentationStyle = .fullScreen
-        self.present(WineInfoViewController(), animated: true)
+        selectedWine = suggestion[indexPath.item]
+        let wineInfoViewController = WineInfoViewController()
+//        wineInfoViewController.modalPresentationStyle = .fullScreen
+        wineInfoViewController.wine = selectedWine
+        self.present(wineInfoViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

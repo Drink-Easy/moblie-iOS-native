@@ -10,6 +10,8 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     
+    var selectedWine: String?
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isDirectionalLockEnabled = true
@@ -353,7 +355,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.tag == 2 {
+            selectedWine = RecomContents[indexPath.item]
             let wineInfoViewController = WineInfoViewController()
+            wineInfoViewController.wine = selectedWine
             navigationController?.pushViewController(wineInfoViewController, animated: true)
         }
     }
