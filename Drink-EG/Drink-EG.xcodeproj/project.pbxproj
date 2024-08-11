@@ -55,6 +55,7 @@
 		5E2218B72C63897C005849FB /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B62C63897C005849FB /* CustomCollectionViewCell.swift */; };
 		5E2218B92C65C0FB005849FB /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B82C65C0FB005849FB /* ModalViewController.swift */; };
 		5E2218BD2C65F528005849FB /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218BC2C65F528005849FB /* CustomTableViewCell.swift */; };
+		5E22190D2C67A16D005849FB /* CustomSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22190C2C67A16D005849FB /* CustomSuggestionCell.swift */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -104,6 +105,7 @@
 		5E2218B62C63897C005849FB /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		5E2218B82C65C0FB005849FB /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		5E2218BC2C65F528005849FB /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		5E22190C2C67A16D005849FB /* CustomSuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSuggestionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 				16B97D0F2C4C0E9000D8B453 /* NoteInfoViewController.swift */,
 				5E2218B02C5CA34B005849FB /* PolygonChartView.swift */,
 				5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */,
+				5E22190C2C67A16D005849FB /* CustomSuggestionCell.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				5E2218BD2C65F528005849FB /* CustomTableViewCell.swift in Sources */,
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
+				5E22190D2C67A16D005849FB /* CustomSuggestionCell.swift in Sources */,
 				16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */,
 				5E2218B92C65C0FB005849FB /* ModalViewController.swift in Sources */,
 				1F598F012C581573000CE79F /* LoginViewController.swift in Sources */,

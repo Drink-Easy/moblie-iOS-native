@@ -61,13 +61,15 @@ class NewNoteFooter: UICollectionReusableView {
         addSubview(button)
 
         button.setTitle("+ 새로 적기", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor(hex: "FFFFFF"), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.backgroundColor = UIColor(hex: "FFEA75")
+        button.backgroundColor = UIColor(hex: "FA735B")
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(newNoteButtonTapped), for: .touchUpInside)
         button.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(16)
+            make.leading.equalToSuperview().offset(17)
+            make.trailing.equalToSuperview().offset(-17)
+            make.height.greaterThanOrEqualTo(61)
         }
     }
 
@@ -85,6 +87,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
    
     let noteListLabel = UILabel() // 노트 보관함 Label
     var noteListGrid: UICollectionView! // 테이스팅 노트를 보관할 CollectionView
+    let images = ["sample1", "sample2", "sample3", "sample4", "sample2", "sample3", "sample4", "sample1", "sample3", "sample4", "sample1", "sample2", "sample4", "sample1", "sample2", "sample3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,7 +158,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     func setupNoteCollectionViewConstraints() { // CollectionView의 제약 조건을 설정하는 함수
         noteListGrid.snp.makeConstraints{ make in
             make.leading.equalTo(noteListLabel)
-            make.top.equalTo(view.snp.top).offset(187)
+            make.top.equalTo(noteListLabel.snp.bottom).offset(35)
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
             make.width.equalTo(361)
             make.height.equalTo(591)

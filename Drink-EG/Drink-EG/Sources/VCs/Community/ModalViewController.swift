@@ -21,6 +21,7 @@ class ModalViewController: UIViewController, UITableViewDataSource, UITableViewD
     let descriptionTitleLabel = UILabel()
     let descriptonLabel = UILabel()
     let joinButton = UIButton()
+    let vectorLine = UIView()
     
     // 댓글 목록을 표시할 테이블 뷰
     let tableView = UITableView()
@@ -47,6 +48,8 @@ class ModalViewController: UIViewController, UITableViewDataSource, UITableViewD
         setupDescriptionLabelConstraints()
         setupJoinButton()
         setupJoinButtonConstraints()
+        setupVectorLineView()
+        setupVectorLineViewConstraints()
         setupTableView()
         setupCommentInputField()
         setupTableViewConstraints()
@@ -118,9 +121,9 @@ class ModalViewController: UIViewController, UITableViewDataSource, UITableViewD
     func setupJoinButton() {
         view.addSubview(joinButton)
         joinButton.setTitle("참가하기", for: .normal)
-        joinButton.backgroundColor = UIColor(hex: "FFEA75")
+        joinButton.backgroundColor = UIColor(hex: "FA735B")
         joinButton.layer.cornerRadius = 15
-        joinButton.setTitleColor(UIColor(hex: "767676"), for: .normal)
+        joinButton.setTitleColor(UIColor(hex: "FFFFFF"), for: .normal)
     }
     
     func setupJoinButtonConstraints() {
@@ -129,6 +132,20 @@ class ModalViewController: UIViewController, UITableViewDataSource, UITableViewD
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(263)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-19)
             make.height.greaterThanOrEqualTo(32)
+        }
+    }
+    
+    func setupVectorLineView() {
+        view.addSubview(vectorLine)
+        vectorLine.backgroundColor = UIColor(hex: "D7D7D7")
+    }
+    
+    func setupVectorLineViewConstraints() {
+        vectorLine.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.top.equalTo(joinButton.snp.bottom).offset(17)
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(13)
         }
     }
     
@@ -170,8 +187,8 @@ class ModalViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         sendButton.setTitle("등록하기", for: .normal)
         sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        sendButton.setTitleColor(UIColor(hex: "767676"), for: .normal)
-        sendButton.backgroundColor = UIColor(hex: "FFEA75")
+        sendButton.setTitleColor(UIColor(hex: "FFFFFF"), for: .normal)
+        sendButton.backgroundColor = UIColor(hex: "FA735B")
         sendButton.layer.cornerRadius = 10
         sendButton.addTarget(self, action: #selector(sendComment), for: .touchUpInside)
         
@@ -208,7 +225,7 @@ class ModalViewController: UIViewController, UITableViewDataSource, UITableViewD
         guard let commentText = commentTextField.text, !commentText.isEmpty else { return }
         
         // 새로운 댓글 추가
-        let newComment = Comment(profileImageName: "defaultProfile", name: "작성자", date: Date(), comment: commentText)
+        let newComment = Comment(profileImageName: "Profile", name: "작성자", date: Date(), comment: commentText)
         comments.append(newComment)
         commentTextField.text = ""
         tableView.reloadData()

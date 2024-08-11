@@ -18,14 +18,16 @@ class CustomCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        contentView.layer.cornerRadius = 10
+        contentView.layer.masksToBounds = true
+        contentView.clipsToBounds = true
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
         contentView.addSubview(imageView)
         contentView.addSubview(detailLabel)
         
-        contentView.layer.cornerRadius = 10
-        contentView.layer.masksToBounds = true
-        contentView.clipsToBounds = true
+        
         
         titleLabel.textColor = .black
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)

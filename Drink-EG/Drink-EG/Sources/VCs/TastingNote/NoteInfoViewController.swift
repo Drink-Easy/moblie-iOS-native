@@ -89,7 +89,7 @@ class NoteInfoViewController: UIViewController {
     
     func setupWineView() {
         view.addSubview(wineView)
-        wineView.backgroundColor = UIColor(hex: "FFD73880")
+        wineView.backgroundColor = UIColor(hex: "FF9F8E80")
         wineView.layer.cornerRadius = 10
     }
     

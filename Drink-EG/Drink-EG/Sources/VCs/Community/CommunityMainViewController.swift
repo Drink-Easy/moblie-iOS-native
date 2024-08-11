@@ -90,6 +90,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fillEqually
+        stackView.layer.cornerRadius = 10
         return stackView
     }()
     
@@ -195,20 +196,20 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     }
     
     func setupLookAroundButton() {
-        lookaroundButton.setTitle("모임 둘러보기", for: .normal)
-        lookaroundButton.backgroundColor = UIColor(hex: "FFEA75")
+        lookaroundButton.setTitle("모임 개설하기", for: .normal)
+        lookaroundButton.backgroundColor = UIColor(hex: "FA735B")
         lookaroundButton.layer.cornerRadius = 16
-        lookaroundButton.setTitleColor(.black, for: .normal)
+        lookaroundButton.setTitleColor(.white, for: .normal)
         lookaroundButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
     }
     
     func setupLookAroundButtonConstraints() {
         lookaroundButton.snp.makeConstraints{ make in
-            make.top.equalTo(communitySearchBar.snp.bottom).offset(14)
-            make.leading.equalTo(communitySearchBar.snp.leading)
-            make.width.equalTo(communitySearchBar.snp.width)
-            make.height.greaterThanOrEqualTo(70)
-        }
+            make.top.equalTo(lowerCollectionStackView.snp.bottom).offset(30)
+            make.centerX.equalTo(lowerCollectionStackView.snp.centerX)
+            make.leading.equalTo(lowerCollectionStackView.snp.leading).offset(16)
+            make.height.greaterThanOrEqualTo(61)
+        }   
     }
     
     func setupDeadLineLabel() {
@@ -220,8 +221,8 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     func setupDeadLineLabelConstraints() {
         deadlineLabel.snp.makeConstraints{ make in
-            make.top.equalTo(lookaroundButton.snp.bottom).offset(42)
-            make.leading.equalTo(lookaroundButton.snp.leading)
+            make.top.equalTo(communitySearchBar.snp.bottom).offset(55)
+            make.leading.equalTo(communitySearchBar.snp.leading)
         }
     }
     
@@ -262,7 +263,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
             }
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(lowerCollectionCellTapped(_:)))
             collectionView.addGestureRecognizer(tapGesture)
-            collectionView.tag = index  // 나중에 셀을 인식하기 위해 tag 설정
+            collectionView.tag = index
             lowerCollectionStackView.addArrangedSubview(collectionView)
             communityLowerCollectionViews.append(collectionView)
         }

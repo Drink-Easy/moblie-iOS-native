@@ -15,7 +15,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     let tastingnoteLabel = UILabel()
     let suggestionTableView = UITableView()
     var suggestion: [String] = []
-    var allSuggestion: [String] = ["Apple", "Banana", "Grape", "Orange", "Watermelon", "Strawberry"]
+    var allSuggestion: [String] = ["19 Crhnes", "John Kosovich", "CNDULE", "Orange", "Watermelon", "Strawberry"]
     
     lazy var wineSearchBar: UISearchBar = {
         let s = UISearchBar()
@@ -99,13 +99,14 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     func setupSuggestionTableView() {
         suggestionTableView.dataSource = self
         suggestionTableView.delegate = self
-        suggestionTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        suggestionTableView.register(CustomSuggestionCell.self, forCellReuseIdentifier: "cell")
     }
     
     func setupSuggestionTableViewConstraints() {
         suggestionTableView.snp.makeConstraints{ make in
-            make.top.equalTo(wineSearchBar.snp.bottom).offset(0)
-            make.width.equalTo(wineSearchBar.snp.width)
+            make.top.equalTo(wineSearchBar.snp.bottom).offset(35)
+            make.leading.equalTo(wineSearchBar.snp.leading).offset(13)
+            make.trailing.equalTo(wineSearchBar.snp.trailing).offset(-13)
             make.height.equalTo(200)
         }
     }
@@ -128,9 +129,17 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = suggestion[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomSuggestionCell
+        let imageName = "SampleImage"
+        let image = UIImage(named: imageName)!
+        cell.backgroundColor = UIColor(hex: "E5E5E5")
+        cell.layer.cornerRadius = 10
+        cell.configure(image: image, text: suggestion[indexPath.row], isSelected: false)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 94
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -138,5 +147,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         wineSearchBar.text = selectedSuggestion
         suggestion = []
         suggestionTableView.reloadData()
+        let nextVC = WriteNoteViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 }

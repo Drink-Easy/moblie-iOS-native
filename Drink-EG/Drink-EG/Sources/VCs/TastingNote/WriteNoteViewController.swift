@@ -63,7 +63,7 @@ class WriteNoteViewController: UIViewController {
     
     func setupWineView() {
         view.addSubview(wineView)
-        wineView.backgroundColor = UIColor(hex: "FFD73880")
+        wineView.backgroundColor = UIColor(hex: "FF9F8E80")
         wineView.layer.cornerRadius = 10
     }
     
@@ -128,7 +128,7 @@ class WriteNoteViewController: UIViewController {
         for (categoryIndex, category) in categories.enumerated() {
             let label = UILabel()
             label.text = category
-            label.backgroundColor = UIColor(hex: "FFEA75")
+            label.backgroundColor = UIColor(hex: "FA735B")
             label.textAlignment = .center
             label.font = UIFont.boldSystemFont(ofSize: 18)
             label.layer.cornerRadius = 10
@@ -220,7 +220,7 @@ class WriteNoteViewController: UIViewController {
         for button in buttonGroups[row] {
             button.backgroundColor = .lightGray
         }
-        sender.backgroundColor = .red
+        sender.backgroundColor = UIColor(hex: "FF9F8E80")
         
         let selectedValue = (tag + 1) * 20
         let characteristic = categories[row]
