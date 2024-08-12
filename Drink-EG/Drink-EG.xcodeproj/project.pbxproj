@@ -40,6 +40,10 @@
 		16B97D322C4CE68A00D8B453 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D312C4CE68A00D8B453 /* KakaoSDK */; };
 		16B97D352C4D062E00D8B453 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D342C4D062E00D8B453 /* SnapKit */; };
 		16B97D372C4D062E00D8B453 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D362C4D062E00D8B453 /* SnapKit-Dynamic */; };
+		C3E15C682C69F3F6002BF034 /* ClassVideoBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E15C672C69F3F6002BF034 /* ClassVideoBottomViewController.swift */; };
+		C3E15C6A2C69F524002BF034 /* MyPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E15C692C69F524002BF034 /* MyPageController.swift */; };
+		C3E15C6C2C69F533002BF034 /* MyinfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E15C6B2C69F533002BF034 /* MyinfoController.swift */; };
+		C3E15C6E2C69F610002BF034 /* SavingVideoBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E15C6D2C69F610002BF034 /* SavingVideoBottomViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +75,10 @@
 		16B97D1F2C4C0FDB00D8B453 /* SearchCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCommunityViewController.swift; sourceTree = "<group>"; };
 		16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityListViewController.swift; sourceTree = "<group>"; };
 		16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCommViewController.swift; sourceTree = "<group>"; };
+		C3E15C672C69F3F6002BF034 /* ClassVideoBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassVideoBottomViewController.swift; sourceTree = "<group>"; };
+		C3E15C692C69F524002BF034 /* MyPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageController.swift; sourceTree = "<group>"; };
+		C3E15C6B2C69F533002BF034 /* MyinfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyinfoController.swift; sourceTree = "<group>"; };
+		C3E15C6D2C69F610002BF034 /* SavingVideoBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingVideoBottomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,9 +242,13 @@
 			isa = PBXGroup;
 			children = (
 				16B97D112C4C0F2400D8B453 /* WineClassMainViewController.swift */,
+				C3E15C672C69F3F6002BF034 /* ClassVideoBottomViewController.swift */,
 				16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */,
 				16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */,
+				C3E15C6D2C69F610002BF034 /* SavingVideoBottomViewController.swift */,
 				16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */,
+				C3E15C692C69F524002BF034 /* MyPageController.swift */,
+				C3E15C6B2C69F533002BF034 /* MyinfoController.swift */,
 			);
 			path = WineClass;
 			sourceTree = "<group>";
@@ -364,6 +376,7 @@
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				16B97D0C2C4C0DAA00D8B453 /* AddNewNoteViewController.swift in Sources */,
+				C3E15C6E2C69F610002BF034 /* SavingVideoBottomViewController.swift in Sources */,
 				16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */,
 				16B97D0E2C4C0E6300D8B453 /* WriteNoteViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
@@ -372,12 +385,15 @@
 				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
 				16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */,
 				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
+				C3E15C6C2C69F533002BF034 /* MyinfoController.swift in Sources */,
 				16B97D0A2C4C0D8F00D8B453 /* NoteListViewController.swift in Sources */,
 				16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */,
+				C3E15C682C69F3F6002BF034 /* ClassVideoBottomViewController.swift in Sources */,
 				16B97D1E2C4C0FCA00D8B453 /* CommunityInfoViewController.swift in Sources */,
 				16B97D202C4C0FDB00D8B453 /* SearchCommunityViewController.swift in Sources */,
 				16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
+				C3E15C6A2C69F524002BF034 /* MyPageController.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
