@@ -11,8 +11,7 @@ struct Constants {
     static let appname = "Drink-EG"
     
     struct Auth {
-        static var accessToken = ""
-        static var refreshToken = ""
+        static var Tokens : [String : String] = [:]
     }
     
     struct API {
