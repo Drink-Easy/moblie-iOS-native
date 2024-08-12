@@ -7,8 +7,14 @@
 
 import UIKit
 import SnapKit
+import Moya
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
+    
+    let provider = MoyaProvider<LoginAPI>()
+    public var userID : String?
+    public var userPW : String?
+    var loginDTO : JoinNLoginRequest?
 
     let loginButton = UIButton(type: .system)
     let joinButton = UIButton(type: .system)
@@ -322,11 +328,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        var pw : String?
         if textField == self.idTextField {
+            if let id = self.idTextField.text {
+                self.userID = id
+            }
             self.pwTextField.becomeFirstResponder()
         } else if textField == self.pwTextField {
+            if let pw = self.pwTextField.text {
+                self.userID = pw
+            }
             self.pwTextField.resignFirstResponder()
         }
+        loginDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
         return true
     }
     
@@ -334,6 +348,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
+    }
+    
+    private func callLoginAPI() {
+        provider.request(.postRegister(data: loginDTO!)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let data = try response.mapJSON()
+                    print("User Created: \(data)")
+                } catch {
+                    print("Failed to map data: \(error)")
+                }
+            case .failure(let error):
+                print("Request failed: \(error)")
+            }
+        }
     }
 }
 
