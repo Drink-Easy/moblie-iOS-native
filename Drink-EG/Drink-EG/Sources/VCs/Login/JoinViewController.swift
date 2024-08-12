@@ -7,8 +7,13 @@
 
 import UIKit
 import SnapKit
+import Moya
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
+    let provider = MoyaProvider<LoginAPI>()
+    public var userID : String?
+    public var userPW : String?
+    var joinDTO : JoinNLoginRequest?
 
     let joinButton = UIButton(type: .system)
     let loginButton = UIButton(type: .system)
@@ -90,7 +95,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupUI() {
-        configureLoginButton()
+        configureJoinButton()
         configureJoinButton()
         configureKakaoButton()
         configureAppleButton()
@@ -178,7 +183,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func configureLoginButton() {
+    private func configureJoinButton() {
         joinButton.setTitle("회원가입", for: .normal)
         joinButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         joinButton.setTitleColor(.black, for: .normal)
@@ -187,9 +192,15 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         joinButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
         joinButton.layer.cornerRadius = 16
         joinButton.layer.borderWidth = 0
+        joinButton.addTarget(self, action: #selector(joinButtonTapped), for: .touchUpInside)
     }
     
-    private func configureJoinButton() {
+    @objc private func joinButtonTapped() {
+        callJoinAPI()
+        
+    }
+    
+    private func configureLoginButton() {
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         loginButton.setTitleColor(UIColor(hex: "#FFEA75"), for: .normal)
@@ -303,13 +314,25 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        var pw : String?
         if textField == self.idTextField {
+            if let id = self.idTextField.text {
+                self.userID = id
+            }
             self.pwTextField.becomeFirstResponder()
         } else if textField == self.pwTextField {
+            pw = self.pwTextField.text
             self.pwAgainTextField.becomeFirstResponder()
         } else if textField == self.pwAgainTextField {
+            if let rePW = self.pwAgainTextField.text {
+//                guard pw == rePW else {
+//                    // toast message 띄우기
+//                }
+                self.userPW = pw
+            }
             self.pwAgainTextField.resignFirstResponder()
         }
+        joinDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
         return true
     }
     
@@ -318,4 +341,21 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
+    
+    private func callJoinAPI() {
+        provider.request(.postRegister(data: joinDTO!)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let data = try response.mapJSON()
+                    print("User Created: \(data)")
+                } catch {
+                    print("Failed to map data: \(error)")
+                }
+            case .failure(let error):
+                print("Request failed: \(error)")
+            }
+        }
+    }
 }
+
