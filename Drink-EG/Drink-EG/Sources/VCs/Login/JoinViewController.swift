@@ -196,9 +196,13 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func joinButtonTapped() {
         assignUserData()
-        var goToLogin = callJoinAPI()
-        if let f = goToLogin?.isSuccess {
-            goToLoginView()
+        callJoinAPI { [weak self] isSuccess in
+            if isSuccess {
+                self?.goToLoginView()
+            } else {
+                print("회원가입 실패")
+                // 실패 시에 대한 처리 (예: 에러 메시지 표시)
+            }
         }
     }
     
@@ -351,9 +355,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
     
-    private func callJoinAPI() -> APIResponseString? {
-        var responseData : APIResponseString?
-//        var isSuccess : Bool = false
+    private func callJoinAPI(completion: @escaping (Bool) -> Void) {
         if let data = self.joinDTO {
             provider.request(.postRegister(data: data)) { result in
                 switch result {
@@ -361,19 +363,20 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                     do {
                         let data = try response.map(APIResponseString.self)
                         print("User Created: \(data)")
-                        responseData = data as APIResponseString
-//                        isSuccess = data.isSuccess
+                        completion(data.isSuccess)
                     } catch {
                         print("Failed to map data: \(error)")
+                        completion(false)
                     }
                 case .failure(let error):
                     print("Request failed: \(error)")
+                    completion(false)
                 }
             }
         } else {
             print("User Data가 없습니다.")
+            completion(false)
         }
-        return responseData
     }
 }
 

@@ -10,6 +10,11 @@ import Foundation
 struct Constants {
     static let appname = "Drink-EG"
     
+    struct Auth {
+        static var accessToken = ""
+        static var refreshToken = ""
+    }
+    
     struct API {
         static let baseURL = "https://drinkeg.com/"
         
