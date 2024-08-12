@@ -59,7 +59,7 @@ class SecondTasteTestViewController: UIViewController {
         view.addSubview(Label)
         Label.snp.makeConstraints { make in
             make.top.equalTo(view).offset(125)
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(18)
             make.width.equalTo(338)
             make.height.equalTo(44)
         }

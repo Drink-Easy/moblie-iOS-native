@@ -15,17 +15,28 @@ class ChooseTasteViewController: UIViewController {
     let colorBox = UIView()
     let colorLabel = UILabel()
     let tasteView = UIView()
-    let tasteOptions = [UIButton(), UIButton(), UIButton()]
+    let tasteOptions = [[UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(),UIButton()],
+                        [UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton()],
+                        [UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton()],
+    ]
+    let tastingnoteLabel = UILabel()
     let aromaLabel = UILabel()
     let tasteLabel = UILabel()
     let finishLabel = UILabel()
     let wineView = UIView()
     let wineImageView = UIImageView()
     let wineName = UILabel()
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    var receivedColor = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupNavigationBarButton()
+        setupView()
+        setupLabel()
+        setuptastingnoteLabelConstraints()
         setupWineView()
         setupWineViewConstraints()
         setupWineImageView()
@@ -41,7 +52,13 @@ class ChooseTasteViewController: UIViewController {
         setupTasteView()
         setupTasteViewConstraints()
         setupTasteOptions()
-        setupTasteOptionsConstraints()
+        setupAromaLabel()
+        setupTasteLabel()
+        setupFinsihLabel()
+        setupTasteOptions()
+        setupAromaLabelConstraints()
+        setupTasteOptionsLabelConstraints()
+        setupFinishOptionsLabelConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,18 +68,63 @@ class ChooseTasteViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.red // 네비게이션 아이템 색상
     }
     
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = true
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func setupView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        scrollView.backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView)
+            make.height.greaterThanOrEqualTo(1374)
+        }
+    }
+    
+    func setupLabel() { // Label의 기본 속성을 설정하는 함수
+        contentView.addSubview(tastingnoteLabel)
+        tastingnoteLabel.text = "테이스팅 노트"
+        tastingnoteLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
+        tastingnoteLabel.textAlignment = .center
+        tastingnoteLabel.textColor = .black
+    }
+    
+    func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
+        tastingnoteLabel.snp.makeConstraints{ make in
+            make.top.equalTo(contentView.snp.top).offset(46)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+        }
+    }
+    
     func setupWineView() {
-        view.addSubview(wineView)
-        wineView.backgroundColor = UIColor(hex: "FFD73880")
+        contentView.addSubview(wineView)
+        wineView.backgroundColor = UIColor(hex: "FF9F8E80")
         wineView.layer.cornerRadius = 10
+        wineView.layer.borderWidth = 2
+        wineView.layer.borderColor = UIColor(hex: "FA735B")?.cgColor
     }
     
     func setupWineViewConstraints() {
         wineView.snp.makeConstraints{ make in
-            make.top.equalTo(view.snp.top).offset(156)
-            make.centerX.equalTo(view.snp.centerX)
-            make.width.equalTo(361)
-            make.height.equalTo(94)
+            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(47)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.leading.equalTo(tastingnoteLabel.snp.leading)
+            make.height.greaterThanOrEqualTo(94)
         }
     }
     
@@ -100,7 +162,7 @@ class ChooseTasteViewController: UIViewController {
     }
     
     func setupColorView() {
-        view.addSubview(colorView)
+        contentView.addSubview(colorView)
         colorView.backgroundColor = .white
         colorView.layer.borderColor = UIColor(hex: "0000001A")?.cgColor
         colorView.layer.borderWidth = 2
@@ -111,8 +173,8 @@ class ChooseTasteViewController: UIViewController {
         colorView.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(wineView.snp.bottom).offset(10)
-            make.width.equalTo(361)
-            make.height.equalTo(142)
+            make.leading.equalTo(wineView.snp.leading)
+            make.height.greaterThanOrEqualTo(142)
         }
     }
     
@@ -127,14 +189,13 @@ class ChooseTasteViewController: UIViewController {
         colorLabel.snp.makeConstraints{ make in
             make.leading.equalTo(colorView.snp.leading).offset(15)
             make.top.equalTo(colorView.snp.top).offset(18)
-            make.width.equalTo(119)
-            make.height.equalTo(35)
+            make.height.greaterThanOrEqualTo(35)
         }
     }
     
     func setupColorBox() {
         colorView.addSubview(colorBox)
-        colorBox.backgroundColor = UIColor(hex: "FDEFA4")
+        colorBox.backgroundColor = UIColor(hex: "\(receivedColor)")
         colorBox.layer.cornerRadius = 10
     }
     
@@ -147,49 +208,181 @@ class ChooseTasteViewController: UIViewController {
     }
     
     func setupTasteView() {
-        view.addSubview(tasteView)
-        tasteView.backgroundColor = UIColor(hex: "EAEAEA")
+        contentView.addSubview(tasteView)
+        tasteView.backgroundColor = .clear
+        tasteView.layer.borderWidth = 2
+        tasteView.layer.borderColor = UIColor(hex: "F8F8FA")?.cgColor
         tasteView.layer.cornerRadius = 10
-        
     }
 
     func setupTasteViewConstraints() {
         tasteView.snp.makeConstraints{ make in
-            make.top.equalTo(colorView.snp.bottom)
+            make.top.equalTo(colorView.snp.bottom).offset(13)
             make.centerX.equalTo(colorView.snp.centerX)
-            make.width.equalTo(361)
-            make.height.equalTo(404)
+            make.leading.equalTo(colorView.snp.leading)
+            make.height.greaterThanOrEqualTo(837)
         }
     }
     
     func setupAromaLabel() {
+        tasteView.addSubview(aromaLabel)
         aromaLabel.text = "Aroma"
         aromaLabel.textAlignment = .center
         aromaLabel.textColor = .black
+        aromaLabel.font = UIFont(name: "Pretend-SemiBold", size: 20)
     }
     
     func setupTasteLabel() {
+        tasteView.addSubview(tasteLabel)
         tasteLabel.text = "Taste"
         tasteLabel.textAlignment = .center
         tasteLabel.textColor = .black
+        tasteLabel.font = UIFont(name: "Pretend-SemiBold", size: 20)
     }
     
     func setupFinsihLabel() {
+        tasteView.addSubview(finishLabel)
         finishLabel.text = "Finish"
         finishLabel.textAlignment = .center
         finishLabel.textColor = .black
+        finishLabel.font = UIFont(name: "Pretend-SemiBold", size: 20)
     }
     
-    
-    
     func setupTasteOptions() {
-        for i in tasteOptions {
-            
+        let array = ["레드베리", "체리", "딸기", "자두", "우드", "바닐라", "훈제", "민트", "너트", "라임", "자몽", "아카시아", "시가", "흙", "가죽", "직접추가"]
+        for i in 0..<tasteOptions.count {
+            for j in 0..<tasteOptions[i].count {
+                let button = tasteOptions[i][j]
+                tasteView.addSubview(button)
+                
+                var config = UIButton.Configuration.plain()
+                config.title = array[j]
+                
+                config.titleAlignment = .leading
+                config.baseForegroundColor = .black
+                config.background.strokeColor = UIColor(hex: "C3C3C3")
+                config.background.strokeWidth = 2
+                config.background.cornerRadius = 100
+                config.attributedTitle = AttributedString(array[j], attributes: AttributeContainer([
+                    .font: UIFont(name: "Pretendard-SemiBold", size: 16)!
+                ]))
+                
+                // 직접추가 버튼에만 아이콘 추가
+                if array[j] == "직접추가" {
+                    config.image = UIImage(systemName: "plus.circle")
+                    config.imagePadding = 6
+                    config.imagePlacement = .trailing
+                }
+                
+                button.configuration = config
+                button.addTarget(self, action: #selector(tasteOptionsTapped(_:)), for: .touchUpInside)
+                
+                let titleSize = button.titleLabel!.intrinsicContentSize
+                button.snp.makeConstraints { make in
+                    make.width.equalTo(titleSize.width+30)
+                    make.height.greaterThanOrEqualTo(33)
+                }
+            }
         }
     }
     
-    func setupTasteOptionsConstraints() {
+    @objc func tasteOptionsTapped(_ sender : UIButton) {
+        if sender.backgroundColor == UIColor(hex: "FBCBC4") {
+            sender.backgroundColor = .clear
+            sender.layer.borderColor = UIColor(hex: "C3C3C3")?.cgColor
+        } else {
+            sender.backgroundColor = UIColor(hex: "FBCBC4")
+            sender.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
+        }
+        sender.layer.cornerRadius = sender.frame.height / 2 // 버튼 모양에 따라 코너 반경 조정
+        sender.layer.masksToBounds = true
+    }
+    
+    func setupAromaLabelConstraints() {
+        aromaLabel.snp.makeConstraints { make in
+            make.top.equalTo(tasteView.snp.top).offset(25)
+            make.leading.equalTo(tasteView.snp.leading).offset(15)
+        }
+
+        let maxButtonsPerRow = 4
+        let buttonSpacing: CGFloat = 10.0
+        let buttonHeight: CGFloat = 33.0
         
+        for j in 0..<tasteOptions[0].count {
+            let option = tasteOptions[0][j]
+            option.snp.makeConstraints { make in
+                if j % maxButtonsPerRow == 0 {
+                    if j == 0 {
+                        make.top.equalTo(aromaLabel.snp.bottom).offset(10)
+                    } else {
+                        make.top.equalTo(tasteOptions[0][j - maxButtonsPerRow].snp.bottom).offset(buttonSpacing)
+                    }
+                    make.leading.equalTo(aromaLabel.snp.leading)
+                } else {
+                    make.leading.equalTo(tasteOptions[0][j - 1].snp.trailing).offset(buttonSpacing)
+                    make.centerY.equalTo(tasteOptions[0][j - 1].snp.centerY)
+                }
+                make.height.equalTo(buttonHeight)
+            }
+        }
+        
+    }
+    
+    func setupTasteOptionsLabelConstraints() {
+        tasteLabel.snp.makeConstraints { make in
+            make.top.equalTo(tasteOptions[0][12].snp.bottom).offset(50)
+            make.leading.equalTo(aromaLabel.snp.leading)
+        }
+        
+        let maxButtonsPerRow = 4
+        let buttonSpacing: CGFloat = 10.0
+        let buttonHeight: CGFloat = 33.0
+        
+        for j in 0..<tasteOptions[1].count {
+            let option = tasteOptions[1][j]
+            option.snp.makeConstraints { make in
+                if j % maxButtonsPerRow == 0 {
+                    if j == 0 {
+                        make.top.equalTo(tasteLabel.snp.bottom).offset(10)
+                    } else {
+                        make.top.equalTo(tasteOptions[1][j - maxButtonsPerRow].snp.bottom).offset(buttonSpacing)
+                    }
+                    make.leading.equalTo(tasteLabel.snp.leading)
+                } else {
+                    make.leading.equalTo(tasteOptions[1][j - 1].snp.trailing).offset(buttonSpacing)
+                    make.centerY.equalTo(tasteOptions[1][j - 1].snp.centerY)
+                }
+                make.height.equalTo(buttonHeight)
+            }
+        }
+    }
+    
+    func setupFinishOptionsLabelConstraints() {
+        finishLabel.snp.makeConstraints { make in
+            make.top.equalTo(tasteOptions[1][12].snp.bottom).offset(50)
+            make.leading.equalTo(tasteLabel.snp.leading)
+        }
+        let maxButtonsPerRow = 4
+        let buttonSpacing: CGFloat = 10.0
+        let buttonHeight: CGFloat = 33.0
+        
+        for j in 0..<tasteOptions[2].count {
+            let option = tasteOptions[2][j]
+            option.snp.makeConstraints { make in
+                if j % maxButtonsPerRow == 0 {
+                    if j == 0 {
+                        make.top.equalTo(finishLabel.snp.bottom).offset(10)
+                    } else {
+                        make.top.equalTo(tasteOptions[2][j - maxButtonsPerRow].snp.bottom).offset(buttonSpacing)
+                    }
+                    make.leading.equalTo(finishLabel.snp.leading)
+                } else {
+                    make.leading.equalTo(tasteOptions[2][j - 1].snp.trailing).offset(buttonSpacing)
+                    make.centerY.equalTo(tasteOptions[2][j - 1].snp.centerY)
+                }
+                make.height.equalTo(buttonHeight)
+            }
+        }
     }
     
     

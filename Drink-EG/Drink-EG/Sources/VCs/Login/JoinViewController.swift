@@ -252,6 +252,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         pwTextField.returnKeyType = .done
         pwTextField.textContentType = .password
         pwTextField.isSecureTextEntry = true
+        pwTextField.textContentType = .newPassword
         pwTextField.clearButtonMode = .always
     }
     
@@ -268,6 +269,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         pwAgainTextField.returnKeyType = .done
         pwAgainTextField.textContentType = .password
         pwAgainTextField.isSecureTextEntry = true
+        pwAgainTextField.textContentType = .newPassword
         pwAgainTextField.clearButtonMode = .always
     }
     

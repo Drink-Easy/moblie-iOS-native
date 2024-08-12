@@ -31,27 +31,27 @@ class EnterLoginViewController: UIViewController {
     private func setupUI() {
         configureStartButton()
         
-        view.addSubview(startButton)
-        startButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(727)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
         view.addSubview(StartLoginCollectionView)
         StartLoginCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(view)
-            make.leading.equalTo(view)
-            make.width.equalTo(view)
-            make.height.equalTo(687)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            //make.width.equalTo(view)
+            //make.height.equalTo(687)
         }
         
         view.addSubview(pageControl)
         pageControl.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(688)
+            make.top.equalTo(StartLoginCollectionView.snp.bottom)
             make.centerX.equalToSuperview()
+        }
+        
+        view.addSubview(startButton)
+        startButton.snp.makeConstraints { make in
+            make.top.equalTo(pageControl.snp.bottom).offset(32)
+            make.centerX.equalToSuperview()
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
+            make.bottom.equalTo(view).inset(60)
+            make.height.greaterThanOrEqualTo(60)
         }
     }
     
