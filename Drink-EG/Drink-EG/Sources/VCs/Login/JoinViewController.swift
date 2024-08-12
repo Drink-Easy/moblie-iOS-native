@@ -4,17 +4,17 @@
 //
 //  Created by 이현주 on 7/30/24.
 //
+
 import UIKit
 import SnapKit
 import Moya
 
-class JoinViewController: UIViewController {
-    // MARK: - Properties
+class JoinViewController: UIViewController, UITextFieldDelegate {
     let provider = MoyaProvider<LoginAPI>()
-    public var userID: String?
-    public var userPW: String?
-    var joinDTO: JoinNLoginRequest?
-    
+    public var userID : String?
+    public var userPW : String?
+    var joinDTO : JoinNLoginRequest?
+
     let joinButton = UIButton(type: .system)
     let loginButton = UIButton(type: .system)
     
@@ -25,66 +25,46 @@ class JoinViewController: UIViewController {
     let pwTextField = UITextField()
     let pwAgainTextField = UITextField()
     
-    let alreadyLabel: UILabel = {
+    private let alreadyLabel: UILabel = {
         let l = UILabel()
         l.text = "이미 계정이 있으신가요?"
         l.textColor = UIColor(hue: 0, saturation: 0, brightness: 0.71, alpha: 1.0)
         l.font = UIFont.boldSystemFont(ofSize: 14)
+        
         return l
     }()
     
-    let idLabel: UILabel = {
+    private let idLabel: UILabel = {
         let id = UILabel()
         id.text = "아이디"
         id.textColor = UIColor.white
         id.font = UIFont.boldSystemFont(ofSize: 15)
+        
         return id
     }()
     
-    let pwLabel: UILabel = {
+    private let pwLabel: UILabel = {
         let pw = UILabel()
         pw.text = "비밀번호"
         pw.textColor = UIColor.white
         pw.font = UIFont.boldSystemFont(ofSize: 15)
+        
         return pw
     }()
     
-    let pwAgainLabel: UILabel = {
+    private let pwAgainLabel: UILabel = {
         let pwA = UILabel()
         pwA.text = "비밀번호 재입력"
         pwA.textColor = UIColor.white
         pwA.font = UIFont.boldSystemFont(ofSize: 15)
+        
         return pwA
     }()
     
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.navigationController?.isNavigationBarHidden = false
-        self.setupNavigationBar()
-        self.setupUI()
-    }
-    
-    // MARK: - Button Actions
-    @objc private func joinButtonTapped() {
-        assignUserData()
-        callJoinAPI { [weak self] isSuccess in
-            if isSuccess {
-                self?.goToLoginView()
-            } else {
-                print("회원가입 실패")
-                // 실패 시에 대한 추가 처리
-            }
-        }
-    }
-    
-    @objc private func loginButtonTapped() {
-        goToLoginView()
-    }
-    
-    // MARK: - Private Methods
-    private func setupNavigationBar() {
         self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -95,7 +75,7 @@ class JoinViewController: UIViewController {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
-        
+                
         let titleView = UIView()
         titleView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
@@ -104,16 +84,17 @@ class JoinViewController: UIViewController {
         }
         
         self.navigationItem.titleView = titleView
+
+        view.backgroundColor = .black
+        
+        idTextField.delegate = self
+        pwTextField.delegate = self
+        pwAgainTextField.delegate = self
+        
+        setupUI()
     }
     
-    private func goToLoginView() {
-        let loginViewController = LoginViewController()
-        navigationController?.pushViewController(loginViewController, animated: true)
-    }
-}
-
-extension JoinViewController {
-    func setupUI() {
+    private func setupUI() {
         configureJoinButton()
         configureLoginButton()
         configureKakaoButton()
@@ -121,10 +102,7 @@ extension JoinViewController {
         configureIdTextField()
         configurePwTextField()
         configurePwAgainTextField()
-        setupLayout()
-    }
-    
-    private func setupLayout() {
+        
         let loginStackView = UIStackView(arrangedSubviews: [alreadyLabel, loginButton])
         loginStackView.axis = .horizontal
         loginStackView.distribution = .fillProportionally
@@ -142,7 +120,7 @@ extension JoinViewController {
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 13
-        
+                
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(view).offset(594)
@@ -193,7 +171,7 @@ extension JoinViewController {
             make.width.equalTo(327)
             make.height.equalTo(60)
         }
-        
+
         view.addSubview(joinButton)
         joinButton.snp.makeConstraints { make in
             make.top.equalTo(view).offset(484)
@@ -215,6 +193,19 @@ extension JoinViewController {
         joinButton.layer.borderWidth = 0
         joinButton.addTarget(self, action: #selector(joinButtonTapped), for: .touchUpInside)
     }
+    
+    @objc private func joinButtonTapped() {
+        assignUserData()
+        callJoinAPI { [weak self] isSuccess in
+            if isSuccess {
+                self?.goToLoginView()
+            } else {
+                print("회원가입 실패")
+                // 실패 시에 대한 처리 (예: 에러 메시지 표시)
+            }
+        }
+    }
+    
     private func configureLoginButton() {
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -224,14 +215,27 @@ extension JoinViewController {
         loginButton.backgroundColor = .clear
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
+    
+    @objc private func loginButtonTapped() {
+        goToLoginView()
+    }
+    
+    private func goToLoginView() {
+        let loginViewController = LoginViewController()
+        navigationController?.pushViewController(loginViewController, animated: true)
+    }
+    
     private func configureKakaoButton() {
+        //카카오 이미지를 아이콘 포멧 이미지에 맞게 바꿈
         kakaoButton.setImage(UIImage(named: "kakao")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
+
         kakaoButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
         kakaoButton.layer.cornerRadius = 16
         kakaoButton.layer.borderWidth = 2
         kakaoButton.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
+        
     }
+    
     private func configureAppleButton() {
         appleButton.setImage(UIImage(named: "apple")?.withRenderingMode(.alwaysOriginal), for: .normal)
         appleButton.tintColor = .white
@@ -241,6 +245,7 @@ extension JoinViewController {
         appleButton.layer.borderWidth = 2
         appleButton.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
     }
+    
     private func configureIdTextField() {
         idTextField.tag = 1
         idTextField.attributedPlaceholder = NSAttributedString(string: "아이디를 입력해 주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex: "#999999")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .regular)])
@@ -254,6 +259,7 @@ extension JoinViewController {
         idTextField.returnKeyType = .done
         idTextField.clearButtonMode = .always
     }
+    
     private func configurePwTextField() {
         pwTextField.tag = 2
         pwTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해 주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex: "#999999")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .regular)])
@@ -270,6 +276,7 @@ extension JoinViewController {
         pwTextField.textContentType = .newPassword
         pwTextField.clearButtonMode = .always
     }
+    
     private func configurePwAgainTextField() {
         pwAgainTextField.tag = 3
         pwAgainTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호를 한번 더 입력해 주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex: "#999999")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .regular)])
@@ -286,36 +293,8 @@ extension JoinViewController {
         pwAgainTextField.textContentType = .newPassword
         pwAgainTextField.clearButtonMode = .always
     }
-}
-
-extension JoinViewController {
-    func callJoinAPI(completion: @escaping (Bool) -> Void) {
-        guard let data = self.joinDTO else {
-            print("User Data가 없습니다.")
-            completion(false)
-            return
-        }
-        
-        provider.request(.postRegister(data: data)) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    let data = try response.map(APIResponseString.self)
-                    print("User Created: \(data)")
-                    completion(data.isSuccess)
-                } catch {
-                    print("Failed to map data: \(error)")
-                    completion(false)
-                }
-            case .failure(let error):
-                print("Request failed: \(error)")
-                completion(false)
-            }
-        }
-    }
-}
-
-extension JoinViewController: UITextFieldDelegate {
+    
+    // UITextFieldDelegate 메서드
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
         // 텍스트 필드가 선택되었을 때 배경색 변경
@@ -329,7 +308,7 @@ extension JoinViewController: UITextFieldDelegate {
             textField.setPwIcon(UIImage(named: "icon_lock_fill")!)
         }
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         // 텍스트 필드가 선택 해제되었을 때 배경색 원래대로
         textField.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
@@ -341,6 +320,8 @@ extension JoinViewController: UITextFieldDelegate {
         else if textField.tag == 2 || textField.tag == 3 {
             textField.setPwIcon(UIImage(named: "icon_lock")!)
         }
+//        self.userID = self.idTextField.text
+//        self.userPW = self.pwTextField.text
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -353,11 +334,19 @@ extension JoinViewController: UITextFieldDelegate {
             self.pwAgainTextField.becomeFirstResponder()
         } else if textField == self.pwAgainTextField {
             if let rePW = self.pwAgainTextField.text {
-                // 토스트 메세지 띄우기
+//                guard pw == rePW else {
+//                    // toast message 띄우기
+//                }
             }
             self.pwAgainTextField.resignFirstResponder()
         }
         return true
+    }
+    
+    private func assignUserData() {
+        self.userID = self.idTextField.text
+        self.userPW = self.pwTextField.text
+        self.joinDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
     }
     
     // 배경 클릭시 키보드 내림  ==> view 에 터치가 들어오면 에디팅모드를 끝냄.
@@ -365,12 +354,29 @@ extension JoinViewController: UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
-}
-
-extension JoinViewController {
-    func assignUserData() {
-        self.userID = self.idTextField.text
-        self.userPW = self.pwTextField.text
-        self.joinDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
+    
+    private func callJoinAPI(completion: @escaping (Bool) -> Void) {
+        if let data = self.joinDTO {
+            provider.request(.postRegister(data: data)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let data = try response.map(APIResponseString.self)
+                        print("User Created: \(data)")
+                        completion(data.isSuccess)
+                    } catch {
+                        print("Failed to map data: \(error)")
+                        completion(false)
+                    }
+                case .failure(let error):
+                    print("Request failed: \(error)")
+                    completion(false)
+                }
+            }
+        } else {
+            print("User Data가 없습니다.")
+            completion(false)
+        }
     }
 }
+
