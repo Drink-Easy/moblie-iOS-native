@@ -18,6 +18,13 @@
 		165400EF2C69DDFF008A9DBF /* WineNewsBookmarkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400EE2C69DDFF008A9DBF /* WineNewsBookmarkAPI.swift */; };
 		165400F12C69DE22008A9DBF /* CommunityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400F02C69DE22008A9DBF /* CommunityAPI.swift */; };
 		165400F32C69DE2D008A9DBF /* CommentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400F22C69DE2D008A9DBF /* CommentsAPI.swift */; };
+		165400F62C69EF89008A9DBF /* WineNewsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400F52C69EF89008A9DBF /* WineNewsRequest.swift */; };
+		165400F82C69EFBD008A9DBF /* WineNewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400F72C69EFBD008A9DBF /* WineNewsResponse.swift */; };
+		165400FA2C69F15D008A9DBF /* APIResponseWineNewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400F92C69F15D008A9DBF /* APIResponseWineNewsResponse.swift */; };
+		165400FC2C69F1A3008A9DBF /* WineClassRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400FB2C69F1A3008A9DBF /* WineClassRequest.swift */; };
+		165400FE2C69F218008A9DBF /* APIResponseWineClassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400FD2C69F218008A9DBF /* APIResponseWineClassResponse.swift */; };
+		165401002C69F251008A9DBF /* WineClassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400FF2C69F251008A9DBF /* WineClassResponse.swift */; };
+		165401042C69FA13008A9DBF /* APIResponseString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401032C69FA13008A9DBF /* APIResponseString.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -96,6 +103,13 @@
 		165400EE2C69DDFF008A9DBF /* WineNewsBookmarkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineNewsBookmarkAPI.swift; sourceTree = "<group>"; };
 		165400F02C69DE22008A9DBF /* CommunityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityAPI.swift; sourceTree = "<group>"; };
 		165400F22C69DE2D008A9DBF /* CommentsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsAPI.swift; sourceTree = "<group>"; };
+		165400F52C69EF89008A9DBF /* WineNewsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineNewsRequest.swift; sourceTree = "<group>"; };
+		165400F72C69EFBD008A9DBF /* WineNewsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineNewsResponse.swift; sourceTree = "<group>"; };
+		165400F92C69F15D008A9DBF /* APIResponseWineNewsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseWineNewsResponse.swift; sourceTree = "<group>"; };
+		165400FB2C69F1A3008A9DBF /* WineClassRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineClassRequest.swift; sourceTree = "<group>"; };
+		165400FD2C69F218008A9DBF /* APIResponseWineClassResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseWineClassResponse.swift; sourceTree = "<group>"; };
+		165400FF2C69F251008A9DBF /* WineClassResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineClassResponse.swift; sourceTree = "<group>"; };
+		165401032C69FA13008A9DBF /* APIResponseString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseString.swift; sourceTree = "<group>"; };
 		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +188,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		165400F42C69EEE6008A9DBF /* Datas */ = {
+			isa = PBXGroup;
+			children = (
+				165401022C69F305008A9DBF /* WineClass */,
+				165401012C69F297008A9DBF /* WineNews */,
+			);
+			path = Datas;
+			sourceTree = "<group>";
+		};
+		165401012C69F297008A9DBF /* WineNews */ = {
+			isa = PBXGroup;
+			children = (
+				165400F52C69EF89008A9DBF /* WineNewsRequest.swift */,
+				165400F72C69EFBD008A9DBF /* WineNewsResponse.swift */,
+			);
+			path = WineNews;
+			sourceTree = "<group>";
+		};
+		165401022C69F305008A9DBF /* WineClass */ = {
+			isa = PBXGroup;
+			children = (
+				165400FB2C69F1A3008A9DBF /* WineClassRequest.swift */,
+				165400FF2C69F251008A9DBF /* WineClassResponse.swift */,
+			);
+			path = WineClass;
+			sourceTree = "<group>";
+		};
+		165401052C69FA97008A9DBF /* APIResponseModels */ = {
+			isa = PBXGroup;
+			children = (
+				165401032C69FA13008A9DBF /* APIResponseString.swift */,
+				165400F92C69F15D008A9DBF /* APIResponseWineNewsResponse.swift */,
+				165400FD2C69F218008A9DBF /* APIResponseWineClassResponse.swift */,
+			);
+			path = APIResponseModels;
+			sourceTree = "<group>";
+		};
 		16B97CC72C4BEB0900D8B453 = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +312,7 @@
 		16B97CF02C4BF3F100D8B453 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				165400F42C69EEE6008A9DBF /* Datas */,
 				16B97CF42C4BF40900D8B453 /* Cells */,
 				16B97CF32C4BF40100D8B453 /* Protocols */,
 				16B97CF22C4BF3FC00D8B453 /* Models */,
@@ -288,6 +340,7 @@
 		16B97CF22C4BF3FC00D8B453 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				165401052C69FA97008A9DBF /* APIResponseModels */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -509,11 +562,13 @@
 				165400E22C69D6B9008A9DBF /* AuthPlugin.swift in Sources */,
 				1F598F0F2C5CBE70000CE79F /* FirstTasteTestViewController.swift in Sources */,
 				5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */,
+				165400F62C69EF89008A9DBF /* WineNewsRequest.swift in Sources */,
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
 				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
 				5E23147F2C5901BB004E2013 /* (null) in Sources */,
 				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
+				165400F82C69EFBD008A9DBF /* WineNewsResponse.swift in Sources */,
 				165400E92C69DDCB008A9DBF /* WineClassAPI.swift in Sources */,
 				1F598EEA2C5227C5000CE79F /* AdImageCollectionViewCell.swift in Sources */,
 				5E2219542C69D5E7005849FB /* NoteListViewController.swift in Sources */,
@@ -524,9 +579,12 @@
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */,
+				165400FA2C69F15D008A9DBF /* APIResponseWineNewsResponse.swift in Sources */,
 				5E2219582C69D5E7005849FB /* PolygonChartView.swift in Sources */,
 				16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */,
 				5E2219432C69D5D0005849FB /* ModalViewController.swift in Sources */,
+				165400FC2C69F1A3008A9DBF /* WineClassRequest.swift in Sources */,
+				165401002C69F251008A9DBF /* WineClassResponse.swift in Sources */,
 				5E2219482C69D5D0005849FB /* CommunityListViewController.swift in Sources */,
 				5E2219492C69D5D0005849FB /* CommunityMainViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
@@ -539,6 +597,7 @@
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				1F3CEAD62C669FD2002A4BC0 /* WineListCollectionViewCell.swift in Sources */,
+				165401042C69FA13008A9DBF /* APIResponseString.swift in Sources */,
 				165400E12C69D6B9008A9DBF /* BasicAPI.swift in Sources */,
 				165400E52C69DDB6008A9DBF /* LoginAPI.swift in Sources */,
 				5E2219412C69D5D0005849FB /* CustomTableViewCell.swift in Sources */,
@@ -554,6 +613,7 @@
 				1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */,
 				165400ED2C69DDF2008A9DBF /* WineNewsAPI.swift in Sources */,
 				5E2219532C69D5E7005849FB /* NoteInfoViewController.swift in Sources */,
+				165400FE2C69F218008A9DBF /* APIResponseWineClassResponse.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
 				1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */,
 				5E2219452C69D5D0005849FB /* CommunityInfoViewController.swift in Sources */,
