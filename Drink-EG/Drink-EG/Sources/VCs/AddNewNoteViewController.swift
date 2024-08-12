@@ -10,14 +10,14 @@ import UIKit
 import SnapKit
 
 
-class SearchCommunityViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
-    let communityLabel = UILabel()
+    let tastingnoteLabel = UILabel()
     let suggestionTableView = UITableView()
     var suggestion: [String] = []
-    var allSuggestion: [String] = ["Apple", "Banana", "Grape", "Orange", "Watermelon", "Strawberry"]
+    var allSuggestion: [String] = ["19 Crhnes", "John Kosovich", "CNDULE", "Orange", "Watermelon", "Strawberry"]
     
-    lazy var communitySearchBar: UISearchBar = {
+    lazy var wineSearchBar: UISearchBar = {
         let s = UISearchBar()
         s.delegate = self
         //경계선 제거
@@ -33,7 +33,7 @@ class SearchCommunityViewController: UIViewController, UITableViewDataSource, UI
             let placeholderText = "와인 이름 검색"
             let attributes: [NSAttributedString.Key: Any] = [
                 .foregroundColor: UIColor(hue: 0, saturation: 0, brightness: 0.45, alpha: 1.0), // 색상 설정
-                .font: UIFont.boldSystemFont(ofSize: 12) // 크기 설정
+                .font: UIFont(name: "Pretendard-SemiBold", size: 12)! // 크기 설정
             ]
             textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
         }
@@ -46,17 +46,17 @@ class SearchCommunityViewController: UIViewController, UITableViewDataSource, UI
         super.viewDidLoad()
         view.backgroundColor = .white
         setupView()
-        setupCommunityLabel()
-        setupCommunityLabelConstraints()
-        setupCommunitySearchBarConstraints()
+        setupLabel()
+        setuptastingnoteLabelConstraints()
+        setupWineSearchBarConstraints()
         setupSuggestionTableView()
         setupSuggestionTableViewConstraints()
         setupNavigationBarButton()
     }
     
     func setupView() {
-        view.addSubview(communityLabel)
-        view.addSubview(communitySearchBar)
+        view.addSubview(tastingnoteLabel)
+        view.addSubview(wineSearchBar)
         view.addSubview(suggestionTableView)
     }
     
@@ -72,24 +72,24 @@ class SearchCommunityViewController: UIViewController, UITableViewDataSource, UI
         navigationController?.popViewController(animated: true)
     }
     
-    func setupCommunityLabel() { // Label의 기본 속성을 설정하는 함수
-        communityLabel.text = "와인 모임"
-        communityLabel.font = .boldSystemFont(ofSize: 30)
-        communityLabel.textAlignment = .center
-        communityLabel.textColor = .black
+    func setupLabel() { // Label의 기본 속성을 설정하는 함수
+        tastingnoteLabel.text = "테이스팅 노트"
+        tastingnoteLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
+        tastingnoteLabel.textAlignment = .center
+        tastingnoteLabel.textColor = .black
     }
     
-    func setupCommunityLabelConstraints() { // Label의 제약 조건을 설정하는 함수
-        communityLabel.snp.makeConstraints{ make in
+    func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
+        tastingnoteLabel.snp.makeConstraints{ make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
         }
     }
     
-    func setupCommunitySearchBarConstraints() {
-        communitySearchBar.snp.makeConstraints { make in
-            make.top.equalTo(communityLabel.snp.bottom).offset(46)
-            make.leading.equalTo(communityLabel.snp.leading)
+    func setupWineSearchBarConstraints() {
+        wineSearchBar.snp.makeConstraints { make in
+            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(46)
+            make.leading.equalTo(tastingnoteLabel.snp.leading)
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
             make.height.equalTo(34)
         }
@@ -99,14 +99,15 @@ class SearchCommunityViewController: UIViewController, UITableViewDataSource, UI
     func setupSuggestionTableView() {
         suggestionTableView.dataSource = self
         suggestionTableView.delegate = self
-        suggestionTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        suggestionTableView.register(CustomSuggestionCell.self, forCellReuseIdentifier: "cell")
     }
     
     func setupSuggestionTableViewConstraints() {
         suggestionTableView.snp.makeConstraints{ make in
-            make.top.equalTo(communitySearchBar.snp.bottom).offset(0)
-            make.width.equalTo(communitySearchBar.snp.width)
-            make.height.equalTo(200)
+            make.top.equalTo(wineSearchBar.snp.bottom).offset(35)
+            make.leading.equalTo(wineSearchBar.snp.leading).offset(13)
+            make.trailing.equalTo(wineSearchBar.snp.trailing).offset(-13)
+            make.height.greaterThanOrEqualTo(282)
         }
     }
     
@@ -128,15 +129,29 @@ class SearchCommunityViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = suggestion[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomSuggestionCell
+        let imageName = "SampleImage"
+        let image = UIImage(named: imageName)!
+        cell.backgroundColor = UIColor(hex: "E5E5E5")
+        cell.layer.cornerRadius = 10
+        cell.configure(image: image, text: suggestion[indexPath.row], isSelected: false)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //return 94
+        let screenHeight = UIScreen.main.bounds.height
+        let cellHeight = screenHeight * 0.11
+        
+        return cellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedSuggestion = suggestion[indexPath.row]
-        communitySearchBar.text = selectedSuggestion
+        wineSearchBar.text = selectedSuggestion
         suggestion = []
         suggestionTableView.reloadData()
+        let nextVC = WriteNoteViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 }

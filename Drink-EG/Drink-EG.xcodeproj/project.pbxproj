@@ -19,19 +19,10 @@
 		16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D032C4C0CD700D8B453 /* WineInfoViewController.swift */; };
 		16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D052C4C0CF800D8B453 /* WineStoreListViewController.swift */; };
 		16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D072C4C0D8100D8B453 /* WineOrderViewController.swift */; };
-		16B97D0A2C4C0D8F00D8B453 /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D092C4C0D8F00D8B453 /* NoteListViewController.swift */; };
-		16B97D0C2C4C0DAA00D8B453 /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D0B2C4C0DAA00D8B453 /* AddNewNoteViewController.swift */; };
-		16B97D0E2C4C0E6300D8B453 /* WriteNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D0D2C4C0E6300D8B453 /* WriteNoteViewController.swift */; };
-		16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D0F2C4C0E9000D8B453 /* NoteInfoViewController.swift */; };
 		16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D112C4C0F2400D8B453 /* WineClassMainViewController.swift */; };
 		16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */; };
 		16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */; };
 		16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */; };
-		16B97D1A2C4C0F8200D8B453 /* CommunityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D192C4C0F8200D8B453 /* CommunityMainViewController.swift */; };
-		16B97D1E2C4C0FCA00D8B453 /* CommunityInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D1D2C4C0FCA00D8B453 /* CommunityInfoViewController.swift */; };
-		16B97D202C4C0FDB00D8B453 /* SearchCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D1F2C4C0FDB00D8B453 /* SearchCommunityViewController.swift */; };
-		16B97D222C4C0FEB00D8B453 /* CommunityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */; };
-		16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */; };
 		16B97D272C4CE5A100D8B453 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D262C4CE5A100D8B453 /* Alamofire */; };
 		16B97D2C2C4CE5CE00D8B453 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D2B2C4CE5CE00D8B453 /* Toast */; };
 		16B97D2F2C4CE61100D8B453 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 16B97D2E2C4CE61100D8B453 /* Moya */; };
@@ -52,8 +43,34 @@
 		1F598F132C5CBE84000CE79F /* ThirdTasteTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F122C5CBE84000CE79F /* ThirdTasteTestViewController.swift */; };
 		1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */; };
 		1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */; };
-		5E2218B12C5CA34B005849FB /* PolygonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B02C5CA34B005849FB /* PolygonChartView.swift */; };
-		5E2218B32C5DEC0D005849FB /* ChooseTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */; };
+		5E22192D2C69D592005849FB /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219242C69D592005849FB /* Pretendard-Bold.otf */; };
+		5E22192E2C69D592005849FB /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219252C69D592005849FB /* Pretendard-Black.otf */; };
+		5E22192F2C69D592005849FB /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219262C69D592005849FB /* Pretendard-Regular.otf */; };
+		5E2219302C69D592005849FB /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219272C69D592005849FB /* Pretendard-SemiBold.otf */; };
+		5E2219312C69D592005849FB /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219282C69D592005849FB /* Pretendard-Light.otf */; };
+		5E2219322C69D592005849FB /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219292C69D592005849FB /* Pretendard-Medium.otf */; };
+		5E2219332C69D592005849FB /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E22192A2C69D592005849FB /* Pretendard-ExtraBold.otf */; };
+		5E2219342C69D592005849FB /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E22192B2C69D592005849FB /* Pretendard-Thin.otf */; };
+		5E2219352C69D592005849FB /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E22192C2C69D592005849FB /* Pretendard-ExtraLight.otf */; };
+		5E2219372C69D5AE005849FB /* UIColorToHexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219362C69D5AE005849FB /* UIColorToHexCode.swift */; };
+		5E2219412C69D5D0005849FB /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219382C69D5D0005849FB /* CustomTableViewCell.swift */; };
+		5E2219422C69D5D0005849FB /* CustomCommentsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219392C69D5D0005849FB /* CustomCommentsCollectionView.swift */; };
+		5E2219432C69D5D0005849FB /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22193A2C69D5D0005849FB /* ModalViewController.swift */; };
+		5E2219442C69D5D0005849FB /* CreateNewCommViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22193B2C69D5D0005849FB /* CreateNewCommViewController.swift */; };
+		5E2219452C69D5D0005849FB /* CommunityInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22193C2C69D5D0005849FB /* CommunityInfoViewController.swift */; };
+		5E2219462C69D5D0005849FB /* SearchCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22193D2C69D5D0005849FB /* SearchCommunityViewController.swift */; };
+		5E2219472C69D5D0005849FB /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22193E2C69D5D0005849FB /* CustomCollectionViewCell.swift */; };
+		5E2219482C69D5D0005849FB /* CommunityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22193F2C69D5D0005849FB /* CommunityListViewController.swift */; };
+		5E2219492C69D5D0005849FB /* CommunityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */; };
+		5E2219532C69D5E7005849FB /* NoteInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */; };
+		5E2219542C69D5E7005849FB /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194B2C69D5E7005849FB /* NoteListViewController.swift */; };
+		5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194C2C69D5E7005849FB /* CustomSlider.swift */; };
+		5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */; };
+		5E2219572C69D5E7005849FB /* Hexcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194E2C69D5E7005849FB /* Hexcode.swift */; };
+		5E2219582C69D5E7005849FB /* PolygonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194F2C69D5E7005849FB /* PolygonChartView.swift */; };
+		5E2219592C69D5E7005849FB /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */; };
+		5E22195A2C69D5E7005849FB /* CustomSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */; };
+		5E22195B2C69D5E7005849FB /* WriteNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -72,19 +89,10 @@
 		16B97D032C4C0CD700D8B453 /* WineInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineInfoViewController.swift; sourceTree = "<group>"; };
 		16B97D052C4C0CF800D8B453 /* WineStoreListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineStoreListViewController.swift; sourceTree = "<group>"; };
 		16B97D072C4C0D8100D8B453 /* WineOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineOrderViewController.swift; sourceTree = "<group>"; };
-		16B97D092C4C0D8F00D8B453 /* NoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
-		16B97D0B2C4C0DAA00D8B453 /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
-		16B97D0D2C4C0E6300D8B453 /* WriteNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteNoteViewController.swift; sourceTree = "<group>"; };
-		16B97D0F2C4C0E9000D8B453 /* NoteInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInfoViewController.swift; sourceTree = "<group>"; };
 		16B97D112C4C0F2400D8B453 /* WineClassMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineClassMainViewController.swift; sourceTree = "<group>"; };
 		16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassVideoViewController.swift; sourceTree = "<group>"; };
 		16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingVideoViewController.swift; sourceTree = "<group>"; };
 		16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoViewController.swift; sourceTree = "<group>"; };
-		16B97D192C4C0F8200D8B453 /* CommunityMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainViewController.swift; sourceTree = "<group>"; };
-		16B97D1D2C4C0FCA00D8B453 /* CommunityInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityInfoViewController.swift; sourceTree = "<group>"; };
-		16B97D1F2C4C0FDB00D8B453 /* SearchCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCommunityViewController.swift; sourceTree = "<group>"; };
-		16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityListViewController.swift; sourceTree = "<group>"; };
-		16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCommViewController.swift; sourceTree = "<group>"; };
 		1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F3CEAD52C669FD2002A4BC0 /* WineListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F598EE92C5227C5000CE79F /* AdImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdImageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -100,8 +108,34 @@
 		1F598F122C5CBE84000CE79F /* ThirdTasteTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdTasteTestViewController.swift; sourceTree = "<group>"; };
 		1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingMainController.swift; path = "Drink-EG/Sources/VCs/Main/SettingMainController.swift"; sourceTree = SOURCE_ROOT; };
-		5E2218B02C5CA34B005849FB /* PolygonChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonChartView.swift; sourceTree = "<group>"; };
-		5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTasteViewController.swift; sourceTree = "<group>"; };
+		5E2219242C69D592005849FB /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		5E2219252C69D592005849FB /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		5E2219262C69D592005849FB /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		5E2219272C69D592005849FB /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		5E2219282C69D592005849FB /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		5E2219292C69D592005849FB /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		5E22192A2C69D592005849FB /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		5E22192B2C69D592005849FB /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		5E22192C2C69D592005849FB /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		5E2219362C69D5AE005849FB /* UIColorToHexCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorToHexCode.swift; sourceTree = "<group>"; };
+		5E2219382C69D5D0005849FB /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		5E2219392C69D5D0005849FB /* CustomCommentsCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCommentsCollectionView.swift; sourceTree = "<group>"; };
+		5E22193A2C69D5D0005849FB /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		5E22193B2C69D5D0005849FB /* CreateNewCommViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNewCommViewController.swift; sourceTree = "<group>"; };
+		5E22193C2C69D5D0005849FB /* CommunityInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityInfoViewController.swift; sourceTree = "<group>"; };
+		5E22193D2C69D5D0005849FB /* SearchCommunityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCommunityViewController.swift; sourceTree = "<group>"; };
+		5E22193E2C69D5D0005849FB /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		5E22193F2C69D5D0005849FB /* CommunityListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityListViewController.swift; sourceTree = "<group>"; };
+		5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityMainViewController.swift; sourceTree = "<group>"; };
+		5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteInfoViewController.swift; sourceTree = "<group>"; };
+		5E22194B2C69D5E7005849FB /* NoteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
+		5E22194C2C69D5E7005849FB /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseTasteViewController.swift; sourceTree = "<group>"; };
+		5E22194E2C69D5E7005849FB /* Hexcode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hexcode.swift; sourceTree = "<group>"; };
+		5E22194F2C69D5E7005849FB /* PolygonChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonChartView.swift; sourceTree = "<group>"; };
+		5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
+		5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSuggestionCell.swift; sourceTree = "<group>"; };
+		5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteNoteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				16752F9C2C5A7FB90001907D /* HexCode.swift */,
+				5E2219362C69D5AE005849FB /* UIColorToHexCode.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -172,6 +207,15 @@
 		16B97CEE2C4BF3D200D8B453 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				5E2219252C69D592005849FB /* Pretendard-Black.otf */,
+				5E2219242C69D592005849FB /* Pretendard-Bold.otf */,
+				5E22192A2C69D592005849FB /* Pretendard-ExtraBold.otf */,
+				5E22192C2C69D592005849FB /* Pretendard-ExtraLight.otf */,
+				5E2219282C69D592005849FB /* Pretendard-Light.otf */,
+				5E2219292C69D592005849FB /* Pretendard-Medium.otf */,
+				5E2219262C69D592005849FB /* Pretendard-Regular.otf */,
+				5E2219272C69D592005849FB /* Pretendard-SemiBold.otf */,
+				5E22192B2C69D592005849FB /* Pretendard-Thin.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -203,6 +247,15 @@
 				16B97CFC2C4BFBD300D8B453 /* Main */,
 				16B97CF62C4BFAFD00D8B453 /* Search */,
 				16B97CF72C4BFB0900D8B453 /* TastingNote */,
+				5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */,
+				5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */,
+				5E22194C2C69D5E7005849FB /* CustomSlider.swift */,
+				5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */,
+				5E22194E2C69D5E7005849FB /* Hexcode.swift */,
+				5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */,
+				5E22194B2C69D5E7005849FB /* NoteListViewController.swift */,
+				5E22194F2C69D5E7005849FB /* PolygonChartView.swift */,
+				5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */,
 				16B97CF82C4BFB2400D8B453 /* WineClass */,
 				16B97CF92C4BFB4700D8B453 /* Community */,
 				16B97CFB2C4BFB5E00D8B453 /* Settings */,
@@ -253,12 +306,6 @@
 		16B97CF72C4BFB0900D8B453 /* TastingNote */ = {
 			isa = PBXGroup;
 			children = (
-				16B97D092C4C0D8F00D8B453 /* NoteListViewController.swift */,
-				16B97D0B2C4C0DAA00D8B453 /* AddNewNoteViewController.swift */,
-				16B97D0D2C4C0E6300D8B453 /* WriteNoteViewController.swift */,
-				16B97D0F2C4C0E9000D8B453 /* NoteInfoViewController.swift */,
-				5E2218B02C5CA34B005849FB /* PolygonChartView.swift */,
-				5E2218B22C5DEC0D005849FB /* ChooseTasteViewController.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
@@ -277,11 +324,15 @@
 		16B97CF92C4BFB4700D8B453 /* Community */ = {
 			isa = PBXGroup;
 			children = (
-				16B97D192C4C0F8200D8B453 /* CommunityMainViewController.swift */,
-				16B97D1D2C4C0FCA00D8B453 /* CommunityInfoViewController.swift */,
-				16B97D1F2C4C0FDB00D8B453 /* SearchCommunityViewController.swift */,
-				16B97D212C4C0FEB00D8B453 /* CommunityListViewController.swift */,
-				16B97D232C4C0FFE00D8B453 /* CreateNewCommViewController.swift */,
+				5E22193C2C69D5D0005849FB /* CommunityInfoViewController.swift */,
+				5E22193F2C69D5D0005849FB /* CommunityListViewController.swift */,
+				5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */,
+				5E22193B2C69D5D0005849FB /* CreateNewCommViewController.swift */,
+				5E22193E2C69D5D0005849FB /* CustomCollectionViewCell.swift */,
+				5E2219392C69D5D0005849FB /* CustomCommentsCollectionView.swift */,
+				5E2219382C69D5D0005849FB /* CustomTableViewCell.swift */,
+				5E22193A2C69D5D0005849FB /* ModalViewController.swift */,
+				5E22193D2C69D5D0005849FB /* SearchCommunityViewController.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -403,7 +454,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				16B97CDD2C4BEB0A00D8B453 /* Assets.xcassets in Resources */,
+				5E2219342C69D592005849FB /* Pretendard-Thin.otf in Resources */,
+				5E22192D2C69D592005849FB /* Pretendard-Bold.otf in Resources */,
+				5E2219332C69D592005849FB /* Pretendard-ExtraBold.otf in Resources */,
+				5E22192F2C69D592005849FB /* Pretendard-Regular.otf in Resources */,
+				5E2219322C69D592005849FB /* Pretendard-Medium.otf in Resources */,
+				5E2219302C69D592005849FB /* Pretendard-SemiBold.otf in Resources */,
+				5E2219312C69D592005849FB /* Pretendard-Light.otf in Resources */,
+				5E22192E2C69D592005849FB /* Pretendard-Black.otf in Resources */,
 				16B97CE02C4BEB0A00D8B453 /* Base in Resources */,
+				5E2219352C69D592005849FB /* Pretendard-ExtraLight.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,47 +474,55 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16B97D222C4C0FEB00D8B453 /* CommunityListViewController.swift in Sources */,
 				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
 				1F598F132C5CBE84000CE79F /* ThirdTasteTestViewController.swift in Sources */,
 				1F598F0F2C5CBE70000CE79F /* FirstTasteTestViewController.swift in Sources */,
+				5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */,
+				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
 				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
 				5E23147F2C5901BB004E2013 /* (null) in Sources */,
 				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
 				1F598EEA2C5227C5000CE79F /* AdImageCollectionViewCell.swift in Sources */,
-				16B97D1A2C4C0F8200D8B453 /* CommunityMainViewController.swift in Sources */,
+				5E2219542C69D5E7005849FB /* NoteListViewController.swift in Sources */,
 				1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */,
 				1F598EFD2C58150E000CE79F /* JoinViewController.swift in Sources */,
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
-				5E2218B12C5CA34B005849FB /* PolygonChartView.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
-				16B97D0C2C4C0DAA00D8B453 /* AddNewNoteViewController.swift in Sources */,
 				1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */,
+				5E2219582C69D5E7005849FB /* PolygonChartView.swift in Sources */,
 				16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */,
-				16B97D0E2C4C0E6300D8B453 /* WriteNoteViewController.swift in Sources */,
+				5E2219432C69D5D0005849FB /* ModalViewController.swift in Sources */,
+				5E2219482C69D5D0005849FB /* CommunityListViewController.swift in Sources */,
+				5E2219492C69D5D0005849FB /* CommunityMainViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
 				1F598F112C5CBE7A000CE79F /* SecondTasteTestViewController.swift in Sources */,
-				5E2218B32C5DEC0D005849FB /* ChooseTasteViewController.swift in Sources */,
+				5E2219592C69D5E7005849FB /* AddNewNoteViewController.swift in Sources */,
+				5E22195A2C69D5E7005849FB /* CustomSuggestionCell.swift in Sources */,
+				5E2219462C69D5D0005849FB /* SearchCommunityViewController.swift in Sources */,
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
-				16B97D102C4C0E9000D8B453 /* NoteInfoViewController.swift in Sources */,
-				16B97D242C4C0FFE00D8B453 /* CreateNewCommViewController.swift in Sources */,
 				1F3CEAD62C669FD2002A4BC0 /* WineListCollectionViewCell.swift in Sources */,
+				5E2219412C69D5D0005849FB /* CustomTableViewCell.swift in Sources */,
 				1F598F012C581573000CE79F /* LoginViewController.swift in Sources */,
+				5E2219422C69D5D0005849FB /* CustomCommentsCollectionView.swift in Sources */,
 				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
-				16B97D0A2C4C0D8F00D8B453 /* NoteListViewController.swift in Sources */,
 				1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */,
+				5E2219372C69D5AE005849FB /* UIColorToHexCode.swift in Sources */,
 				16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */,
-				16B97D1E2C4C0FCA00D8B453 /* CommunityInfoViewController.swift in Sources */,
+				5E2219572C69D5E7005849FB /* Hexcode.swift in Sources */,
 				1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */,
-				16B97D202C4C0FDB00D8B453 /* SearchCommunityViewController.swift in Sources */,
 				16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */,
 				1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */,
+				5E2219532C69D5E7005849FB /* NoteInfoViewController.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
 				1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */,
+				5E2219452C69D5D0005849FB /* CommunityInfoViewController.swift in Sources */,
 				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
+				5E2219442C69D5D0005849FB /* CreateNewCommViewController.swift in Sources */,
+				5E2219472C69D5D0005849FB /* CustomCollectionViewCell.swift in Sources */,
+				5E22195B2C69D5E7005849FB /* WriteNoteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
