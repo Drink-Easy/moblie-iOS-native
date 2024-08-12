@@ -8,16 +8,6 @@
 import Foundation
 import Moya
 
-struct JoinNLoginRequest : Codable {
-    let username : String
-    let password : String
-    
-    init(username: String, password: String) {
-        self.username = username
-        self.password = password
-    }
-}
-
 enum LoginAPI {
     case postLogin(data: JoinNLoginRequest)
     case postRegister(data : JoinNLoginRequest)

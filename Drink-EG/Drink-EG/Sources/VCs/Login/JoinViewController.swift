@@ -96,7 +96,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     
     private func setupUI() {
         configureJoinButton()
-        configureJoinButton()
+        configureLoginButton()
         configureKakaoButton()
         configureAppleButton()
         configureIdTextField()
@@ -172,7 +172,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             make.height.equalTo(60)
         }
 
-        
         view.addSubview(joinButton)
         joinButton.snp.makeConstraints { make in
             make.top.equalTo(view).offset(484)
@@ -196,8 +195,11 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func joinButtonTapped() {
-        callJoinAPI()
-        
+        assignUserData()
+        var goToLogin = callJoinAPI()
+        if let f = goToLogin?.isSuccess {
+            goToLoginView()
+        }
     }
     
     private func configureLoginButton() {
@@ -211,6 +213,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func loginButtonTapped() {
+        goToLoginView()
+    }
+    
+    private func goToLoginView() {
         let loginViewController = LoginViewController()
         navigationController?.pushViewController(loginViewController, animated: true)
     }
@@ -310,30 +316,33 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         else if textField.tag == 2 || textField.tag == 3 {
             textField.setPwIcon(UIImage(named: "icon_lock")!)
         }
-        
+//        self.userID = self.idTextField.text
+//        self.userPW = self.pwTextField.text
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        var pw : String?
         if textField == self.idTextField {
             if let id = self.idTextField.text {
                 self.userID = id
             }
             self.pwTextField.becomeFirstResponder()
         } else if textField == self.pwTextField {
-            pw = self.pwTextField.text
             self.pwAgainTextField.becomeFirstResponder()
         } else if textField == self.pwAgainTextField {
             if let rePW = self.pwAgainTextField.text {
 //                guard pw == rePW else {
 //                    // toast message 띄우기
 //                }
-                self.userPW = pw
             }
             self.pwAgainTextField.resignFirstResponder()
         }
-        joinDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
         return true
+    }
+    
+    private func assignUserData() {
+        self.userID = self.idTextField.text
+        self.userPW = self.pwTextField.text
+        self.joinDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
     }
     
     // 배경 클릭시 키보드 내림  ==> view 에 터치가 들어오면 에디팅모드를 끝냄.
@@ -342,20 +351,29 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
     
-    private func callJoinAPI() {
-        provider.request(.postRegister(data: joinDTO!)) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    let data = try response.mapJSON()
-                    print("User Created: \(data)")
-                } catch {
-                    print("Failed to map data: \(error)")
+    private func callJoinAPI() -> APIResponseString? {
+        var responseData : APIResponseString?
+//        var isSuccess : Bool = false
+        if let data = self.joinDTO {
+            provider.request(.postRegister(data: data)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let data = try response.map(APIResponseString.self)
+                        print("User Created: \(data)")
+                        responseData = data as APIResponseString
+//                        isSuccess = data.isSuccess
+                    } catch {
+                        print("Failed to map data: \(error)")
+                    }
+                case .failure(let error):
+                    print("Request failed: \(error)")
                 }
-            case .failure(let error):
-                print("Request failed: \(error)")
             }
+        } else {
+            print("User Data가 없습니다.")
         }
+        return responseData
     }
 }
 
