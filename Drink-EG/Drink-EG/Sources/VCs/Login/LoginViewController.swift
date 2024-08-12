@@ -210,7 +210,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func loginButtonTapped() {
         assignUserData()
-        callLoginAPI()
+        callLoginAPI { [weak self] isSuccess in
+            if isSuccess {
+                self?.goToNextView()
+            } else {
+                print("로그인 실패")
+                // 실패 시에 대한 처리 (예: 에러 메시지 표시)
+            }
+        }
+    }
+    
+    private func goToNextView() {
+        let enterTasteTestViewController = EnterTasteTestViewController()
+        navigationController?.pushViewController(enterTasteTestViewController, animated: true)
     }
     
     private func configureJoinButton() {
@@ -361,29 +373,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
     
-    private func callLoginAPI() -> APIResponseString? {
-        var responseData : APIResponseString?
-//        var isSuccess : Bool = false
+    private func callLoginAPI(completion: @escaping (Bool) -> Void) {
         if let data = self.loginDTO {
             provider.request(.postLogin(data: data)) { result in
                 switch result {
                 case .success(let response):
-                    do {
-                        let data = try response.map(APIResponseString.self)
-                        print("Login Success: \(data)")
-                        responseData = data as APIResponseString
-//                        isSuccess = data.isSuccess
-                    } catch {
-                        print("Failed to map data: \(error)")
+                    if let httpResponse = response.response,
+                        let setCookie = httpResponse.allHeaderFields["Set-Cookie"] as? String {
+                        let cookies = HTTPCookie.cookies(withResponseHeaderFields: ["Set-Cookie": setCookie], for: httpResponse.url!)
+                            
+                        for cookie in cookies {
+                            print("Cookie Name: \(cookie.name), Value: \(cookie.value)")
+                            HTTPCookieStorage.shared.setCookie(cookie)
+                        }
                     }
+                    completion(true)
                 case .failure(let error):
                     print("Request failed: \(error)")
+                    completion(false)
                 }
             }
-        } else {
-            print("User Data가 없습니다.")
         }
-        return responseData
     }
 }
 
