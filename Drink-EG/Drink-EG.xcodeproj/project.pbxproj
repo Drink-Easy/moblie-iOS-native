@@ -69,7 +69,6 @@
 		5E2219542C69D5E7005849FB /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194B2C69D5E7005849FB /* NoteListViewController.swift */; };
 		5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194C2C69D5E7005849FB /* CustomSlider.swift */; };
 		5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */; };
-		5E2219572C69D5E7005849FB /* Hexcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194E2C69D5E7005849FB /* Hexcode.swift */; };
 		5E2219582C69D5E7005849FB /* PolygonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194F2C69D5E7005849FB /* PolygonChartView.swift */; };
 		5E2219592C69D5E7005849FB /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */; };
 		5E22195A2C69D5E7005849FB /* CustomSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */; };
@@ -133,15 +132,14 @@
 		5E22193E2C69D5D0005849FB /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		5E22193F2C69D5D0005849FB /* CommunityListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityListViewController.swift; sourceTree = "<group>"; };
 		5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityMainViewController.swift; sourceTree = "<group>"; };
-		5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteInfoViewController.swift; sourceTree = "<group>"; };
-		5E22194B2C69D5E7005849FB /* NoteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
+		5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteInfoViewController.swift; path = ../NoteInfoViewController.swift; sourceTree = "<group>"; };
+		5E22194B2C69D5E7005849FB /* NoteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteListViewController.swift; path = ../NoteListViewController.swift; sourceTree = "<group>"; };
 		5E22194C2C69D5E7005849FB /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseTasteViewController.swift; sourceTree = "<group>"; };
-		5E22194E2C69D5E7005849FB /* Hexcode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hexcode.swift; sourceTree = "<group>"; };
-		5E22194F2C69D5E7005849FB /* PolygonChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonChartView.swift; sourceTree = "<group>"; };
-		5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
+		5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChooseTasteViewController.swift; path = ../ChooseTasteViewController.swift; sourceTree = "<group>"; };
+		5E22194F2C69D5E7005849FB /* PolygonChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PolygonChartView.swift; path = ../PolygonChartView.swift; sourceTree = "<group>"; };
+		5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddNewNoteViewController.swift; path = ../AddNewNoteViewController.swift; sourceTree = "<group>"; };
 		5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSuggestionCell.swift; sourceTree = "<group>"; };
-		5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteNoteViewController.swift; sourceTree = "<group>"; };
+		5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WriteNoteViewController.swift; path = ../WriteNoteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,15 +254,6 @@
 				16B97CFC2C4BFBD300D8B453 /* Main */,
 				16B97CF62C4BFAFD00D8B453 /* Search */,
 				16B97CF72C4BFB0900D8B453 /* TastingNote */,
-				5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */,
-				5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */,
-				5E22194C2C69D5E7005849FB /* CustomSlider.swift */,
-				5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */,
-				5E22194E2C69D5E7005849FB /* Hexcode.swift */,
-				5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */,
-				5E22194B2C69D5E7005849FB /* NoteListViewController.swift */,
-				5E22194F2C69D5E7005849FB /* PolygonChartView.swift */,
-				5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */,
 				16B97CF82C4BFB2400D8B453 /* WineClass */,
 				16B97CF92C4BFB4700D8B453 /* Community */,
 				16B97CFB2C4BFB5E00D8B453 /* Settings */,
@@ -315,6 +304,14 @@
 		16B97CF72C4BFB0900D8B453 /* TastingNote */ = {
 			isa = PBXGroup;
 			children = (
+				5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */,
+				5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */,
+				5E22194C2C69D5E7005849FB /* CustomSlider.swift */,
+				5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */,
+				5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */,
+				5E22194B2C69D5E7005849FB /* NoteListViewController.swift */,
+				5E22194F2C69D5E7005849FB /* PolygonChartView.swift */,
+				5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
@@ -522,7 +519,6 @@
 				1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */,
 				5E2219372C69D5AE005849FB /* UIColorToHexCode.swift in Sources */,
 				16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */,
-				5E2219572C69D5E7005849FB /* Hexcode.swift in Sources */,
 				1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */,
 				16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */,
 				1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */,
