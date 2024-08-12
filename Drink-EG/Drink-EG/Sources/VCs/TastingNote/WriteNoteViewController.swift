@@ -241,22 +241,4 @@ class WriteNoteViewController: UIViewController {
         polygonVC.dataList = dataList
         navigationController?.pushViewController(polygonVC, animated: true)
     }
-    
-//    @objc func buttonTapped(_ sender: UIButton) {
-//        let tag = sender.tag % 5 // 각 줄에서 몇 번째 버튼인지 계산
-//        let row = sender.tag / 5 // 몇 번째 줄인지 계산
-//        print("Row: \(row + 1), Button: \((tag + 1)*20)")
-//        
-//        for button in buttonGroups[row] {
-//            button.backgroundColor = .lightGray
-//        }
-//        sender.backgroundColor = UIColor(hex: "FF9F8E80")
-//        
-//        let selectedValue = (tag + 1) * 20
-//        let characteristic = categories[row]
-//        selectedValues[CharacteristicType(rawValue: characteristic)!] = selectedValue
-//        
-//        checkIfAllSelected()
-//    }
-
 }
