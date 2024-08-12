@@ -360,7 +360,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                 case .success(let response):
                     do {
                         let data = try response.map(APIResponseString.self)
-                        print("User Created: \(data)")
+                        print("User Login: \(data)")
                         responseData = data as APIResponseString
 //                        isSuccess = data.isSuccess
                     } catch {

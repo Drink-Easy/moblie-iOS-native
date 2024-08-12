@@ -204,6 +204,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
         loginButton.layer.cornerRadius = 16
         loginButton.layer.borderWidth = 0
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func loginButtonTapped() {
+        callLoginAPI()
     }
     
     private func configureJoinButton() {
@@ -328,7 +333,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        var pw : String?
         if textField == self.idTextField {
             if let id = self.idTextField.text {
                 self.userID = id
@@ -336,12 +340,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.pwTextField.becomeFirstResponder()
         } else if textField == self.pwTextField {
             if let pw = self.pwTextField.text {
-                self.userID = pw
+                self.userPW = pw
             }
             self.pwTextField.resignFirstResponder()
         }
-        loginDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
         return true
+    }
+    
+    private func assignUserData() {
+        self.userID = self.idTextField.text
+        self.userPW = self.pwTextField.text
+        self.loginDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
     }
     
     // 배경 클릭시 키보드 내림  ==> view 에 터치가 들어오면 에디팅모드를 끝냄.
@@ -350,20 +359,29 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
     
-    private func callLoginAPI() {
-        provider.request(.postRegister(data: loginDTO!)) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    let data = try response.mapJSON()
-                    print("User Created: \(data)")
-                } catch {
-                    print("Failed to map data: \(error)")
+    private func callLoginAPI() -> APIResponseString? {
+        var responseData : APIResponseString?
+//        var isSuccess : Bool = false
+        if let data = self.loginDTO {
+            provider.request(.postLogin(data: data)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let data = try response.map(APIResponseString.self)
+                        print("User Created: \(data)")
+                        responseData = data as APIResponseString
+//                        isSuccess = data.isSuccess
+                    } catch {
+                        print("Failed to map data: \(error)")
+                    }
+                case .failure(let error):
+                    print("Request failed: \(error)")
                 }
-            case .failure(let error):
-                print("Request failed: \(error)")
             }
+        } else {
+            print("User Data가 없습니다.")
         }
+        return responseData
     }
 }
 
