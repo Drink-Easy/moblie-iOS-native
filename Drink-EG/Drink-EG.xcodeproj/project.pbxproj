@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		165400E12C69D6B9008A9DBF /* BasicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400DE2C69D6B9008A9DBF /* BasicAPI.swift */; };
+		165400E22C69D6B9008A9DBF /* AuthPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400DF2C69D6B9008A9DBF /* AuthPlugin.swift */; };
+		165400E32C69D6B9008A9DBF /* CallMoyaExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400E02C69D6B9008A9DBF /* CallMoyaExample.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -75,6 +78,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		165400DE2C69D6B9008A9DBF /* BasicAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAPI.swift; sourceTree = "<group>"; };
+		165400DF2C69D6B9008A9DBF /* AuthPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthPlugin.swift; sourceTree = "<group>"; };
+		165400E02C69D6B9008A9DBF /* CallMoyaExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallMoyaExample.swift; sourceTree = "<group>"; };
 		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -223,6 +229,9 @@
 		16B97CEF2C4BF3E400D8B453 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				165400DF2C69D6B9008A9DBF /* AuthPlugin.swift */,
+				165400DE2C69D6B9008A9DBF /* BasicAPI.swift */,
+				165400E02C69D6B9008A9DBF /* CallMoyaExample.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -476,6 +485,7 @@
 			files = (
 				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
 				1F598F132C5CBE84000CE79F /* ThirdTasteTestViewController.swift in Sources */,
+				165400E22C69D6B9008A9DBF /* AuthPlugin.swift in Sources */,
 				1F598F0F2C5CBE70000CE79F /* FirstTasteTestViewController.swift in Sources */,
 				5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */,
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
@@ -487,6 +497,7 @@
 				5E2219542C69D5E7005849FB /* NoteListViewController.swift in Sources */,
 				1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */,
 				1F598EFD2C58150E000CE79F /* JoinViewController.swift in Sources */,
+				165400E32C69D6B9008A9DBF /* CallMoyaExample.swift in Sources */,
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */,
@@ -503,6 +514,7 @@
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				1F3CEAD62C669FD2002A4BC0 /* WineListCollectionViewCell.swift in Sources */,
+				165400E12C69D6B9008A9DBF /* BasicAPI.swift in Sources */,
 				5E2219412C69D5D0005849FB /* CustomTableViewCell.swift in Sources */,
 				1F598F012C581573000CE79F /* LoginViewController.swift in Sources */,
 				5E2219422C69D5D0005849FB /* CustomCommentsCollectionView.swift in Sources */,
