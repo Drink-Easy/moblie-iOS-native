@@ -7,7 +7,16 @@
 
 import Foundation
 
-struct K {
+struct Constants {
     static let appname = "Drink-EG"
+    
+    struct API {
+        static let baseURL = "https://drinkeg.com/"
+        
+    }
+    
+    struct Design {
+        
+    }
     
 }
