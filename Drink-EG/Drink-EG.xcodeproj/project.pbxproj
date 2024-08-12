@@ -247,8 +247,6 @@
 				16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */,
 				C3E15C6D2C69F610002BF034 /* SavingVideoBottomViewController.swift */,
 				16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */,
-				C3E15C692C69F524002BF034 /* MyPageController.swift */,
-				C3E15C6B2C69F533002BF034 /* MyinfoController.swift */,
 			);
 			path = WineClass;
 			sourceTree = "<group>";
@@ -268,6 +266,8 @@
 		16B97CFB2C4BFB5E00D8B453 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C3E15C692C69F524002BF034 /* MyPageController.swift */,
+				C3E15C6B2C69F533002BF034 /* MyinfoController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

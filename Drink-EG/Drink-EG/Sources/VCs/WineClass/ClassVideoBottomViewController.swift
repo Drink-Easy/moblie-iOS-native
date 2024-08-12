@@ -11,11 +11,10 @@ import UIKit
 import SnapKit
 
 
-class ViewController: UIViewController {
+class ClassVideoBottomViewController: UIViewController {
     
     let imageView = UIImageView()
 
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
