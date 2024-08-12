@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		165400D92C68B262008A9DBF /* BasicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400D82C68B262008A9DBF /* BasicAPI.swift */; };
+		165400DB2C68B33F008A9DBF /* AuthPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400DA2C68B33F008A9DBF /* AuthPlugin.swift */; };
+		165400DD2C68B588008A9DBF /* CallMoyaExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400DC2C68B588008A9DBF /* CallMoyaExample.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -73,6 +76,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		165400D82C68B262008A9DBF /* BasicAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAPI.swift; sourceTree = "<group>"; };
+		165400DA2C68B33F008A9DBF /* AuthPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPlugin.swift; sourceTree = "<group>"; };
+		165400DC2C68B588008A9DBF /* CallMoyaExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallMoyaExample.swift; sourceTree = "<group>"; };
 		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +156,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		165400D72C68B16D008A9DBF /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				165400D82C68B262008A9DBF /* BasicAPI.swift */,
+				165400DA2C68B33F008A9DBF /* AuthPlugin.swift */,
+				165400DC2C68B588008A9DBF /* CallMoyaExample.swift */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
 		16B97CC72C4BEB0900D8B453 = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +235,7 @@
 		16B97CEF2C4BF3E400D8B453 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				165400D72C68B16D008A9DBF /* Example */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -489,6 +506,7 @@
 				16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */,
 				16B97D0E2C4C0E6300D8B453 /* WriteNoteViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
+				165400DD2C68B588008A9DBF /* CallMoyaExample.swift in Sources */,
 				1F598F112C5CBE7A000CE79F /* SecondTasteTestViewController.swift in Sources */,
 				5E2218B32C5DEC0D005849FB /* ChooseTasteViewController.swift in Sources */,
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
@@ -503,6 +521,8 @@
 				1F598F012C581573000CE79F /* LoginViewController.swift in Sources */,
 				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
 				16B97D0A2C4C0D8F00D8B453 /* NoteListViewController.swift in Sources */,
+				165400D92C68B262008A9DBF /* BasicAPI.swift in Sources */,
+				165400DB2C68B33F008A9DBF /* AuthPlugin.swift in Sources */,
 				1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */,
 				16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */,
 				16B97D1E2C4C0FCA00D8B453 /* CommunityInfoViewController.swift in Sources */,
