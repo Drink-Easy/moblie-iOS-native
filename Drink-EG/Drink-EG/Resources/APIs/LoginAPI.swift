@@ -34,7 +34,7 @@ extension LoginAPI: TargetType {
         /// 각 case 별로 적합한 method 배정
         switch self {
         case .postLogin:
-            return .get
+            return .post
         case .postRegister:
             return .post
         }
@@ -49,11 +49,12 @@ extension LoginAPI: TargetType {
     
     // API 호출 시, header에 token 넣어서 전달
     var headers: [String : String]? {
-        let jwtToken = "jwt_token_here"
-        return [
-            "Authorization": "Bearer \(jwtToken)",
-            "Content-type": "application/json"
-        ]
+        switch self {
+        case .postLogin, .postRegister:
+            return [
+                "Content-type": "application/json"
+            ]
+        }
     }
     
     var validationType: ValidationType {

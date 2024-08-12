@@ -208,6 +208,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func loginButtonTapped() {
+        assignUserData()
         callLoginAPI()
     }
     
@@ -368,7 +369,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 case .success(let response):
                     do {
                         let data = try response.map(APIResponseString.self)
-                        print("User Created: \(data)")
+                        print("Login Success: \(data)")
                         responseData = data as APIResponseString
 //                        isSuccess = data.isSuccess
                     } catch {
