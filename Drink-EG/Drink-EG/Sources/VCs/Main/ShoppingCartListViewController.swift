@@ -9,6 +9,9 @@ import UIKit
 
 class ShoppingCartListViewController: UIViewController {
     
+    private var CartContents: [String] = ["Red Label", "Castello Monaci", "Loxton", "Samos", "Vendredi"]
+    private var itemsSelectedState: [Bool] = []
+    
     private let allCheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nAllCheckImage = UIImage(named: "icon_cartCheck_nfill")
     private let allCheckButton = UIButton(type: .custom)
@@ -51,6 +54,7 @@ class ShoppingCartListViewController: UIViewController {
         return b
     }()
     
+    
     lazy var cartListCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -79,6 +83,7 @@ class ShoppingCartListViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = .black
         
         view.backgroundColor = .white
+        itemsSelectedState = Array(repeating: false, count: 20)
         setupUI()
     }
     
@@ -139,22 +144,45 @@ class ShoppingCartListViewController: UIViewController {
         // 버튼이 클릭될 때마다, 버튼 이미지를 변환
         if sender.isSelected {
             sender.setImage(allCheckImage?.withRenderingMode(.alwaysOriginal), for: .selected)
+            updateAllItemsSelection(isSelected: true)
         } else {
             sender.setImage(nAllCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+            updateAllItemsSelection(isSelected: false)
+        }
+    }
+    
+    private func updateAllItemsSelection(isSelected: Bool) {
+        // 모든 항목의 선택 상태를 변경
+        itemsSelectedState = Array(repeating: isSelected, count: itemsSelectedState.count)
+            
+        // 모든 셀을 업데이트
+        for section in 0..<cartListCollectionView.numberOfSections {
+            for item in 0..<cartListCollectionView.numberOfItems(inSection: section) {
+                let indexPath = IndexPath(item: item, section: section)
+                if let cell = cartListCollectionView.cellForItem(at: indexPath) as? CartListCollectionViewCell {
+                    cell.configure2(isSelected: isSelected)
+                }
+            }
         }
     }
 }
 
 extension ShoppingCartListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return CartContents.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartListCollectionViewCell", for: indexPath) as! CartListCollectionViewCell
+        
+        cell.changeMarketButtonAction = {
+            let wineStoreListViewController = WineStoreListViewController()
+            self.navigationController?.pushViewController(wineStoreListViewController, animated: true)
+        }
             
-        //cell.configure(imageName: suggestion[indexPath.item])
+        cell.configure1(imageName: CartContents[indexPath.item])
+        cell.configure2(isSelected: itemsSelectedState[indexPath.item])
         
         return cell
     }

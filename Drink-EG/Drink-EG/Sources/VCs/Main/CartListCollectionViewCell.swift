@@ -10,15 +10,17 @@ import SnapKit
 
 class CartListCollectionViewCell: UICollectionViewCell {
     
+    var changeMarketButtonAction : (() -> Void) = {}
+    
     private var quantity: Int = 0 {
         didSet {
             updateNumLabel()
         }
     }
     
-    private let allCheckImage = UIImage(named: "icon_cartCheck_fill")
-    private let nAllCheckImage = UIImage(named: "icon_cartCheck_nfill")
-    private let allCheckButton = UIButton(type: .custom)
+    private let CheckImage = UIImage(named: "icon_cartCheck_fill")
+    private let nCheckImage = UIImage(named: "icon_cartCheck_nfill")
+    private let CheckButton = UIButton(type: .custom)
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
@@ -92,16 +94,19 @@ class CartListCollectionViewCell: UICollectionViewCell {
         b.setTitleColor(.white, for: .normal)
         b.layer.cornerRadius = 13
         b.layer.masksToBounds = true
+        b.addTarget(self, action: #selector(changeMarketButtonTapped), for: .touchUpInside)
         
         return b
     }()
+    
+    @objc private func changeMarketButtonTapped() {
+        changeMarketButtonAction()
+    }
     
     private let changeNumButton: UIButton = {
         let b = UIButton(type: .custom)
         b.backgroundColor = .clear
         b.setImage(UIImage(named: "ChangeNumButton")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        //b.setTitle("1", for: .normal)
-        //b.titleLabel?.font = .boldSystemFont(ofSize: 12)
         b.addTarget(self, action: #selector(changeNumButtonTapped), for: .touchUpInside)
         return b
     }()
@@ -156,21 +161,25 @@ class CartListCollectionViewCell: UICollectionViewCell {
         return b
     }()
     
-    private func configureAllCheckButton() {
-        allCheckButton.setImage(nAllCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
-        allCheckButton.backgroundColor = .clear
-        allCheckButton.addTarget(self, action: #selector(allCheckButtonTapped), for: .touchUpInside)
+    private func configureCheckButton() {
+        CheckButton.setImage(nCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+        CheckButton.backgroundColor = .clear
+        CheckButton.addTarget(self, action: #selector(CheckButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func allCheckButtonTapped(_ sender: UIButton) {
+    @objc private func CheckButtonTapped(_ sender: UIButton) {
         // Bool 값 toggle
         sender.isSelected.toggle()
             
         // 버튼이 클릭될 때마다, 버튼 이미지를 변환
         if sender.isSelected {
-            sender.setImage(allCheckImage?.withRenderingMode(.alwaysOriginal), for: .selected)
+            sender.setImage(CheckImage?.withRenderingMode(.alwaysOriginal), for: .selected)
+            self.contentView.backgroundColor = UIColor(hex: "FFDCD9")
+            self.contentView.layer.borderColor = UIColor(hue: 0.0111, saturation: 0.61, brightness: 1, alpha: 0.7).cgColor
         } else {
-            sender.setImage(nAllCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+            sender.setImage(nCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+            self.contentView.backgroundColor = UIColor(hex: "EDEDED")
+            self.contentView.layer.borderColor = UIColor(hex: "D9D9D9")?.cgColor
         }
     }
     
@@ -185,13 +194,13 @@ class CartListCollectionViewCell: UICollectionViewCell {
     
     //레이아웃까지
     private func setupUI() {
-        configureAllCheckButton()
+        configureCheckButton()
         
         self.contentView.addSubview(imageView)
         self.contentView.addSubview(name)
         self.contentView.addSubview(marketNprice)
         self.contentView.addSubview(score)
-        self.contentView.addSubview(allCheckButton)
+        self.contentView.addSubview(CheckButton)
         self.contentView.addSubview(changeMarketButton)
         self.contentView.addSubview(changeNumButton)
         changeNumButton.addSubview(NumLabel)
@@ -202,14 +211,14 @@ class CartListCollectionViewCell: UICollectionViewCell {
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.masksToBounds = true
   
-        allCheckButton.snp.makeConstraints { make in
+        CheckButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(17)
             make.leading.equalToSuperview().offset(14)
         }
         
         imageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(17)
-            make.leading.equalTo(allCheckButton.snp.trailing).offset(8.6)
+            make.leading.equalTo(CheckButton.snp.trailing).offset(8.6)
             make.width.equalTo(imageView.snp.height)
         }
         
@@ -253,12 +262,14 @@ class CartListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(imageName: String) {
-//        if let image = UIImage(named: imageName) {
-//            self.name.text = imageName
-//            price.text = "165,000 ₩"
-//            score.text = "4.5"
-//            imageView.image = image
-//        }
+    func configure1(imageName: String) {
+        if let image = UIImage(named: imageName) {
+            self.name.text = imageName
+            imageView.image = image
+        }
+    }
+    func configure2(isSelected: Bool) {
+        CheckButton.isSelected = isSelected
     }
 }
+
