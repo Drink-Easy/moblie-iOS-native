@@ -124,7 +124,7 @@ class PolygonChartView: UIButton {
         }
         
         // 7. 각 특성별 값을 다각형으로 표시
-        UIColor(hex: "FF9F8ECC")!.setFill()
+        UIColor(hex: "FFEA75")!.setFill()
         valuePath.close()
         valuePath.fill()
     }

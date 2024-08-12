@@ -61,16 +61,13 @@ class NewNoteFooter: UICollectionReusableView {
         addSubview(button)
 
         button.setTitle("+ 새로 적기", for: .normal)
-        button.setTitleColor(UIColor(hex: "FFFFFF"), for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.backgroundColor = UIColor(hex: "FA735B")
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.backgroundColor = UIColor(hex: "FFEA75")
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(newNoteButtonTapped), for: .touchUpInside)
         button.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.centerX.equalToSuperview()
-            make.height.greaterThanOrEqualTo(61)
-            // make.bottom.equalToSuperview().offset(-10)
+            make.edges.equalToSuperview().inset(16)
         }
     }
 
@@ -88,7 +85,6 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
    
     let noteListLabel = UILabel() // 노트 보관함 Label
     var noteListGrid: UICollectionView! // 테이스팅 노트를 보관할 CollectionView
-    let images = ["sample1", "sample2", "sample3", "sample4", "sample2", "sample3", "sample4", "sample1", "sample3", "sample4", "sample1", "sample2", "sample4", "sample1", "sample2", "sample3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,7 +117,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: 노트 보관함에 관한 UI
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
         noteListLabel.text = "노트 보관함"
-        noteListLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
+        noteListLabel.font = .boldSystemFont(ofSize: 30)
         noteListLabel.textAlignment = .center
         noteListLabel.textColor = .black
     }
@@ -159,52 +155,49 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     func setupNoteCollectionViewConstraints() { // CollectionView의 제약 조건을 설정하는 함수
         noteListGrid.snp.makeConstraints{ make in
             make.leading.equalTo(noteListLabel)
-            make.top.equalTo(noteListLabel.snp.bottom).offset(35)
+            make.top.equalTo(view.snp.top).offset(187)
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(74)
-            //make.height.greaterThanOrEqualTo(591)
+            make.width.equalTo(361)
+            make.height.equalTo(591)
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // CollectionView Cell 개수를 설정하는 함수
-        return 7
+        return 12
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { // 재사용 가능한 셀을 가져와서 NoteCollectionViewCell로 캐스팅
         let cell = noteListGrid.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! NoteCollectionViewCell
-        cell.imageView.image = UIImage(named: "SampleImage")
-        cell.nameLabel.text = "와인 이름\n1999"
-        cell.nameLabel.numberOfLines = 2
-        cell.nameLabel.font = UIFont(name: "Pretendard-Bold", size: 14)
+        cell.imageView.image = UIImage(named: "Vendredi")
+        cell.nameLabel.text = "와인 이름 1999"
         cell.backgroundColor = .clear
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { // 각 셀의 크기를 설정하는 함수
-        let numberOfItemsPerRow: CGFloat = 4
-        let spacingBetweenCells: CGFloat = 22
-        
-        let totalSpacing = (2 * spacingBetweenCells) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
-        
-        let width = (collectionView.bounds.width - totalSpacing) / numberOfItemsPerRow
-        let height = width * 1.6
-        
-        return CGSize(width: width, height: height)
-    }
-    
-    // MARK: "새로 적기" 버튼에 관한 UI
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionFooter {
-            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footer", for: indexPath) as! NewNoteFooter
-            footer.delegate = self
-            return footer
+            return CGSize(width: 65, height: 100)
         }
-        return UICollectionReusableView()
-    }
+
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { // 섹션 내의 셀 간의 세로 간격을 설정하는 메서드
+            return 69
+        }
+            
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat { // 섹션 내의 셀 간의 가로 간격을 설정하는 메서드
+            return 22
+        }
+    
+   // MARK: "새로 적기" 버튼에 관한 UI
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+            if kind == UICollectionView.elementKindSectionFooter {
+                let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footer", for: indexPath) as! NewNoteFooter
+                footer.delegate = self
+                return footer
+            }
+            return UICollectionReusableView()
+        }
     
     func didTapNewNoteButton() {
-
         let nextVC = AddNewNoteViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
