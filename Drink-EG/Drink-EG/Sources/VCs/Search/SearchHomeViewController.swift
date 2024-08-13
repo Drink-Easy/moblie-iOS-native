@@ -70,8 +70,6 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
@@ -84,20 +82,20 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
         
         view.addSubview(label)
         label.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(label).offset(46)
+            make.top.equalTo(label.snp.bottom).offset(10)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.height.greaterThanOrEqualTo(34)
         }
         
         view.addSubview(WineListCollectionView)
         WineListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(20)
+            make.top.equalTo(searchBar.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
