@@ -86,10 +86,10 @@ class FirstTasteTestViewController: UIViewController {
         newbeeButton.contentHorizontalAlignment = .left
         newbeeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 0)
         
-        newbeeButton.backgroundColor = UIColor(hex: "#FFFCD6")
+        newbeeButton.backgroundColor = UIColor(hex: "#FFCDC5")
         newbeeButton.layer.cornerRadius = 16
         newbeeButton.layer.borderWidth = 3
-        newbeeButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+        newbeeButton.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
         
         newbeeButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
@@ -106,10 +106,10 @@ class FirstTasteTestViewController: UIViewController {
         maniacButton.contentHorizontalAlignment = .left
         maniacButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 0)
         
-        maniacButton.backgroundColor = UIColor(hex: "#FFFCD6")
+        maniacButton.backgroundColor = UIColor(hex: "#FFCDC5")
         maniacButton.layer.cornerRadius = 16
         maniacButton.layer.borderWidth = 3
-        maniacButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+        maniacButton.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
         
         maniacButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
@@ -120,16 +120,16 @@ class FirstTasteTestViewController: UIViewController {
             if Btn == sender {
                 // 만약 현재 버튼이 이 함수를 호출한 버튼이라면
                 Btn.isSelected = true
-                Btn.backgroundColor = UIColor(hex: "#FFEA75")
+                Btn.backgroundColor = UIColor(hex: "#FF9F8E")
                 Btn.layer.cornerRadius = 16
                 Btn.layer.borderWidth = 0
             } else {
                 // 이 함수를 호출한 버튼이 아니라면
                 Btn.isSelected = false
-                Btn.backgroundColor = UIColor(hex: "#FFFCD6")
+                Btn.backgroundColor = UIColor(hex: "#FFCDC5")
                 Btn.layer.cornerRadius = 16
                 Btn.layer.borderWidth = 3
-                Btn.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+                Btn.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
             }
         }
         // 선택된 버튼에 따른 다음 버튼 활성화
@@ -141,7 +141,7 @@ class FirstTasteTestViewController: UIViewController {
         if newbeeButton.isSelected || maniacButton.isSelected {
             nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
             nextButton.isEnabled = true
-            nextButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
+            nextButton.backgroundColor = UIColor(hex: "FA735B")
         } else {
             nextButton.removeTarget(nil, action: nil, for: .allEvents)
             nextButton.isEnabled = false
@@ -152,12 +152,12 @@ class FirstTasteTestViewController: UIViewController {
     private func configureNextButton() {
         nextButton.setTitle("다음", for: .normal)
         nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        nextButton.setTitleColor(.black, for: .normal)
+        nextButton.setTitleColor(.white, for: .normal)
         nextButton.contentHorizontalAlignment = .center
         
         nextButton.setImage(UIImage(named: "icon_next"), for: .normal)
         nextButton.imageView?.contentMode = .center
-        nextButton.tintColor = UIColor(hex: "#767676")
+        nextButton.tintColor = .white
         nextButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 105, bottom: 0, right: 0)
         
         nextButton.backgroundColor = UIColor(hex: "#E2E2E2")
