@@ -420,10 +420,10 @@
 				5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */,
 				5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */,
 				5E22196D2C6B2EA0005849FB /* RatingViewController.swift */,
+				5E2219722C6B661A005849FB /* CheckNoteViewController.swift */,
 				5E22194C2C69D5E7005849FB /* CustomSlider.swift */,
 				5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */,
 				5E22194F2C69D5E7005849FB /* PolygonChartView.swift */,
-				5E2219722C6B661A005849FB /* CheckNoteViewController.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
