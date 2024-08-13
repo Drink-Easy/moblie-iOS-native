@@ -77,8 +77,6 @@ class ShoppingCartListViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
@@ -93,13 +91,13 @@ class ShoppingCartListViewController: UIViewController {
         
         view.addSubview(label)
         label.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
         view.addSubview(allCheckButton)
         allCheckButton.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(30)
+            make.top.equalTo(label.snp.bottom).offset(20)
             make.leading.equalTo(label)
         }
         
