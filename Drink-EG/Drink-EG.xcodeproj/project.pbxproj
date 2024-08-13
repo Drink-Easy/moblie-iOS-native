@@ -90,6 +90,9 @@
 		5E2219642C69DE43005849FB /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219632C69DE43005849FB /* Moya */; };
 		5E2219672C69DE78005849FB /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219662C69DE78005849FB /* KakaoSDK */; };
 		5E22196A2C69DEEA005849FB /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219692C69DEEA005849FB /* Toast */; };
+		5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22196D2C6B2EA0005849FB /* RatingViewController.swift */; };
+		5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219702C6B5B5B005849FB /* Cosmos */; };
+		5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219722C6B661A005849FB /* CheckNoteViewController.swift */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -174,6 +177,8 @@
 		5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSuggestionCell.swift; sourceTree = "<group>"; };
 		5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WriteNoteViewController.swift; path = ../WriteNoteViewController.swift; sourceTree = "<group>"; };
 		5E22196B2C6B2416005849FB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E22196D2C6B2EA0005849FB /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
+		5E2219722C6B661A005849FB /* CheckNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNoteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */,
 				5E22195E2C69DDB5005849FB /* SnapKit in Frameworks */,
 				5E2219672C69DE78005849FB /* KakaoSDK in Frameworks */,
 				5E2219612C69DDBF005849FB /* Alamofire in Frameworks */,
@@ -387,14 +393,16 @@
 		16B97CF72C4BFB0900D8B453 /* TastingNote */ = {
 			isa = PBXGroup;
 			children = (
+				5E22194B2C69D5E7005849FB /* NoteListViewController.swift */,
 				5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */,
+				5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */,
+				5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */,
 				5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */,
+				5E22196D2C6B2EA0005849FB /* RatingViewController.swift */,
 				5E22194C2C69D5E7005849FB /* CustomSlider.swift */,
 				5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */,
-				5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */,
-				5E22194B2C69D5E7005849FB /* NoteListViewController.swift */,
 				5E22194F2C69D5E7005849FB /* PolygonChartView.swift */,
-				5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */,
+				5E2219722C6B661A005849FB /* CheckNoteViewController.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
@@ -492,6 +500,7 @@
 				5E2219632C69DE43005849FB /* Moya */,
 				5E2219662C69DE78005849FB /* KakaoSDK */,
 				5E2219692C69DEEA005849FB /* Toast */,
+				5E2219702C6B5B5B005849FB /* Cosmos */,
 			);
 			productName = "Drink-EG";
 			productReference = 16B97CD02C4BEB0900D8B453 /* Drink-EG.app */;
@@ -527,6 +536,7 @@
 				5E2219622C69DE43005849FB /* XCRemoteSwiftPackageReference "Moya" */,
 				5E2219652C69DE78005849FB /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				5E2219682C69DEEA005849FB /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				5E22196F2C6B5B5B005849FB /* XCRemoteSwiftPackageReference "Cosmos" */,
 			);
 			productRefGroup = 16B97CD12C4BEB0900D8B453 /* Products */;
 			projectDirPath = "";
@@ -572,6 +582,7 @@
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
 				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
+				5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */,
 				5E23147F2C5901BB004E2013 /* (null) in Sources */,
 				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
 				165400F82C69EFBD008A9DBF /* WineNewsResponse.swift in Sources */,
@@ -627,6 +638,7 @@
 				5E2219452C69D5D0005849FB /* CommunityInfoViewController.swift in Sources */,
 				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
+				5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */,
 				5E2219442C69D5D0005849FB /* CreateNewCommViewController.swift in Sources */,
 				5E2219472C69D5D0005849FB /* CustomCollectionViewCell.swift in Sources */,
 				5E22195B2C69D5E7005849FB /* WriteNoteViewController.swift in Sources */,
@@ -885,6 +897,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		5E22196F2C6B5B5B005849FB /* XCRemoteSwiftPackageReference "Cosmos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/Cosmos";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 25.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -912,6 +932,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5E2219682C69DEEA005849FB /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		5E2219702C6B5B5B005849FB /* Cosmos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E22196F2C6B5B5B005849FB /* XCRemoteSwiftPackageReference "Cosmos" */;
+			productName = Cosmos;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
