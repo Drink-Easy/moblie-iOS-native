@@ -383,7 +383,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         let cookies = HTTPCookie.cookies(withResponseHeaderFields: ["Set-Cookie": setCookie], for: httpResponse.url!)
                             
                         for cookie in cookies {
-                            print("Cookie Name: \(cookie.name), Value: \(cookie.value)")
+//                            print("Cookie Name: \(cookie.name), Value: \(cookie.value)")
                             HTTPCookieStorage.shared.setCookie(cookie)
                         }
                     }

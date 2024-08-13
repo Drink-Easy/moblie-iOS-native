@@ -12,10 +12,12 @@ struct Constants {
     
     struct Auth {
         static var Tokens : [String : String] = [:]
+        // iOS test id : iOSadmin
+        // iOS test pw : 0000
     }
     
     struct API {
-        static let baseURL = "https://drinkeg.com/"
+        static let baseURL = "https://drinkeg.com"
         
     }
     

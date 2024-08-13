@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		165400E12C69D6B9008A9DBF /* BasicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400DE2C69D6B9008A9DBF /* BasicAPI.swift */; };
-		165400E22C69D6B9008A9DBF /* AuthPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400DF2C69D6B9008A9DBF /* AuthPlugin.swift */; };
+		165400E22C69D6B9008A9DBF /* CookiePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400DF2C69D6B9008A9DBF /* CookiePlugin.swift */; };
 		165400E32C69D6B9008A9DBF /* CallMoyaExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400E02C69D6B9008A9DBF /* CallMoyaExample.swift */; };
 		165400E52C69DDB6008A9DBF /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400E42C69DDB6008A9DBF /* LoginAPI.swift */; };
 		165400E72C69DDBE008A9DBF /* TastingNoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400E62C69DDBE008A9DBF /* TastingNoteAPI.swift */; };
@@ -25,6 +25,8 @@
 		165400FE2C69F218008A9DBF /* APIResponseWineClassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400FD2C69F218008A9DBF /* APIResponseWineClassResponse.swift */; };
 		165401002C69F251008A9DBF /* WineClassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400FF2C69F251008A9DBF /* WineClassResponse.swift */; };
 		165401042C69FA13008A9DBF /* APIResponseString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401032C69FA13008A9DBF /* APIResponseString.swift */; };
+		165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */; };
+		165401092C6BA644008A9DBF /* MemberInfoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401082C6BA644008A9DBF /* MemberInfoAPI.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -104,7 +106,7 @@
 
 /* Begin PBXFileReference section */
 		165400DE2C69D6B9008A9DBF /* BasicAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAPI.swift; sourceTree = "<group>"; };
-		165400DF2C69D6B9008A9DBF /* AuthPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthPlugin.swift; sourceTree = "<group>"; };
+		165400DF2C69D6B9008A9DBF /* CookiePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookiePlugin.swift; sourceTree = "<group>"; };
 		165400E02C69D6B9008A9DBF /* CallMoyaExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallMoyaExample.swift; sourceTree = "<group>"; };
 		165400E42C69DDB6008A9DBF /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		165400E62C69DDBE008A9DBF /* TastingNoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TastingNoteAPI.swift; sourceTree = "<group>"; };
@@ -121,6 +123,8 @@
 		165400FD2C69F218008A9DBF /* APIResponseWineClassResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseWineClassResponse.swift; sourceTree = "<group>"; };
 		165400FF2C69F251008A9DBF /* WineClassResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineClassResponse.swift; sourceTree = "<group>"; };
 		165401032C69FA13008A9DBF /* APIResponseString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseString.swift; sourceTree = "<group>"; };
+		165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoRequest.swift; sourceTree = "<group>"; };
+		165401082C6BA644008A9DBF /* MemberInfoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoAPI.swift; sourceTree = "<group>"; };
 		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 				165401022C69F305008A9DBF /* WineClass */,
 				165401012C69F297008A9DBF /* WineNews */,
 				1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */,
+				165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */,
 			);
 			path = Datas;
 			sourceTree = "<group>";
@@ -318,7 +323,7 @@
 		16B97CEF2C4BF3E400D8B453 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				165400DF2C69D6B9008A9DBF /* AuthPlugin.swift */,
+				165400DF2C69D6B9008A9DBF /* CookiePlugin.swift */,
 				165400DE2C69D6B9008A9DBF /* BasicAPI.swift */,
 				165400E02C69D6B9008A9DBF /* CallMoyaExample.swift */,
 				165400E42C69DDB6008A9DBF /* LoginAPI.swift */,
@@ -329,6 +334,7 @@
 				165400EE2C69DDFF008A9DBF /* WineNewsBookmarkAPI.swift */,
 				165400F02C69DE22008A9DBF /* CommunityAPI.swift */,
 				165400F22C69DE2D008A9DBF /* CommentsAPI.swift */,
+				165401082C6BA644008A9DBF /* MemberInfoAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -593,7 +599,7 @@
 			files = (
 				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
 				1F205A392C6B33F700E80659 /* ThirdKindTasteTestViewController.swift in Sources */,
-				165400E22C69D6B9008A9DBF /* AuthPlugin.swift in Sources */,
+				165400E22C69D6B9008A9DBF /* CookiePlugin.swift in Sources */,
 				1F598F0F2C5CBE70000CE79F /* FirstTasteTestViewController.swift in Sources */,
 				5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */,
 				165400F62C69EF89008A9DBF /* WineNewsRequest.swift in Sources */,
@@ -616,6 +622,7 @@
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */,
+				165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */,
 				1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */,
 				165400FA2C69F15D008A9DBF /* APIResponseWineNewsResponse.swift in Sources */,
 				1F205A452C6B707C00E80659 /* WhatsURNameViewController.swift in Sources */,
@@ -648,6 +655,7 @@
 				165400EB2C69DDD9008A9DBF /* WineClassBookmarkAPI.swift in Sources */,
 				1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */,
 				5E2219372C69D5AE005849FB /* UIColorToHexCode.swift in Sources */,
+				165401092C6BA644008A9DBF /* MemberInfoAPI.swift in Sources */,
 				16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */,
 				1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */,
 				16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */,
