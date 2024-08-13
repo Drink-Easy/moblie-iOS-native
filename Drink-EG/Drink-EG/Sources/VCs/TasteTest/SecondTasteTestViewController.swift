@@ -172,13 +172,13 @@ class SecondTasteTestViewController: UIViewController {
             nextButton.backgroundColor = UIColor(hex: "FA735B")
             
             if firstButton.isSelected {
-                SelectionManager.shared.setPrice(answer: <#T##Int#>)
+                SelectionManager.shared.setPrice(answer: 50000)
             } else if secondButton.isSelected {
-                SelectionManager.shared.setPrice(answer: <#T##Int#>)
+                SelectionManager.shared.setPrice(answer: 100000)
             } else if thirdButton.isSelected {
-                SelectionManager.shared.setPrice(answer: <#T##Int#>)
+                SelectionManager.shared.setPrice(answer: 300000)
             } else if fourthButton.isSelected {
-                SelectionManager.shared.setPrice(answer: <#T##Int#>)
+                SelectionManager.shared.setPrice(answer: 10000000)
             }
         } else {
             nextButton.removeTarget(nil, action: nil, for: .allEvents)

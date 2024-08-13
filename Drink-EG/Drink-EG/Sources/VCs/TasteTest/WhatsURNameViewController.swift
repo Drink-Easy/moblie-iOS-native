@@ -12,7 +12,6 @@ import CoreLocation
 class WhatsURNameViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     let nextButton = UIButton(type: .system)
     var locationManager = CLLocationManager()
-    var memberInfoDTO : MemberInfoRequest?
     
     
     private let titleLabel: UILabel = {
@@ -37,10 +36,10 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate, CLLocati
         t.leftViewMode = .always
         return t
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
@@ -51,13 +50,12 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate, CLLocati
         
         // nameTextField의 값이 변경될 때 updateNextButtonState를 호출하도록 설정
         nameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-            
+        
         // 초기 상태 업데이트
         updateNextButtonState()
         
         // Location
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        setupLocationManager()
         
         view.backgroundColor = .white
         setupUI()
@@ -148,69 +146,66 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate, CLLocati
     }
     
     //MARK: - Location parts
-    func checkAuthorizationStatus() {
-        if #available(iOS 14.0, *) {
-            
-            if locationManager.authorizationStatus == .authorizedAlways
-                || locationManager.authorizationStatus == .authorizedWhenInUse {
-                print("==> 위치 서비스 On 상태")
-                locationManager.startUpdatingLocation() //위치 정보 받아오기 시작 - 사용자의 현재 위치를 보고하는 업데이트 생성을 시작
-            } else if locationManager.authorizationStatus == .notDetermined {
-                print("==> 위치 서비스 Off 상태")
-                locationManager.requestWhenInUseAuthorization()
-            } else if locationManager.authorizationStatus == .denied {
-                print("==> 위치 서비스 Deny 상태")
-            }
-            
-        } else {
-            
-            // Fallback on earlier versions
-            if CLLocationManager.locationServicesEnabled() {
-                print("위치 서비스 On 상태")
-                locationManager.startUpdatingLocation() //위치 정보 받아오기 시작 - 사용자의 현재 위치를 보고하는 업데이트 생성을 시작
-                print("LocationViewController >> checkPermission() - \(locationManager.location?.coordinate)")
-            } else {
-                print("위치 서비스 Off 상태")
-                locationManager.requestWhenInUseAuthorization()
-            }
-        }
-    }
-    
-    func getAddress() {
-        locationManager.distanceFilter = kCLDistanceFilterNone
+    private func setupLocationManager() {
+        locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        
-        let geocoder = CLGeocoder.init()
-        let location = self.locationManager.location
-        
-        if location != nil {
-            geocoder.reverseGeocodeLocation(location!) { (placemarks, error) in
-                if error != nil {
-                    return
-                }
-                if let placemark = placemarks?.first {
-                    var address = ""
-                    if let administrativeArea = placemark.administrativeArea {
-                        address += administrativeArea
-                    }
-                    
-                    if let locality = placemark.locality {
-                        
-                    }
-                }
-            }
-        }
-        
     }
     
-    //MARK: - API parts
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            self.locationManager.startUpdatingLocation()
+        case .denied, .restricted:
+            print("위치 서비스가 제한 또는 거부되었습니다.")
+            self.locationManager.stopUpdatingLocation()
+        case .notDetermined:
+            print("위치 권한이 아직 결정되지 않았습니다.")
+            self.locationManager.requestWhenInUseAuthorization()
+        @unknown default:
+            print("알 수 없는 권한 상태입니다.")
+        }
+    }
     
-    func assignRequestDTO() {
-        let selectionMng = SelectionManager.shared
-        self.memberInfoDTO = MemberInfoRequest(isNewbie: selectionMng.isNewbie, monthPrice: selectionMng.monthPrice, wineSort: selectionMng.wineSort, wineNation: selectionMng.wineNation, wineVariety: selectionMng.wineVariety, region: , userName: selectionMng.userName)
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else { return }
         
+        // 위치 정보를 기반으로 주소를 가져옴
+        reverseGeocode(location: location)
+        
+        locationManager.stopUpdatingLocation()
+    }
+    
+    private func reverseGeocode(location: CLLocation) {
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
+            guard let self = self else { return }
+            if let error = error {
+                print("역지오코딩 실패: \(error)")
+                return
+            }
+            if let placemark = placemarks?.first {
+                var address = ""
+                
+                if let administrativeArea = placemark.administrativeArea {
+                    address += administrativeArea
+                }
+                
+                if let locality = placemark.locality {
+                    address += " \(locality)"
+                }
+                
+                if let subLocality = placemark.subLocality {
+                    address += " \(subLocality)"
+                }
+                
+                if let thoroughfare = placemark.thoroughfare {
+                    address += " \(thoroughfare)"
+                }
+                
+                SelectionManager.shared.userAddr = address
+            }
+        }
     }
 }
 

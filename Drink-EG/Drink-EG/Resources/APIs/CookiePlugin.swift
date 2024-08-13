@@ -27,15 +27,3 @@ final class CookiePlugin: PluginType {
 
 
 //let provider = MoyaProvider<MemberInfoAPI>(plugins: [CookiePlugin()])
-//
-//// API 호출
-//provider.request(.patchMember(data: memberInfo)) { result in
-//    switch result {
-//    case .success(let response):
-//        // 성공적인 응답 처리
-//        print("Success: \(response)")
-//    case .failure(let error):
-//        // 실패 처리
-//        print("Error: \(error)")
-//    }
-//}

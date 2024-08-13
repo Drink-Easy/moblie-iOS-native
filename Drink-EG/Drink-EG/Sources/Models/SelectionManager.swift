@@ -13,6 +13,7 @@ class SelectionManager {
     var isNewbie : Bool = false
     var monthPrice : Int = 0
     var userName : String = ""
+    var userAddr : String = ""
     
     var wineSort : [String] = []
     var wineNation : [String] = []
