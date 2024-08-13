@@ -229,6 +229,7 @@ class NoteInfoViewController: UIViewController {
         let vc = ChooseTasteViewController()
         let buttonColor = sender.backgroundColor?.toHex()
         
+        vc.dataList = dataList
         vc.receivedColor = buttonColor!
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -11,6 +11,8 @@ import SnapKit
 
 class ChooseTasteViewController: UIViewController {
     
+    var dataList: [RadarChartData] = []
+    
     let colorView = UIView()
     let colorBox = UIView()
     let colorLabel = UILabel()
@@ -427,6 +429,7 @@ class ChooseTasteViewController: UIViewController {
     @objc func nextButtonTapped() {
         let nextVC = RatingViewController()
         print(selectedOptions)
+        nextVC.dataList = dataList
         nextVC.selectedOptions = selectedOptions
         navigationController?.pushViewController(nextVC, animated: true)
     }

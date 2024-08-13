@@ -14,6 +14,7 @@ import Cosmos
 class RatingViewController: UIViewController {
     
     var selectedOptions: [String: [String]] = [:]
+    var dataList: [RadarChartData] = []
     
     let tastingnoteLabel = UILabel()
     let scrollView = UIScrollView()
@@ -29,6 +30,7 @@ class RatingViewController: UIViewController {
     let reviewLabel = UILabel()
     let reviewText = UITextField()
     let completeButton = UIButton()
+    var value: Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -316,6 +318,7 @@ class RatingViewController: UIViewController {
         
         ratingButton.didFinishTouchingCosmos = { rating in
             self.ratingValue.text = "\(rating) / 5.0"
+            self.value = rating
         }
     }
     
@@ -395,6 +398,16 @@ class RatingViewController: UIViewController {
         completeButton.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 20)
         completeButton.titleLabel?.textColor = .white
         completeButton.layer.cornerRadius = 16
+        completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func completeButtonTapped() {
+        let nextVC = CheckNoteViewController()
+        nextVC.dataList = dataList
+        nextVC.selectedOptions = selectedOptions
+        nextVC.reviewString = reviewText.text ?? ""
+        nextVC.value = value
+        navigationController?.pushViewController(nextVC, animated: true)
     }
     
     func setupCompleteButtonConstraints() {
