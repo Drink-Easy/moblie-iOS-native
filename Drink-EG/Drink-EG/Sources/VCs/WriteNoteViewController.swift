@@ -160,7 +160,7 @@ class WriteNoteViewController: UIViewController {
             
             let slider = CustomSlider()
             slider.minimumValue = 0
-            slider.maximumValue = 100
+            slider.maximumValue = 10
             slider.minimumTrackTintColor = UIColor(hex: "D3D3D3")
             slider.thumbTintColor = UIColor(hex: "FA735B")
             categorySliders.append(slider)
@@ -231,6 +231,7 @@ class WriteNoteViewController: UIViewController {
                 selectedValues[category] = value
             }
         }
+        
         
         // NoteInfoViewController로 값 전달
         let polygonVC = NoteInfoViewController()

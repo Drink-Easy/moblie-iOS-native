@@ -11,6 +11,8 @@ import SnapKit
 
 class ChooseTasteViewController: UIViewController {
     
+    var dataList: [RadarChartData] = []
+    
     let colorView = UIView()
     let colorBox = UIView()
     let colorLabel = UILabel()
@@ -19,6 +21,7 @@ class ChooseTasteViewController: UIViewController {
                         [UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton()],
                         [UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton()],
     ]
+    var selectedOptions: [String: [String]] = [:]
     let tastingnoteLabel = UILabel()
     let aromaLabel = UILabel()
     let tasteLabel = UILabel()
@@ -26,6 +29,7 @@ class ChooseTasteViewController: UIViewController {
     let wineView = UIView()
     let wineImageView = UIImageView()
     let wineName = UILabel()
+    let nextButton = UIButton()
     let scrollView = UIScrollView()
     let contentView = UIView()
     var receivedColor = ""
@@ -59,6 +63,8 @@ class ChooseTasteViewController: UIViewController {
         setupAromaLabelConstraints()
         setupTasteOptionsLabelConstraints()
         setupFinishOptionsLabelConstraints()
+        setupNextButton()
+        setupNextButtonConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -287,14 +293,39 @@ class ChooseTasteViewController: UIViewController {
     }
     
     @objc func tasteOptionsTapped(_ sender : UIButton) {
+        guard let title = sender.configuration?.title else { return }
+        // Determine which section the button belongs to
+        var section: String?
+        if tasteOptions[0].contains(sender) {
+            section = "Aroma"
+        } else if tasteOptions[1].contains(sender) {
+            section = "Taste"
+        } else if tasteOptions[2].contains(sender) {
+            section = "Finish"
+        }
+        
+        guard let selectedSection = section else { return }
+        
         if sender.backgroundColor == UIColor(hex: "FBCBC4") {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor(hex: "C3C3C3")?.cgColor
+            if var selectedTitles = selectedOptions[selectedSection], let index = selectedTitles.firstIndex(of: title) {
+                selectedTitles.remove(at: index)
+                selectedOptions[selectedSection] = selectedTitles
+            }
         } else {
+            // Select the button
             sender.backgroundColor = UIColor(hex: "FBCBC4")
             sender.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
+            if var selectedTitles = selectedOptions[selectedSection] {
+                selectedTitles.append(title)
+                selectedOptions[selectedSection] = selectedTitles
+            } else {
+                selectedOptions[selectedSection] = [title]
+            }
         }
-        sender.layer.cornerRadius = sender.frame.height / 2 // 버튼 모양에 따라 코너 반경 조정
+        
+        sender.layer.cornerRadius = sender.frame.height / 2
         sender.layer.masksToBounds = true
     }
     
@@ -385,5 +416,31 @@ class ChooseTasteViewController: UIViewController {
         }
     }
     
+    func setupNextButton() {
+        tasteView.addSubview(nextButton)
+        nextButton.backgroundColor = UIColor(hex: "FA735B")
+        nextButton.setTitle("다음", for: .normal)
+        nextButton.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 20)
+        nextButton.titleLabel?.textColor = .white
+        nextButton.layer.cornerRadius = 16
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func nextButtonTapped() {
+        let nextVC = RatingViewController()
+        print(selectedOptions)
+        nextVC.dataList = dataList
+        nextVC.selectedOptions = selectedOptions
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    func setupNextButtonConstraints() {
+        nextButton.snp.makeConstraints { make in
+            make.top.equalTo(tasteOptions[2][14].snp.bottom).offset(49)
+            make.leading.equalTo(tasteView.snp.leading).offset(17)
+            make.centerX.equalTo(tasteView.snp.centerX)
+            make.height.greaterThanOrEqualTo(60)
+        }
+    }
     
 }

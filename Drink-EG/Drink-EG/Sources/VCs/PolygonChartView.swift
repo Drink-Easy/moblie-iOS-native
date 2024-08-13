@@ -85,12 +85,23 @@ class PolygonChartView: UIButton {
             
             // 2. 각 꼭지점 부근에 각 특성 문자열 표시
             let point = transformRotate(radian: radian, x: x, y: y * 0.5, cx: cx, cy: cy)
-            let strValue = type.rawValue
-            let size = strValue.size(withAttributes: attrs)
-            strValue.draw(with: CGRect(x: point.x - size.width / 2, y: point.y - size.height / 2, width: size.width, height: size.height),
-                          options: .usesLineFragmentOrigin,
-                          attributes: attrs,
-                          context: nil)
+            if let value = dataList?.first(where: { $0.type == type })?.value {
+                let percentageValue = Int((Double(value) / 10) * 100)
+                let strValue = "\(type.rawValue)\n\(percentageValue)%"
+                let attributedString = NSMutableAttributedString(string: strValue, attributes: attrs)
+                if let range = strValue.range(of: "\(percentageValue)%") {
+                    let nsRange = NSRange(range, in: strValue)
+                    attributedString.addAttribute(.foregroundColor, value: UIColor(hex: "FB5133") ?? .red, range: nsRange) // 원하는 색상 적용
+                }
+                let size = attributedString.size()
+                
+                // 문자열 그리기
+                attributedString.draw(
+                    with: CGRect(x: point.x - size.width / 2, y: point.y - size.height / 2, width: size.width, height: size.height),
+                    options: .usesLineFragmentOrigin,
+                    context: nil
+                )
+            }
             
             // 3. 단계별 가이드 라인 path 설정
             stepLinePaths.enumerated().forEach { index, path in
@@ -104,7 +115,8 @@ class PolygonChartView: UIButton {
             
             // 4. 각 특성별 값에 해당하는 좌표를 구해 다각형 path 구성
             if let value = dataList?.first(where: { $0.type == type })?.value {
-                let convValue = heightMaxValue * (CGFloat(value) / 100) // 전달된 값을 차트크기에 맞게 변환
+                let scaledValue = CGFloat(value) * 10 // 슬라이더 값이 0-10이므로 0-100 범위로 변환
+                let convValue = heightMaxValue * (scaledValue / 100) // 전달된 값을 차트 크기에 맞게 변환
                 let point = transformRotate(radian: radian, x: x, y: rect.midY - convValue, cx: cx, cy: cy)
                 if valuePath.isEmpty {
                     valuePath.move(to: point)
