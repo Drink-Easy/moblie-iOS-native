@@ -32,6 +32,13 @@ class EnterTasteTestViewController: UIViewController {
         
         return l
     }()
+    
+    private let imageView: UIImageView = {
+        let i = UIImageView()
+        i.image = UIImage(named: "EnterTasteTestImg")
+        i.backgroundColor = .clear
+        return i
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +56,24 @@ class EnterTasteTestViewController: UIViewController {
     private func setupUI() {
         configureStartButton()
         
+        let labelStackView = UIStackView(arrangedSubviews: [hiLabel, plzLabel])
+        labelStackView.axis = .vertical
+        //buttonStackView.distribution = .fillProportionally
+        labelStackView.spacing = 25
+        
+        view.addSubview(labelStackView)
+        labelStackView.snp.makeConstraints { make in
+            make.top.equalTo(view).offset(125)
+            make.leading.equalToSuperview().offset(27)
+            make.width.equalTo(338)
+            make.height.equalTo(165)
+        }
+        
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.bottom.equalTo(view)
+        }
+        
         view.addSubview(startButton)
         startButton.snp.makeConstraints { make in
             make.top.equalTo(view).offset(727)
@@ -57,28 +82,15 @@ class EnterTasteTestViewController: UIViewController {
             make.height.equalTo(60)
             make.width.equalTo(327)
         }
-        
-        let buttonStackView = UIStackView(arrangedSubviews: [hiLabel, plzLabel])
-        buttonStackView.axis = .vertical
-        //buttonStackView.distribution = .fillProportionally
-        buttonStackView.spacing = 25
-                
-        view.addSubview(buttonStackView)
-        buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(125)
-            make.leading.equalToSuperview().offset(27)
-            make.width.equalTo(338)
-            make.height.equalTo(165)
-        }
     }
     
     private func configureStartButton() {
         startButton.setTitle("시작하기", for: .normal)
         startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        startButton.setTitleColor(.black, for: .normal)
+        startButton.setTitleColor(.white, for: .normal)
         startButton.contentHorizontalAlignment = .center
         
-        startButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
+        startButton.backgroundColor = UIColor(hex: "FA735B")
         startButton.layer.cornerRadius = 16
         startButton.layer.borderWidth = 0
         
@@ -86,7 +98,7 @@ class EnterTasteTestViewController: UIViewController {
     }
     
     @objc private func startButtonTapped() {
-        let firstTasteTestViewController = FirstTasteTestViewController()
-        navigationController?.pushViewController(firstTasteTestViewController, animated: true)
+        let whatsURNameViewController = WhatsURNameViewController()
+        navigationController?.pushViewController(whatsURNameViewController, animated: true)
     }
 }

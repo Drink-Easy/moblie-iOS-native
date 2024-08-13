@@ -1,0 +1,180 @@
+//
+//  ThirdVarietyTasteTestViewController.swift
+//  Drink-EG
+//
+//  Created by 이현주 on 8/13/24.
+//
+
+import UIKit
+
+class ThirdVarietyTasteTestViewController: UIViewController {
+
+    var variety: [String] = ["까베르네소비뇽", "샤도네이", "메를로", "까베르네프랑", "피노누아", "쉬라즈", "쇼비뇽 블랑", "그르나슈", "말벡", "산지오베제", "모스카토", "리슬링", "템프라니요", "네비올로", "블랜드", "쁘띠베르도", "무르베드르", "카르메너르", "기타"]
+    var selectedIndexPaths: [IndexPath] = []
+    
+    let startButton = UIButton(type: .system)
+    
+    private let titleLabel: UILabel = {
+        let l = UILabel()
+        l.text = "제 와인 취향은..."
+        l.textColor = .black
+        l.textAlignment = .left
+        l.font = UIFont.systemFont(ofSize: 32, weight: UIFont.Weight(rawValue: 700))
+        
+        return l
+    }()
+    
+    private let kindLabel: UILabel = {
+        let l = UILabel()
+        l.text = "품종 (복수선택 가능)"
+        l.textColor = .black
+        l.textAlignment = .left
+        l.font = UIFont.boldSystemFont(ofSize: 20)
+        return l
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationController?.navigationBar.tintColor = .black
+        
+        view.backgroundColor = .white
+        setupUI()
+    }
+    
+    lazy var VarietyCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(TasteTestThirdCollectionViewCell.self, forCellWithReuseIdentifier: "TasteTestThirdCollectionViewCell")
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.showsVerticalScrollIndicator = false
+        cv.delegate = self
+        cv.dataSource = self
+        
+        cv.decelerationRate = .fast
+        cv.backgroundColor = .clear
+        cv.layer.cornerRadius = 10
+        
+        return cv
+    }()
+    
+    private func setupUI() {
+        configureStartButton()
+        
+        view.addSubview(startButton)
+        startButton.snp.makeConstraints { make in
+            make.top.equalTo(view).offset(727)
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(view).offset(33)
+            make.height.equalTo(60)
+            make.width.equalTo(327)
+        }
+        
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view).offset(125)
+            make.leading.equalToSuperview().offset(18)
+            make.width.equalTo(338)
+            make.height.equalTo(44)
+        }
+        
+        view.addSubview(kindLabel)
+        kindLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(30)
+            make.leading.equalTo(titleLabel)
+        }
+        
+        view.addSubview(VarietyCollectionView)
+        VarietyCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(kindLabel.snp.bottom).offset(30)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(31)
+            make.height.greaterThanOrEqualTo(443)
+        }
+    }
+    
+    private func configureStartButton() {
+        startButton.setTitle("시작하기", for: .normal)
+        startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        startButton.setTitleColor(.white, for: .normal)
+        startButton.contentHorizontalAlignment = .center
+        
+        startButton.backgroundColor = UIColor(hex: "#E2E2E2")
+        startButton.layer.cornerRadius = 16
+        startButton.layer.borderWidth = 0
+    }
+    
+    private func updateStartButtonState() {
+        if selectedIndexPaths.isEmpty {
+            // 선택된 셀이 없는 경우
+            startButton.isEnabled = false
+            startButton.backgroundColor = UIColor(hex: "#E2E2E2")
+            startButton.removeTarget(nil, action: nil, for: .allEvents)
+        } else {
+            // 선택된 셀이 하나 이상 있는 경우
+            startButton.setTitleColor(.white, for: .normal)
+            startButton.tintColor = .white
+            startButton.isEnabled = true
+            startButton.backgroundColor = UIColor(hex: "FA735B")
+            startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        }
+    }
+    
+    @objc private func startButtonTapped() {
+        let mainTabBarViewController = MainTabBarViewController()
+        navigationController?.pushViewController(mainTabBarViewController, animated: true)
+    }
+}
+
+extension ThirdVarietyTasteTestViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return variety.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TasteTestThirdCollectionViewCell", for: indexPath) as! TasteTestThirdCollectionViewCell
+            
+        cell.configure(name: variety[indexPath.item])
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? TasteTestThirdCollectionViewCell {
+            if cell.View.backgroundColor == .white || cell.View.backgroundColor == UIColor(hex: "E6E6E6") {
+                // 셀이 선택되지 않은 상태였을 때
+                cell.View.backgroundColor = UIColor(hex: "FBCBC4")
+                cell.View.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor  // 원하는 색으로 변경
+                
+                // 선택된 셀의 indexPath를 배열에 추가
+                selectedIndexPaths.append(indexPath)
+            } else {
+                // 셀이 이미 선택된 상태였을 때 (다시 클릭하면 원래대로)
+                if (cell.name.text == "기타") {
+                    cell.View.backgroundColor = UIColor(hex: "E6E6E6")
+                } else {
+                    cell.View.backgroundColor = .white
+                }
+                cell.View.layer.borderColor = UIColor(hex: "C3C3C3")?.cgColor
+                    
+                // 선택 해제된 셀의 indexPath를 배열에서 제거
+                if let index = selectedIndexPaths.firstIndex(of: indexPath) {
+                    selectedIndexPaths.remove(at: index)
+                }
+            }
+                
+            // nextButton의 상태 업데이트
+            updateStartButtonState()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 150, height: 33)
+    }
+}
