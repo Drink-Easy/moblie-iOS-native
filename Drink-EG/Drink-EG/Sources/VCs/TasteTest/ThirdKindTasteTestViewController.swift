@@ -11,6 +11,7 @@ class ThirdKindTasteTestViewController: UIViewController {
 
     var kind: [String] = ["레드", "화이트", "스파클링", "로제", "주정강화", "네츄럴", "기타"]
     var selectedIndexPaths: [IndexPath] = []
+    var selectedWineName : [String] = []
     
     let nextButton = UIButton(type: .system)
     
@@ -127,6 +128,10 @@ class ThirdKindTasteTestViewController: UIViewController {
             nextButton.isEnabled = true
             nextButton.backgroundColor = UIColor(hex: "FA735B")
             nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+            
+            // 선택된 셀 이름 전달
+            SelectionManager.shared.setWineSort(answer: selectedWineName)
+            
         }
     }
     
@@ -160,6 +165,7 @@ extension ThirdKindTasteTestViewController: UICollectionViewDataSource, UICollec
                 
                 // 선택된 셀의 indexPath를 배열에 추가
                 selectedIndexPaths.append(indexPath)
+                selectedWineName.append(cell.name.text ?? "")
             } else {
                 // 셀이 이미 선택된 상태였을 때 (다시 클릭하면 원래대로)
                 cell.imageView.layer.borderWidth = 0
@@ -168,6 +174,8 @@ extension ThirdKindTasteTestViewController: UICollectionViewDataSource, UICollec
                 if let index = selectedIndexPaths.firstIndex(of: indexPath) {
                     selectedIndexPaths.remove(at: index)
                 }
+                
+                selectedWineName = selectedWineName.filter{$0 != (cell.name.text ?? "")}
             }
                 
             // nextButton의 상태 업데이트

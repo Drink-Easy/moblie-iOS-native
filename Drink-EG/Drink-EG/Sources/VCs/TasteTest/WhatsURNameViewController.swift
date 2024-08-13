@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Moya
+import CoreLocation
 
-class WhatsURNameViewController: UIViewController, UITextFieldDelegate {
-    
+class WhatsURNameViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     let nextButton = UIButton(type: .system)
+    var locationManager = CLLocationManager()
+    var memberInfoDTO : MemberInfoRequest?
+    
     
     private let titleLabel: UILabel = {
         let l = UILabel()
@@ -50,6 +54,10 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate {
             
         // 초기 상태 업데이트
         updateNextButtonState()
+        
+        // Location
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         view.backgroundColor = .white
         setupUI()
@@ -104,18 +112,21 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func updateNextButtonState() {
-        if let text = nameTextField.text, text.isEmpty {
-            // 선택된 셀이 없는 경우
-            nextButton.isEnabled = false
-            nextButton.backgroundColor = UIColor(hex: "#E2E2E2")
-            nextButton.removeTarget(nil, action: nil, for: .allEvents)
-        } else {
-            // 선택된 셀이 하나 이상 있는 경우
-            nextButton.setTitleColor(.white, for: .normal)
-            nextButton.tintColor = .white
-            nextButton.isEnabled = true
-            nextButton.backgroundColor = UIColor(hex: "FA735B")
-            nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        if let name = nameTextField.text {
+            if name.isEmpty { // 이름 입력 안된 경우
+                nextButton.isEnabled = false
+                nextButton.backgroundColor = UIColor(hex: "#E2E2E2")
+                nextButton.removeTarget(nil, action: nil, for: .allEvents)
+            } else {
+                nextButton.setTitleColor(.white, for: .normal)
+                nextButton.tintColor = .white
+                nextButton.isEnabled = true
+                nextButton.backgroundColor = UIColor(hex: "FA735B")
+                nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+                
+                // 이름 정보 전달
+                SelectionManager.shared.setName(answer: name)
+            }
         }
     }
     
@@ -135,4 +146,71 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
+    
+    //MARK: - Location parts
+    func checkAuthorizationStatus() {
+        if #available(iOS 14.0, *) {
+            
+            if locationManager.authorizationStatus == .authorizedAlways
+                || locationManager.authorizationStatus == .authorizedWhenInUse {
+                print("==> 위치 서비스 On 상태")
+                locationManager.startUpdatingLocation() //위치 정보 받아오기 시작 - 사용자의 현재 위치를 보고하는 업데이트 생성을 시작
+            } else if locationManager.authorizationStatus == .notDetermined {
+                print("==> 위치 서비스 Off 상태")
+                locationManager.requestWhenInUseAuthorization()
+            } else if locationManager.authorizationStatus == .denied {
+                print("==> 위치 서비스 Deny 상태")
+            }
+            
+        } else {
+            
+            // Fallback on earlier versions
+            if CLLocationManager.locationServicesEnabled() {
+                print("위치 서비스 On 상태")
+                locationManager.startUpdatingLocation() //위치 정보 받아오기 시작 - 사용자의 현재 위치를 보고하는 업데이트 생성을 시작
+                print("LocationViewController >> checkPermission() - \(locationManager.location?.coordinate)")
+            } else {
+                print("위치 서비스 Off 상태")
+                locationManager.requestWhenInUseAuthorization()
+            }
+        }
+    }
+    
+    func getAddress() {
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        let geocoder = CLGeocoder.init()
+        let location = self.locationManager.location
+        
+        if location != nil {
+            geocoder.reverseGeocodeLocation(location!) { (placemarks, error) in
+                if error != nil {
+                    return
+                }
+                if let placemark = placemarks?.first {
+                    var address = ""
+                    if let administrativeArea = placemark.administrativeArea {
+                        address += administrativeArea
+                    }
+                    
+                    if let locality = placemark.locality {
+                        
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    //MARK: - API parts
+    
+    func assignRequestDTO() {
+        let selectionMng = SelectionManager.shared
+        self.memberInfoDTO = MemberInfoRequest(isNewbie: selectionMng.isNewbie, monthPrice: selectionMng.monthPrice, wineSort: selectionMng.wineSort, wineNation: selectionMng.wineNation, wineVariety: selectionMng.wineVariety, region: , userName: selectionMng.userName)
+        
+    }
 }
+
