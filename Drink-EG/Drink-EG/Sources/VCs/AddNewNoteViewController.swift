@@ -8,9 +8,12 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 
 class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+    
+    let provider = MoyaProvider<TastingNoteAPI>()
     
     let tastingnoteLabel = UILabel()
     let suggestionTableView = UITableView()
@@ -45,6 +48,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupAPI()
         setupView()
         setupLabel()
         setuptastingnoteLabelConstraints()
@@ -95,13 +99,13 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         }
         
     }
-    
+
     func setupSuggestionTableView() {
         suggestionTableView.dataSource = self
         suggestionTableView.delegate = self
         suggestionTableView.register(CustomSuggestionCell.self, forCellReuseIdentifier: "cell")
     }
-    
+
     func setupSuggestionTableViewConstraints() {
         suggestionTableView.snp.makeConstraints{ make in
             make.top.equalTo(wineSearchBar.snp.bottom).offset(35)
@@ -110,7 +114,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
             make.height.greaterThanOrEqualTo(282)
         }
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterSuggestions(with: searchText)
     }
@@ -130,14 +134,14 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomSuggestionCell
-        let imageName = "SampleImage"
+        let imageName = "Loxton"
         let image = UIImage(named: imageName)!
         cell.backgroundColor = UIColor(hex: "E5E5E5")
         cell.layer.cornerRadius = 10
         cell.configure(image: image, text: suggestion[indexPath.row], isSelected: false)
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //return 94
         let screenHeight = UIScreen.main.bounds.height
@@ -153,5 +157,21 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         suggestionTableView.reloadData()
         let nextVC = WriteNoteViewController()
         navigationController?.pushViewController(nextVC, animated: true)
+    }
+
+    func setupAPI() {
+        provider.request(.getWineName(wineName: "19 Crhnes")) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let data = try response.mapJSON()
+                    print(data)
+                } catch {
+                    print(error)
+                }
+            case.failure(let error):
+                print("Error: \(error)")
+            }
+        }
     }
 }

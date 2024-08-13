@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 
 protocol NewNoteFooterDelegate: AnyObject {
@@ -86,9 +87,16 @@ class NewNoteFooter: UICollectionReusableView {
 // NoteListViewController는 사용자가 작성한 테이스팅 노트를 확인 및 새로 작성할 수 있는 뷰
 class NoteListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NewNoteFooterDelegate {
    
+    let provider = MoyaProvider<TastingNoteAPI>()
+    
     let noteListLabel = UILabel() // 노트 보관함 Label
     var noteListGrid: UICollectionView! // 테이스팅 노트를 보관할 CollectionView
     let images = ["sample1", "sample2", "sample3", "sample4", "sample2", "sample3", "sample4", "sample1", "sample3", "sample4", "sample1", "sample2", "sample4", "sample1", "sample2", "sample3"]
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupAPI()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,5 +216,20 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         let nextVC = AddNewNoteViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }
+    
+    func setupAPI() {
+        provider.request(TastingNoteAPI.getAllNotes) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let data = try response.mapJSON()
+                    print("User Data: \(data)")
+                } catch {
+                    print("Failed to map data: \(error)")
+                }
+            case .failure(let error):
+                print("Request failed: \(error)")
+            }
+        }
+    }
 }
-//d asfafdsafsdafasf
