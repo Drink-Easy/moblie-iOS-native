@@ -155,6 +155,7 @@
 		5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddNewNoteViewController.swift; path = ../AddNewNoteViewController.swift; sourceTree = "<group>"; };
 		5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSuggestionCell.swift; sourceTree = "<group>"; };
 		5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WriteNoteViewController.swift; path = ../WriteNoteViewController.swift; sourceTree = "<group>"; };
+		5E22196B2C6B2416005849FB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +193,7 @@
 		16B97CD22C4BEB0900D8B453 /* Drink-EG */ = {
 			isa = PBXGroup;
 			children = (
+				5E22196B2C6B2416005849FB /* Info.plist */,
 				16B97CEA2C4BF36300D8B453 /* Resources */,
 				16B97CF02C4BF3F100D8B453 /* Sources */,
 				16B97CDE2C4BEB0A00D8B453 /* LaunchScreen.storyboard */,
