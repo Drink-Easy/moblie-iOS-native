@@ -127,7 +127,7 @@ class SecondTasteTestViewController: UIViewController {
     }
     
     private func configureFourthButton() {
-        fourthButton.setTitle("10-30만원 정도 써요", for: .normal)
+        fourthButton.setTitle("30만원 이상 써요", for: .normal)
         fourthButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         fourthButton.titleLabel?.numberOfLines = 0
         fourthButton.setTitleColor(.black, for: .normal)

@@ -11,7 +11,13 @@
 //// ViewController에서 provider 선언
 //let provider = MoyaProvider<BasicAPI>()
 //
-//// GET example
+import Foundation
+import Moya
+
+// ViewController에서 provider 선언
+let provider = MoyaProvider<BasicAPI>()
+
+// GET example
 //provider.request(.getUser(id: 1)) { result in
 //    switch result {
 //    case .success(let response):
@@ -25,8 +31,8 @@
 //        print("Request failed: \(error)")
 //    }
 //}
-//
-//// POST
+
+// POST
 //provider.request(.createUser(name: "John Doe", email: "john@example.com")) { result in
 //    switch result {
 //    case .success(let response):
@@ -40,8 +46,8 @@
 //        print("Request failed: \(error)")
 //    }
 //}
-//
-//// PUT
+
+// PUT
 //provider.request(.updateUser(id: 1, name: "Jane Doe", email: "jane@example.com")) { result in
 //    switch result {
 //    case .success(let response):
@@ -55,8 +61,8 @@
 //        print("Request failed: \(error)")
 //    }
 //}
-//
-//// DELETE
+
+// DELETE
 //provider.request(.deleteUser(id: 1)) { result in
 //    switch result {
 //    case .success(let response):

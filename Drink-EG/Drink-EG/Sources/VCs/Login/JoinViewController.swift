@@ -7,8 +7,13 @@
 
 import UIKit
 import SnapKit
+import Moya
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
+    let provider = MoyaProvider<LoginAPI>()
+    public var userID : String?
+    public var userPW : String?
+    var joinDTO : JoinNLoginRequest?
 
     let joinButton = UIButton(type: .system)
     let loginButton = UIButton(type: .system)
@@ -90,8 +95,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupUI() {
-        configureLoginButton()
         configureJoinButton()
+        configureLoginButton()
         configureKakaoButton()
         configureAppleButton()
         configureIdTextField()
@@ -167,7 +172,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             make.height.equalTo(60)
         }
 
-        
         view.addSubview(joinButton)
         joinButton.snp.makeConstraints { make in
             make.top.equalTo(view).offset(484)
@@ -178,7 +182,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func configureLoginButton() {
+    private func configureJoinButton() {
         joinButton.setTitle("회원가입", for: .normal)
         joinButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         joinButton.setTitleColor(.black, for: .normal)
@@ -187,9 +191,22 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         joinButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
         joinButton.layer.cornerRadius = 16
         joinButton.layer.borderWidth = 0
+        joinButton.addTarget(self, action: #selector(joinButtonTapped), for: .touchUpInside)
     }
     
-    private func configureJoinButton() {
+    @objc private func joinButtonTapped() {
+        assignUserData()
+        callJoinAPI { [weak self] isSuccess in
+            if isSuccess {
+                self?.goToLoginView()
+            } else {
+                print("회원가입 실패")
+                // 실패 시에 대한 처리 (예: 에러 메시지 표시)
+            }
+        }
+    }
+    
+    private func configureLoginButton() {
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         loginButton.setTitleColor(UIColor(hex: "#FFEA75"), for: .normal)
@@ -200,6 +217,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func loginButtonTapped() {
+        goToLoginView()
+    }
+    
+    private func goToLoginView() {
         let loginViewController = LoginViewController()
         navigationController?.pushViewController(loginViewController, animated: true)
     }
@@ -299,18 +320,33 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         else if textField.tag == 2 || textField.tag == 3 {
             textField.setPwIcon(UIImage(named: "icon_lock")!)
         }
-        
+//        self.userID = self.idTextField.text
+//        self.userPW = self.pwTextField.text
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.idTextField {
+            if let id = self.idTextField.text {
+                self.userID = id
+            }
             self.pwTextField.becomeFirstResponder()
         } else if textField == self.pwTextField {
             self.pwAgainTextField.becomeFirstResponder()
         } else if textField == self.pwAgainTextField {
+            if let rePW = self.pwAgainTextField.text {
+//                guard pw == rePW else {
+//                    // toast message 띄우기
+//                }
+            }
             self.pwAgainTextField.resignFirstResponder()
         }
         return true
+    }
+    
+    private func assignUserData() {
+        self.userID = self.idTextField.text
+        self.userPW = self.pwTextField.text
+        self.joinDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
     }
     
     // 배경 클릭시 키보드 내림  ==> view 에 터치가 들어오면 에디팅모드를 끝냄.
@@ -318,4 +354,29 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
+    
+    private func callJoinAPI(completion: @escaping (Bool) -> Void) {
+        if let data = self.joinDTO {
+            provider.request(.postRegister(data: data)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let data = try response.map(APIResponseString.self)
+                        print("User Created: \(data)")
+                        completion(data.isSuccess)
+                    } catch {
+                        print("Failed to map data: \(error)")
+                        completion(false)
+                    }
+                case .failure(let error):
+                    print("Request failed: \(error)")
+                    completion(false)
+                }
+            }
+        } else {
+            print("User Data가 없습니다.")
+            completion(false)
+        }
+    }
 }
+

@@ -7,8 +7,15 @@
 
 import UIKit
 import SnapKit
+import Moya
+
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
+    
+    let provider = MoyaProvider<LoginAPI>()
+    public var userID : String?
+    public var userPW : String?
+    var loginDTO : JoinNLoginRequest?
 
     let loginButton = UIButton(type: .system)
     let joinButton = UIButton(type: .system)
@@ -198,6 +205,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
         loginButton.layer.cornerRadius = 16
         loginButton.layer.borderWidth = 0
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func loginButtonTapped() {
+        assignUserData()
+        callLoginAPI { [weak self] isSuccess in
+            if isSuccess {
+                self?.goToNextView()
+            } else {
+                print("로그인 실패")
+                // 실패 시에 대한 처리 (예: 에러 메시지 표시)
+            }
+        }
+    }
+    
+    private func goToNextView() {
+        let enterTasteTestViewController = EnterTasteTestViewController()
+        navigationController?.pushViewController(enterTasteTestViewController, animated: true)
     }
     
     private func configureJoinButton() {
@@ -323,17 +348,52 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.idTextField {
+            if let id = self.idTextField.text {
+                self.userID = id
+            }
             self.pwTextField.becomeFirstResponder()
         } else if textField == self.pwTextField {
+            if let pw = self.pwTextField.text {
+                self.userPW = pw
+            }
             self.pwTextField.resignFirstResponder()
         }
         return true
+    }
+    
+    private func assignUserData() {
+        self.userID = self.idTextField.text
+        self.userPW = self.pwTextField.text
+        self.loginDTO = JoinNLoginRequest(username: self.userID ?? "", password: self.userPW ?? "")
     }
     
     // 배경 클릭시 키보드 내림  ==> view 에 터치가 들어오면 에디팅모드를 끝냄.
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
+    }
+    
+    private func callLoginAPI(completion: @escaping (Bool) -> Void) {
+        if let data = self.loginDTO {
+            provider.request(.postLogin(data: data)) { result in
+                switch result {
+                case .success(let response):
+                    if let httpResponse = response.response,
+                        let setCookie = httpResponse.allHeaderFields["Set-Cookie"] as? String {
+                        let cookies = HTTPCookie.cookies(withResponseHeaderFields: ["Set-Cookie": setCookie], for: httpResponse.url!)
+                            
+                        for cookie in cookies {
+                            print("Cookie Name: \(cookie.name), Value: \(cookie.value)")
+                            HTTPCookieStorage.shared.setCookie(cookie)
+                        }
+                    }
+                    completion(true)
+                case .failure(let error):
+                    print("Request failed: \(error)")
+                    completion(false)
+                }
+            }
+        }
     }
 }
 
