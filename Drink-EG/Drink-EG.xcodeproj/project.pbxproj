@@ -102,7 +102,6 @@
 		16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		16B97CDC2C4BEB0A00D8B453 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16B97CDF2C4BEB0A00D8B453 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		16B97CE12C4BEB0A00D8B453 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16B97CEB2C4BF37E00D8B453 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		16B97CFD2C4BFC2300D8B453 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		16B97CFF2C4BFC7300D8B453 /* ShoppingCartListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartListViewController.swift; sourceTree = "<group>"; };
@@ -196,7 +195,6 @@
 				16B97CEA2C4BF36300D8B453 /* Resources */,
 				16B97CF02C4BF3F100D8B453 /* Sources */,
 				16B97CDE2C4BEB0A00D8B453 /* LaunchScreen.storyboard */,
-				16B97CE12C4BEB0A00D8B453 /* Info.plist */,
 			);
 			path = "Drink-EG";
 			sourceTree = "<group>";
