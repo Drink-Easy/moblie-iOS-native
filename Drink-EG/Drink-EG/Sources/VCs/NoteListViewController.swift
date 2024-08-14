@@ -91,7 +91,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     let noteListLabel = UILabel() // 노트 보관함 Label
     var noteListGrid: UICollectionView! // 테이스팅 노트를 보관할 CollectionView
-    let images = ["sample1", "sample2", "sample3", "sample4", "sample2", "sample3", "sample4", "sample1", "sample3", "sample4", "sample1", "sample2", "sample4", "sample1", "sample2", "sample3"]
+    let images = ["Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci"]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -150,8 +150,20 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.footerReferenceSize = CGSize(width: view.frame.width, height: 60)
         noteListGrid = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        noteListGrid.backgroundColor = UIColor(hex: "EAEAEA")
-        noteListGrid.layer.cornerRadius = 10
+        noteListGrid.backgroundColor = .clear
+        noteListGrid.layer.cornerRadius = 36
+        noteListGrid.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner)
+        noteListGrid.layer.borderWidth = 1
+        noteListGrid.layer.borderColor = UIColor.white.cgColor
+        
+        let shadowPath = UIBezierPath(roundedRect: noteListGrid.bounds, cornerRadius: 36)
+        noteListGrid.layer.shadowPath = shadowPath.cgPath
+        noteListGrid.layer.shadowColor = UIColor(red: 0.98, green: 0.451, blue: 0.357, alpha: 0.2).cgColor
+        noteListGrid.layer.shadowOpacity = 1
+        noteListGrid.layer.shadowRadius = 20
+        noteListGrid.layer.shadowOffset = CGSize(width: 4, height: -14)
+        noteListGrid.layer.masksToBounds = false
+        
         
         noteListGrid.dataSource = self
         noteListGrid.delegate = self
@@ -160,17 +172,14 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let backgroundView = UIView()
         backgroundView.layer.cornerRadius = 10
-        backgroundView.layer.masksToBounds = true
+        backgroundView.layer.masksToBounds = false
         noteListGrid.backgroundView = backgroundView
     }
     
     func setupNoteCollectionViewConstraints() { // CollectionView의 제약 조건을 설정하는 함수
         noteListGrid.snp.makeConstraints{ make in
-            make.leading.equalTo(noteListLabel)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(noteListLabel.snp.bottom).offset(35)
-            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(74)
-            //make.height.greaterThanOrEqualTo(591)
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -180,7 +189,8 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { // 재사용 가능한 셀을 가져와서 NoteCollectionViewCell로 캐스팅
         let cell = noteListGrid.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! NoteCollectionViewCell
-        cell.imageView.image = UIImage(named: "Vendredi")
+
+        cell.imageView.image = UIImage(named: "Castello Monaci")
         cell.nameLabel.text = "와인 이름\n1999"
         cell.nameLabel.numberOfLines = 2
         cell.nameLabel.font = UIFont(name: "Pretendard-Bold", size: 14)

@@ -11,6 +11,7 @@ class ThirdNationTasteTestViewController: UIViewController {
 
     var nation: [String] = ["프랑스", "이탈리아", "미국", "칠레", "스페인", "호주", "아르헨티나", "독일", "뉴질랜드", "포르투갈", "오스트리아", "그리스", "슬로베니아", "헝가리", "캐나다", "대한민국", "기타1"]
     var selectedIndexPaths: [IndexPath] = []
+    private var selectedNations : [String] = []
     
     let nextButton = UIButton(type: .system)
     
@@ -125,6 +126,9 @@ class ThirdNationTasteTestViewController: UIViewController {
             nextButton.isEnabled = true
             nextButton.backgroundColor = UIColor(hex: "FA735B")
             nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+            
+            // 선택된 국가 정보 전달
+            SelectionManager.shared.setWineNation(anser: selectedNations)
         }
     }
     
@@ -158,6 +162,8 @@ extension ThirdNationTasteTestViewController: UICollectionViewDataSource, UIColl
                 
                 // 선택된 셀의 indexPath를 배열에 추가
                 selectedIndexPaths.append(indexPath)
+                selectedNations.append(cell.name.text ?? "")
+                
             } else {
                 // 셀이 이미 선택된 상태였을 때 (다시 클릭하면 원래대로)
                 cell.View.layer.borderWidth = 0
@@ -166,6 +172,8 @@ extension ThirdNationTasteTestViewController: UICollectionViewDataSource, UIColl
                 if let index = selectedIndexPaths.firstIndex(of: indexPath) {
                     selectedIndexPaths.remove(at: index)
                 }
+                
+                selectedNations = selectedNations.filter{$0 != (cell.name.text ?? "")}
             }
                 
             // nextButton의 상태 업데이트

@@ -6,11 +6,14 @@
 //
 
 import UIKit
-
+import Moya
+ 
 class ThirdVarietyTasteTestViewController: UIViewController {
 
     var variety: [String] = ["까베르네소비뇽", "샤도네이", "메를로", "까베르네프랑", "피노누아", "쉬라즈", "쇼비뇽 블랑", "그르나슈", "말벡", "산지오베제", "모스카토", "리슬링", "템프라니요", "네비올로", "블랜드", "쁘띠베르도", "무르베드르", "카르메너르", "기타"]
     var selectedIndexPaths: [IndexPath] = []
+    private var selectedVariety : [String] = []
+    var memberInfoDTO : MemberInfoRequest?
     
     let startButton = UIButton(type: .system)
     
@@ -125,13 +128,46 @@ class ThirdVarietyTasteTestViewController: UIViewController {
             startButton.isEnabled = true
             startButton.backgroundColor = UIColor(hex: "FA735B")
             startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+            
+            SelectionManager.shared.setWineVariety(anser: selectedVariety)
         }
     }
     
     @objc private func startButtonTapped() {
+        assignRequestDTO()
+        callAPI()
+        
         let mainTabBarViewController = MainTabBarViewController()
         navigationController?.pushViewController(mainTabBarViewController, animated: true)
     }
+    
+    //MARK: - API parts
+    let provider = MoyaProvider<MemberInfoAPI>(plugins: [CookiePlugin()])
+    
+    func assignRequestDTO() {
+            let selectionMng = SelectionManager.shared
+            self.memberInfoDTO = MemberInfoRequest(
+                isNewbie: selectionMng.isNewbie,
+                monthPrice: selectionMng.monthPrice,
+                wineSort: selectionMng.wineSort,
+                wineNation: selectionMng.wineNation,
+                wineVariety: selectionMng.wineVariety,
+                region: selectionMng.userAddr,
+                userName: selectionMng.userName
+            )
+        }
+        
+        func callAPI() {
+            guard let memberInfoDTO = memberInfoDTO else { return }
+            provider.request(.patchMember(data: memberInfoDTO)) { result in
+                switch result {
+                case .success(let response):
+                    print("Success: \(response)")
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+            }
+        }
 }
 
 extension ThirdVarietyTasteTestViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -157,6 +193,7 @@ extension ThirdVarietyTasteTestViewController: UICollectionViewDataSource, UICol
                 
                 // 선택된 셀의 indexPath를 배열에 추가
                 selectedIndexPaths.append(indexPath)
+                selectedVariety.append(cell.name.text ?? "")
             } else {
                 // 셀이 이미 선택된 상태였을 때 (다시 클릭하면 원래대로)
                 if (cell.name.text == "기타") {
@@ -170,6 +207,7 @@ extension ThirdVarietyTasteTestViewController: UICollectionViewDataSource, UICol
                 if let index = selectedIndexPaths.firstIndex(of: indexPath) {
                     selectedIndexPaths.remove(at: index)
                 }
+                selectedVariety = selectedVariety.filter{$0 != (cell.name.text ?? "")}
             }
                 
             // nextButton의 상태 업데이트
