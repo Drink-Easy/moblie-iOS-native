@@ -58,7 +58,7 @@ class HomeViewController: UIViewController {
         
         //layer 위에 label 추가
         let titleLabel = UILabel()
-        titleLabel.text = "테이스팅 노트 바로가기"
+        titleLabel.text = "테이스팅 노트 작성하기"
         titleLabel.textColor = .black
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         titleLabel.textAlignment = .left
@@ -253,8 +253,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func noteButtonTapped() {
-        let noteListViewController = NoteListViewController()
-        navigationController?.pushViewController(noteListViewController, animated: true)
+        let addNewNoteViewController = AddNewNoteViewController()
+        navigationController?.pushViewController(addNewNoteViewController, animated: true)
     }
     
     lazy var AdImageCollectionView: UICollectionView = {

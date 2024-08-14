@@ -189,6 +189,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { // 재사용 가능한 셀을 가져와서 NoteCollectionViewCell로 캐스팅
         let cell = noteListGrid.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! NoteCollectionViewCell
+
         cell.imageView.image = UIImage(named: "Castello Monaci")
         cell.nameLabel.text = "와인 이름\n1999"
         cell.nameLabel.numberOfLines = 2

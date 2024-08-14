@@ -122,7 +122,7 @@ class ShoppingCartListViewController: UIViewController {
         
         view.addSubview(cartListCollectionView)
         cartListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(allCheckLabel.snp.bottom).offset(20)
+            make.top.equalTo(allCheckLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.bottom.equalTo(buyButton.snp.top).offset(-20)
