@@ -15,7 +15,7 @@ class TasteTestFirstCollectionViewCell: UICollectionViewCell {
         return iv
     }()
     
-    private let name: UILabel = {
+    let name: UILabel = {
         let l1 = UILabel()
         l1.font = .boldSystemFont(ofSize: 16)
         l1.textColor = .black

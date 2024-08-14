@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Moya
+import CoreLocation
 
-class WhatsURNameViewController: UIViewController, UITextFieldDelegate {
-    
+class WhatsURNameViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     let nextButton = UIButton(type: .system)
+    var locationManager = CLLocationManager()
+    
     
     private let titleLabel: UILabel = {
         let l = UILabel()
@@ -33,13 +36,11 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate {
         t.leftViewMode = .always
         return t
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
@@ -47,9 +48,12 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate {
         
         // nameTextField의 값이 변경될 때 updateNextButtonState를 호출하도록 설정
         nameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-            
+        
         // 초기 상태 업데이트
         updateNextButtonState()
+        
+        // Location
+        setupLocationManager()
         
         view.backgroundColor = .white
         setupUI()
@@ -104,18 +108,21 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func updateNextButtonState() {
-        if let text = nameTextField.text, text.isEmpty {
-            // 선택된 셀이 없는 경우
-            nextButton.isEnabled = false
-            nextButton.backgroundColor = UIColor(hex: "#E2E2E2")
-            nextButton.removeTarget(nil, action: nil, for: .allEvents)
-        } else {
-            // 선택된 셀이 하나 이상 있는 경우
-            nextButton.setTitleColor(.white, for: .normal)
-            nextButton.tintColor = .white
-            nextButton.isEnabled = true
-            nextButton.backgroundColor = UIColor(hex: "FA735B")
-            nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        if let name = nameTextField.text {
+            if name.isEmpty { // 이름 입력 안된 경우
+                nextButton.isEnabled = false
+                nextButton.backgroundColor = UIColor(hex: "#E2E2E2")
+                nextButton.removeTarget(nil, action: nil, for: .allEvents)
+            } else {
+                nextButton.setTitleColor(.white, for: .normal)
+                nextButton.tintColor = .white
+                nextButton.isEnabled = true
+                nextButton.backgroundColor = UIColor(hex: "FA735B")
+                nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+                
+                // 이름 정보 전달
+                SelectionManager.shared.setName(answer: name)
+            }
         }
     }
     
@@ -135,4 +142,68 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)  //firstresponder가 전부 사라짐
     }
+    
+    //MARK: - Location parts
+    private func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            self.locationManager.startUpdatingLocation()
+        case .denied, .restricted:
+            print("위치 서비스가 제한 또는 거부되었습니다.")
+            self.locationManager.stopUpdatingLocation()
+        case .notDetermined:
+            print("위치 권한이 아직 결정되지 않았습니다.")
+            self.locationManager.requestWhenInUseAuthorization()
+        @unknown default:
+            print("알 수 없는 권한 상태입니다.")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else { return }
+        
+        // 위치 정보를 기반으로 주소를 가져옴
+        reverseGeocode(location: location)
+        
+        locationManager.stopUpdatingLocation()
+    }
+    
+    private func reverseGeocode(location: CLLocation) {
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
+            guard let self = self else { return }
+            if let error = error {
+                print("역지오코딩 실패: \(error)")
+                return
+            }
+            if let placemark = placemarks?.first {
+                var address = ""
+                
+                if let administrativeArea = placemark.administrativeArea {
+                    address += administrativeArea
+                }
+                
+                if let locality = placemark.locality {
+                    address += " \(locality)"
+                }
+                
+                if let subLocality = placemark.subLocality {
+                    address += " \(subLocality)"
+                }
+                
+                if let thoroughfare = placemark.thoroughfare {
+                    address += " \(thoroughfare)"
+                }
+                
+                SelectionManager.shared.userAddr = address
+            }
+        }
+    }
 }
+

@@ -28,8 +28,6 @@ class FirstTasteTestViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
@@ -142,6 +140,13 @@ class FirstTasteTestViewController: UIViewController {
             nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
             nextButton.isEnabled = true
             nextButton.backgroundColor = UIColor(hex: "FA735B")
+            
+            // 버튼 선택 결과 전달
+            if newbeeButton.isSelected {
+                SelectionManager.shared.setNewbie(answer: true)
+            } else if maniacButton.isSelected {
+                SelectionManager.shared.setNewbie(answer: false)
+            }
         } else {
             nextButton.removeTarget(nil, action: nil, for: .allEvents)
             nextButton.isEnabled = false

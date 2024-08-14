@@ -30,8 +30,6 @@ class SecondTasteTestViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
@@ -170,6 +168,16 @@ class SecondTasteTestViewController: UIViewController {
             nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
             nextButton.isEnabled = true
             nextButton.backgroundColor = UIColor(hex: "FA735B")
+            
+            if firstButton.isSelected {
+                SelectionManager.shared.setPrice(answer: 50000)
+            } else if secondButton.isSelected {
+                SelectionManager.shared.setPrice(answer: 100000)
+            } else if thirdButton.isSelected {
+                SelectionManager.shared.setPrice(answer: 300000)
+            } else if fourthButton.isSelected {
+                SelectionManager.shared.setPrice(answer: 10000000)
+            }
         } else {
             nextButton.removeTarget(nil, action: nil, for: .allEvents)
             nextButton.isEnabled = false

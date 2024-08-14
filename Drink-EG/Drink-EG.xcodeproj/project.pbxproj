@@ -27,6 +27,7 @@
 		165401042C69FA13008A9DBF /* APIResponseString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401032C69FA13008A9DBF /* APIResponseString.swift */; };
 		165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */; };
 		165401092C6BA644008A9DBF /* MemberInfoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401082C6BA644008A9DBF /* MemberInfoAPI.swift */; };
+		1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654010A2C6BACDC008A9DBF /* SelectionManager.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -127,6 +128,7 @@
 		165401032C69FA13008A9DBF /* APIResponseString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseString.swift; sourceTree = "<group>"; };
 		165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoRequest.swift; sourceTree = "<group>"; };
 		165401082C6BA644008A9DBF /* MemberInfoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoAPI.swift; sourceTree = "<group>"; };
+		1654010A2C6BACDC008A9DBF /* SelectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionManager.swift; sourceTree = "<group>"; };
 		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				165401052C69FA97008A9DBF /* APIResponseModels */,
+				1654010A2C6BACDC008A9DBF /* SelectionManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */,
 				165400F62C69EF89008A9DBF /* WineNewsRequest.swift in Sources */,
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
+				1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */,
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
 				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
 				5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */,
@@ -825,7 +829,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UKY6HK6U6Y;
+				DEVELOPMENT_TEAM = 83K577A944;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Drink-EG/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -852,7 +856,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UKY6HK6U6Y;
+				DEVELOPMENT_TEAM = 83K577A944;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Drink-EG/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

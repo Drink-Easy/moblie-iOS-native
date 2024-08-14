@@ -13,17 +13,26 @@ class WineInfoViewController: UIViewController {
     var wine: String?
     
     let pentagonChart = PolygonChartView()
-    var dataList: [RadarChartData] = [RadarChartData(type: .sweetness, value: 80),
-                                      RadarChartData(type: .acid, value: 60),
-                                      RadarChartData(type: .tannin, value: 20),
-                                      RadarChartData(type: .bodied, value: 60),
-                                      RadarChartData(type: .alcohol, value: 40)]
+    var dataList: [RadarChartData] = [RadarChartData(type: .sweetness, value: 8),
+                                      RadarChartData(type: .acid, value: 6),
+                                      RadarChartData(type: .tannin, value: 2),
+                                      RadarChartData(type: .bodied, value: 6),
+                                      RadarChartData(type: .alcohol, value: 4)]
     
     func setupPentagonChart() {
         pentagonChart.backgroundColor = .clear
         pentagonChart.dataList = dataList
         pentagonChart.layer.cornerRadius = 10
     }
+    
+    private let label: UILabel = {
+        let l = UILabel()
+        l.text = "와인 정보"
+        l.font = .systemFont(ofSize: 28, weight: UIFont.Weight(700))
+        l.textColor = .black
+        l.numberOfLines = 0
+        return l
+    }()
     
     private let infoView: UIView = {
         let v = UIView()
@@ -99,6 +108,7 @@ class WineInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.tintColor = .black
         view.backgroundColor = .white
         
         setupUI()
@@ -107,9 +117,15 @@ class WineInfoViewController: UIViewController {
     private func setupUI() {
         setupPentagonChart()
         
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
+        }
+        
         view.addSubview(infoView)
         infoView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(50)
+            make.top.equalTo(label.snp.bottom).offset(20)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(14)
             make.height.lessThanOrEqualTo(101)
         }
