@@ -29,8 +29,8 @@ extension TastingNoteAPI: TargetType {
         /// 기본 URL + path 로 URL 구성
         switch self {
             /// 동일한 path는 한 case로 처리 가능
-        case .getWineName(let wineName):
-            return "\(wineName)"
+        case .getWineName:
+            return "wine"
         case .getAllNotes:
             return "all-note"
         }
@@ -39,17 +39,14 @@ extension TastingNoteAPI: TargetType {
     var method: Moya.Method {
         /// 각 case 별로 적합한 method 배정
         switch self {
-        case .getWineName:
-            return .get
-        case .getAllNotes:
+        case .getWineName, .getAllNotes:
             return .get
         }
     }
-    
     var task: Task {
         switch self {
         case .getWineName(let wineName):
-            return .requestParameters(parameters: ["wineName": wineName], encoding: JSONEncoding.default)
+            return .requestParameters(parameters: ["noteWineRequestDTO": ["wineName": wineName]], encoding: URLEncoding.default)
         case .getAllNotes:
             return .requestPlain
         }
