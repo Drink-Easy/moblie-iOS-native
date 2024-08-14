@@ -67,13 +67,6 @@ class ChooseTasteViewController: UIViewController {
         setupNextButtonConstraints()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.barTintColor = UIColor.red // 네비게이션 바 배경색
-        self.navigationController?.navigationBar.tintColor = UIColor.red // 네비게이션 아이템 색상
-    }
-    
     func setupNavigationBarButton() {
         navigationItem.hidesBackButton = true
         let backArrow = UIImage(systemName: "chevron.backward")

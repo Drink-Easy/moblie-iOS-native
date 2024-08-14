@@ -102,6 +102,8 @@
 		5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22196D2C6B2EA0005849FB /* RatingViewController.swift */; };
 		5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219702C6B5B5B005849FB /* Cosmos */; };
 		5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219722C6B661A005849FB /* CheckNoteViewController.swift */; };
+		5E22197B2C6BB56F005849FB /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5E22197A2C6BB56F005849FB /* SDWebImage */; };
+		5E22197D2C6BB56F005849FB /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5E22197C2C6BB56F005849FB /* SDWebImageMapKit */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -207,8 +209,10 @@
 				5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */,
 				5E22195E2C69DDB5005849FB /* SnapKit in Frameworks */,
 				5E2219672C69DE78005849FB /* KakaoSDK in Frameworks */,
+				5E22197B2C6BB56F005849FB /* SDWebImage in Frameworks */,
 				5E2219612C69DDBF005849FB /* Alamofire in Frameworks */,
 				5E22196A2C69DEEA005849FB /* Toast in Frameworks */,
+				5E22197D2C6BB56F005849FB /* SDWebImageMapKit in Frameworks */,
 				5E2219642C69DE43005849FB /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,9 +446,9 @@
 		16B97CF92C4BFB4700D8B453 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */,
 				5E22193C2C69D5D0005849FB /* CommunityInfoViewController.swift */,
 				5E22193F2C69D5D0005849FB /* CommunityListViewController.swift */,
-				5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */,
 				5E22193B2C69D5D0005849FB /* CreateNewCommViewController.swift */,
 				5E22193E2C69D5D0005849FB /* CustomCollectionViewCell.swift */,
 				5E2219392C69D5D0005849FB /* CustomCommentsCollectionView.swift */,
@@ -528,6 +532,8 @@
 				5E2219662C69DE78005849FB /* KakaoSDK */,
 				5E2219692C69DEEA005849FB /* Toast */,
 				5E2219702C6B5B5B005849FB /* Cosmos */,
+				5E22197A2C6BB56F005849FB /* SDWebImage */,
+				5E22197C2C6BB56F005849FB /* SDWebImageMapKit */,
 			);
 			productName = "Drink-EG";
 			productReference = 16B97CD02C4BEB0900D8B453 /* Drink-EG.app */;
@@ -564,6 +570,7 @@
 				5E2219652C69DE78005849FB /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				5E2219682C69DEEA005849FB /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				5E22196F2C6B5B5B005849FB /* XCRemoteSwiftPackageReference "Cosmos" */,
+				5E2219792C6BB56F005849FB /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 16B97CD12C4BEB0900D8B453 /* Products */;
 			projectDirPath = "";
@@ -941,6 +948,14 @@
 				minimumVersion = 25.0.1;
 			};
 		};
+		5E2219792C6BB56F005849FB /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -973,6 +988,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5E22196F2C6B5B5B005849FB /* XCRemoteSwiftPackageReference "Cosmos" */;
 			productName = Cosmos;
+		};
+		5E22197A2C6BB56F005849FB /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E2219792C6BB56F005849FB /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		5E22197C2C6BB56F005849FB /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E2219792C6BB56F005849FB /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

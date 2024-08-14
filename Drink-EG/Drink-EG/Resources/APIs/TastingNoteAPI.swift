@@ -16,6 +16,10 @@ import Moya
 enum TastingNoteAPI {
     case getAllNotes
     case getWineName(wineName: String)
+    case getNoteID(noteId: Int)
+    case postNewNote(wineId: Int, color: String, sugarContent: Int, acidity: Int, tannin: Int, body: Int, alcohol: Int, scentAroma: [String], scentTaste: [String], scentFinish: [String], satisfaction: Int, memo: String)
+    case patchNote(noteId: Int, wineId: Int, color: String, sugarContent: Int, acidity: Int, tannin: Int, body: Int, alcohol: Int, scentAroma: [String], scentTaste: [String], scentFinish: [String], satisfaction: Int, memo: String)
+    case deleteNote(noteId: Int)
     
 }
 
@@ -29,28 +33,73 @@ extension TastingNoteAPI: TargetType {
         /// 기본 URL + path 로 URL 구성
         switch self {
             /// 동일한 path는 한 case로 처리 가능
-        case .getWineName(let wineName):
-            return "\(wineName)"
+        case .getWineName:
+            return "wine"
         case .getAllNotes:
             return "all-note"
+        case .getNoteID(let noteId):
+            return "\(noteId)"
+        case .postNewNote:
+            return "new-note"
+        case .patchNote(let noteId, let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):
+            return "\(noteId)"
+        case .deleteNote(let noteId):
+            return "\(noteId)"
         }
     }
-    
     var method: Moya.Method {
         /// 각 case 별로 적합한 method 배정
         switch self {
-        case .getWineName:
+        case .getWineName, .getAllNotes, .getNoteID:
             return .get
-        case .getAllNotes:
-            return .get
+        case .postNewNote:
+            return .post
+        case .patchNote:
+            return .patch
+        case .deleteNote:
+            return .delete
         }
     }
     
     var task: Task {
         switch self {
         case .getWineName(let wineName):
-            return .requestParameters(parameters: ["wineName": wineName], encoding: JSONEncoding.default)
-        case .getAllNotes:
+            return .requestParameters(parameters: ["noteWineRequestDTO": ["wineName": wineName]], encoding: URLEncoding.default)
+        case .getAllNotes, .getNoteID:
+            return .requestPlain
+        case .postNewNote(let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):
+            let parameters: [String: Any] = [
+                "wineId": wineId,
+                "color": color,
+                "sugarContent": sugarContent,
+                "acidity": acidity,
+                "tannin": tannin,
+                "body": body,
+                "alcohol": alcohol,
+                "scentAroma": scentAroma,
+                "scentTaste": scentTaste,
+                "scentFinish": scentFinish,
+                "satisfaction": satisfaction,
+                "memo": memo
+            ]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case .patchNote(_, let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):
+            let parameters: [String: Any] = [
+                "wineId": wineId,
+                "color": color,
+                "sugarContent": sugarContent,
+                "acidity": acidity,
+                "tannin": tannin,
+                "body": body,
+                "alcohol": alcohol,
+                "scentAroma": scentAroma,
+                "scentTaste": scentTaste,
+                "scentFinish": scentFinish,
+                "satisfaction": satisfaction,
+                "memo": memo
+            ]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case .deleteNote:
             return .requestPlain
         }
     }

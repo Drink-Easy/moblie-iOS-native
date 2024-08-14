@@ -84,10 +84,23 @@ class NewNoteFooter: UICollectionReusableView {
     }
 }
 
+struct Note: Decodable {
+    let noteId: Int
+    let name: String
+    let picture: String
+}
+
+struct AllNotesResponse: Decodable {
+    let isSuccess: Bool
+    let code: String
+    let message: String
+    let result: [Note]
+}
+
 // NoteListViewController는 사용자가 작성한 테이스팅 노트를 확인 및 새로 작성할 수 있는 뷰
 class NoteListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NewNoteFooterDelegate {
    
-    let provider = MoyaProvider<TastingNoteAPI>()
+    let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
     
     let noteListLabel = UILabel() // 노트 보관함 Label
     var noteListGrid: UICollectionView! // 테이스팅 노트를 보관할 CollectionView
@@ -95,6 +108,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         setupAPI()
     }
     
@@ -232,7 +246,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
             switch result {
             case .success(let response):
                 do {
-                    let data = try response.mapJSON()
+                    let data = try response.map(AllNotesResponse.self)
                     print("User Data: \(data)")
                 } catch {
                     print("Failed to map data: \(error)")

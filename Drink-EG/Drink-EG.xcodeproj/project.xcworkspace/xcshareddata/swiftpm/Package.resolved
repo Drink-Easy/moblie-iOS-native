@@ -1,5 +1,5 @@
 {
-  "originHash" : "94393d098153cbd97eec19a1c56e156b79e10a5cb07e1198ba426834b6a505ba",
+  "originHash" : "a8561a89e8f67830f69988d3a168bbd94d5d7088705bdbb1ebac5fe0c3ef0104",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -56,9 +56,18 @@
       }
     },
     {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "5191b801aca999b704eb93f118f91468b4570571",
+        "version" : "5.19.6"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "location" : "https://github.com/SnapKit/SnapKit",
       "state" : {
         "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
         "version" : "5.7.1"
