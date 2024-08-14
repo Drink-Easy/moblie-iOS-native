@@ -446,9 +446,9 @@
 		16B97CF92C4BFB4700D8B453 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */,
 				5E22193C2C69D5D0005849FB /* CommunityInfoViewController.swift */,
 				5E22193F2C69D5D0005849FB /* CommunityListViewController.swift */,
-				5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */,
 				5E22193B2C69D5D0005849FB /* CreateNewCommViewController.swift */,
 				5E22193E2C69D5D0005849FB /* CustomCollectionViewCell.swift */,
 				5E2219392C69D5D0005849FB /* CustomCommentsCollectionView.swift */,
