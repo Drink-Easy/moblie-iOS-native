@@ -21,6 +21,8 @@ class CartListCollectionViewCell: UICollectionViewCell {
     private let CheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nCheckImage = UIImage(named: "icon_cartCheck_nfill")
     private let CheckButton = UIButton(type: .custom)
+    private var shop = "PODO"
+    private var price = 27000
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
@@ -39,44 +41,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         return l1
     }()
     
-    private let marketNprice: UILabel = {
-        let l2 = UILabel()
-        
-        let firstImageAttachment = NSTextAttachment()
-        firstImageAttachment.image = UIImage(named: "icon_market")
-        
-        let firstImageOffsetY: CGFloat = -2.0 // 텍스트와 이미지의 정렬을 맞추기 위해 조정합니다.
-        firstImageAttachment.bounds = CGRect(x: 0, y: firstImageOffsetY, width: 12, height: 12) // 이미지의 크기를 설정합니다.
-
-        let secondImageAttachment = NSTextAttachment()
-        secondImageAttachment.image = UIImage(named: "Vector")
-                
-        let secondImageOffsetY: CGFloat = -2.0 // 이미지와 텍스트의 정렬을 맞추기 위해 조정
-        secondImageAttachment.bounds = CGRect(x: 0, y: secondImageOffsetY, width: 1, height: 12)
-
-        let completeText = NSMutableAttributedString(string: "")
-        
-        // 첫 번째 이미지 추가
-        let firstAttachmentString = NSAttributedString(attachment: firstImageAttachment)
-        completeText.append(firstAttachmentString)
-
-        // 매장 텍스트 추가
-        let textBeforeSecondImage = NSAttributedString(string: " PODO  ", attributes: [.font: UIFont.systemFont(ofSize: 16)])
-        completeText.append(textBeforeSecondImage)
-
-        // 두 번째 이미지 추가
-        let secondAttachmentString = NSAttributedString(attachment: secondImageAttachment)
-        completeText.append(secondAttachmentString)
-
-        // 가격 텍스트 추가
-        let textAfterSecondImage = NSAttributedString(string: "  25,000 ₩", attributes: [.font: UIFont.systemFont(ofSize: 16)])
-        completeText.append(textAfterSecondImage)
-
-        l2.attributedText = completeText
-        l2.font = .boldSystemFont(ofSize: 12)
-        l2.textColor = UIColor(hex: "#767676")
-        return l2
-    }()
+    private let marketNprice = UILabel()
     
     private let score: UILabel = {
         let l3 = UILabel()
@@ -183,6 +148,41 @@ class CartListCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    private func configureMarketNPlace() {
+        let firstImageAttachment = NSTextAttachment()
+        firstImageAttachment.image = UIImage(named: "icon_market")
+        
+        let firstImageOffsetY: CGFloat = -2.0 // 텍스트와 이미지의 정렬을 맞추기 위해 조정합니다.
+        firstImageAttachment.bounds = CGRect(x: 0, y: firstImageOffsetY, width: 12, height: 12) // 이미지의 크기를 설정합니다.
+
+        let secondImageAttachment = NSTextAttachment()
+        secondImageAttachment.image = UIImage(named: "Vector")
+                
+        let secondImageOffsetY: CGFloat = -2.0 // 이미지와 텍스트의 정렬을 맞추기 위해 조정
+        secondImageAttachment.bounds = CGRect(x: 0, y: secondImageOffsetY, width: 1, height: 12)
+
+        let completeText = NSMutableAttributedString(string: "")
+        
+        // 첫 번째 이미지 추가
+        let firstAttachmentString = NSAttributedString(attachment: firstImageAttachment)
+        completeText.append(firstAttachmentString)
+
+        // 매장 텍스트 추가
+        let textBeforeSecondImage = NSAttributedString(string: " \(shop)  ", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        completeText.append(textBeforeSecondImage)
+
+        // 두 번째 이미지 추가
+        let secondAttachmentString = NSAttributedString(attachment: secondImageAttachment)
+        completeText.append(secondAttachmentString)
+
+        // 가격 텍스트 추가
+        let textAfterSecondImage = NSAttributedString(string: "  \(price) ₩", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        completeText.append(textAfterSecondImage)
+
+        marketNprice.attributedText = completeText
+        marketNprice.textColor = UIColor(hex: "#767676")
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -195,6 +195,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
     //레이아웃까지
     private func setupUI() {
         configureCheckButton()
+        configureMarketNPlace()
         
         self.contentView.addSubview(imageView)
         self.contentView.addSubview(name)

@@ -34,6 +34,21 @@ class WineInfoViewController: UIViewController {
         return l
     }()
     
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isDirectionalLockEnabled = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    let contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = .clear
+        return contentView
+    }()
+    
     private let infoView: UIView = {
         let v = UIView()
         v.backgroundColor = UIColor(hex: "#E5E5E5")
@@ -105,6 +120,79 @@ class WineInfoViewController: UIViewController {
         return l
     }()
     
+    private let explainEntireView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .clear
+        v.layer.cornerRadius = 10
+        v.layer.masksToBounds = true
+        v.layer.borderWidth = 2
+        v.layer.borderColor = UIColor(hex: "#E5E5E5")?.cgColor
+        return v
+    }()
+    
+    private func explainLabel() -> UILabel {
+        let l = UILabel()
+        l.font = .boldSystemFont(ofSize: 18)
+        l.textColor = .black
+        return l
+    }
+    
+    private func explainView() -> UIButton {
+        let v = UIButton(type: .system)
+        v.layer.cornerRadius = 18
+        v.layer.masksToBounds = true
+        v.backgroundColor = UIColor(hex: "#FBCBC4")
+        v.layer.borderWidth = 2
+        v.layer.borderColor = UIColor(hue: 0.025, saturation: 0.63, brightness: 0.98, alpha: 0.7).cgColor
+        
+        v.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        v.setTitleColor(.black, for: .normal)
+        
+        return v
+    }
+    
+    private let goToReviewButton: UIButton = {
+        let b = UIButton(type: .system)
+        b.setTitle("다른 유저 리뷰 보기", for: .normal)
+        b.setTitleColor(UIColor(hex: "#FA735B"), for: .normal)
+        b.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        b.contentHorizontalAlignment = .center
+        
+        b.backgroundColor = .white
+        b.layer.cornerRadius = 25
+        b.layer.masksToBounds = true
+        b.layer.borderWidth = 2
+        b.layer.borderColor = UIColor(hex: "#FA735B")?.cgColor
+        b.addTarget(self, action: #selector(reviewButtonTapped), for: .touchUpInside)
+        
+        return b
+    }()
+    
+    @objc private func reviewButtonTapped() {
+        let reviewListViewController = ReviewListViewController()
+        navigationController?.pushViewController(reviewListViewController, animated: true)
+    }
+    
+    private let goToShopButton: UIButton = {
+        let b = UIButton(type: .system)
+        b.setTitle("판매처 보기", for: .normal)
+        b.setTitleColor(.white, for: .normal)
+        b.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        b.contentHorizontalAlignment = .center
+        
+        b.backgroundColor = UIColor(hex: "#FA735B")
+        b.layer.cornerRadius = 25
+        b.layer.masksToBounds = true
+        b.addTarget(self, action: #selector(shopButtonTapped), for: .touchUpInside)
+        
+        return b
+    }()
+    
+    @objc private func shopButtonTapped() {
+        let wineStoreListViewController = WineStoreListViewController()
+        navigationController?.pushViewController(wineStoreListViewController, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,6 +203,7 @@ class WineInfoViewController: UIViewController {
     }
     
     private func setupUI() {
+        
         setupPentagonChart()
         
         view.addSubview(label)
@@ -123,9 +212,25 @@ class WineInfoViewController: UIViewController {
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
-        view.addSubview(infoView)
+        view.addSubview(scrollView)
+        
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(label.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.height.greaterThanOrEqualTo(scrollView.snp.height).priority(.low)
+            make.width.equalTo(scrollView.frameLayoutGuide)
+        }
+        
+        contentView.addSubview(infoView)
         infoView.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(20)
+            make.top.equalTo(contentView.snp.top).offset(10)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(14)
             make.height.lessThanOrEqualTo(101)
         }
@@ -162,7 +267,7 @@ class WineInfoViewController: UIViewController {
             make.width.height.equalTo(22)
         }
         
-        view.addSubview(tastingNoteView)
+        contentView.addSubview(tastingNoteView)
         tastingNoteView.snp.makeConstraints { make in
             make.top.equalTo(infoView.snp.bottom).offset(10.5)
             make.leading.trailing.equalTo(infoView)
@@ -181,6 +286,96 @@ class WineInfoViewController: UIViewController {
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
             make.width.equalTo(353)
             make.height.equalTo(309)
+        }
+        
+        contentView.addSubview(explainEntireView)
+        explainEntireView.snp.makeConstraints { make in
+            make.top.equalTo(tastingNoteView.snp.bottom).offset(10.5)
+            make.leading.trailing.equalTo(tastingNoteView)
+            make.height.greaterThanOrEqualTo(116)
+        }
+        
+        let stackView = UIStackView(arrangedSubviews: [goToReviewButton, goToShopButton])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 9
+                
+        contentView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(explainEntireView.snp.bottom).offset(30)
+            make.leading.trailing.equalTo(explainEntireView)
+            make.height.greaterThanOrEqualTo(50)
+            make.bottom.equalToSuperview().inset(20)
+        }
+        
+        goToReviewButton.snp.makeConstraints { make in
+            make.width.equalTo(goToShopButton)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(20)
+        }
+        
+        let AromaLabel = explainLabel()
+        AromaLabel.text = "Aroma"
+        
+        let TasteLabel = explainLabel()
+        TasteLabel.text = "Taste"
+        
+        let FinishLabel = explainLabel()
+        FinishLabel.text = "Finish"
+        
+        explainEntireView.addSubview(AromaLabel)
+        explainEntireView.addSubview(TasteLabel)
+        explainEntireView.addSubview(FinishLabel)
+        
+        AromaLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(23)
+            make.leading.equalToSuperview().offset(33)
+        }
+        
+        TasteLabel.snp.makeConstraints { make in
+            make.top.equalTo(AromaLabel)
+            make.centerX.equalToSuperview()
+        }
+        
+        FinishLabel.snp.makeConstraints { make in
+            make.top.equalTo(TasteLabel)
+            make.trailing.equalToSuperview().inset(33)
+        }
+        
+        let Aroma = explainView()
+        Aroma.setTitle("블루베리", for: .normal)
+        Aroma.sizeToFit()
+        Aroma.contentEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
+        
+        let Taste = explainView()
+        Taste.setTitle("자두", for: .normal)
+        Taste.sizeToFit()
+        Taste.contentEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
+        
+        let Finish = explainView()
+        Finish.setTitle("스모키", for: .normal)
+        Finish.sizeToFit()
+        Finish.contentEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
+        
+        explainEntireView.addSubview(Aroma)
+        explainEntireView.addSubview(Taste)
+        explainEntireView.addSubview(Finish)
+        
+        Aroma.snp.makeConstraints { make in
+            make.top.equalTo(AromaLabel.snp.bottom).offset(7)
+            make.centerX.equalTo(AromaLabel)
+        }
+        
+        Taste.snp.makeConstraints { make in
+            make.top.equalTo(Aroma)
+            make.centerX.equalTo(TasteLabel)
+        }
+        
+        Finish.snp.makeConstraints { make in
+            make.top.equalTo(Taste)
+            make.centerX.equalTo(FinishLabel)
         }
     }
 }

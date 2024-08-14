@@ -31,8 +31,7 @@ class RecomCollectionViewCell: UICollectionViewCell {
     
     private let view: UIView = {
         let v = UIView()
-        v.backgroundColor = UIColor(hue: 55/360, saturation: 16/100, brightness: 100/100, alpha: 1.0)
-        v.alpha = 0.85
+        v.backgroundColor = UIColor(hue: 0.0417, saturation: 0.19, brightness: 1, alpha: 0.7)
         return v
     }()
     

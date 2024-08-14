@@ -15,6 +15,7 @@ class ShoppingCartListViewController: UIViewController {
     private let allCheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nAllCheckImage = UIImage(named: "icon_cartCheck_nfill")
     private let allCheckButton = UIButton(type: .custom)
+    private let allCheckLabel = UILabel()
     
     private let label: UILabel = {
         let l = UILabel()
@@ -22,14 +23,6 @@ class ShoppingCartListViewController: UIViewController {
         l.font = .systemFont(ofSize: 28, weight: UIFont.Weight(700))
         l.textColor = .black
         l.numberOfLines = 0
-        return l
-    }()
-    
-    private let allCheckLabel: UILabel = {
-        let l = UILabel()
-        l.text = "전체 선택 (1/3)"
-        l.font = .boldSystemFont(ofSize: 14)
-        l.textColor = UIColor(hex: "#767676")
         return l
     }()
     
@@ -88,6 +81,7 @@ class ShoppingCartListViewController: UIViewController {
     private func setupUI() {
         
         configureAllCheckButton()
+        configureAllCheckLabel()
         
         view.addSubview(label)
         label.snp.makeConstraints { make in
@@ -142,26 +136,15 @@ class ShoppingCartListViewController: UIViewController {
         // 버튼이 클릭될 때마다, 버튼 이미지를 변환
         if sender.isSelected {
             sender.setImage(allCheckImage?.withRenderingMode(.alwaysOriginal), for: .selected)
-            updateAllItemsSelection(isSelected: true)
         } else {
             sender.setImage(nAllCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
-            updateAllItemsSelection(isSelected: false)
         }
     }
     
-    private func updateAllItemsSelection(isSelected: Bool) {
-        // 모든 항목의 선택 상태를 변경
-        itemsSelectedState = Array(repeating: isSelected, count: itemsSelectedState.count)
-            
-        // 모든 셀을 업데이트
-        for section in 0..<cartListCollectionView.numberOfSections {
-            for item in 0..<cartListCollectionView.numberOfItems(inSection: section) {
-                let indexPath = IndexPath(item: item, section: section)
-                if let cell = cartListCollectionView.cellForItem(at: indexPath) as? CartListCollectionViewCell {
-                    cell.configure2(isSelected: isSelected)
-                }
-            }
-        }
+    private func configureAllCheckLabel() {
+        allCheckLabel.text = "전체 선택 (\(1)/\(CartContents.count))"
+        allCheckLabel.font = .boldSystemFont(ofSize: 14)
+        allCheckLabel.textColor = UIColor(hex: "#767676")
     }
 }
 
@@ -183,16 +166,6 @@ extension ShoppingCartListViewController: UICollectionViewDataSource, UICollecti
         cell.configure2(isSelected: itemsSelectedState[indexPath.item])
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let wineInfoViewController = WineInfoViewController()
-//        navigationController?.pushViewController(wineInfoViewController, animated: true)
-//        selectedWine = suggestion[indexPath.item]
-//        let wineInfoViewController = WineInfoViewController()
-//        wineInfoViewController.modalPresentationStyle = .fullScreen
-//        wineInfoViewController.wine = selectedWine
-//        self.present(wineInfoViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -9,6 +9,12 @@ import SnapKit
 import UIKit
 
 class WineStoreListViewController: UIViewController {
+    
+//    weak var delegate: UIViewControllerDelegate?
+    var previousName: String?
+    
+    private var WineShopContents: [String] = ["PODO", "루바토 와인", "버건디", "와인나우", "보데가 와인"]
+    
     private let label: UILabel = {
         let l = UILabel()
         l.text = "근처 판매처"
@@ -52,6 +58,24 @@ class WineStoreListViewController: UIViewController {
         return l3
     }()
     
+    lazy var wineShopListCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(WineShopListCollectionViewCell.self, forCellWithReuseIdentifier: "WineShopListCollectionViewCell")
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.showsVerticalScrollIndicator = false
+        cv.delegate = self
+        cv.dataSource = self
+        
+        cv.decelerationRate = .fast
+        cv.backgroundColor = .clear
+        cv.layer.cornerRadius = 10
+        
+        return cv
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,7 +92,7 @@ class WineStoreListViewController: UIViewController {
     private func setupUI() {
         view.addSubview(label)
         label.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
@@ -97,5 +121,43 @@ class WineStoreListViewController: UIViewController {
             make.centerY.equalTo(name)
             make.leading.equalTo(name.snp.trailing).offset(13)
         }
+        
+        view.addSubview(wineShopListCollectionView)
+        wineShopListCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(wineInfo.snp.bottom).offset(76)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(15)
+        }
+    }
+}
+
+extension WineStoreListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return WineShopContents.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WineShopListCollectionViewCell", for: indexPath) as! WineShopListCollectionViewCell
+        
+        cell.configure(name: WineShopContents[indexPath.item])
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell
+        let newShopName = selectedCell.shopName.text
+        let newPrice = selectedCell.price.text
+
+        // 데이터 전달
+//        delegate?.didSelectNewName(newName ?? "")
+                
+        // 이전 뷰 컨트롤러로 돌아가기
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 120)
     }
 }
