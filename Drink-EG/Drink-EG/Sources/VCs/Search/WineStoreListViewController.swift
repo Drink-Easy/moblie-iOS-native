@@ -10,8 +10,7 @@ import UIKit
 
 class WineStoreListViewController: UIViewController {
     
-//    weak var delegate: UIViewControllerDelegate?
-    var previousName: String?
+    var selectedShop: String?
     
     private var WineShopContents: [String] = ["PODO", "루바토 와인", "버건디", "와인나우", "보데가 와인"]
     
@@ -80,8 +79,6 @@ class WineStoreListViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
@@ -147,14 +144,10 @@ extension WineStoreListViewController: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell
-        let newShopName = selectedCell.shopName.text
-        let newPrice = selectedCell.price.text
-
-        // 데이터 전달
-//        delegate?.didSelectNewName(newName ?? "")
-                
-        // 이전 뷰 컨트롤러로 돌아가기
-        navigationController?.popViewController(animated: true)
+        selectedShop = WineShopContents[indexPath.item]
+        let wineOrderViewController = WineOrderViewController()
+        wineOrderViewController.shop = selectedShop
+        navigationController?.pushViewController(wineOrderViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

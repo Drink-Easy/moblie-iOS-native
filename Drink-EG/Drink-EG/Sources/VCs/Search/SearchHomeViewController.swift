@@ -143,13 +143,10 @@ extension SearchHomeViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let wineInfoViewController = WineInfoViewController()
-//        navigationController?.pushViewController(wineInfoViewController, animated: true)
         selectedWine = suggestion[indexPath.item]
         let wineInfoViewController = WineInfoViewController()
-//        wineInfoViewController.modalPresentationStyle = .fullScreen
         wineInfoViewController.wine = selectedWine
-        self.present(wineInfoViewController, animated: true)
+        navigationController?.pushViewController(wineInfoViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
