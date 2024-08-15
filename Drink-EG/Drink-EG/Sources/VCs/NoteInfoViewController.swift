@@ -58,7 +58,7 @@ class NoteInfoViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(860)
+            make.height.equalTo(UIScreen.main.bounds.height)
         }
     }
     
@@ -102,7 +102,7 @@ class NoteInfoViewController: UIViewController {
             make.top.equalTo(wineView.snp.bottom).offset(10)
             make.centerX.equalTo(contentView.safeAreaLayoutGuide.snp.centerX)
             make.leading.equalTo(wineView.snp.leading)
-            make.height.greaterThanOrEqualTo(349)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.45)
         }
     }
     
@@ -119,7 +119,7 @@ class NoteInfoViewController: UIViewController {
             make.top.equalTo(tastingnoteLabel.snp.bottom).offset(32)
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
             make.leading.equalTo(tastingnoteLabel.snp.leading)
-            make.height.greaterThanOrEqualTo(83)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.12)
         }
     }
     
@@ -169,7 +169,7 @@ class NoteInfoViewController: UIViewController {
             make.top.equalTo(pentagonChart.snp.bottom).offset(10)
             make.centerX.equalTo(wineView.snp.centerX)
             make.leading.equalTo(pentagonChart.snp.leading)
-            make.height.greaterThanOrEqualTo(317)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.21)
         }
     }
     
@@ -211,7 +211,7 @@ class NoteInfoViewController: UIViewController {
             let button = chooseColorButtons[i]
             button.snp.makeConstraints{ make in
                 make.top.equalTo(chooseColorLabel.snp.bottom).offset(10)
-                make.width.height.equalTo(40) // 수정 필요
+                make.width.height.equalTo(chooseColorView.snp.height).multipliedBy(0.22) // 수정 필요
                 if i == 0 {
                     make.leading.equalTo(chooseColorView.snp.leading).offset(19)
                 } else {

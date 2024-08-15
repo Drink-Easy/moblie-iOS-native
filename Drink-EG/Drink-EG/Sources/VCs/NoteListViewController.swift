@@ -163,22 +163,15 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         layout.minimumInteritemSpacing = 22
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.footerReferenceSize = CGSize(width: view.frame.width, height: 60)
+        
         noteListGrid = UICollectionView(frame: .zero, collectionViewLayout: layout)
         noteListGrid.backgroundColor = .clear
         noteListGrid.layer.cornerRadius = 36
         noteListGrid.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner)
         noteListGrid.layer.borderWidth = 1
-        noteListGrid.layer.borderColor = UIColor.white.cgColor
+        noteListGrid.layer.borderColor = UIColor.clear.cgColor
         
-        let shadowPath = UIBezierPath(roundedRect: noteListGrid.bounds, cornerRadius: 36)
-        noteListGrid.layer.shadowPath = shadowPath.cgPath
-        noteListGrid.layer.shadowColor = UIColor(red: 0.98, green: 0.451, blue: 0.357, alpha: 0.2).cgColor
-        noteListGrid.layer.shadowOpacity = 1
-        noteListGrid.layer.shadowRadius = 20
-        noteListGrid.layer.shadowOffset = CGSize(width: 4, height: -14)
-        noteListGrid.layer.masksToBounds = false
-        
-        
+
         noteListGrid.dataSource = self
         noteListGrid.delegate = self
         noteListGrid.register(NoteCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -198,7 +191,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // CollectionView Cell 개수를 설정하는 함수
-        return 7
+        return 12
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { // 재사용 가능한 셀을 가져와서 NoteCollectionViewCell로 캐스팅

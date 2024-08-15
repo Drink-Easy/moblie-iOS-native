@@ -51,7 +51,7 @@ class WriteNoteViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(916)
+            make.height.equalTo(UIScreen.main.bounds.height * 1.1)
         }
     }
     
@@ -142,7 +142,7 @@ class WriteNoteViewController: UIViewController {
             make.top.equalTo(wineView.snp.bottom).offset(10)
             make.centerX.equalTo(wineView.snp.centerX)
             make.leading.equalTo(wineView.snp.leading)
-            make.height.greaterThanOrEqualTo(482)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.6)
         }
     }
     
@@ -169,18 +169,33 @@ class WriteNoteViewController: UIViewController {
     }
     
     func setupConstraints() {
+        let labelHeight: CGFloat = UIScreen.main.bounds.height * 0.05
+        let verticalSpacing: CGFloat = (UIScreen.main.bounds.height * 0.6 - labelHeight * CGFloat(categories.count)) / CGFloat(categories.count + 1)
+        
+        
         for i in 0..<categories.count {
             let label = categoryLabels[i]
             let slider = categorySliders[i]
             
+//            label.snp.makeConstraints { make in
+//                make.width.equalTo(categoriesView.snp.width).multipliedBy(0.19)
+//                make.height.greaterThanOrEqualTo(39)
+//                make.leading.equalTo(categoriesView.snp.leading).offset(17)
+//                if i == 0 {
+//                    make.top.equalTo(categoriesView.snp.top).offset(23)
+//                } else {
+//                    make.top.equalTo(categoryLabels[i-1].snp.bottom).offset(48)
+//                }
+//            }
+            
             label.snp.makeConstraints { make in
-                make.width.equalTo(categoriesView.snp.width).multipliedBy(0.19)
-                make.height.greaterThanOrEqualTo(39)
+                make.width.equalTo(categoriesView.snp.width).multipliedBy(0.23)
+                make.height.equalTo(labelHeight) // Set height based on screen height
                 make.leading.equalTo(categoriesView.snp.leading).offset(17)
                 if i == 0 {
-                    make.top.equalTo(categoriesView.snp.top).offset(23)
+                    make.top.equalTo(categoriesView.snp.top).offset(verticalSpacing)
                 } else {
-                    make.top.equalTo(categoryLabels[i-1].snp.bottom).offset(48)
+                    make.top.equalTo(categoryLabels[i-1].snp.bottom).offset(verticalSpacing)
                 }
             }
             

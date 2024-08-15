@@ -20,7 +20,6 @@ enum TastingNoteAPI {
     case postNewNote(wineId: Int, color: String, sugarContent: Int, acidity: Int, tannin: Int, body: Int, alcohol: Int, scentAroma: [String], scentTaste: [String], scentFinish: [String], satisfaction: Int, memo: String)
     case patchNote(noteId: Int, wineId: Int, color: String, sugarContent: Int, acidity: Int, tannin: Int, body: Int, alcohol: Int, scentAroma: [String], scentTaste: [String], scentFinish: [String], satisfaction: Int, memo: String)
     case deleteNote(noteId: Int)
-    
 }
 
 extension TastingNoteAPI: TargetType {

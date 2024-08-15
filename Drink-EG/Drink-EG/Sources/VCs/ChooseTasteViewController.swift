@@ -91,7 +91,7 @@ class ChooseTasteViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(1374)
+            make.height.equalTo(UIScreen.main.bounds.height * 1.6)
         }
     }
     
@@ -249,6 +249,7 @@ class ChooseTasteViewController: UIViewController {
     
     func setupTasteOptions() {
         let array = ["레드베리", "체리", "딸기", "자두", "우드", "바닐라", "훈제", "민트", "너트", "라임", "자몽", "아카시아", "시가", "흙", "가죽", "직접추가"]
+        let fontSize = UIScreen.main.bounds.width * 0.04
         for i in 0..<tasteOptions.count {
             for j in 0..<tasteOptions[i].count {
                 let button = tasteOptions[i][j]
@@ -269,18 +270,21 @@ class ChooseTasteViewController: UIViewController {
                 // 직접추가 버튼에만 아이콘 추가
                 if array[j] == "직접추가" {
                     config.image = UIImage(systemName: "plus.circle")
-                    config.imagePadding = 6
+                    config.imagePadding = 3
                     config.imagePlacement = .trailing
+                    button.configuration = config
+                    button.snp.makeConstraints { make in
+                        make.width.equalTo(110)
+                    }
+                } else {
+                    button.configuration = config
+                    let titleSize = button.titleLabel!.intrinsicContentSize
+                    button.snp.makeConstraints { make in
+                        make.width.equalTo(titleSize.width+30)
+                        make.height.greaterThanOrEqualTo(33)
+                    }
                 }
-                
-                button.configuration = config
                 button.addTarget(self, action: #selector(tasteOptionsTapped(_:)), for: .touchUpInside)
-                
-                let titleSize = button.titleLabel!.intrinsicContentSize
-                button.snp.makeConstraints { make in
-                    make.width.equalTo(titleSize.width+30)
-                    make.height.greaterThanOrEqualTo(33)
-                }
             }
         }
     }

@@ -41,7 +41,7 @@ class CheckNoteViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(1000)
+            make.height.equalTo(UIScreen.main.bounds.height * 1.3)
         }
     }
     
@@ -246,7 +246,7 @@ class CheckNoteViewController: UIViewController {
         infoView.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).offset(50)
             make.leading.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(14)
-            make.height.lessThanOrEqualTo(101)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.09)
         }
         
         infoView.addSubview(imageView)
@@ -283,7 +283,7 @@ class CheckNoteViewController: UIViewController {
         
         contentView.addSubview(tastingNoteView)
         tastingNoteView.snp.makeConstraints { make in
-            make.top.equalTo(infoView.snp.bottom).offset(10.5)
+            make.top.equalTo(infoView.snp.bottom).offset(29)
             make.leading.trailing.equalTo(infoView)
             make.bottom.greaterThanOrEqualTo(414)
         }
@@ -298,14 +298,14 @@ class CheckNoteViewController: UIViewController {
         pentagonChart.snp.makeConstraints{ make in
             make.top.equalTo(represent.snp.bottom).offset(29)
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(353)
-            make.height.equalTo(309)
+            make.width.equalTo(UIScreen.main.bounds.width * 0.89)
+            make.height.equalTo(pentagonChart.snp.width).multipliedBy(0.87)
         }
         
         tastingNoteView.addSubview(tasteView)
         tasteView.snp.makeConstraints { make in
             make.top.equalTo(pentagonChart.snp.bottom).offset(41.55)
-            make.leading.equalTo(tastingNoteView.snp.leading)
+            make.leading.equalTo(tastingNoteView.snp.leading).offset(15)
             make.centerX.equalTo(tastingNoteView.snp.centerX)
             make.height.greaterThanOrEqualTo(116)
         }

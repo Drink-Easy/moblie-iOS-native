@@ -32,6 +32,8 @@ class RatingViewController: UIViewController {
     let completeButton = UIButton()
     var value: Double = 0.0
     
+    let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -325,7 +327,6 @@ class RatingViewController: UIViewController {
     func setupRatingButtonConstraints() {
         ratingButton.snp.makeConstraints { make in
             make.top.equalTo(ratingLabel.snp.bottom).offset(5)
-            make.leading.equalTo(ratingLabel.snp.leading).offset(68)
             make.centerX.equalTo(contentView.snp.centerX)
         }
     }
@@ -417,5 +418,9 @@ class RatingViewController: UIViewController {
             make.centerX.equalTo(reviewText.snp.centerX)
             make.height.greaterThanOrEqualTo(60)
         }
+    }
+    
+    func postNewNoteAPI() {
+        
     }
 }
