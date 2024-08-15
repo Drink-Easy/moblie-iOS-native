@@ -197,6 +197,8 @@ class WineInfoViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.tintColor = .black
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         view.backgroundColor = .white
         
         setupUI()
