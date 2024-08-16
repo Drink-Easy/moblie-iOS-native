@@ -11,19 +11,6 @@ import SnapKit
 import Moya
 import SDWebImage
 
-struct WineResponse: Decodable {
-    let isSuccess: Bool
-    let code: String
-    let message: String
-    let result: [Wine]
-}
-
-struct Wine: Decodable {
-    let wineId: Int
-    let name: String
-    let imageUrl: String?
-}
-
 class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
@@ -174,7 +161,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
             switch result {
             case .success(let response):
                 do {
-                    let responseData = try JSONDecoder().decode(WineResponse.self, from: response.data)
+                    let responseData = try JSONDecoder().decode(APIResponseWineSearchResponse.self, from: response.data)
                     self.wineResults = responseData.result
                     self.suggestionTableView.reloadData()
                 } catch {
