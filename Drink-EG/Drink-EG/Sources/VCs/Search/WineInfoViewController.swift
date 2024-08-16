@@ -17,6 +17,8 @@ class WineInfoViewController: UIViewController {
     var wineImage: String?
     var wineId: Int?
     
+    var sort: String = ""
+    var area: String = ""
     var sweetness: Int = 0
     var acid: Int = 0
     var tannin: Int = 0
@@ -93,9 +95,9 @@ class WineInfoViewController: UIViewController {
         return l
     }()
     
-    private let specInfo: UILabel = {
+    private lazy var specInfo: UILabel = {
         let l = UILabel()
-        l.text = "종류: 레드 와인\n생산지: 호주, South Australia"
+        l.text = "종류: \(sort)\n생산지: \(area)"
         l.font = .systemFont(ofSize: 12)
         l.textColor = .black
         l.numberOfLines = 0
@@ -406,16 +408,27 @@ extension WineInfoViewController {
             switch result {
             case .success(let response):
                 do {
+                    
+                    if let jsonString = String(data: response.data, encoding: .utf8) {
+                        print("Received JSON: \(jsonString)")
+                    }
                     let responseData = try JSONDecoder().decode(APIResponseWineInfoResponse.self, from: response.data)
 //                    self.handleResponseData()
-                    self.sweetness = responseData.result.sugarContent
-                    self.acid = responseData.result.acidity
-                    self.alcohol = responseData.result.alcohol
-                    self.bodied = responseData.result.body
-                    self.tannin = responseData.result.tannin
+                    self.sort = responseData.result.sort
+                    self.area = responseData.result.area
+                    let sugar = Int(responseData.result.sugarContent)
+                    self.sweetness = sugar
+                    let acidd = Int(responseData.result.acidity)
+                    self.acid = acidd
+                    let alcoholl = Int(responseData.result.alcohol)
+                    self.alcohol = alcoholl
+                    let bodyy = Int(responseData.result.body)
+                    self.bodied = bodyy
+                    let tanninn = Int(responseData.result.tannin)
+                    self.tannin = tanninn
                     self.aroma = responseData.result.scentAroma[0]
                     self.taste = responseData.result.scentTaste[0]
-                    self.taste = responseData.result.scentFinish[0]
+                    self.finish = responseData.result.scentFinish[0]
                     let scoreString: String = String(responseData.result.rating)
                     self.score.text = scoreString
                     completion(true)
