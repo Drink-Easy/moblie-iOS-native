@@ -135,8 +135,16 @@ class ThirdVarietyTasteTestViewController: UIViewController {
     
     @objc private func startButtonTapped() {
         assignRequestDTO()
-        callAPI()
-        
+        callAPI() { [weak self] isSuccess in
+            if isSuccess {
+                self?.goToHomeView()
+            } else {
+                print("유저 정보 전송 실패")
+            }
+        }
+    }
+    
+    private func goToHomeView() {
         let mainTabBarViewController = MainTabBarViewController()
         navigationController?.pushViewController(mainTabBarViewController, animated: true)
     }
@@ -157,16 +165,30 @@ class ThirdVarietyTasteTestViewController: UIViewController {
             )
         }
         
-        func callAPI() {
-            guard let memberInfoDTO = memberInfoDTO else { return }
-            provider.request(.patchMember(data: memberInfoDTO)) { result in
-                switch result {
-                case .success(let response):
-                    print("Success: \(response)")
-                case .failure(let error):
-                    print("Error: \(error)")
+        func callAPI(completion: @escaping (Bool) -> Void) {
+            if let data = self.memberInfoDTO {
+                provider.request(.patchMember(data: data)) { result in
+                    switch result {
+                    case .success(let response):
+                        do {
+                            let data = try response.map(APIResponseMemberResponse.self)
+                            print("Success: \(data)")
+                            LoginViewController.isFirstLogin = false
+                            completion(data.isSuccess)
+                        } catch {
+                            print("Failed to map data: \(error)")
+                            completion(false)
+                        }
+                    case .failure(let error):
+                            print("Request failed: \(error)")
+                            completion(false)
+                    }
                 }
+            } else {
+                print("유저 선택 정보가 없습니다.")
+                completion(false)
             }
+            
         }
 }
 

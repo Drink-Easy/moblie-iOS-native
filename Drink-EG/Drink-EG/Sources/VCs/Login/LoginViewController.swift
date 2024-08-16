@@ -12,6 +12,8 @@ import Moya
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
+    static var isFirstLogin : Bool = true
+    
     let provider = MoyaProvider<LoginAPI>()
     public var userID : String?
     public var userPW : String?
@@ -227,8 +229,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func goToNextView() {
-        let enterTasteTestViewController = EnterTasteTestViewController()
-        navigationController?.pushViewController(enterTasteTestViewController, animated: true)
+        if LoginViewController.isFirstLogin {
+            let enterTasteTestViewController = EnterTasteTestViewController()
+            navigationController?.pushViewController(enterTasteTestViewController, animated: true)
+        } else {
+            let homeViewController = HomeViewController()
+            navigationController?.pushViewController(homeViewController, animated: true)
+        }
+        
     }
     
     private func goToHomeView() {
