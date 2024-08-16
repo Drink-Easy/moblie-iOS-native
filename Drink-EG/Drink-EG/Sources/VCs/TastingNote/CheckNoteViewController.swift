@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 import Moya
+import SDWebImage
 
 class CheckNoteViewController: UIViewController {
     var wine: String?
@@ -18,6 +19,9 @@ class CheckNoteViewController: UIViewController {
     var selectedOptions: [String: [String]] = [:]
     var reviewString: String = ""
     var value: Double = 0.0
+    
+    var selectedWineName: String?
+    var selectedWineImage: String?
     
     func setupPentagonChart() {
         pentagonChart.backgroundColor = .clear
@@ -41,7 +45,7 @@ class CheckNoteViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(1000)
+            make.height.equalTo(UIScreen.main.bounds.height * 1.3)
         }
     }
     
@@ -55,8 +59,10 @@ class CheckNoteViewController: UIViewController {
     
     private lazy var imageView: UIImageView = {
         let iv = UIImageView()
-        if let wine = wine {
-            iv.image = UIImage(named: wine)
+        if let imageUrlString = selectedWineImage, let imageUrl = URL(string: imageUrlString) {
+            iv.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            iv.image = UIImage(named: "Loxton")
         }
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
@@ -65,12 +71,10 @@ class CheckNoteViewController: UIViewController {
     
     private lazy var name: UILabel = {
         let l = UILabel()
-        if let wine = wine {
-            l.text = wine
-        }
+        l.text = selectedWineName ?? ""
         l.font = .boldSystemFont(ofSize: 18)
         l.textColor = .black
-        l.numberOfLines = 0
+        l.numberOfLines = 2
         return l
     }()
     
@@ -204,7 +208,7 @@ class CheckNoteViewController: UIViewController {
     
     func setupButton() {
         tasteView.addSubview(aromaButton)
-        aromaButton.setTitle(selectedOptions["Aroma"]?[0], for: .normal)
+        aromaButton.setTitle(selectedOptions["scentAroma"]?[0], for: .normal)
         aromaButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         aromaButton.setTitleColor(.black, for: .normal)
         aromaButton.backgroundColor = UIColor(hex: "FBCBC4")
@@ -212,7 +216,7 @@ class CheckNoteViewController: UIViewController {
         aromaButton.layer.cornerRadius = 10
         
         tasteView.addSubview(tasteButton)
-        tasteButton.setTitle(selectedOptions["Taste"]?[0], for: .normal)
+        tasteButton.setTitle(selectedOptions["scentTaste"]?[0], for: .normal)
         tasteButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         tasteButton.setTitleColor(.black, for: .normal)
         tasteButton.backgroundColor = UIColor(hex: "FBCBC4")
@@ -220,7 +224,7 @@ class CheckNoteViewController: UIViewController {
         tasteButton.layer.cornerRadius = 10
         
         tasteView.addSubview(finishButton)
-        finishButton.setTitle(selectedOptions["Finish"]?[0], for: .normal)
+        finishButton.setTitle(selectedOptions["scentFinish"]?[0], for: .normal)
         finishButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         finishButton.setTitleColor(.black, for: .normal)
         finishButton.backgroundColor = UIColor(hex: "FBCBC4")
@@ -232,6 +236,7 @@ class CheckNoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        print(selectedOptions)
         setupView()
         setupUI()
     }
@@ -246,7 +251,7 @@ class CheckNoteViewController: UIViewController {
         infoView.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).offset(50)
             make.leading.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(14)
-            make.height.lessThanOrEqualTo(101)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.09)
         }
         
         infoView.addSubview(imageView)
@@ -260,6 +265,7 @@ class CheckNoteViewController: UIViewController {
         name.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(11)
             make.leading.equalTo(imageView.snp.trailing).offset(20)
+            // make.trailing.equalTo(score.snp.leading).offset(-10)
         }
         
         infoView.addSubview(specInfo)
@@ -283,7 +289,7 @@ class CheckNoteViewController: UIViewController {
         
         contentView.addSubview(tastingNoteView)
         tastingNoteView.snp.makeConstraints { make in
-            make.top.equalTo(infoView.snp.bottom).offset(10.5)
+            make.top.equalTo(infoView.snp.bottom).offset(29)
             make.leading.trailing.equalTo(infoView)
             make.bottom.greaterThanOrEqualTo(414)
         }
@@ -298,14 +304,14 @@ class CheckNoteViewController: UIViewController {
         pentagonChart.snp.makeConstraints{ make in
             make.top.equalTo(represent.snp.bottom).offset(29)
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(353)
-            make.height.equalTo(309)
+            make.width.equalTo(UIScreen.main.bounds.width * 0.89)
+            make.height.equalTo(pentagonChart.snp.width).multipliedBy(0.87)
         }
         
         tastingNoteView.addSubview(tasteView)
         tasteView.snp.makeConstraints { make in
             make.top.equalTo(pentagonChart.snp.bottom).offset(41.55)
-            make.leading.equalTo(tastingNoteView.snp.leading)
+            make.leading.equalTo(tastingNoteView.snp.leading).offset(15)
             make.centerX.equalTo(tastingNoteView.snp.centerX)
             make.height.greaterThanOrEqualTo(116)
         }
@@ -344,6 +350,7 @@ class CheckNoteViewController: UIViewController {
             make.top.equalTo(finishLabel.snp.bottom).offset(7)
             make.centerX.equalTo(finishLabel.snp.centerX)
             make.leading.equalTo(tasteButton.snp.trailing).offset(53)
+            make.trailing.equalTo(tasteView.snp.trailing).offset(-9)
         }
         
         tastingNoteView.addSubview(vectorView)

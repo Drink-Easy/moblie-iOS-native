@@ -7,17 +7,31 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
+import Moya
 
 class WineInfoViewController: UIViewController {
     
-    var wine: String?
+    let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
+    
+    var wineImage: String?
+    var wineId: Int?
+    
+    var sweetness: Int = 0
+    var acid: Int = 0
+    var tannin: Int = 0
+    var bodied: Int = 0
+    var alcohol: Int = 0
+    var aroma: String = ""
+    var taste: String = ""
+    var finish: String = ""
     
     let pentagonChart = PolygonChartView()
-    var dataList: [RadarChartData] = [RadarChartData(type: .sweetness, value: 8),
-                                      RadarChartData(type: .acid, value: 6),
-                                      RadarChartData(type: .tannin, value: 2),
-                                      RadarChartData(type: .bodied, value: 6),
-                                      RadarChartData(type: .alcohol, value: 4)]
+    lazy var dataList: [RadarChartData] = [RadarChartData(type: .sweetness, value: sweetness),
+                                      RadarChartData(type: .acid, value: acid),
+                                      RadarChartData(type: .tannin, value: tannin),
+                                      RadarChartData(type: .bodied, value: bodied),
+                                      RadarChartData(type: .alcohol, value: alcohol)]
     
     func setupPentagonChart() {
         pentagonChart.backgroundColor = .clear
@@ -34,6 +48,21 @@ class WineInfoViewController: UIViewController {
         return l
     }()
     
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isDirectionalLockEnabled = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    let contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = .clear
+        return contentView
+    }()
+    
     private let infoView: UIView = {
         let v = UIView()
         v.backgroundColor = UIColor(hex: "#E5E5E5")
@@ -42,30 +71,31 @@ class WineInfoViewController: UIViewController {
         return v
     }()
     
-    private lazy var imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let iv = UIImageView()
-        if let wine = wine {
-            iv.image = UIImage(named: wine)
-        }
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
+        if let imageUrl = wineImage, let url = URL(string: imageUrl) {
+            iv.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            iv.image = UIImage(named: "Loxton")
+        }
         return iv
     }()
     
-    private lazy var name: UILabel = {
+    lazy var name: UILabel = {
         let l = UILabel()
-        if let wine = wine {
-            l.text = wine
-        }
         l.font = .boldSystemFont(ofSize: 18)
         l.textColor = .black
         l.numberOfLines = 0
+        l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
+        l.minimumScaleFactor = 0.5
         return l
     }()
     
     private let specInfo: UILabel = {
         let l = UILabel()
-        l.text = "종류: 레드 와인\n품종: 쉬라 100%\n생산지: 호주, South Australia"
+        l.text = "종류: 레드 와인\n생산지: 호주, South Australia"
         l.font = .systemFont(ofSize: 12)
         l.textColor = .black
         l.numberOfLines = 0
@@ -105,28 +135,158 @@ class WineInfoViewController: UIViewController {
         return l
     }()
     
+    private let explainEntireView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .clear
+        v.layer.cornerRadius = 10
+        v.layer.masksToBounds = true
+        v.layer.borderWidth = 2
+        v.layer.borderColor = UIColor(hex: "#E5E5E5")?.cgColor
+        return v
+    }()
+    
+    private func createLabel(text: String) -> UILabel {
+        let l = UILabel()
+        l.font = .boldSystemFont(ofSize: 18)
+        l.textColor = .black
+        l.text = text
+        return l
+    }
+    
+    private var AromaLabel: UILabel {
+        return createLabel(text: "Aroma")
+    }
+    
+    private var TasteLabel: UILabel {
+        return createLabel(text: "Taste")
+    }
+    
+    private var FinishLabel: UILabel {
+        return createLabel(text: "Finish")
+    }
+    
+    private func createButton(title: String) -> UIButton {
+        let v = UIButton(type: .system)
+        v.layer.cornerRadius = 18
+        v.layer.masksToBounds = true
+        v.backgroundColor = UIColor(hex: "#FBCBC4")
+        v.layer.borderWidth = 2
+        v.layer.borderColor = UIColor(hue: 0.025, saturation: 0.63, brightness: 0.98, alpha: 0.7).cgColor
+            
+        v.setTitle(title, for: .normal)
+        v.sizeToFit()
+        v.contentEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
+        v.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        v.setTitleColor(.black, for: .normal)
+            
+        return v
+    }
+        
+    private var Aroma: UIButton {
+        return createButton(title: aroma)
+    }
+        
+    private var Taste: UIButton {
+        return createButton(title: taste)
+    }
+        
+    private var Finish: UIButton {
+        return createButton(title: finish)
+    }
+    
+    private let goToReviewButton: UIButton = {
+        let b = UIButton(type: .system)
+        b.setTitle("다른 유저 리뷰 보기", for: .normal)
+        b.setTitleColor(UIColor(hex: "#FA735B"), for: .normal)
+        b.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        b.contentHorizontalAlignment = .center
+        
+        b.backgroundColor = .white
+        b.layer.cornerRadius = 25
+        b.layer.masksToBounds = true
+        b.layer.borderWidth = 2
+        b.layer.borderColor = UIColor(hex: "#FA735B")?.cgColor
+        b.addTarget(self, action: #selector(reviewButtonTapped), for: .touchUpInside)
+        
+        return b
+    }()
+    
+    @objc private func reviewButtonTapped() {
+        let reviewListViewController = ReviewListViewController()
+        navigationController?.pushViewController(reviewListViewController, animated: true)
+    }
+    
+    private let goToShopButton: UIButton = {
+        let b = UIButton(type: .system)
+        b.setTitle("판매처 보기", for: .normal)
+        b.setTitleColor(.white, for: .normal)
+        b.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        b.contentHorizontalAlignment = .center
+        
+        b.backgroundColor = UIColor(hex: "#FA735B")
+        b.layer.cornerRadius = 25
+        b.layer.masksToBounds = true
+        b.addTarget(self, action: #selector(shopButtonTapped), for: .touchUpInside)
+        
+        return b
+    }()
+    
+    @objc private func shopButtonTapped() {
+        let wineStoreListViewController = WineStoreListViewController()
+        navigationController?.pushViewController(wineStoreListViewController, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.tintColor = .black
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         view.backgroundColor = .white
         
-        setupUI()
+        getWineInfo { [weak self] isSuccess in
+            if isSuccess {
+                self?.setupUI()
+            } else {
+                print("데이터를 받아오는데 실패했습니다. 다시 시도해주세요.")
+            }
+        }
     }
     
     private func setupUI() {
+        
         setupPentagonChart()
         
+        //MARK: - UI Constraint
+        // Title Label
         view.addSubview(label)
         label.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
-        view.addSubview(infoView)
+        // 하단 전체 스크롤뷰
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(label.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        // 스크롤뷰 내부
+        scrollView.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.height.greaterThanOrEqualTo(scrollView.snp.height).priority(.low)
+            make.width.equalTo(scrollView.frameLayoutGuide)
+            make.bottom.equalToSuperview().inset(20)
+        }
+        
+        // 상단 와인 정보
+        contentView.addSubview(infoView)
         infoView.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(20)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(14)
+            make.top.equalToSuperview().offset(10)
+            make.leading.trailing.equalToSuperview().inset(14)
             make.height.lessThanOrEqualTo(101)
         }
         
@@ -141,6 +301,8 @@ class WineInfoViewController: UIViewController {
         name.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(11)
             make.leading.equalTo(imageView.snp.trailing).offset(20)
+            make.width.lessThanOrEqualTo(220)
+            make.height.lessThanOrEqualTo(40)
         }
         
         infoView.addSubview(specInfo)
@@ -162,7 +324,8 @@ class WineInfoViewController: UIViewController {
             make.width.height.equalTo(22)
         }
         
-        view.addSubview(tastingNoteView)
+        // 스크롤뷰 하단 테이스팅 노트
+        contentView.addSubview(tastingNoteView)
         tastingNoteView.snp.makeConstraints { make in
             make.top.equalTo(infoView.snp.bottom).offset(10.5)
             make.leading.trailing.equalTo(infoView)
@@ -178,9 +341,114 @@ class WineInfoViewController: UIViewController {
         tastingNoteView.addSubview(pentagonChart)
         pentagonChart.snp.makeConstraints{ make in
             make.top.equalTo(represent.snp.bottom).offset(29)
-            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.centerX.equalToSuperview()
             make.width.equalTo(353)
             make.height.equalTo(309)
         }
+        
+        // 아로마~등 정보 뷰
+        contentView.addSubview(explainEntireView)
+        explainEntireView.snp.makeConstraints { make in
+            make.top.equalTo(tastingNoteView.snp.bottom).offset(10.5)
+            make.leading.trailing.equalTo(tastingNoteView)
+            make.height.greaterThanOrEqualTo(116)
+        }
+        
+        explainEntireView.addSubview(AromaLabel)
+        AromaLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(23)
+            make.leading.equalToSuperview().offset(33)
+        }
+        
+        
+        
+        explainEntireView.addSubview(TasteLabel)
+        TasteLabel.snp.makeConstraints { make in
+            make.top.equalTo(AromaLabel)
+            make.centerX.equalToSuperview()
+        }
+        
+        explainEntireView.addSubview(FinishLabel)
+        FinishLabel.snp.makeConstraints { make in
+            make.top.equalTo(TasteLabel)
+            make.trailing.equalToSuperview().inset(33)
+        }
+        
+        explainEntireView.addSubview(Aroma)
+        explainEntireView.addSubview(Taste)
+        explainEntireView.addSubview(Finish)
+        
+        Aroma.snp.makeConstraints { make in
+            make.top.equalTo(AromaLabel.snp.bottom).offset(7)
+            make.centerX.equalTo(AromaLabel)
+        }
+        
+        Taste.snp.makeConstraints { make in
+            make.top.equalTo(Aroma)
+            make.centerX.equalTo(TasteLabel)
+        }
+        
+        Finish.snp.makeConstraints { make in
+            make.top.equalTo(Taste)
+            make.centerX.equalTo(FinishLabel)
+        }
+        
+        // StackView 정의
+        // TODO : 함수 분리
+        let stackView = UIStackView(arrangedSubviews: [goToReviewButton, goToShopButton])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 9
+                
+        
+        contentView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(explainEntireView.snp.bottom).offset(30)
+            make.leading.trailing.equalTo(explainEntireView)
+            make.height.greaterThanOrEqualTo(50)
+            make.bottom.equalToSuperview().inset(20)
+        }
+        
+        goToReviewButton.snp.makeConstraints { make in
+            make.width.equalTo(goToShopButton)
+        }
+    }
+}
+
+extension WineInfoViewController {
+    func getWineInfo(completion: @escaping (Bool) -> Void) {
+        provider.request(.getWineInfo(wineId: self.wineId ?? 1)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let responseData = try JSONDecoder().decode(APIResponseWineInfoResponse.self, from: response.data)
+//                    self.handleResponseData()
+                    self.sweetness = responseData.result.sugarContent
+                    self.acid = responseData.result.acidity
+                    self.alcohol = responseData.result.alcohol
+                    self.bodied = responseData.result.body
+                    self.tannin = responseData.result.tannin
+                    self.aroma = responseData.result.scentAroma[0]
+                    self.taste = responseData.result.scentTaste[0]
+                    self.taste = responseData.result.scentFinish[0]
+                    let scoreString: String = String(responseData.result.rating)
+                    self.score.text = scoreString
+                    completion(true)
+                } catch {
+                    print("Failed to decode response: \(error)")
+                    completion(false)
+                }
+            case.failure(let error):
+                print("Error: \(error.localizedDescription)")
+                if let response = error.response {
+                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
+                }
+                completion(false)
+            }
+        }
+    }
+    
+    func handleResponseData(_ data: WineInfo) {
+        
     }
 }

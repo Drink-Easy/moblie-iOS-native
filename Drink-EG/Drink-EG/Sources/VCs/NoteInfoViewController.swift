@@ -19,9 +19,14 @@ class NoteInfoViewController: UIViewController {
     let chooseColorView = UIView()
     let chooseColorLabel = UILabel()
     let chooseColorButtons = [UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton()]
-    var dataList: [RadarChartData] = []
     let scrollView = UIScrollView()
     let contentView = UIView()
+    
+    var selectedWineId: Int?
+    var selectedWineImage: String?
+    var selectedWineName: String?
+    var dataList: [RadarChartData] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +63,7 @@ class NoteInfoViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(860)
+            make.height.equalTo(UIScreen.main.bounds.height)
         }
     }
     
@@ -102,7 +107,7 @@ class NoteInfoViewController: UIViewController {
             make.top.equalTo(wineView.snp.bottom).offset(10)
             make.centerX.equalTo(contentView.safeAreaLayoutGuide.snp.centerX)
             make.leading.equalTo(wineView.snp.leading)
-            make.height.greaterThanOrEqualTo(349)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.45)
         }
     }
     
@@ -119,7 +124,7 @@ class NoteInfoViewController: UIViewController {
             make.top.equalTo(tastingnoteLabel.snp.bottom).offset(32)
             make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
             make.leading.equalTo(tastingnoteLabel.snp.leading)
-            make.height.greaterThanOrEqualTo(83)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.12)
         }
     }
     
@@ -128,7 +133,11 @@ class NoteInfoViewController: UIViewController {
         wineImageView.contentMode = .scaleAspectFit
         wineImageView.layer.cornerRadius = 10
         wineImageView.layer.masksToBounds = true
-        wineImageView.image = UIImage(named: "SampleImage")
+        if let imageUrl = selectedWineImage, let url = URL(string: imageUrl) {
+            wineImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            wineImageView.image = UIImage(named: "Loxton")
+        }
     }
     
     func setupWineImageViewConstraints() {
@@ -143,7 +152,7 @@ class NoteInfoViewController: UIViewController {
     
     func setupWineName() {
         wineView.addSubview(wineName)
-        wineName.text = "19 Crhnes"
+        wineName.text = selectedWineName ?? ""
         
     }
     
@@ -169,7 +178,7 @@ class NoteInfoViewController: UIViewController {
             make.top.equalTo(pentagonChart.snp.bottom).offset(10)
             make.centerX.equalTo(wineView.snp.centerX)
             make.leading.equalTo(pentagonChart.snp.leading)
-            make.height.greaterThanOrEqualTo(317)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.21)
         }
     }
     
@@ -211,7 +220,7 @@ class NoteInfoViewController: UIViewController {
             let button = chooseColorButtons[i]
             button.snp.makeConstraints{ make in
                 make.top.equalTo(chooseColorLabel.snp.bottom).offset(10)
-                make.width.height.equalTo(40) // 수정 필요
+                make.width.height.equalTo(chooseColorView.snp.height).multipliedBy(0.22) // 수정 필요
                 if i == 0 {
                     make.leading.equalTo(chooseColorView.snp.leading).offset(19)
                 } else {
@@ -231,6 +240,10 @@ class NoteInfoViewController: UIViewController {
         
         vc.dataList = dataList
         vc.receivedColor = buttonColor!
+        vc.selectedWineId = selectedWineId
+        vc.selectedWineImage = selectedWineImage
+        vc.selectedWineName = selectedWineName
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     

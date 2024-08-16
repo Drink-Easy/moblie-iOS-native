@@ -9,16 +9,16 @@ import Foundation
 import UIKit
 import SnapKit
 import Moya
-
+import SDWebImage
 
 class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
-    let provider = MoyaProvider<TastingNoteAPI>()
+    let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
     
     let tastingnoteLabel = UILabel()
     let suggestionTableView = UITableView()
-    var suggestion: [String] = []
-    var allSuggestion: [String] = ["19 Crhnes", "John Kosovich", "CNDULE", "Orange", "Watermelon", "Strawberry"]
+
+    var wineResults: [Wine] = []
     
     lazy var wineSearchBar: UISearchBar = {
         let s = UISearchBar()
@@ -48,7 +48,6 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupAPI()
         setupView()
         setupLabel()
         setuptastingnoteLabelConstraints()
@@ -116,29 +115,22 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filterSuggestions(with: searchText)
-    }
-
-    func filterSuggestions(with query: String) {
-        if query.isEmpty {
-                suggestion = []
+        if searchText.isEmpty {
+            wineResults = []
+            suggestionTableView.reloadData()
         } else {
-            suggestion = allSuggestion.filter { $0.lowercased().contains(query.lowercased()) }
+            fetchWineSuggestion(with: searchText)
         }
-        suggestionTableView.reloadData()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return suggestion.count
+        return wineResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomSuggestionCell
-        let imageName = "Loxton"
-        let image = UIImage(named: imageName)!
-        cell.backgroundColor = UIColor(hex: "E5E5E5")
-        cell.layer.cornerRadius = 10
-        cell.configure(image: image, text: suggestion[indexPath.row], isSelected: false)
+        let wine = wineResults[indexPath.row]
+        cell.configure(with: wine, isSelected: false)
         return cell
     }
 
@@ -151,26 +143,35 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedSuggestion = suggestion[indexPath.row]
-        wineSearchBar.text = selectedSuggestion
-        suggestion = []
+        let selectedWine = wineResults[indexPath.row]
+        wineSearchBar.text = selectedWine.name
+        wineResults = []
         suggestionTableView.reloadData()
+        
+        // 다음 화면으로 이동
         let nextVC = WriteNoteViewController()
+        nextVC.selectedWineName = selectedWine.name
+        nextVC.selectedWineImage = selectedWine.imageUrl
+        nextVC.selectedWineId = selectedWine.wineId
         navigationController?.pushViewController(nextVC, animated: true)
     }
-
-    func setupAPI() {
-        provider.request(.getWineName(wineName: "19 Crhnes")) { result in
+    
+    func fetchWineSuggestion(with query: String) {
+        provider.request(.getWineName(wineName: query)) { result in
             switch result {
             case .success(let response):
                 do {
-                    let data = try response.mapJSON()
-                    print(data)
+                    let responseData = try JSONDecoder().decode(APIResponseWineSearchResponse.self, from: response.data)
+                    self.wineResults = responseData.result
+                    self.suggestionTableView.reloadData()
                 } catch {
-                    print(error)
+                    print("Failed to decode response: \(error)")
                 }
             case.failure(let error):
-                print("Error: \(error)")
+                print("Error: \(error.localizedDescription)")
+                if let response = error.response {
+                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
+                }
             }
         }
     }
