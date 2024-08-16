@@ -264,6 +264,7 @@ class CheckNoteViewController: UIViewController {
         name.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(11)
             make.leading.equalTo(imageView.snp.trailing).offset(20)
+            // make.trailing.equalTo(score.snp.leading).offset(-10)
         }
         
         infoView.addSubview(specInfo)
@@ -348,6 +349,7 @@ class CheckNoteViewController: UIViewController {
             make.top.equalTo(finishLabel.snp.bottom).offset(7)
             make.centerX.equalTo(finishLabel.snp.centerX)
             make.leading.equalTo(tasteButton.snp.trailing).offset(53)
+            make.trailing.equalTo(tasteView.snp.trailing).offset(-9)
         }
         
         tastingNoteView.addSubview(vectorView)

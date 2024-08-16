@@ -18,7 +18,7 @@ enum TastingNoteAPI {
     case getWineName(wineName: String)
     case getNoteID(noteId: Int)
     case postNewNote(wineId: Int, color: String, sugarContent: Int, acidity: Int, tannin: Int, body: Int, alcohol: Int, scentAroma: [String], scentTaste: [String], scentFinish: [String], satisfaction: Int, memo: String)
-    case patchNote(noteId: Int, wineId: Int, color: String, sugarContent: Int, acidity: Int, tannin: Int, body: Int, alcohol: Int, scentAroma: [String], scentTaste: [String], scentFinish: [String], satisfaction: Int, memo: String)
+    case patchNote(wineId: Int, color: String, sugarContent: Int, acidity: Int, tannin: Int, body: Int, alcohol: Int, scentAroma: [String], scentTaste: [String], scentFinish: [String], satisfaction: Int, review: String)
     case deleteNote(noteId: Int)
 }
 
@@ -38,11 +38,11 @@ extension TastingNoteAPI: TargetType {
         case .getAllNotes:
             return "tasting-note/all-note"
         case .getNoteID(let noteId):
-            return "\(noteId)"
+            return "tasting-note/\(noteId)"
         case .postNewNote:
             return "tasting-note/new-note"
-        case .patchNote(let noteId, let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):
-            return "tasting-note/\(noteId)"
+        case .patchNote(let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let review):
+            return "wine-note/\(wineId)"
         case .deleteNote(let noteId):
             return "tasting-note/\(noteId)"
         }
@@ -84,9 +84,8 @@ extension TastingNoteAPI: TargetType {
                 "review": review
             ]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        case .patchNote(_, let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):
+        case .patchNote(_, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let review):
             let parameters: [String: Any] = [
-                "wineId": wineId,
                 "color": color,
                 "sugarContent": sugarContent,
                 "acidity": acidity,
@@ -97,7 +96,7 @@ extension TastingNoteAPI: TargetType {
                 "scentTaste": scentTaste,
                 "scentFinish": scentFinish,
                 "satisfaction": satisfaction,
-                "memo": memo
+                "review": review
             ]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         case .deleteNote:
