@@ -16,6 +16,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     public var userID : String?
     public var userPW : String?
     var loginDTO : JoinNLoginRequest?
+    public static var isFirstLogin : Bool = false
 
     let loginButton = UIButton(type: .system)
     let joinButton = UIButton(type: .system)
@@ -212,7 +213,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         assignUserData()
         callLoginAPI { [weak self] isSuccess in
             if isSuccess {
-                self?.goToNextView()
+                if LoginViewController.isFirstLogin {
+                    self?.goToNextView()
+                } else {
+                    self?.goToHomeView()
+                }
+                
             } else {
                 print("로그인 실패")
                 // 실패 시에 대한 처리 (예: 에러 메시지 표시)
@@ -223,6 +229,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     private func goToNextView() {
         let enterTasteTestViewController = EnterTasteTestViewController()
         navigationController?.pushViewController(enterTasteTestViewController, animated: true)
+    }
+    
+    private func goToHomeView() {
+        let homeViewController = MainTabBarViewController()
+        navigationController?.pushViewController(homeViewController, animated: true)
     }
     
     private func configureJoinButton() {

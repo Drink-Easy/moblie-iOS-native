@@ -238,11 +238,20 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         provider.request(TastingNoteAPI.getNoteID(noteId: noteId)) { result in
             switch result {
             case .success(let response):
-                self.handleNoteDetailsResponse(response)
+                do {
+                    let responseData = try JSONDecoder().decode(APIResponseNoteResponse.self, from: response.data)
+                    self.handleNoteData(responseData.result)
+                } catch {
+                    print("Failed to decode response: \(error)")
+                }
             case .failure(let error):
                 print("Request failed: \(error)")
             }
         }
+    }
+    
+    func handleNoteData(_ data: NoteResponse) {
+        // TODO : 여기에서 데이터 처리하기
     }
     
     func handleNoteDetailsResponse(_ response: Response) {
