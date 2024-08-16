@@ -13,9 +13,6 @@ import Cosmos
 
 class RatingViewController: UIViewController {
     
-    var selectedOptions: [String: [String]] = [:]
-    var dataList: [RadarChartData] = []
-    
     let tastingnoteLabel = UILabel()
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -30,7 +27,14 @@ class RatingViewController: UIViewController {
     let reviewLabel = UILabel()
     let reviewText = UITextField()
     let completeButton = UIButton()
+    
+    var selectedOptions: [String: [String]] = [:]
+    var dataList: [RadarChartData] = []
     var value: Double = 0.0
+    var receivedColor = ""
+    var selectedWineId: Int?
+    var selectedWineName: String?
+    var selectedWineImage: String?
     
     let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
     
@@ -155,7 +159,7 @@ class RatingViewController: UIViewController {
             button.layer.borderWidth = 2
             button.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
             button.layer.cornerRadius = 10
-
+            
             
             let titleSize = button.titleLabel!.intrinsicContentSize
             
@@ -404,6 +408,8 @@ class RatingViewController: UIViewController {
     
     @objc func completeButtonTapped() {
         let nextVC = CheckNoteViewController()
+        postNewNoteAPI()
+        patchNoteAPI(noteId: 270)
         nextVC.dataList = dataList
         nextVC.selectedOptions = selectedOptions
         nextVC.reviewString = reviewText.text ?? ""
@@ -421,6 +427,121 @@ class RatingViewController: UIViewController {
     }
     
     func postNewNoteAPI() {
+        let wineId = selectedWineId // 수정필요
+        let color = receivedColor
+        let satisfaction = Int(value)
+        let memo = reviewText.text ?? ""
+        let scentAroma = selectedOptions["Aroma"] ?? []
+        let scentTaste = selectedOptions["Taste"] ?? []
+        let scentFinish = selectedOptions["Finish"] ?? []
         
+        var sugarContent: Int?
+        var acidity: Int?
+        var tannin: Int?
+        var bodied: Int?
+        var alcohol: Int?
+        
+        for data in dataList {
+            switch data.type {
+            case .sweetness:
+                sugarContent = data.value
+            case .acid:
+                acidity = data.value
+            case .tannin:
+                tannin = data.value
+            case .bodied:
+                bodied = data.value
+            case .alcohol:
+                alcohol = data.value
+            }
+        }
+        
+        provider.request(.postNewNote(
+            wineId: wineId!,
+            color: color,
+            sugarContent: sugarContent ?? 0,
+            acidity: acidity ?? 0,
+            tannin: tannin ?? 0,
+            body: bodied ?? 0,
+            alcohol: alcohol ?? 0,
+            scentAroma: scentAroma,
+            scentTaste: scentTaste,
+            scentFinish: scentFinish,
+            satisfaction: satisfaction,
+            memo: memo)) { result in
+                switch result {
+                case .success(let response):
+                    print("Note successfully posted with response: \(response)")
+                    // Navigate to the next screen
+                    let nextVC = CheckNoteViewController()
+                    nextVC.dataList = self.dataList
+                    nextVC.selectedOptions = self.selectedOptions
+                    nextVC.reviewString = memo
+                    nextVC.value = self.value
+                    self.navigationController?.pushViewController(nextVC, animated: true)
+                case .failure(let error):
+                    print("Failed to post note: \(error)")
+                }
+            }
+    }
+    
+    func patchNoteAPI(noteId: Int) {
+        let wineId = selectedWineId // 수정 필요
+        let color = receivedColor
+        let satisfaction = Int(value)
+        let memo = reviewText.text ?? ""
+        let scentAroma = selectedOptions["Aroma"] ?? []
+        let scentTaste = selectedOptions["Taste"] ?? []
+        let scentFinish = selectedOptions["Finish"] ?? []
+        
+        var sugarContent: Int?
+        var acidity: Int?
+        var tannin: Int?
+        var bodied: Int?
+        var alcohol: Int?
+        
+        for data in dataList {
+            switch data.type {
+            case .sweetness:
+                sugarContent = data.value
+            case .acid:
+                acidity = data.value
+            case .tannin:
+                tannin = data.value
+            case .bodied:
+                bodied = data.value
+            case .alcohol:
+                alcohol = data.value
+            }
+        }
+        
+        provider.request(.patchNote(
+            noteId: noteId,
+            wineId: wineId!,
+            color: color,
+            sugarContent: sugarContent ?? 0,
+            acidity: acidity ?? 0,
+            tannin: tannin ?? 0,
+            body: bodied ?? 0,
+            alcohol: alcohol ?? 0,
+            scentAroma: scentAroma,
+            scentTaste: scentTaste,
+            scentFinish: scentFinish,
+            satisfaction: satisfaction,
+            memo: memo)) { result in
+                switch result {
+                case .success(let response):
+                    print("Note successfully patched with response: \(response)")
+                    // 수정이 성공하면 다음 화면으로 이동
+                    let nextVC = CheckNoteViewController()
+                    nextVC.dataList = self.dataList
+                    nextVC.selectedOptions = self.selectedOptions
+                    nextVC.reviewString = memo
+                    nextVC.value = self.value
+                    self.navigationController?.pushViewController(nextVC, animated: true)
+                case .failure(let error):
+                    print("Failed to patch note: \(error)")
+                }
+            }
     }
 }

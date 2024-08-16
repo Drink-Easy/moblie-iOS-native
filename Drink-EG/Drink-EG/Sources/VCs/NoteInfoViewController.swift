@@ -19,9 +19,14 @@ class NoteInfoViewController: UIViewController {
     let chooseColorView = UIView()
     let chooseColorLabel = UILabel()
     let chooseColorButtons = [UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton()]
-    var dataList: [RadarChartData] = []
     let scrollView = UIScrollView()
     let contentView = UIView()
+    
+    var selectedWineId: Int?
+    var selectedWineImage: String?
+    var selectedWineName: String?
+    var dataList: [RadarChartData] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,7 +133,11 @@ class NoteInfoViewController: UIViewController {
         wineImageView.contentMode = .scaleAspectFit
         wineImageView.layer.cornerRadius = 10
         wineImageView.layer.masksToBounds = true
-        wineImageView.image = UIImage(named: "SampleImage")
+        if let imageUrl = selectedWineImage, let url = URL(string: imageUrl) {
+            wineImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "SampleImage"))
+        } else {
+            wineImageView.image = UIImage(named: "SampleImage")
+        }
     }
     
     func setupWineImageViewConstraints() {
@@ -143,7 +152,7 @@ class NoteInfoViewController: UIViewController {
     
     func setupWineName() {
         wineView.addSubview(wineName)
-        wineName.text = "19 Crhnes"
+        wineName.text = selectedWineName ?? ""
         
     }
     
@@ -231,6 +240,7 @@ class NoteInfoViewController: UIViewController {
         
         vc.dataList = dataList
         vc.receivedColor = buttonColor!
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     

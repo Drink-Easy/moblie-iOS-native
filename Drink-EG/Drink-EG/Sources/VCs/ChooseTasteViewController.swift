@@ -11,8 +11,6 @@ import SnapKit
 
 class ChooseTasteViewController: UIViewController {
     
-    var dataList: [RadarChartData] = []
-    
     let colorView = UIView()
     let colorBox = UIView()
     let colorLabel = UILabel()
@@ -32,7 +30,12 @@ class ChooseTasteViewController: UIViewController {
     let nextButton = UIButton()
     let scrollView = UIScrollView()
     let contentView = UIView()
+    
+    var dataList: [RadarChartData] = []
     var receivedColor = ""
+    var selectedWineId: Int?
+    var selectedWineImage: String?
+    var selectedWineName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +135,11 @@ class ChooseTasteViewController: UIViewController {
         wineImageView.contentMode = .scaleAspectFit
         wineImageView.layer.cornerRadius = 10
         wineImageView.layer.masksToBounds = true
-        wineImageView.image = UIImage(named: "SampleImage")
+        if let imageUrl = selectedWineImage, let url = URL(string: imageUrl) {
+            wineImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "SampleImage"))
+        } else {
+            wineImageView.image = UIImage(named: "SampleImage")
+        }
     }
     
     func setupWineImageViewConstraints() {
@@ -147,8 +154,7 @@ class ChooseTasteViewController: UIViewController {
     
     func setupWineName() {
         wineView.addSubview(wineName)
-        wineName.text = "19 Crhnes"
-        
+        wineName.text = selectedWineName ?? ""
     }
     
     func setupWineNameConstraints() {
@@ -426,8 +432,14 @@ class ChooseTasteViewController: UIViewController {
     @objc func nextButtonTapped() {
         let nextVC = RatingViewController()
         print(selectedOptions)
+        
         nextVC.dataList = dataList
         nextVC.selectedOptions = selectedOptions
+        nextVC.receivedColor = receivedColor
+        nextVC.selectedWineId = selectedWineId
+        nextVC.selectedWineName = selectedWineName
+        nextVC.selectedWineImage = selectedWineImage
+        
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
