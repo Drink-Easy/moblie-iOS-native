@@ -28,6 +28,7 @@
 		165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */; };
 		165401092C6BA644008A9DBF /* MemberInfoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401082C6BA644008A9DBF /* MemberInfoAPI.swift */; };
 		1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654010A2C6BACDC008A9DBF /* SelectionManager.swift */; };
+		1654015A2C6FD0C2008A9DBF /* SwiftyMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 165401592C6FD0C2008A9DBF /* SwiftyMenu */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -233,6 +234,7 @@
 				5E2219612C69DDBF005849FB /* Alamofire in Frameworks */,
 				5E22196A2C69DEEA005849FB /* Toast in Frameworks */,
 				5E22197D2C6BB56F005849FB /* SDWebImageMapKit in Frameworks */,
+				1654015A2C6FD0C2008A9DBF /* SwiftyMenu in Frameworks */,
 				5E2219642C69DE43005849FB /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,6 +574,7 @@
 				5E2219702C6B5B5B005849FB /* Cosmos */,
 				5E22197A2C6BB56F005849FB /* SDWebImage */,
 				5E22197C2C6BB56F005849FB /* SDWebImageMapKit */,
+				165401592C6FD0C2008A9DBF /* SwiftyMenu */,
 			);
 			productName = "Drink-EG";
 			productReference = 16B97CD02C4BEB0900D8B453 /* Drink-EG.app */;
@@ -609,6 +612,7 @@
 				5E2219682C69DEEA005849FB /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				5E22196F2C6B5B5B005849FB /* XCRemoteSwiftPackageReference "Cosmos" */,
 				5E2219792C6BB56F005849FB /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				165401582C6FD0C2008A9DBF /* XCRemoteSwiftPackageReference "SwiftyMenu" */,
 			);
 			productRefGroup = 16B97CD12C4BEB0900D8B453 /* Products */;
 			projectDirPath = "";
@@ -948,6 +952,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		165401582C6FD0C2008A9DBF /* XCRemoteSwiftPackageReference "SwiftyMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KarimEbrahemAbdelaziz/SwiftyMenu.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		5E22195C2C69DDB5005849FB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1007,6 +1019,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		165401592C6FD0C2008A9DBF /* SwiftyMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 165401582C6FD0C2008A9DBF /* XCRemoteSwiftPackageReference "SwiftyMenu" */;
+			productName = SwiftyMenu;
+		};
 		5E22195D2C69DDB5005849FB /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E22195C2C69DDB5005849FB /* XCRemoteSwiftPackageReference "SnapKit" */;

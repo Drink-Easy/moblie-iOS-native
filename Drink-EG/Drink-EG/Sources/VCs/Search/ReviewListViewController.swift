@@ -95,8 +95,6 @@ class ReviewListViewController: UIViewController {
                 print("GET 호출 실패")
             }
         }
-//        setupUI()
-        
     }
     
     private func setupUI() {
