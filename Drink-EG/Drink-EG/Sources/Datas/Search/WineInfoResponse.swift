@@ -14,11 +14,11 @@ struct WineInfo: Decodable {
     let price: Int
     let sort: String
     let area: String
-    let sugarContent: Int
-    let acidity: Int
-    let tannin: Int
-    let body: Int
-    let alcohol: Int
+    let sugarContent: Double
+    let acidity: Double
+    let tannin: Double
+    let body: Double
+    let alcohol: Double
     let scentAroma: [String]
     let scentTaste: [String]
     let scentFinish: [String]

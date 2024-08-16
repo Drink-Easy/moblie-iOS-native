@@ -85,6 +85,8 @@
 		1F8F99F82C6F52C600EAEF6C /* WineSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99F72C6F52C600EAEF6C /* WineSearchResponse.swift */; };
 		1F8F99FA2C6F538300EAEF6C /* WineInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99F92C6F538300EAEF6C /* WineInfoResponse.swift */; };
 		1F8F99FC2C6F53A300EAEF6C /* APIResponseWineInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99FB2C6F53A300EAEF6C /* APIResponseWineInfoResponse.swift */; };
+		1F8F99FE2C6FACF600EAEF6C /* WineReviewResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99FD2C6FACF600EAEF6C /* WineReviewResponse.swift */; };
+		1F8F9A002C6FADBE00EAEF6C /* APIResponseWineReviewResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99FF2C6FADBE00EAEF6C /* APIResponseWineReviewResponse.swift */; };
 		1FBD19532C6CFABB005C16A8 /* WineShopListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19522C6CFABB005C16A8 /* WineShopListCollectionViewCell.swift */; };
 		1FBD19552C6D2BF7005C16A8 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19542C6D2BF7005C16A8 /* ReviewListViewController.swift */; };
 		1FBD19572C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19562C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift */; };
@@ -207,6 +209,8 @@
 		1F8F99F72C6F52C600EAEF6C /* WineSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchResponse.swift; sourceTree = "<group>"; };
 		1F8F99F92C6F538300EAEF6C /* WineInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineInfoResponse.swift; sourceTree = "<group>"; };
 		1F8F99FB2C6F53A300EAEF6C /* APIResponseWineInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseWineInfoResponse.swift; sourceTree = "<group>"; };
+		1F8F99FD2C6FACF600EAEF6C /* WineReviewResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineReviewResponse.swift; sourceTree = "<group>"; };
+		1F8F99FF2C6FADBE00EAEF6C /* APIResponseWineReviewResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseWineReviewResponse.swift; sourceTree = "<group>"; };
 		1FBD19522C6CFABB005C16A8 /* WineShopListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineShopListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FBD19542C6D2BF7005C16A8 /* ReviewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
 		1FBD19562C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 				1654014D2C6F9582008A9DBF /* APIResponseNoteResponse.swift */,
 				1F8F99F42C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift */,
 				1F8F99FB2C6F53A300EAEF6C /* APIResponseWineInfoResponse.swift */,
+				1F8F99FF2C6FADBE00EAEF6C /* APIResponseWineReviewResponse.swift */,
 			);
 			path = APIResponseModels;
 			sourceTree = "<group>";
@@ -591,6 +596,7 @@
 			children = (
 				1F8F99F72C6F52C600EAEF6C /* WineSearchResponse.swift */,
 				1F8F99F92C6F538300EAEF6C /* WineInfoResponse.swift */,
+				1F8F99FD2C6FACF600EAEF6C /* WineReviewResponse.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -751,6 +757,7 @@
 				5E2219592C69D5E7005849FB /* AddNewNoteViewController.swift in Sources */,
 				5E22195A2C69D5E7005849FB /* CustomSuggestionCell.swift in Sources */,
 				5E2219462C69D5D0005849FB /* SearchCommunityViewController.swift in Sources */,
+				1F8F99FE2C6FACF600EAEF6C /* WineReviewResponse.swift in Sources */,
 				165400F32C69DE2D008A9DBF /* CommentsAPI.swift in Sources */,
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
@@ -779,6 +786,7 @@
 				1FBD19552C6D2BF7005C16A8 /* ReviewListViewController.swift in Sources */,
 				1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */,
 				165400ED2C69DDF2008A9DBF /* WineNewsAPI.swift in Sources */,
+				1F8F9A002C6FADBE00EAEF6C /* APIResponseWineReviewResponse.swift in Sources */,
 				5E2219532C69D5E7005849FB /* NoteInfoViewController.swift in Sources */,
 				165400FE2C69F218008A9DBF /* APIResponseWineClassResponse.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,

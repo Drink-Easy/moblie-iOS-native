@@ -17,6 +17,8 @@ class WineInfoViewController: UIViewController {
     var wineImage: String?
     var wineId: Int?
     
+    var sort: String = ""
+    var area: String = ""
     var sweetness: Int = 0
     var acid: Int = 0
     var tannin: Int = 0
@@ -93,9 +95,9 @@ class WineInfoViewController: UIViewController {
         return l
     }()
     
-    private let specInfo: UILabel = {
+    private lazy var specInfo: UILabel = {
         let l = UILabel()
-        l.text = "종류: 레드 와인\n생산지: 호주, South Australia"
+        l.text = "종류: \(sort)\n생산지: \(area)"
         l.font = .systemFont(ofSize: 12)
         l.textColor = .black
         l.numberOfLines = 0
@@ -153,18 +155,6 @@ class WineInfoViewController: UIViewController {
         return l
     }
     
-    private var AromaLabel: UILabel {
-        return createLabel(text: "Aroma")
-    }
-    
-    private var TasteLabel: UILabel {
-        return createLabel(text: "Taste")
-    }
-    
-    private var FinishLabel: UILabel {
-        return createLabel(text: "Finish")
-    }
-    
     private func createButton(title: String) -> UIButton {
         let v = UIButton(type: .system)
         v.layer.cornerRadius = 18
@@ -182,17 +172,12 @@ class WineInfoViewController: UIViewController {
         return v
     }
         
-    private var Aroma: UIButton {
-        return createButton(title: aroma)
-    }
-        
-    private var Taste: UIButton {
-        return createButton(title: taste)
-    }
-        
-    private var Finish: UIButton {
-        return createButton(title: finish)
-    }
+    private var AromaLabel: UILabel!
+    private var TasteLabel: UILabel!
+    private var FinishLabel: UILabel!
+    private var Aroma: UIButton!
+    private var Taste: UIButton!
+    private var Finish: UIButton!
     
     private let goToReviewButton: UIButton = {
         let b = UIButton(type: .system)
@@ -213,6 +198,11 @@ class WineInfoViewController: UIViewController {
     
     @objc private func reviewButtonTapped() {
         let reviewListViewController = ReviewListViewController()
+        let scoreDouble = Double(self.score.text ?? "")
+        reviewListViewController.score = scoreDouble ?? 4.5
+        reviewListViewController.name.text = self.name.text
+        reviewListViewController.wineImage = self.wineImage
+        reviewListViewController.wineId = self.wineId
         navigationController?.pushViewController(reviewListViewController, animated: true)
     }
     
@@ -257,15 +247,20 @@ class WineInfoViewController: UIViewController {
         
         setupPentagonChart()
         
-        //MARK: - UI Constraint
-        // Title Label
+        AromaLabel = createLabel(text: "Aroma")
+        TasteLabel = createLabel(text: "Taste")
+        FinishLabel = createLabel(text: "Finish")
+            
+        Aroma = createButton(title: aroma)
+        Taste = createButton(title: taste)
+        Finish = createButton(title: finish)
+        
         view.addSubview(label)
         label.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
-        // 하단 전체 스크롤뷰
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(10)
@@ -273,7 +268,6 @@ class WineInfoViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
-        // 스크롤뷰 내부
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView.contentLayoutGuide)
@@ -324,7 +318,6 @@ class WineInfoViewController: UIViewController {
             make.width.height.equalTo(22)
         }
         
-        // 스크롤뷰 하단 테이스팅 노트
         contentView.addSubview(tastingNoteView)
         tastingNoteView.snp.makeConstraints { make in
             make.top.equalTo(infoView.snp.bottom).offset(10.5)
@@ -346,7 +339,6 @@ class WineInfoViewController: UIViewController {
             make.height.equalTo(309)
         }
         
-        // 아로마~등 정보 뷰
         contentView.addSubview(explainEntireView)
         explainEntireView.snp.makeConstraints { make in
             make.top.equalTo(tastingNoteView.snp.bottom).offset(10.5)
@@ -421,16 +413,40 @@ extension WineInfoViewController {
             switch result {
             case .success(let response):
                 do {
+                    
+                    if let jsonString = String(data: response.data, encoding: .utf8) {
+                        print("Received JSON: \(jsonString)")
+                    }
+                    
                     let responseData = try JSONDecoder().decode(APIResponseWineInfoResponse.self, from: response.data)
 //                    self.handleResponseData()
-                    self.sweetness = responseData.result.sugarContent
-                    self.acid = responseData.result.acidity
-                    self.alcohol = responseData.result.alcohol
-                    self.bodied = responseData.result.body
-                    self.tannin = responseData.result.tannin
-                    self.aroma = responseData.result.scentAroma[0]
-                    self.taste = responseData.result.scentTaste[0]
-                    self.taste = responseData.result.scentFinish[0]
+                    self.sort = responseData.result.sort
+                    self.area = responseData.result.area
+                    let sugar = Int(responseData.result.sugarContent)
+                    self.sweetness = sugar
+                    let acidd = Int(responseData.result.acidity)
+                    self.acid = acidd
+                    let alcoholl = Int(responseData.result.alcohol)
+                    self.alcohol = alcoholl
+                    let bodyy = Int(responseData.result.body)
+                    self.bodied = bodyy
+                    let tanninn = Int(responseData.result.tannin)
+                    self.tannin = tanninn
+                    if (responseData.result.scentAroma.isEmpty) {
+                        self.aroma = ""
+                    } else {
+                        self.aroma = responseData.result.scentAroma[0]
+                    }
+                    if (responseData.result.scentTaste.isEmpty) {
+                        self.taste = ""
+                    } else {
+                        self.taste = responseData.result.scentTaste[0]
+                    }
+                    if (responseData.result.scentFinish.isEmpty) {
+                        self.finish = ""
+                    } else {
+                        self.finish = responseData.result.scentFinish[0]
+                    }
                     let scoreString: String = String(responseData.result.rating)
                     self.score.text = scoreString
                     completion(true)
