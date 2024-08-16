@@ -10,6 +10,7 @@ import UIKit
 class ReviewListViewController: UIViewController {
     
     private var ReviewContents: [String] = ["lhj1024", "dyk1234", "leeeSh0101", "hoooyeon56"]
+    var wineImage: String?
     
     var score = 4.5
     private let scoreLabel = UILabel()
@@ -30,19 +31,27 @@ class ReviewListViewController: UIViewController {
         return s
     }()
     
-    private let name: UILabel = {
+    var name: UILabel = {
         let l = UILabel()
-        l.text = "Red Label"
         l.font = .boldSystemFont(ofSize: 22)
         l.textColor = .black
+        l.numberOfLines = 0
+        l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
+        l.minimumScaleFactor = 0.5
         return l
     }()
     
-    private let image: UIImageView = {
+    lazy var image: UIImageView = {
         let i = UIImageView()
-        i.image = UIImage(named: "Red Label")
         i.layer.cornerRadius = 10
         i.layer.masksToBounds = true
+        i.layer.borderWidth = 1.5
+        i.layer.borderColor = UIColor(hex: "#E5E5E5")?.cgColor
+        if let imageUrl = wineImage, let url = URL(string: imageUrl) {
+            i.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            i.image = UIImage(named: "Loxton")
+        }
         return i
     }()
     
@@ -104,6 +113,7 @@ class ReviewListViewController: UIViewController {
         name.snp.makeConstraints { make in
             make.top.equalTo(image)
             make.leading.equalTo(image.snp.trailing).offset(16)
+            make.width.lessThanOrEqualTo(175)
         }
         
         view.addSubview(scoreLabel)

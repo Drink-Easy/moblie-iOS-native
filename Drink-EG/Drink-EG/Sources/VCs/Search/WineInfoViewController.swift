@@ -198,6 +198,10 @@ class WineInfoViewController: UIViewController {
     
     @objc private func reviewButtonTapped() {
         let reviewListViewController = ReviewListViewController()
+        let scoreDouble = Double(self.score.text ?? "")
+        reviewListViewController.score = scoreDouble ?? 4.5
+        reviewListViewController.name.text = self.name.text
+        reviewListViewController.wineImage = self.wineImage
         navigationController?.pushViewController(reviewListViewController, animated: true)
     }
     
@@ -426,9 +430,21 @@ extension WineInfoViewController {
                     self.bodied = bodyy
                     let tanninn = Int(responseData.result.tannin)
                     self.tannin = tanninn
-                    self.aroma = responseData.result.scentAroma[0]
-                    self.taste = responseData.result.scentTaste[0]
-                    self.finish = responseData.result.scentFinish[0]
+                    if (responseData.result.scentAroma.isEmpty) {
+                        self.aroma = ""
+                    } else {
+                        self.aroma = responseData.result.scentAroma[0]
+                    }
+                    if (responseData.result.scentTaste.isEmpty) {
+                        self.taste = ""
+                    } else {
+                        self.taste = responseData.result.scentTaste[0]
+                    }
+                    if (responseData.result.scentFinish.isEmpty) {
+                        self.finish = ""
+                    } else {
+                        self.finish = responseData.result.scentFinish[0]
+                    }
                     let scoreString: String = String(responseData.result.rating)
                     self.score.text = scoreString
                     completion(true)
