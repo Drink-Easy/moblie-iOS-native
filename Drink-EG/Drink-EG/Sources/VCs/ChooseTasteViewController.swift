@@ -11,8 +11,6 @@ import SnapKit
 
 class ChooseTasteViewController: UIViewController {
     
-    var dataList: [RadarChartData] = []
-    
     let colorView = UIView()
     let colorBox = UIView()
     let colorLabel = UILabel()
@@ -32,7 +30,12 @@ class ChooseTasteViewController: UIViewController {
     let nextButton = UIButton()
     let scrollView = UIScrollView()
     let contentView = UIView()
+    
+    var dataList: [RadarChartData] = []
     var receivedColor = ""
+    var selectedWineId: Int?
+    var selectedWineImage: String?
+    var selectedWineName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +94,7 @@ class ChooseTasteViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(1374)
+            make.height.equalTo(UIScreen.main.bounds.height * 1.6)
         }
     }
     
@@ -132,7 +135,11 @@ class ChooseTasteViewController: UIViewController {
         wineImageView.contentMode = .scaleAspectFit
         wineImageView.layer.cornerRadius = 10
         wineImageView.layer.masksToBounds = true
-        wineImageView.image = UIImage(named: "SampleImage")
+        if let imageUrl = selectedWineImage, let url = URL(string: imageUrl) {
+            wineImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            wineImageView.image = UIImage(named: "Loxton")
+        }
     }
     
     func setupWineImageViewConstraints() {
@@ -147,8 +154,7 @@ class ChooseTasteViewController: UIViewController {
     
     func setupWineName() {
         wineView.addSubview(wineName)
-        wineName.text = "19 Crhnes"
-        
+        wineName.text = selectedWineName ?? ""
     }
     
     func setupWineNameConstraints() {
@@ -249,6 +255,7 @@ class ChooseTasteViewController: UIViewController {
     
     func setupTasteOptions() {
         let array = ["레드베리", "체리", "딸기", "자두", "우드", "바닐라", "훈제", "민트", "너트", "라임", "자몽", "아카시아", "시가", "흙", "가죽", "직접추가"]
+        let fontSize = UIScreen.main.bounds.width * 0.04
         for i in 0..<tasteOptions.count {
             for j in 0..<tasteOptions[i].count {
                 let button = tasteOptions[i][j]
@@ -269,18 +276,21 @@ class ChooseTasteViewController: UIViewController {
                 // 직접추가 버튼에만 아이콘 추가
                 if array[j] == "직접추가" {
                     config.image = UIImage(systemName: "plus.circle")
-                    config.imagePadding = 6
+                    config.imagePadding = 3
                     config.imagePlacement = .trailing
+                    button.configuration = config
+                    button.snp.makeConstraints { make in
+                        make.width.equalTo(110)
+                    }
+                } else {
+                    button.configuration = config
+                    let titleSize = button.titleLabel!.intrinsicContentSize
+                    button.snp.makeConstraints { make in
+                        make.width.equalTo(titleSize.width+30)
+                        make.height.greaterThanOrEqualTo(33)
+                    }
                 }
-                
-                button.configuration = config
                 button.addTarget(self, action: #selector(tasteOptionsTapped(_:)), for: .touchUpInside)
-                
-                let titleSize = button.titleLabel!.intrinsicContentSize
-                button.snp.makeConstraints { make in
-                    make.width.equalTo(titleSize.width+30)
-                    make.height.greaterThanOrEqualTo(33)
-                }
             }
         }
     }
@@ -422,8 +432,14 @@ class ChooseTasteViewController: UIViewController {
     @objc func nextButtonTapped() {
         let nextVC = RatingViewController()
         print(selectedOptions)
+        
         nextVC.dataList = dataList
         nextVC.selectedOptions = selectedOptions
+        nextVC.receivedColor = receivedColor
+        nextVC.selectedWineId = selectedWineId
+        nextVC.selectedWineName = selectedWineName
+        nextVC.selectedWineImage = selectedWineImage
+        
         navigationController?.pushViewController(nextVC, animated: true)
     }
     

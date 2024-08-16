@@ -20,13 +20,13 @@ enum TastingNoteAPI {
     case postNewNote(wineId: Int, color: String, sugarContent: Int, acidity: Int, tannin: Int, body: Int, alcohol: Int, scentAroma: [String], scentTaste: [String], scentFinish: [String], satisfaction: Int, memo: String)
     case patchNote(noteId: Int, wineId: Int, color: String, sugarContent: Int, acidity: Int, tannin: Int, body: Int, alcohol: Int, scentAroma: [String], scentTaste: [String], scentFinish: [String], satisfaction: Int, memo: String)
     case deleteNote(noteId: Int)
-    
 }
 
 extension TastingNoteAPI: TargetType {
     var baseURL: URL {
         /// 기본 URL 작성
-        return URL(string: "https://drinkeg.com/tasting-note/")!
+        return URL(string: "https://drinkeg.com/")!
+      
     }
     
     var path: String {
@@ -36,17 +36,18 @@ extension TastingNoteAPI: TargetType {
         case .getWineName:
             return "wine"
         case .getAllNotes:
-            return "all-note"
+            return "tasting-note/all-note"
         case .getNoteID(let noteId):
             return "\(noteId)"
         case .postNewNote:
-            return "new-note"
+            return "tasting-note/new-note"
         case .patchNote(let noteId, let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):
-            return "\(noteId)"
+            return "tasting-note/\(noteId)"
         case .deleteNote(let noteId):
-            return "\(noteId)"
+            return "tasting-note/\(noteId)"
         }
     }
+    
     var method: Moya.Method {
         /// 각 case 별로 적합한 method 배정
         switch self {
@@ -64,10 +65,10 @@ extension TastingNoteAPI: TargetType {
     var task: Task {
         switch self {
         case .getWineName(let wineName):
-            return .requestParameters(parameters: ["noteWineRequestDTO": ["wineName": wineName]], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["searchName": wineName], encoding: URLEncoding.queryString)
         case .getAllNotes, .getNoteID:
             return .requestPlain
-        case .postNewNote(let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):
+        case .postNewNote(let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let review):
             let parameters: [String: Any] = [
                 "wineId": wineId,
                 "color": color,
@@ -80,7 +81,7 @@ extension TastingNoteAPI: TargetType {
                 "scentTaste": scentTaste,
                 "scentFinish": scentFinish,
                 "satisfaction": satisfaction,
-                "memo": memo
+                "review": review
             ]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         case .patchNote(_, let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):

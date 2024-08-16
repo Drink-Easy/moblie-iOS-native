@@ -21,7 +21,7 @@ struct WineResponse: Decodable {
 struct Wine: Decodable {
     let wineId: Int
     let name: String
-    let picture: String
+    let imageUrl: String?
 }
 
 class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
@@ -30,8 +30,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     
     let tastingnoteLabel = UILabel()
     let suggestionTableView = UITableView()
-    var suggestion: [String] = []
-    var allSuggestion: [String] = ["19 Crhnes", "John Kosovich", "CNDULE", "Orange", "Watermelon", "Strawberry"]
+
     var wineResults: [Wine] = []
     
     lazy var wineSearchBar: UISearchBar = {
@@ -130,20 +129,11 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            suggestion = []
+            wineResults = []
             suggestionTableView.reloadData()
         } else {
             fetchWineSuggestion(with: searchText)
         }
-    }
-
-    func filterSuggestions(with query: String) {
-        if query.isEmpty {
-                suggestion = []
-        } else {
-            suggestion = allSuggestion.filter { $0.lowercased().contains(query.lowercased()) }
-        }
-        suggestionTableView.reloadData()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -173,9 +163,12 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         
         // 다음 화면으로 이동
         let nextVC = WriteNoteViewController()
+        nextVC.selectedWineName = selectedWine.name
+        nextVC.selectedWineImage = selectedWine.imageUrl
+        nextVC.selectedWineId = selectedWine.wineId
         navigationController?.pushViewController(nextVC, animated: true)
     }
-
+    
     func fetchWineSuggestion(with query: String) {
         provider.request(.getWineName(wineName: query)) { result in
             switch result {
@@ -188,7 +181,10 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
                     print("Failed to decode response: \(error)")
                 }
             case.failure(let error):
-                print("Error: \(error)")
+                print("Error: \(error.localizedDescription)")
+                if let response = error.response {
+                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
+                }
             }
         }
     }
