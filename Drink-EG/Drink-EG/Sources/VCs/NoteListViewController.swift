@@ -239,8 +239,14 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
             switch result {
             case .success(let response):
                 do {
-                    let responseData = try JSONDecoder().decode(APIResponseNoteResponse.self, from: response.data)
-                    self.handleNoteData(responseData.result)
+                    // JSON 데이터를 문자열로 변환하여 출력
+                    if let jsonString = String(data: response.data, encoding: .utf8) {
+                        print("Response JSON String: \(jsonString)")
+                    }
+                    
+                    // ResponseWrap 구조체로 디코딩
+                    let noteResponse = try JSONDecoder().decode(ResponseWrap.self, from: response.data)
+                    self.handleNoteData(noteResponse.result)
                 } catch {
                     print("Failed to decode response: \(error)")
                 }
@@ -251,59 +257,81 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func handleNoteData(_ data: NoteResponse) {
-        // TODO : 여기에서 데이터 처리하기
+        let scentData: [String: [String]] = [
+            "scentAroma": data.scentAroma.map { $0.unescapedString },
+            "scentTaste": data.scentTaste.map { $0.unescapedString },
+            "scentFinish": data.scentFinish.map { $0.unescapedString }
+        ]
+        
+        let dataList: [RadarChartData] = [
+            RadarChartData(type: .acid, value: data.acidity),
+            RadarChartData(type: .tannin, value: data.tannin),
+            RadarChartData(type: .alcohol, value: data.alcohol),
+            RadarChartData(type: .bodied, value: data.body),
+            RadarChartData(type: .sweetness, value: data.sugarContent)
+        ]
+        
+        let nextVC = CheckNoteViewController()
+        nextVC.reviewString = data.review?.unescapedString ?? ""
+        nextVC.value = data.satisfaction
+        nextVC.dataList = dataList
+        nextVC.selectedOptions = scentData
+        nextVC.selectedWineName = data.name
+        nextVC.selectedWineImage = data.picture
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
-    func handleNoteDetailsResponse(_ response: Response) {
-        do {
-            if let jsonData = try response.mapJSON() as? [String: Any] {
-                // 응답 데이터를 콘솔에 출력
-                print("Response JSON: \(jsonData)")
-                
-                if let resultData = jsonData["result"] as? [String: Any] {
-                    let scentAroma = (resultData["scentAroma"] as? [String] ?? []).map { $0.unescapedString }
-                    let scentTaste = (resultData["scentTaste"] as? [String] ?? []).map { $0.unescapedString }
-                    let scentFinish = (resultData["scentFinish"] as? [String] ?? []).map { $0.unescapedString }
-                    
-                    let review = (resultData["review"] as? String ?? "").unescapedString
-                    let satisfaction = resultData["satisfaction"] as? Int ?? 0
-                    let sugarContent = resultData["sugarContent"] as? Int ?? 0
-                    let acidity = resultData["acidity"] as? Int ?? 0
-                    let tannin = resultData["tannin"] as? Int ?? 0
-                    let alcohol = resultData["alcohol"] as? Int ?? 0
-                    let body = resultData["body"] as? Int ?? 0
-                    let wineName = resultData["name"] as? String ?? ""
-                    let wineImageUrl = resultData["picture"] as? String ?? ""
-                    
-                    let scentData: [String: [String]] = [
-                        "scentAroma": scentAroma,
-                        "scentTaste": scentTaste,
-                        "scentFinish": scentFinish
-                    ]
-                    
-                    let dataList: [RadarChartData] = [
-                        RadarChartData(type: .acid, value: acidity),
-                        RadarChartData(type: .tannin, value: tannin),
-                        RadarChartData(type: .alcohol, value: alcohol),
-                        RadarChartData(type: .bodied, value: body),
-                        RadarChartData(type: .sweetness, value: sugarContent)
-                    ]
-                    
-                    let nextVC = CheckNoteViewController()
-                    nextVC.reviewString = review
-                    nextVC.value = Double(satisfaction)
-                    nextVC.dataList = dataList
-                    nextVC.selectedOptions = scentData
-                    nextVC.selectedWineName = wineName
-                    nextVC.selectedWineImage = wineImageUrl
-                    
-                    self.navigationController?.pushViewController(nextVC, animated: true)
-                }
-            }
-        } catch {
-            print("Failed to map data: \(error)")
-        }
-    }
+//    func handleNoteDetailsResponse(_ response: Response) {
+//        do {
+//            if let jsonData = try response.mapJSON() as? [String: Any] {
+//                // 응답 데이터를 콘솔에 출력
+//                print("Response JSON: \(jsonData)")
+//                
+//                if let resultData = jsonData["result"] as? [String: Any] {
+//                    let scentAroma = (resultData["scentAroma"] as? [String] ?? []).map { $0.unescapedString }
+//                    let scentTaste = (resultData["scentTaste"] as? [String] ?? []).map { $0.unescapedString }
+//                    let scentFinish = (resultData["scentFinish"] as? [String] ?? []).map { $0.unescapedString }
+//                    
+//                    let review = (resultData["review"] as? String ?? "").unescapedString
+//                    let satisfaction = resultData["satisfaction"] as? Int ?? 0
+//                    let sugarContent = resultData["sugarContent"] as? Int ?? 0
+//                    let acidity = resultData["acidity"] as? Int ?? 0
+//                    let tannin = resultData["tannin"] as? Int ?? 0
+//                    let alcohol = resultData["alcohol"] as? Int ?? 0
+//                    let body = resultData["body"] as? Int ?? 0
+//                    let wineName = resultData["name"] as? String ?? ""
+//                    let wineImageUrl = resultData["picture"] as? String ?? ""
+//                    
+//                    let scentData: [String: [String]] = [
+//                        "scentAroma": scentAroma,
+//                        "scentTaste": scentTaste,
+//                        "scentFinish": scentFinish
+//                    ]
+//                    
+//                    let dataList: [RadarChartData] = [
+//                        RadarChartData(type: .acid, value: acidity),
+//                        RadarChartData(type: .tannin, value: tannin),
+//                        RadarChartData(type: .alcohol, value: alcohol),
+//                        RadarChartData(type: .bodied, value: body),
+//                        RadarChartData(type: .sweetness, value: sugarContent)
+//                    ]
+//                    
+//                    let nextVC = CheckNoteViewController()
+//                    nextVC.reviewString = review
+//                    nextVC.value = Double(satisfaction)
+//                    nextVC.dataList = dataList
+//                    nextVC.selectedOptions = scentData
+//                    nextVC.selectedWineName = wineName
+//                    nextVC.selectedWineImage = wineImageUrl
+//                    
+//                    self.navigationController?.pushViewController(nextVC, animated: true)
+//                }
+//            }
+//        } catch {
+//            print("Failed to map data: \(error)")
+//        }
+//    }
     
     
     // MARK: "새로 적기" 버튼에 관한 UI

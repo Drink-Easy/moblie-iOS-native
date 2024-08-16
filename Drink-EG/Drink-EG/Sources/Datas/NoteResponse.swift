@@ -22,5 +22,9 @@ struct NoteResponse : Codable {
     let scentTaste : [String]
     let scentFinish : [String]
     let satisfaction : Double
-    let review : String
+    let review : String?
+}
+
+struct ResponseWrap: Codable {
+    let result: NoteResponse
 }
