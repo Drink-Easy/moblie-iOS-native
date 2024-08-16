@@ -17,12 +17,21 @@ class WineInfoViewController: UIViewController {
     var wineImage: String?
     var wineId: Int?
     
+    var sweetness: Int = 0
+    var acid: Int = 0
+    var tannin: Int = 0
+    var bodied: Int = 0
+    var alcohol: Int = 0
+    var aroma: String = ""
+    var taste: String = ""
+    var finish: String = ""
+    
     let pentagonChart = PolygonChartView()
-    var dataList: [RadarChartData] = [RadarChartData(type: .sweetness, value: 8),
-                                      RadarChartData(type: .acid, value: 6),
-                                      RadarChartData(type: .tannin, value: 2),
-                                      RadarChartData(type: .bodied, value: 6),
-                                      RadarChartData(type: .alcohol, value: 4)]
+    lazy var dataList: [RadarChartData] = [RadarChartData(type: .sweetness, value: sweetness),
+                                      RadarChartData(type: .acid, value: acid),
+                                      RadarChartData(type: .tannin, value: tannin),
+                                      RadarChartData(type: .bodied, value: bodied),
+                                      RadarChartData(type: .alcohol, value: alcohol)]
     
     func setupPentagonChart() {
         pentagonChart.backgroundColor = .clear
@@ -136,25 +145,53 @@ class WineInfoViewController: UIViewController {
         return v
     }()
     
-    private func explainLabel() -> UILabel {
+    private func createLabel(text: String) -> UILabel {
         let l = UILabel()
         l.font = .boldSystemFont(ofSize: 18)
         l.textColor = .black
+        l.text = text
         return l
     }
     
-    private func explainView() -> UIButton {
+    private var AromaLabel: UILabel {
+        return createLabel(text: "Aroma")
+    }
+    
+    private var TasteLabel: UILabel {
+        return createLabel(text: "Taste")
+    }
+    
+    private var FinishLabel: UILabel {
+        return createLabel(text: "Finish")
+    }
+    
+    private func createButton(title: String) -> UIButton {
         let v = UIButton(type: .system)
         v.layer.cornerRadius = 18
         v.layer.masksToBounds = true
         v.backgroundColor = UIColor(hex: "#FBCBC4")
         v.layer.borderWidth = 2
         v.layer.borderColor = UIColor(hue: 0.025, saturation: 0.63, brightness: 0.98, alpha: 0.7).cgColor
-        
+            
+        v.setTitle(title, for: .normal)
+        v.sizeToFit()
+        v.contentEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
         v.titleLabel?.font = .boldSystemFont(ofSize: 16)
         v.setTitleColor(.black, for: .normal)
-        
+            
         return v
+    }
+        
+    private var Aroma: UIButton {
+        return createButton(title: aroma)
+    }
+        
+    private var Taste: UIButton {
+        return createButton(title: taste)
+    }
+        
+    private var Finish: UIButton {
+        return createButton(title: finish)
     }
     
     private let goToReviewButton: UIButton = {
@@ -207,6 +244,7 @@ class WineInfoViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        //getWineInfo()
         setupUI()
     }
     
@@ -221,25 +259,24 @@ class WineInfoViewController: UIViewController {
         }
         
         view.addSubview(scrollView)
-        
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview()
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
         scrollView.addSubview(contentView)
-        
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView.contentLayoutGuide)
             make.height.greaterThanOrEqualTo(scrollView.snp.height).priority(.low)
             make.width.equalTo(scrollView.frameLayoutGuide)
+            make.bottom.equalToSuperview().inset(20)
         }
         
         contentView.addSubview(infoView)
         infoView.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(10)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(14)
+            make.top.equalToSuperview().offset(10)
+            make.leading.trailing.equalToSuperview().inset(14)
             make.height.lessThanOrEqualTo(101)
         }
         
@@ -293,7 +330,7 @@ class WineInfoViewController: UIViewController {
         tastingNoteView.addSubview(pentagonChart)
         pentagonChart.snp.makeConstraints{ make in
             make.top.equalTo(represent.snp.bottom).offset(29)
-            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.centerX.equalToSuperview()
             make.width.equalTo(353)
             make.height.equalTo(309)
         }
@@ -304,36 +341,6 @@ class WineInfoViewController: UIViewController {
             make.leading.trailing.equalTo(tastingNoteView)
             make.height.greaterThanOrEqualTo(116)
         }
-        
-        let stackView = UIStackView(arrangedSubviews: [goToReviewButton, goToShopButton])
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 9
-                
-        contentView.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(explainEntireView.snp.bottom).offset(30)
-            make.leading.trailing.equalTo(explainEntireView)
-            make.height.greaterThanOrEqualTo(50)
-            make.bottom.equalToSuperview().inset(20)
-        }
-        
-        goToReviewButton.snp.makeConstraints { make in
-            make.width.equalTo(goToShopButton)
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(20)
-        }
-        
-        let AromaLabel = explainLabel()
-        AromaLabel.text = "Aroma"
-        
-        let TasteLabel = explainLabel()
-        TasteLabel.text = "Taste"
-        
-        let FinishLabel = explainLabel()
-        FinishLabel.text = "Finish"
         
         explainEntireView.addSubview(AromaLabel)
         explainEntireView.addSubview(TasteLabel)
@@ -354,21 +361,6 @@ class WineInfoViewController: UIViewController {
             make.trailing.equalToSuperview().inset(33)
         }
         
-        let Aroma = explainView()
-        Aroma.setTitle("블루베리", for: .normal)
-        Aroma.sizeToFit()
-        Aroma.contentEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
-        
-        let Taste = explainView()
-        Taste.setTitle("자두", for: .normal)
-        Taste.sizeToFit()
-        Taste.contentEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
-        
-        let Finish = explainView()
-        Finish.setTitle("스모키", for: .normal)
-        Finish.sizeToFit()
-        Finish.contentEdgeInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
-        
         explainEntireView.addSubview(Aroma)
         explainEntireView.addSubview(Taste)
         explainEntireView.addSubview(Finish)
@@ -386,6 +378,53 @@ class WineInfoViewController: UIViewController {
         Finish.snp.makeConstraints { make in
             make.top.equalTo(Taste)
             make.centerX.equalTo(FinishLabel)
+        }
+        
+        let stackView = UIStackView(arrangedSubviews: [goToReviewButton, goToShopButton])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 9
+                
+        contentView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(explainEntireView.snp.bottom).offset(30)
+            make.leading.trailing.equalTo(explainEntireView)
+            make.height.greaterThanOrEqualTo(50)
+            make.bottom.equalToSuperview().inset(20)
+        }
+        
+        goToReviewButton.snp.makeConstraints { make in
+            make.width.equalTo(goToShopButton)
+        }
+    }
+}
+
+extension WineInfoViewController {
+    func getWineInfo() {
+        provider.request(.getWineInfo(wineId: self.wineId ?? 1)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let responseData = try JSONDecoder().decode(APIResponseWineInfoResponse.self, from: response.data)
+                    self.sweetness = responseData.result.sugarContent
+                    self.acid = responseData.result.acidity
+                    self.alcohol = responseData.result.alcohol
+                    self.bodied = responseData.result.body
+                    self.tannin = responseData.result.tannin
+                    self.aroma = responseData.result.scentAroma[0]
+                    self.taste = responseData.result.scentTaste[0]
+                    self.taste = responseData.result.scentFinish[0]
+                    let scoreString: String = String(responseData.result.rating)
+                    self.score.text = scoreString
+                } catch {
+                    print("Failed to decode response: \(error)")
+                }
+            case.failure(let error):
+                print("Error: \(error.localizedDescription)")
+                if let response = error.response {
+                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
+                }
+            }
         }
     }
 }
