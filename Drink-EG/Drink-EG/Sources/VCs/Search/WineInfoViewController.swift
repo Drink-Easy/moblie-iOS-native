@@ -244,20 +244,28 @@ class WineInfoViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        //getWineInfo()
-        setupUI()
+        getWineInfo { [weak self] isSuccess in
+            if isSuccess {
+                self?.setupUI()
+            } else {
+                print("데이터를 받아오는데 실패했습니다. 다시 시도해주세요.")
+            }
+        }
     }
     
     private func setupUI() {
         
         setupPentagonChart()
         
+        //MARK: - UI Constraint
+        // Title Label
         view.addSubview(label)
         label.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
+        // 하단 전체 스크롤뷰
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(10)
@@ -265,6 +273,7 @@ class WineInfoViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
+        // 스크롤뷰 내부
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView.contentLayoutGuide)
@@ -273,6 +282,7 @@ class WineInfoViewController: UIViewController {
             make.bottom.equalToSuperview().inset(20)
         }
         
+        // 상단 와인 정보
         contentView.addSubview(infoView)
         infoView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
@@ -314,6 +324,7 @@ class WineInfoViewController: UIViewController {
             make.width.height.equalTo(22)
         }
         
+        // 스크롤뷰 하단 테이스팅 노트
         contentView.addSubview(tastingNoteView)
         tastingNoteView.snp.makeConstraints { make in
             make.top.equalTo(infoView.snp.bottom).offset(10.5)
@@ -335,6 +346,7 @@ class WineInfoViewController: UIViewController {
             make.height.equalTo(309)
         }
         
+        // 아로마~등 정보 뷰
         contentView.addSubview(explainEntireView)
         explainEntireView.snp.makeConstraints { make in
             make.top.equalTo(tastingNoteView.snp.bottom).offset(10.5)
@@ -343,19 +355,20 @@ class WineInfoViewController: UIViewController {
         }
         
         explainEntireView.addSubview(AromaLabel)
-        explainEntireView.addSubview(TasteLabel)
-        explainEntireView.addSubview(FinishLabel)
-        
         AromaLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(23)
             make.leading.equalToSuperview().offset(33)
         }
         
+        
+        
+        explainEntireView.addSubview(TasteLabel)
         TasteLabel.snp.makeConstraints { make in
             make.top.equalTo(AromaLabel)
             make.centerX.equalToSuperview()
         }
         
+        explainEntireView.addSubview(FinishLabel)
         FinishLabel.snp.makeConstraints { make in
             make.top.equalTo(TasteLabel)
             make.trailing.equalToSuperview().inset(33)
@@ -380,11 +393,14 @@ class WineInfoViewController: UIViewController {
             make.centerX.equalTo(FinishLabel)
         }
         
+        // StackView 정의
+        // TODO : 함수 분리
         let stackView = UIStackView(arrangedSubviews: [goToReviewButton, goToShopButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 9
                 
+        
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
             make.top.equalTo(explainEntireView.snp.bottom).offset(30)
@@ -400,12 +416,13 @@ class WineInfoViewController: UIViewController {
 }
 
 extension WineInfoViewController {
-    func getWineInfo() {
+    func getWineInfo(completion: @escaping (Bool) -> Void) {
         provider.request(.getWineInfo(wineId: self.wineId ?? 1)) { result in
             switch result {
             case .success(let response):
                 do {
                     let responseData = try JSONDecoder().decode(APIResponseWineInfoResponse.self, from: response.data)
+//                    self.handleResponseData()
                     self.sweetness = responseData.result.sugarContent
                     self.acid = responseData.result.acidity
                     self.alcohol = responseData.result.alcohol
@@ -416,15 +433,22 @@ extension WineInfoViewController {
                     self.taste = responseData.result.scentFinish[0]
                     let scoreString: String = String(responseData.result.rating)
                     self.score.text = scoreString
+                    completion(true)
                 } catch {
                     print("Failed to decode response: \(error)")
+                    completion(false)
                 }
             case.failure(let error):
                 print("Error: \(error.localizedDescription)")
                 if let response = error.response {
                     print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
                 }
+                completion(false)
             }
         }
+    }
+    
+    func handleResponseData(_ data: WineInfo) {
+        
     }
 }
