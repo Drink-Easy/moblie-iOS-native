@@ -10,6 +10,7 @@ import UIKit
 
 class WineStoreListViewController: UIViewController {
     
+    weak var delegate: StoreListDelegate?
     var selectedShop: String?
     
     private var WineShopContents: [String] = ["PODO", "루바토 와인", "버건디", "와인나우", "보데가 와인"]
@@ -143,11 +144,20 @@ extension WineStoreListViewController: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell
-        selectedShop = WineShopContents[indexPath.item]
-        let wineOrderViewController = WineOrderViewController()
-        wineOrderViewController.shop = selectedShop
-        navigationController?.pushViewController(wineOrderViewController, animated: true)
+        
+        if let previousViewController = navigationController?.viewControllers.dropLast().last {
+            if previousViewController is WineInfoViewController {
+                let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell
+                selectedShop = WineShopContents[indexPath.item]
+                let wineOrderViewController = WineOrderViewController()
+                wineOrderViewController.shop = selectedShop
+                navigationController?.pushViewController(wineOrderViewController, animated: true)
+            } else if previousViewController is ShoppingCartListViewController {
+                let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell
+                delegate?.didSelectStore(selectedCell.shopName.text ?? "")
+                navigationController?.popViewController(animated: true) // 장바구니 화면으로 돌아가기
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

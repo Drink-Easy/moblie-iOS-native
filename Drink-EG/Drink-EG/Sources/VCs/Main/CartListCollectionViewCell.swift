@@ -12,7 +12,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
     
     var changeMarketButtonAction : (() -> Void) = {}
     
-    private var quantity: Int = 0 {
+    private var quantity: Int = 1 {
         didSet {
             updateNumLabel()
         }
@@ -41,7 +41,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         return l1
     }()
     
-    private let marketNprice = UILabel()
+    let marketNprice = UILabel()
     
     private let score: UILabel = {
         let l3 = UILabel()
@@ -176,7 +176,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         completeText.append(secondAttachmentString)
 
         // 가격 텍스트 추가
-        let textAfterSecondImage = NSAttributedString(string: "  \(price) ₩", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        let textAfterSecondImage = NSAttributedString(string: "  \(price * quantity) ₩", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
         completeText.append(textAfterSecondImage)
 
         marketNprice.attributedText = completeText

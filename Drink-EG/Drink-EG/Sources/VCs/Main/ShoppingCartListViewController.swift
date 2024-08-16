@@ -6,8 +6,15 @@
 //
 
 import UIKit
+import SnapKit
+
+protocol StoreListDelegate: AnyObject {
+    func didSelectStore(_ store: String)
+}
 
 class ShoppingCartListViewController: UIViewController {
+    
+    var selectedStore: String?
     
     private var CartContents: [String] = ["Red Label", "Castello Monaci", "Loxton", "Samos", "Vendredi"]
     private var itemsSelectedState: [Bool] = []
@@ -78,6 +85,17 @@ class ShoppingCartListViewController: UIViewController {
         setupUI()
     }
     
+    func didSelectStore(_ store: String) {
+        self.selectedStore = store
+        updateStoreInCart()
+    }
+    
+    func updateStoreInCart() {
+        // 여기서 장바구니 셀의 매장 이름을 변경하는 코드를 작성합니다.
+        
+        cartListCollectionView.reloadData()
+    }
+    
     private func setupUI() {
         
         configureAllCheckButton()
@@ -142,7 +160,7 @@ class ShoppingCartListViewController: UIViewController {
     }
     
     private func configureAllCheckLabel() {
-        allCheckLabel.text = "전체 선택 (\(1)/\(CartContents.count))"
+        allCheckLabel.text = "전체 선택 (\(0)/\(CartContents.count))"
         allCheckLabel.font = .boldSystemFont(ofSize: 14)
         allCheckLabel.textColor = UIColor(hex: "#767676")
     }
