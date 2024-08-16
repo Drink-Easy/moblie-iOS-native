@@ -409,7 +409,7 @@ class RatingViewController: UIViewController {
     @objc func completeButtonTapped() {
         let nextVC = CheckNoteViewController()
         postNewNoteAPI()
-        patchNoteAPI(noteId: 270)
+        patchNoteAPI(wineId: selectedWineId!)
         nextVC.dataList = dataList
         nextVC.selectedOptions = selectedOptions
         nextVC.reviewString = reviewText.text ?? ""
@@ -429,7 +429,7 @@ class RatingViewController: UIViewController {
     }
     
     func postNewNoteAPI() {
-        let wineId = selectedWineId // 수정필요
+        let wineId = selectedWineId
         let color = receivedColor
         let satisfaction = Int(value)
         let memo = reviewText.text ?? ""
@@ -487,11 +487,10 @@ class RatingViewController: UIViewController {
             }
     }
     
-    func patchNoteAPI(noteId: Int) {
-        let wineId = selectedWineId // 수정 필요
+    func patchNoteAPI(wineId: Int) {
         let color = receivedColor
         let satisfaction = Int(value)
-        let memo = reviewText.text ?? ""
+        let review = reviewText.text ?? ""
         let scentAroma = selectedOptions["Aroma"] ?? []
         let scentTaste = selectedOptions["Taste"] ?? []
         let scentFinish = selectedOptions["Finish"] ?? []
@@ -518,8 +517,7 @@ class RatingViewController: UIViewController {
         }
         
         provider.request(.patchNote(
-            noteId: noteId,
-            wineId: wineId!,
+            wineId: wineId,
             color: color,
             sugarContent: sugarContent ?? 0,
             acidity: acidity ?? 0,
@@ -530,7 +528,7 @@ class RatingViewController: UIViewController {
             scentTaste: scentTaste,
             scentFinish: scentFinish,
             satisfaction: satisfaction,
-            memo: memo)) { result in
+            review: review)) { result in
                 switch result {
                 case .success(let response):
                     print("Note successfully patched with response: \(response)")
@@ -538,7 +536,7 @@ class RatingViewController: UIViewController {
                     let nextVC = CheckNoteViewController()
                     nextVC.dataList = self.dataList
                     nextVC.selectedOptions = self.selectedOptions
-                    nextVC.reviewString = memo
+                    nextVC.reviewString = review
                     nextVC.value = self.value
                     self.navigationController?.pushViewController(nextVC, animated: true)
                 case .failure(let error):
