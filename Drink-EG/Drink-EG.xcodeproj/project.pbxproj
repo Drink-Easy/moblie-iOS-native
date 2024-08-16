@@ -39,6 +39,7 @@
 		1654011F2C6E56A9008A9DBF /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654011E2C6E56A9008A9DBF /* UIViewExtension.swift */; };
 		165401212C6E56BD008A9DBF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401202C6E56BD008A9DBF /* RatingView.swift */; };
 		165401232C6E57BC008A9DBF /* CardSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401222C6E57BC008A9DBF /* CardSliderCell.swift */; };
+		1654014C2C6F41B0008A9DBF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654014B2C6F41B0008A9DBF /* ContentView.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -147,6 +148,7 @@
 		1654011E2C6E56A9008A9DBF /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = ../../../../../../../../Downloads/UIViewExtension.swift; sourceTree = "<group>"; };
 		165401202C6E56BD008A9DBF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RatingView.swift; path = ../../../../../../../../Downloads/RatingView.swift; sourceTree = "<group>"; };
 		165401222C6E57BC008A9DBF /* CardSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardSliderCell.swift; path = ../../../../../../../../Downloads/CardSliderCell.swift; sourceTree = "<group>"; };
+		1654014B2C6F41B0008A9DBF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -288,6 +290,14 @@
 				165401222C6E57BC008A9DBF /* CardSliderCell.swift */,
 			);
 			path = CustomCardSlider;
+			sourceTree = "<group>";
+		};
+		165401482C6F415F008A9DBF /* CardSliderSwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				1654014B2C6F41B0008A9DBF /* ContentView.swift */,
+			);
+			path = CardSliderSwiftUI;
 			sourceTree = "<group>";
 		};
 		16B97CC72C4BEB0900D8B453 = {
@@ -465,6 +475,7 @@
 		16B97CF82C4BFB2400D8B453 /* WineClass */ = {
 			isa = PBXGroup;
 			children = (
+				165401482C6F415F008A9DBF /* CardSliderSwiftUI */,
 				16B97D112C4C0F2400D8B453 /* WineClassMainViewController.swift */,
 				16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */,
 				16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */,
@@ -722,6 +733,7 @@
 				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 				5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */,
+				1654014C2C6F41B0008A9DBF /* ContentView.swift in Sources */,
 				5E2219442C69D5D0005849FB /* CreateNewCommViewController.swift in Sources */,
 				5E2219472C69D5D0005849FB /* CustomCollectionViewCell.swift in Sources */,
 				5E22195B2C69D5E7005849FB /* WriteNoteViewController.swift in Sources */,

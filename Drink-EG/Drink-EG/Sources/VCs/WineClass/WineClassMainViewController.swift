@@ -7,37 +7,29 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
-struct Item: CardSliderItem {
-    var image: UIImage
-    var rating: Int?
-    var title: String
-    var subtitle: String?
-    var description: String?
-}
 
-class WineClassMainViewController : CardSliderViewController, CardSliderDataSource {
-    var datas = [Item]()
-    
+class WineClassMainViewController : UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        datas.append(Item(image: UIImage(named: "ClassSampleImage")!, title: "First Wine Class"))
-        datas.append(Item(image: UIImage(named: "ClassSampleImage")!, title: "Second Wine Class"))
-        datas.append(Item(image: UIImage(named: "ClassSampleImage")!, title: "Third Wine Class"))
-    
-        view.backgroundColor = .white
-        
-        self.dataSource = self
+        setUI()
         
     }
     
-    func item(for index: Int) -> any CardSliderItem {
-        datas[index]
+    private func setUI() {
+        let cardSliderView = ContentView()
+        let hostingController = UIHostingController(rootView: cardSliderView)
+        
+        self.addChild(hostingController)
+        self.view.addSubview(hostingController.view)
+        hostingController.didMove(toParent: self)
+        
+        hostingController.view.snp.makeConstraints { make in
+            make.center.equalToSuperview() // 화면 정중앙에 배치
+            make.width.equalToSuperview().multipliedBy(0.8) // 부모 뷰의 80% 너비
+            make.height.equalToSuperview().multipliedBy(0.8) // 부모 뷰의 50% 높이
+        }
     }
-    
-    func numberOfItems() -> Int {
-        datas.count
-    }
-    
 }
