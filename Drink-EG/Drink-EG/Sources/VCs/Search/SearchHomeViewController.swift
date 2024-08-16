@@ -7,12 +7,14 @@
 
 import UIKit
 import SnapKit
+import Moya
+import SDWebImage
 
 class SearchHomeViewController : UIViewController, UISearchBarDelegate {
     
-    var selectedWine: String?
-    var suggestion: [String] = []
-    var allSuggestion: [String] = ["Castello Monaci", "Dos Copas", "Loxton", "Red Label", "Samos", "Vendredi"]
+    let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
+
+    var wineResults: [Wine] = []
 
     lazy var searchBar: UISearchBar = {
         let s = UISearchBar()
@@ -120,46 +122,63 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
 
     func filterSuggestions(with query: String) {
         if query.isEmpty {
-                suggestion = []
+            wineResults = []
+            WineListCollectionView.reloadData()
         } else {
-            suggestion = allSuggestion.filter { $0.lowercased().contains(query.lowercased()) }
+            fetchWineSuggestion(with: query)
         }
-        WineListCollectionView.reloadData()
     }
 }
 
 extension SearchHomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return suggestion.count
+        return wineResults.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WineListCollectionViewCell", for: indexPath) as! WineListCollectionViewCell
             
-        cell.configure(imageName: suggestion[indexPath.item])
+        let wine = wineResults[indexPath.row]
+        cell.configure(wine: wine)
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let wineInfoViewController = WineInfoViewController()
-//        navigationController?.pushViewController(wineInfoViewController, animated: true)
-        selectedWine = suggestion[indexPath.item]
-        let wineInfoViewController = WineInfoViewController()
-//        wineInfoViewController.modalPresentationStyle = .fullScreen
-        wineInfoViewController.wine = selectedWine
-        self.present(wineInfoViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 94)
     }
     
-    private func collectionView(_ collectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
-        let selectedSuggestion = suggestion[indexPath.row]
-        searchBar.text = selectedSuggestion
-        suggestion = []
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedWine = wineResults[indexPath.row]
+        searchBar.text = selectedWine.name
+        wineResults = []
         WineListCollectionView.reloadData()
+        
+        let wineInfoViewController = WineInfoViewController()
+        wineInfoViewController.name.text = selectedWine.name
+        wineInfoViewController.wineImage = selectedWine.imageUrl
+        wineInfoViewController.wineId = selectedWine.wineId
+        navigationController?.pushViewController(wineInfoViewController, animated: true)
+    }
+    
+    func fetchWineSuggestion(with query: String) {
+        provider.request(.getWineName(wineName: query)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let responseData = try JSONDecoder().decode(APIResponseWineSearchResponse.self, from: response.data)
+                    self.wineResults = responseData.result
+                    self.WineListCollectionView.reloadData()
+                } catch {
+                    print("Failed to decode response: \(error)")
+                }
+            case.failure(let error):
+                print("Error: \(error.localizedDescription)")
+                if let response = error.response {
+                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
+                }
+            }
+        }
     }
 }

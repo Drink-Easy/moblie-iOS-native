@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SnapKit
+import SDWebImage
 
 class WineListCollectionViewCell: UICollectionViewCell {
     
@@ -25,6 +27,8 @@ class WineListCollectionViewCell: UICollectionViewCell {
         l1.font = .boldSystemFont(ofSize: 18)
         l1.textColor = .black
         l1.numberOfLines = 0
+        l1.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
+        l1.minimumScaleFactor = 0.5
         return l1
     }()
     
@@ -91,6 +95,8 @@ class WineListCollectionViewCell: UICollectionViewCell {
         name.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.leading.equalTo(imageView.snp.trailing).offset(18)
+            make.width.lessThanOrEqualTo(220)
+            make.height.lessThanOrEqualTo(55)
         }
         
         price.snp.makeConstraints { make in
@@ -110,12 +116,13 @@ class WineListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(imageName: String) {
-        if let image = UIImage(named: imageName) {
-            self.name.text = imageName
-            price.text = "165,000 ₩"
-            score.text = "4.5"
-            imageView.image = image
-        }
+    func configure(wine: Wine) {
+        let imageURL = URL(string: wine.imageUrl!)
+        imageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
+        name.text = wine.name
+        let priceString: String = String(wine.price)
+        price.text = priceString
+        let scoreString: String = String(wine.rating)
+        score.text = scoreString
     }
 }
