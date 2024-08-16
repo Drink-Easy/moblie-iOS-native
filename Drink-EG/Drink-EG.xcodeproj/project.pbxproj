@@ -67,6 +67,8 @@
 		1F598F112C5CBE7A000CE79F /* SecondTasteTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F102C5CBE7A000CE79F /* SecondTasteTestViewController.swift */; };
 		1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */; };
 		1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */; };
+		1F8F99F32C6F386B00EAEF6C /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99F22C6F386B00EAEF6C /* SearchAPI.swift */; };
+		1F8F99F52C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99F42C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift */; };
 		1FBD19532C6CFABB005C16A8 /* WineShopListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19522C6CFABB005C16A8 /* WineShopListCollectionViewCell.swift */; };
 		1FBD19552C6D2BF7005C16A8 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19542C6D2BF7005C16A8 /* ReviewListViewController.swift */; };
 		1FBD19572C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19562C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift */; };
@@ -172,6 +174,8 @@
 		1F598F102C5CBE7A000CE79F /* SecondTasteTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTasteTestViewController.swift; sourceTree = "<group>"; };
 		1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingMainController.swift; path = "Drink-EG/Sources/VCs/Main/SettingMainController.swift"; sourceTree = SOURCE_ROOT; };
+		1F8F99F22C6F386B00EAEF6C /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
+		1F8F99F42C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseWineSearchResponse.swift; sourceTree = "<group>"; };
 		1FBD19522C6CFABB005C16A8 /* WineShopListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineShopListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FBD19542C6D2BF7005C16A8 /* ReviewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
 		1FBD19562C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -262,6 +266,7 @@
 				165400F92C69F15D008A9DBF /* APIResponseWineNewsResponse.swift */,
 				165400FD2C69F218008A9DBF /* APIResponseWineClassResponse.swift */,
 				1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */,
+				1F8F99F42C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift */,
 			);
 			path = APIResponseModels;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 				165400F02C69DE22008A9DBF /* CommunityAPI.swift */,
 				165400F22C69DE2D008A9DBF /* CommentsAPI.swift */,
 				165401082C6BA644008A9DBF /* MemberInfoAPI.swift */,
+				1F8F99F22C6F386B00EAEF6C /* SearchAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -643,6 +649,7 @@
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */,
+				1F8F99F52C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift in Sources */,
 				165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */,
 				1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */,
 				165400FA2C69F15D008A9DBF /* APIResponseWineNewsResponse.swift in Sources */,
@@ -692,6 +699,7 @@
 				1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */,
 				5E2219452C69D5D0005849FB /* CommunityInfoViewController.swift in Sources */,
 				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
+				1F8F99F32C6F386B00EAEF6C /* SearchAPI.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 				5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */,
 				5E2219442C69D5D0005849FB /* CreateNewCommViewController.swift in Sources */,

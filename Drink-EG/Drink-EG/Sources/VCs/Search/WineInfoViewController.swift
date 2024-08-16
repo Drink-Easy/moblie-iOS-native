@@ -7,10 +7,15 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
+import Moya
 
 class WineInfoViewController: UIViewController {
     
-    var wine: String?
+    let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
+    
+    var wineImage: String?
+    var wineId: Int?
     
     let pentagonChart = PolygonChartView()
     var dataList: [RadarChartData] = [RadarChartData(type: .sweetness, value: 8),
@@ -57,30 +62,31 @@ class WineInfoViewController: UIViewController {
         return v
     }()
     
-    private lazy var imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let iv = UIImageView()
-        if let wine = wine {
-            iv.image = UIImage(named: wine)
-        }
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
+        if let imageUrl = wineImage, let url = URL(string: imageUrl) {
+            iv.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            iv.image = UIImage(named: "Loxton")
+        }
         return iv
     }()
     
-    private lazy var name: UILabel = {
+    lazy var name: UILabel = {
         let l = UILabel()
-        if let wine = wine {
-            l.text = wine
-        }
         l.font = .boldSystemFont(ofSize: 18)
         l.textColor = .black
         l.numberOfLines = 0
+        l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
+        l.minimumScaleFactor = 0.5
         return l
     }()
     
     private let specInfo: UILabel = {
         let l = UILabel()
-        l.text = "종류: 레드 와인\n품종: 쉬라 100%\n생산지: 호주, South Australia"
+        l.text = "종류: 레드 와인\n생산지: 호주, South Australia"
         l.font = .systemFont(ofSize: 12)
         l.textColor = .black
         l.numberOfLines = 0
@@ -248,6 +254,8 @@ class WineInfoViewController: UIViewController {
         name.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(11)
             make.leading.equalTo(imageView.snp.trailing).offset(20)
+            make.width.lessThanOrEqualTo(220)
+            make.height.lessThanOrEqualTo(40)
         }
         
         infoView.addSubview(specInfo)

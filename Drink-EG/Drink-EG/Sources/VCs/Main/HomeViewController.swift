@@ -353,7 +353,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView.tag == 2 {
             selectedWine = RecomContents[indexPath.item]
             let wineInfoViewController = WineInfoViewController()
-            wineInfoViewController.wine = selectedWine
+//            wineInfoViewController.name.text = selectedWine.name
+//            wineInfoViewController.wineImage = selectedWine.imageUrl
+//            wineInfoViewController.wineId = selectedWine.wineId
             navigationController?.pushViewController(wineInfoViewController, animated: true)
         }
     }
