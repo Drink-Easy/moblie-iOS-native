@@ -153,18 +153,6 @@ class WineInfoViewController: UIViewController {
         return l
     }
     
-    private var AromaLabel: UILabel {
-        return createLabel(text: "Aroma")
-    }
-    
-    private var TasteLabel: UILabel {
-        return createLabel(text: "Taste")
-    }
-    
-    private var FinishLabel: UILabel {
-        return createLabel(text: "Finish")
-    }
-    
     private func createButton(title: String) -> UIButton {
         let v = UIButton(type: .system)
         v.layer.cornerRadius = 18
@@ -182,17 +170,12 @@ class WineInfoViewController: UIViewController {
         return v
     }
         
-    private var Aroma: UIButton {
-        return createButton(title: aroma)
-    }
-        
-    private var Taste: UIButton {
-        return createButton(title: taste)
-    }
-        
-    private var Finish: UIButton {
-        return createButton(title: finish)
-    }
+    private var AromaLabel: UILabel!
+    private var TasteLabel: UILabel!
+    private var FinishLabel: UILabel!
+    private var Aroma: UIButton!
+    private var Taste: UIButton!
+    private var Finish: UIButton!
     
     private let goToReviewButton: UIButton = {
         let b = UIButton(type: .system)
@@ -257,15 +240,20 @@ class WineInfoViewController: UIViewController {
         
         setupPentagonChart()
         
-        //MARK: - UI Constraint
-        // Title Label
+        AromaLabel = createLabel(text: "Aroma")
+        TasteLabel = createLabel(text: "Taste")
+        FinishLabel = createLabel(text: "Finish")
+            
+        Aroma = createButton(title: aroma)
+        Taste = createButton(title: taste)
+        Finish = createButton(title: finish)
+        
         view.addSubview(label)
         label.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
-        // 하단 전체 스크롤뷰
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(10)
@@ -273,7 +261,6 @@ class WineInfoViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
-        // 스크롤뷰 내부
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView.contentLayoutGuide)
@@ -324,7 +311,6 @@ class WineInfoViewController: UIViewController {
             make.width.height.equalTo(22)
         }
         
-        // 스크롤뷰 하단 테이스팅 노트
         contentView.addSubview(tastingNoteView)
         tastingNoteView.snp.makeConstraints { make in
             make.top.equalTo(infoView.snp.bottom).offset(10.5)
@@ -346,7 +332,6 @@ class WineInfoViewController: UIViewController {
             make.height.equalTo(309)
         }
         
-        // 아로마~등 정보 뷰
         contentView.addSubview(explainEntireView)
         explainEntireView.snp.makeConstraints { make in
             make.top.equalTo(tastingNoteView.snp.bottom).offset(10.5)
