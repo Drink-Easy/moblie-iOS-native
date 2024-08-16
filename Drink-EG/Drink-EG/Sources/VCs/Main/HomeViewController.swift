@@ -33,17 +33,13 @@ class HomeViewController: UIViewController {
     let firstLine = UILabel()
     let NoteLabel = UILabel()
     
-    private var AdContents: [String] = ["1", "2"]
+    private var AdContents: [String] = ["ad1", "ad2"]
     private var RecomContents: [String] = ["Red Label", "Castello Monaci", "Loxton"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.navigationController?.navigationBar.tintColor = .black
         
         view.backgroundColor = .white
         setupUI()
@@ -53,16 +49,16 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
             
         // 버튼 하단에 노란색으로 칠하는 layer 추가
-        let yellowLayer = CALayer()
-        yellowLayer.frame = CGRect(x: 0, y: 72, width: goToNoteButton.frame.width, height: goToNoteButton.frame.height - 72)
-        yellowLayer.backgroundColor = UIColor(hue: 0.1528, saturation: 0.16, brightness: 1, alpha: 0.8).cgColor
+        let Layer = CALayer()
+        Layer.frame = CGRect(x: 0, y: 72, width: goToNoteButton.frame.width, height: goToNoteButton.frame.height - 72)
+        Layer.backgroundColor = UIColor(hue: 0.0417, saturation: 0.19, brightness: 1, alpha: 0.8).cgColor
                     
         // 버튼에 layer 추가
-        goToNoteButton.layer.addSublayer(yellowLayer)
+        goToNoteButton.layer.addSublayer(Layer)
         
         //layer 위에 label 추가
         let titleLabel = UILabel()
-        titleLabel.text = "테이스팅 노트 바로가기"
+        titleLabel.text = "테이스팅 노트 작성하기"
         titleLabel.textColor = .black
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         titleLabel.textAlignment = .left
@@ -257,8 +253,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func noteButtonTapped() {
-        let noteListViewController = NoteListViewController()
-        navigationController?.pushViewController(noteListViewController, animated: true)
+        let addNewNoteViewController = AddNewNoteViewController()
+        navigationController?.pushViewController(addNewNoteViewController, animated: true)
     }
     
     lazy var AdImageCollectionView: UICollectionView = {
@@ -357,7 +353,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView.tag == 2 {
             selectedWine = RecomContents[indexPath.item]
             let wineInfoViewController = WineInfoViewController()
-            wineInfoViewController.wine = selectedWine
+//            wineInfoViewController.name.text = selectedWine.name
+//            wineInfoViewController.wineImage = selectedWine.imageUrl
+//            wineInfoViewController.wineId = selectedWine.wineId
             navigationController?.pushViewController(wineInfoViewController, animated: true)
         }
     }

@@ -12,6 +12,8 @@ import Moya
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
+    public static var isFirstLogin : Bool = true
+    
     let provider = MoyaProvider<LoginAPI>()
     public var userID : String?
     public var userPW : String?
@@ -212,7 +214,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         assignUserData()
         callLoginAPI { [weak self] isSuccess in
             if isSuccess {
-                self?.goToNextView()
+                if LoginViewController.isFirstLogin {
+                    self?.goToNextView()
+                } else {
+                    self?.goToHomeView()
+                }
+                
             } else {
                 print("로그인 실패")
                 // 실패 시에 대한 처리 (예: 에러 메시지 표시)
@@ -221,8 +228,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func goToNextView() {
-        let enterTasteTestViewController = EnterTasteTestViewController()
-        navigationController?.pushViewController(enterTasteTestViewController, animated: true)
+        if LoginViewController.isFirstLogin {
+            let enterTasteTestViewController = EnterTasteTestViewController()
+            navigationController?.pushViewController(enterTasteTestViewController, animated: true)
+        } else {
+            let homeViewController = HomeViewController()
+            navigationController?.pushViewController(homeViewController, animated: true)
+        }
+        
+    }
+    
+    private func goToHomeView() {
+        let homeViewController = MainTabBarViewController()
+        navigationController?.pushViewController(homeViewController, animated: true)
     }
     
     private func configureJoinButton() {

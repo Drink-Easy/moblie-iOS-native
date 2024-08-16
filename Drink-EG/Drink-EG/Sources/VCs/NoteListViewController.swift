@@ -84,17 +84,33 @@ class NewNoteFooter: UICollectionReusableView {
     }
 }
 
+struct Note: Decodable {
+    let noteId: Int
+    let name: String
+    let imageUrl: String
+}
+
+struct AllNotesResponse: Decodable {
+    let isSuccess: Bool
+    let code: String
+    let message: String
+    let result: [Note]
+}
+
 // NoteListViewController는 사용자가 작성한 테이스팅 노트를 확인 및 새로 작성할 수 있는 뷰
 class NoteListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NewNoteFooterDelegate {
    
-    let provider = MoyaProvider<TastingNoteAPI>()
+    let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
     
     let noteListLabel = UILabel() // 노트 보관함 Label
     var noteListGrid: UICollectionView! // 테이스팅 노트를 보관할 CollectionView
-    let images = ["sample1", "sample2", "sample3", "sample4", "sample2", "sample3", "sample4", "sample1", "sample3", "sample4", "sample1", "sample2", "sample4", "sample1", "sample2", "sample3"]
+    let images = ["Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci"]
+    var apiResult: [[String: String]] = []
+    var cellCount: Int = 0
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         setupAPI()
     }
     
@@ -149,10 +165,15 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         layout.minimumInteritemSpacing = 22
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.footerReferenceSize = CGSize(width: view.frame.width, height: 60)
-        noteListGrid = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        noteListGrid.backgroundColor = UIColor(hex: "EAEAEA")
-        noteListGrid.layer.cornerRadius = 10
         
+        noteListGrid = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        noteListGrid.backgroundColor = .clear
+        noteListGrid.layer.cornerRadius = 36
+        noteListGrid.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner)
+        noteListGrid.layer.borderWidth = 1
+        noteListGrid.layer.borderColor = UIColor.clear.cgColor
+        
+
         noteListGrid.dataSource = self
         noteListGrid.delegate = self
         noteListGrid.register(NoteCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -160,31 +181,36 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let backgroundView = UIView()
         backgroundView.layer.cornerRadius = 10
-        backgroundView.layer.masksToBounds = true
+        backgroundView.layer.masksToBounds = false
         noteListGrid.backgroundView = backgroundView
     }
     
     func setupNoteCollectionViewConstraints() { // CollectionView의 제약 조건을 설정하는 함수
         noteListGrid.snp.makeConstraints{ make in
-            make.leading.equalTo(noteListLabel)
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(noteListLabel.snp.bottom).offset(35)
-            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(74)
-            //make.height.greaterThanOrEqualTo(591)
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // CollectionView Cell 개수를 설정하는 함수
-        return 7
+        return cellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { // 재사용 가능한 셀을 가져와서 NoteCollectionViewCell로 캐스팅
         let cell = noteListGrid.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! NoteCollectionViewCell
-        cell.imageView.image = UIImage(named: "SampleImage")
-        cell.nameLabel.text = "와인 이름\n1999"
+
+        let wineData = apiResult[indexPath.row]
+        
+        cell.nameLabel.text = wineData["name"]
         cell.nameLabel.numberOfLines = 2
         cell.nameLabel.font = UIFont(name: "Pretendard-Bold", size: 14)
         cell.backgroundColor = .clear
+        if let imageUrl = wineData["imageUrl"], let url = URL(string: imageUrl) {
+            cell.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
+        } else {
+            cell.imageView.image = UIImage(named: "placeholder")
+        }
         
         return cell
     }
@@ -200,6 +226,113 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         return CGSize(width: width, height: height)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedNoteId = apiResult[indexPath.row]["noteId"] // noteId 가져오기
+        guard let noteId = Int(selectedNoteId ?? "") else { return }
+        
+        fetchNoteDetails(noteId: noteId)
+    }
+    
+    func fetchNoteDetails(noteId: Int) {
+        provider.request(TastingNoteAPI.getNoteID(noteId: noteId)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    // JSON 데이터를 문자열로 변환하여 출력
+                    if let jsonString = String(data: response.data, encoding: .utf8) {
+                        print("Response JSON String: \(jsonString)")
+                    }
+                    
+                    // ResponseWrap 구조체로 디코딩
+                    let noteResponse = try JSONDecoder().decode(ResponseWrap.self, from: response.data)
+                    self.handleNoteData(noteResponse.result)
+                } catch {
+                    print("Failed to decode response: \(error)")
+                }
+            case .failure(let error):
+                print("Request failed: \(error)")
+            }
+        }
+    }
+    
+    func handleNoteData(_ data: NoteResponse) {
+        let scentData: [String: [String]] = [
+            "scentAroma": data.scentAroma.map { $0.unescapedString },
+            "scentTaste": data.scentTaste.map { $0.unescapedString },
+            "scentFinish": data.scentFinish.map { $0.unescapedString }
+        ]
+        
+        let dataList: [RadarChartData] = [
+            RadarChartData(type: .acid, value: data.acidity),
+            RadarChartData(type: .tannin, value: data.tannin),
+            RadarChartData(type: .alcohol, value: data.alcohol),
+            RadarChartData(type: .bodied, value: data.body),
+            RadarChartData(type: .sweetness, value: data.sugarContent)
+        ]
+        
+        let nextVC = CheckNoteViewController()
+        nextVC.reviewString = data.review?.unescapedString ?? ""
+        nextVC.value = data.satisfaction
+        nextVC.dataList = dataList
+        nextVC.selectedOptions = scentData
+        nextVC.selectedWineName = data.name
+        nextVC.selectedWineImage = data.picture
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+//    func handleNoteDetailsResponse(_ response: Response) {
+//        do {
+//            if let jsonData = try response.mapJSON() as? [String: Any] {
+//                // 응답 데이터를 콘솔에 출력
+//                print("Response JSON: \(jsonData)")
+//                
+//                if let resultData = jsonData["result"] as? [String: Any] {
+//                    let scentAroma = (resultData["scentAroma"] as? [String] ?? []).map { $0.unescapedString }
+//                    let scentTaste = (resultData["scentTaste"] as? [String] ?? []).map { $0.unescapedString }
+//                    let scentFinish = (resultData["scentFinish"] as? [String] ?? []).map { $0.unescapedString }
+//                    
+//                    let review = (resultData["review"] as? String ?? "").unescapedString
+//                    let satisfaction = resultData["satisfaction"] as? Int ?? 0
+//                    let sugarContent = resultData["sugarContent"] as? Int ?? 0
+//                    let acidity = resultData["acidity"] as? Int ?? 0
+//                    let tannin = resultData["tannin"] as? Int ?? 0
+//                    let alcohol = resultData["alcohol"] as? Int ?? 0
+//                    let body = resultData["body"] as? Int ?? 0
+//                    let wineName = resultData["name"] as? String ?? ""
+//                    let wineImageUrl = resultData["picture"] as? String ?? ""
+//                    
+//                    let scentData: [String: [String]] = [
+//                        "scentAroma": scentAroma,
+//                        "scentTaste": scentTaste,
+//                        "scentFinish": scentFinish
+//                    ]
+//                    
+//                    let dataList: [RadarChartData] = [
+//                        RadarChartData(type: .acid, value: acidity),
+//                        RadarChartData(type: .tannin, value: tannin),
+//                        RadarChartData(type: .alcohol, value: alcohol),
+//                        RadarChartData(type: .bodied, value: body),
+//                        RadarChartData(type: .sweetness, value: sugarContent)
+//                    ]
+//                    
+//                    let nextVC = CheckNoteViewController()
+//                    nextVC.reviewString = review
+//                    nextVC.value = Double(satisfaction)
+//                    nextVC.dataList = dataList
+//                    nextVC.selectedOptions = scentData
+//                    nextVC.selectedWineName = wineName
+//                    nextVC.selectedWineImage = wineImageUrl
+//                    
+//                    self.navigationController?.pushViewController(nextVC, animated: true)
+//                }
+//            }
+//        } catch {
+//            print("Failed to map data: \(error)")
+//        }
+//    }
+    
     
     // MARK: "새로 적기" 버튼에 관한 UI
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -222,7 +355,15 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
             switch result {
             case .success(let response):
                 do {
-                    let data = try response.mapJSON()
+                    let data = try response.map(AllNotesResponse.self)
+                    self.cellCount = data.result.count
+                    for note in data.result {
+                        let wineData: [String: String] = ["noteId": "\(note.noteId)", "name": note.name, "imageUrl": note.imageUrl]
+                        self.apiResult.append(wineData)
+                    }
+                    print(self.apiResult)
+                    print(self.cellCount)
+                    self.noteListGrid.reloadData()
                     print("User Data: \(data)")
                 } catch {
                     print("Failed to map data: \(error)")
@@ -231,5 +372,13 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
                 print("Request failed: \(error)")
             }
         }
+    }
+}
+
+extension String {
+    var unescapedString: String {
+        var mutableString = NSMutableString(string: self)
+        CFStringTransform(mutableString, nil, "Any-Hex/Java" as NSString, true)
+        return mutableString as String
     }
 }
