@@ -84,10 +84,23 @@ class NewNoteFooter: UICollectionReusableView {
     }
 }
 
+struct Note: Decodable {
+    let noteId: Int
+    let name: String
+    let imageUrl: String
+}
+
+struct AllNotesResponse: Decodable {
+    let isSuccess: Bool
+    let code: String
+    let message: String
+    let result: [Note]
+}
+
 // NoteListViewController는 사용자가 작성한 테이스팅 노트를 확인 및 새로 작성할 수 있는 뷰
 class NoteListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NewNoteFooterDelegate {
    
-    let provider = MoyaProvider<TastingNoteAPI>()
+    let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
     
     let noteListLabel = UILabel() // 노트 보관함 Label
     var noteListGrid: UICollectionView! // 테이스팅 노트를 보관할 CollectionView
@@ -95,6 +108,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         setupAPI()
     }
     
@@ -149,22 +163,15 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         layout.minimumInteritemSpacing = 22
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.footerReferenceSize = CGSize(width: view.frame.width, height: 60)
+        
         noteListGrid = UICollectionView(frame: .zero, collectionViewLayout: layout)
         noteListGrid.backgroundColor = .clear
         noteListGrid.layer.cornerRadius = 36
         noteListGrid.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner)
         noteListGrid.layer.borderWidth = 1
-        noteListGrid.layer.borderColor = UIColor.white.cgColor
+        noteListGrid.layer.borderColor = UIColor.clear.cgColor
         
-        let shadowPath = UIBezierPath(roundedRect: noteListGrid.bounds, cornerRadius: 36)
-        noteListGrid.layer.shadowPath = shadowPath.cgPath
-        noteListGrid.layer.shadowColor = UIColor(red: 0.98, green: 0.451, blue: 0.357, alpha: 0.2).cgColor
-        noteListGrid.layer.shadowOpacity = 1
-        noteListGrid.layer.shadowRadius = 20
-        noteListGrid.layer.shadowOffset = CGSize(width: 4, height: -14)
-        noteListGrid.layer.masksToBounds = false
-        
-        
+
         noteListGrid.dataSource = self
         noteListGrid.delegate = self
         noteListGrid.register(NoteCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -182,9 +189,10 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
             make.top.equalTo(noteListLabel.snp.bottom).offset(35)
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // CollectionView Cell 개수를 설정하는 함수
-        return 7
+        return 12
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { // 재사용 가능한 셀을 가져와서 NoteCollectionViewCell로 캐스팅
@@ -232,7 +240,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
             switch result {
             case .success(let response):
                 do {
-                    let data = try response.mapJSON()
+                    let data = try response.map(AllNotesResponse.self)
                     print("User Data: \(data)")
                 } catch {
                     print("Failed to map data: \(error)")

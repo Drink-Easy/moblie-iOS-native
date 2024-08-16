@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import SDWebImage
 
 class CustomSuggestionCell: UITableViewCell {
 
@@ -37,6 +38,7 @@ class CustomSuggestionCell: UITableViewCell {
         // 라벨 설정
         suggestionLabel.font = UIFont(name: "Pretendard-SemiBold", size: 18)
         suggestionLabel.textColor = .black
+        suggestionLabel.numberOfLines = 2
 
         // 선택된 상태를 나타내는 이미지 (체크박스 같은 용도)
         selectionIndicator.contentMode = .scaleAspectFill
@@ -51,19 +53,21 @@ class CustomSuggestionCell: UITableViewCell {
         suggestionLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(suggestionImageView.snp.trailing).offset(25)
+            make.trailing.equalToSuperview().offset(-25)
             make.width.greaterThanOrEqualTo(82)
         }
         
         selectionIndicator.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-35)
+            make.trailing.equalToSuperview().offset(-5)
             make.width.height.greaterThanOrEqualTo(22)
         }
     }
-
-    func configure(image: UIImage, text: String, isSelected: Bool) {
-        suggestionImageView.image = image
-        suggestionLabel.text = text
+    
+    func configure(with wine: Wine, isSelected: Bool) {
+        let imageURL = URL(string: wine.imageUrl!)
+        suggestionImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
+        suggestionLabel.text = wine.name
         selectionIndicator.image = isSelected ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
         selectionIndicator.tintColor = isSelected ? .systemOrange : .lightGray
     }

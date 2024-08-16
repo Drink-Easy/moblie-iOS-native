@@ -94,6 +94,11 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
         return stackView
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     override func viewDidLoad() {
         view.backgroundColor = .white
         super.viewDidLoad()
