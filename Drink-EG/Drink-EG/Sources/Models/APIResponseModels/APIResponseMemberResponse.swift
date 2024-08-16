@@ -11,8 +11,9 @@ struct APIResponseMemberResponse : Codable {
     let isSuccess : Bool
     let code : String
     let message : String
-    let result : MemberResponse
+    let result : MemberResponse?
 }
+
 struct MemberResponse : Codable {
     let id : Int
     let name : String
@@ -21,7 +22,7 @@ struct MemberResponse : Codable {
     let isNewbie : Bool
     let monthPriceMax : Int
     let wineSort : [String]
-    let wineNation : [String]
+    let wineArea : [String]
     let wineVariety : [String]
     let region : String
 }
