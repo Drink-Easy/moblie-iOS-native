@@ -10,7 +10,7 @@ import SnapKit
 
 class ReviewListCollectionViewCell: UICollectionViewCell {
     
-    var score: Double? = nil
+    var score: Double = 0.0
     private let scoreLabel = UILabel()
     
     private let name: UILabel = {
@@ -98,5 +98,7 @@ class ReviewListCollectionViewCell: UICollectionViewCell {
         self.name.text = review.name
         self.score = review.satisfaction
         self.content.text = review.review
+        
+        configureScore()
     }
 }

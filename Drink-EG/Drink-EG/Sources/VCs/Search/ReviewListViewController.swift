@@ -85,10 +85,17 @@ class ReviewListViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
+        
         view.backgroundColor = .white
-        getReviewList(query: self.wineId ?? 1)
-        setupUI()
+        getReviewList(query: self.wineId ?? 1) { [weak self] isSuccess in
+            if isSuccess {
+                self?.reviewListCollectionView.reloadData()
+                self?.setupUI()
+            } else {
+                print("GET 호출 실패")
+            }
+        }
+//        setupUI()
         
     }
     
@@ -142,7 +149,7 @@ class ReviewListViewController: UIViewController {
         scoreLabel.font = .boldSystemFont(ofSize: 14)
         scoreLabel.textColor = UIColor(hex: "#FA735B")
     }
-
+    
 }
 
 extension ReviewListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -164,27 +171,28 @@ extension ReviewListViewController: UICollectionViewDataSource, UICollectionView
         return CGSize(width: collectionView.frame.width - 32, height: 110)
     }
     
-    func getReviewList(query: Int) {
+    func getReviewList(query: Int, completion: @escaping (Bool) -> Void) {
         provider.request(.getWineReview(wineId: query)) { result in
             switch result {
             case .success(let response):
                 do {
-                
                     if let jsonString = String(data: response.data, encoding: .utf8) {
                         print("Received JSON: \(jsonString)")
                     }
-                    
                     let responseData = try JSONDecoder().decode(APIResponseWineReviewResponse.self, from: response.data)
                     self.reviewResults = responseData.result
                     self.reviewListCollectionView.reloadData()
+                    completion(true)
                 } catch {
                     print("Failed to decode response: \(error)")
+                    completion(false)
                 }
             case.failure(let error):
                 print("Error: \(error.localizedDescription)")
                 if let response = error.response {
                     print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
                 }
+                completion(false)
             }
         }
     }
