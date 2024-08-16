@@ -42,6 +42,9 @@
 		1654014C2C6F41B0008A9DBF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654014B2C6F41B0008A9DBF /* ContentView.swift */; };
 		1654014E2C6F9582008A9DBF /* APIResponseNoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654014D2C6F9582008A9DBF /* APIResponseNoteResponse.swift */; };
 		165401502C6F960A008A9DBF /* NoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654014F2C6F960A008A9DBF /* NoteResponse.swift */; };
+		165401532C6FC5AB008A9DBF /* RecommendWineResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401522C6FC5AB008A9DBF /* RecommendWineResponse.swift */; };
+		165401552C6FC5CD008A9DBF /* HomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401542C6FC5CD008A9DBF /* HomeResponse.swift */; };
+		165401572C6FC618008A9DBF /* APIResponseHomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401562C6FC618008A9DBF /* APIResponseHomeResponse.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -163,6 +166,9 @@
 		1654014B2C6F41B0008A9DBF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1654014D2C6F9582008A9DBF /* APIResponseNoteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseNoteResponse.swift; sourceTree = "<group>"; };
 		1654014F2C6F960A008A9DBF /* NoteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteResponse.swift; sourceTree = "<group>"; };
+		165401522C6FC5AB008A9DBF /* RecommendWineResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendWineResponse.swift; sourceTree = "<group>"; };
+		165401542C6FC5CD008A9DBF /* HomeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeResponse.swift; sourceTree = "<group>"; };
+		165401562C6FC618008A9DBF /* APIResponseHomeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseHomeResponse.swift; sourceTree = "<group>"; };
 		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -265,12 +271,13 @@
 		165400F42C69EEE6008A9DBF /* Datas */ = {
 			isa = PBXGroup;
 			children = (
+				165401512C6FC558008A9DBF /* User */,
 				1F8F99F62C6F52A100EAEF6C /* Search */,
 				165401022C69F305008A9DBF /* WineClass */,
 				165401012C69F297008A9DBF /* WineNews */,
-				1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */,
-				165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */,
 				1654014F2C6F960A008A9DBF /* NoteResponse.swift */,
+				165401522C6FC5AB008A9DBF /* RecommendWineResponse.swift */,
+				165401542C6FC5CD008A9DBF /* HomeResponse.swift */,
 			);
 			path = Datas;
 			sourceTree = "<group>";
@@ -297,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				165401032C69FA13008A9DBF /* APIResponseString.swift */,
+				165401562C6FC618008A9DBF /* APIResponseHomeResponse.swift */,
 				165400F92C69F15D008A9DBF /* APIResponseWineNewsResponse.swift */,
 				165400FD2C69F218008A9DBF /* APIResponseWineClassResponse.swift */,
 				1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */,
@@ -327,6 +335,15 @@
 				1654014B2C6F41B0008A9DBF /* ContentView.swift */,
 			);
 			path = CardSliderSwiftUI;
+			sourceTree = "<group>";
+		};
+		165401512C6FC558008A9DBF /* User */ = {
+			isa = PBXGroup;
+			children = (
+				1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */,
+				165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		16B97CC72C4BEB0900D8B453 = {
@@ -738,6 +755,7 @@
 				165400FA2C69F15D008A9DBF /* APIResponseWineNewsResponse.swift in Sources */,
 				1F205A452C6B707C00E80659 /* WhatsURNameViewController.swift in Sources */,
 				5E2219582C69D5E7005849FB /* PolygonChartView.swift in Sources */,
+				165401532C6FC5AB008A9DBF /* RecommendWineResponse.swift in Sources */,
 				16B97D002C4BFC7300D8B453 /* ShoppingCartListViewController.swift in Sources */,
 				5E2219432C69D5D0005849FB /* ModalViewController.swift in Sources */,
 				165400FC2C69F1A3008A9DBF /* WineClassRequest.swift in Sources */,
@@ -778,10 +796,12 @@
 				1F205A3D2C6B34A300E80659 /* ThirdVarietyTasteTestViewController.swift in Sources */,
 				1FBD19552C6D2BF7005C16A8 /* ReviewListViewController.swift in Sources */,
 				1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */,
+				165401552C6FC5CD008A9DBF /* HomeResponse.swift in Sources */,
 				165400ED2C69DDF2008A9DBF /* WineNewsAPI.swift in Sources */,
 				5E2219532C69D5E7005849FB /* NoteInfoViewController.swift in Sources */,
 				165400FE2C69F218008A9DBF /* APIResponseWineClassResponse.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
+				165401572C6FC618008A9DBF /* APIResponseHomeResponse.swift in Sources */,
 				1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */,
 				5E2219452C69D5D0005849FB /* CommunityInfoViewController.swift in Sources */,
 				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
