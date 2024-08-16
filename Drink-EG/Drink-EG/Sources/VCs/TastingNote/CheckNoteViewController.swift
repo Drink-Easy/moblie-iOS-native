@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 import Moya
+import SDWebImage
 
 class CheckNoteViewController: UIViewController {
     var wine: String?
@@ -18,6 +19,9 @@ class CheckNoteViewController: UIViewController {
     var selectedOptions: [String: [String]] = [:]
     var reviewString: String = ""
     var value: Double = 0.0
+    
+    var selectedWineName: String?
+    var selectedWineImage: String?
     
     func setupPentagonChart() {
         pentagonChart.backgroundColor = .clear
@@ -55,8 +59,10 @@ class CheckNoteViewController: UIViewController {
     
     private lazy var imageView: UIImageView = {
         let iv = UIImageView()
-        if let wine = wine {
-            iv.image = UIImage(named: wine)
+        if let imageUrlString = selectedWineImage, let imageUrl = URL(string: imageUrlString) {
+            iv.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            iv.image = UIImage(named: "Loxton")
         }
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
@@ -65,12 +71,10 @@ class CheckNoteViewController: UIViewController {
     
     private lazy var name: UILabel = {
         let l = UILabel()
-        if let wine = wine {
-            l.text = wine
-        }
+        l.text = selectedWineName ?? ""
         l.font = .boldSystemFont(ofSize: 18)
         l.textColor = .black
-        l.numberOfLines = 0
+        l.numberOfLines = 2
         return l
     }()
     

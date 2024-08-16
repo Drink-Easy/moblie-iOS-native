@@ -65,7 +65,7 @@ class CustomSuggestionCell: UITableViewCell {
     }
     
     func configure(with wine: Wine, isSelected: Bool) {
-        let imageURL = URL(string: wine.imageUrl)
+        let imageURL = URL(string: wine.imageUrl!)
         suggestionImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
         suggestionLabel.text = wine.name
         selectionIndicator.image = isSelected ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")

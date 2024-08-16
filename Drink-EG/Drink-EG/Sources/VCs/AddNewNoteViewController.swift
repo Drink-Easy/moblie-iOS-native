@@ -21,7 +21,7 @@ struct WineResponse: Decodable {
 struct Wine: Decodable {
     let wineId: Int
     let name: String
-    let imageUrl: String
+    let imageUrl: String?
 }
 
 class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {

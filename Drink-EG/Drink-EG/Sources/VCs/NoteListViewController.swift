@@ -87,7 +87,7 @@ class NewNoteFooter: UICollectionReusableView {
 struct Note: Decodable {
     let noteId: Int
     let name: String
-    let picture: String
+    let imageUrl: String
 }
 
 struct AllNotesResponse: Decodable {
@@ -189,6 +189,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
             make.top.equalTo(noteListLabel.snp.bottom).offset(35)
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // CollectionView Cell 개수를 설정하는 함수
         return 12

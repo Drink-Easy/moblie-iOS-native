@@ -136,9 +136,9 @@ class ChooseTasteViewController: UIViewController {
         wineImageView.layer.cornerRadius = 10
         wineImageView.layer.masksToBounds = true
         if let imageUrl = selectedWineImage, let url = URL(string: imageUrl) {
-            wineImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "SampleImage"))
+            wineImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
         } else {
-            wineImageView.image = UIImage(named: "SampleImage")
+            wineImageView.image = UIImage(named: "Loxton")
         }
     }
     

@@ -68,7 +68,7 @@ extension TastingNoteAPI: TargetType {
             return .requestParameters(parameters: ["searchName": wineName], encoding: URLEncoding.queryString)
         case .getAllNotes, .getNoteID:
             return .requestPlain
-        case .postNewNote(let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):
+        case .postNewNote(let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let review):
             let parameters: [String: Any] = [
                 "wineId": wineId,
                 "color": color,
@@ -81,7 +81,7 @@ extension TastingNoteAPI: TargetType {
                 "scentTaste": scentTaste,
                 "scentFinish": scentFinish,
                 "satisfaction": satisfaction,
-                "memo": memo
+                "review": review
             ]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         case .patchNote(_, let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let memo):

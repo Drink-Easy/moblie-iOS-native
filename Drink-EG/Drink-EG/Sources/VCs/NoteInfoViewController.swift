@@ -134,9 +134,9 @@ class NoteInfoViewController: UIViewController {
         wineImageView.layer.cornerRadius = 10
         wineImageView.layer.masksToBounds = true
         if let imageUrl = selectedWineImage, let url = URL(string: imageUrl) {
-            wineImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "SampleImage"))
+            wineImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
         } else {
-            wineImageView.image = UIImage(named: "SampleImage")
+            wineImageView.image = UIImage(named: "Loxton")
         }
     }
     
@@ -240,6 +240,9 @@ class NoteInfoViewController: UIViewController {
         
         vc.dataList = dataList
         vc.receivedColor = buttonColor!
+        vc.selectedWineId = selectedWineId
+        vc.selectedWineImage = selectedWineImage
+        vc.selectedWineName = selectedWineName
         
         navigationController?.pushViewController(vc, animated: true)
     }

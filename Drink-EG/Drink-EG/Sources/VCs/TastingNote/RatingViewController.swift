@@ -414,6 +414,8 @@ class RatingViewController: UIViewController {
         nextVC.selectedOptions = selectedOptions
         nextVC.reviewString = reviewText.text ?? ""
         nextVC.value = value
+        nextVC.selectedWineName = selectedWineName
+        nextVC.selectedWineImage = selectedWineImage
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
