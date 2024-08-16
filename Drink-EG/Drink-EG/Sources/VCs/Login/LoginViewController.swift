@@ -12,13 +12,12 @@ import Moya
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    static var isFirstLogin : Bool = true
+    public static var isFirstLogin : Bool = true
     
     let provider = MoyaProvider<LoginAPI>()
     public var userID : String?
     public var userPW : String?
     var loginDTO : JoinNLoginRequest?
-    public static var isFirstLogin : Bool = false
 
     let loginButton = UIButton(type: .system)
     let joinButton = UIButton(type: .system)
