@@ -11,5 +11,5 @@ struct APIResponseWineReviewResponse: Decodable {
     let isSuccess: Bool
     let code: String
     let message: String
-    let result: WineReview
+    let result: [WineReview]
 }

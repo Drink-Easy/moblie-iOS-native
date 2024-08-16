@@ -10,6 +10,6 @@ import Foundation
 struct WineReview: Decodable {
     
     let name: String
-    let satisfacation: Double
+    let satisfaction: Double
     let review: String
 }

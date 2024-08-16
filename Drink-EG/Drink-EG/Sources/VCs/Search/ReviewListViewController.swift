@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import SnapKit
+import Moya
 
 class ReviewListViewController: UIViewController {
     
-    private var ReviewContents: [String] = ["lhj1024", "dyk1234", "leeeSh0101", "hoooyeon56"]
+    let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
+    
+    var wineId: Int?
+    var reviewResults: [WineReview] = []
     var wineImage: String?
     
     var score = 4.5
@@ -82,7 +87,9 @@ class ReviewListViewController: UIViewController {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         view.backgroundColor = .white
+        getReviewList(query: self.wineId ?? 1)
         setupUI()
+        
     }
     
     private func setupUI() {
@@ -140,19 +147,45 @@ class ReviewListViewController: UIViewController {
 
 extension ReviewListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ReviewContents.count
+        return reviewResults.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewListCollectionViewCell", for: indexPath) as! ReviewListCollectionViewCell
         
-        cell.configure(name: ReviewContents[indexPath.item])
+        let review = reviewResults[indexPath.row]
+        cell.configure(review: review)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width - 32, height: 110)
+    }
+    
+    func getReviewList(query: Int) {
+        provider.request(.getWineReview(wineId: query)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                
+                    if let jsonString = String(data: response.data, encoding: .utf8) {
+                        print("Received JSON: \(jsonString)")
+                    }
+                    
+                    let responseData = try JSONDecoder().decode(APIResponseWineReviewResponse.self, from: response.data)
+                    self.reviewResults = responseData.result
+                    self.reviewListCollectionView.reloadData()
+                } catch {
+                    print("Failed to decode response: \(error)")
+                }
+            case.failure(let error):
+                print("Error: \(error.localizedDescription)")
+                if let response = error.response {
+                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
+                }
+            }
+        }
     }
 }

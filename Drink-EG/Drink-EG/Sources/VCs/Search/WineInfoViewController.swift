@@ -202,6 +202,7 @@ class WineInfoViewController: UIViewController {
         reviewListViewController.score = scoreDouble ?? 4.5
         reviewListViewController.name.text = self.name.text
         reviewListViewController.wineImage = self.wineImage
+        reviewListViewController.wineId = self.wineId
         navigationController?.pushViewController(reviewListViewController, animated: true)
     }
     
@@ -416,6 +417,7 @@ extension WineInfoViewController {
                     if let jsonString = String(data: response.data, encoding: .utf8) {
                         print("Received JSON: \(jsonString)")
                     }
+                    
                     let responseData = try JSONDecoder().decode(APIResponseWineInfoResponse.self, from: response.data)
 //                    self.handleResponseData()
                     self.sort = responseData.result.sort
