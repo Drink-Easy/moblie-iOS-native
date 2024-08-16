@@ -208,7 +208,7 @@ class CheckNoteViewController: UIViewController {
     
     func setupButton() {
         tasteView.addSubview(aromaButton)
-        aromaButton.setTitle(selectedOptions["Aroma"]?[0], for: .normal)
+        aromaButton.setTitle(selectedOptions["scentAroma"]?[0], for: .normal)
         aromaButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         aromaButton.setTitleColor(.black, for: .normal)
         aromaButton.backgroundColor = UIColor(hex: "FBCBC4")
@@ -216,7 +216,7 @@ class CheckNoteViewController: UIViewController {
         aromaButton.layer.cornerRadius = 10
         
         tasteView.addSubview(tasteButton)
-        tasteButton.setTitle(selectedOptions["Taste"]?[0], for: .normal)
+        tasteButton.setTitle(selectedOptions["scentTaste"]?[0], for: .normal)
         tasteButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         tasteButton.setTitleColor(.black, for: .normal)
         tasteButton.backgroundColor = UIColor(hex: "FBCBC4")
@@ -224,7 +224,7 @@ class CheckNoteViewController: UIViewController {
         tasteButton.layer.cornerRadius = 10
         
         tasteView.addSubview(finishButton)
-        finishButton.setTitle(selectedOptions["Finish"]?[0], for: .normal)
+        finishButton.setTitle(selectedOptions["scentFinish"]?[0], for: .normal)
         finishButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         finishButton.setTitleColor(.black, for: .normal)
         finishButton.backgroundColor = UIColor(hex: "FBCBC4")
@@ -236,6 +236,7 @@ class CheckNoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        print(selectedOptions)
         setupView()
         setupUI()
     }

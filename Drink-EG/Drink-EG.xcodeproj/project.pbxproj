@@ -28,6 +28,8 @@
 		165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */; };
 		165401092C6BA644008A9DBF /* MemberInfoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401082C6BA644008A9DBF /* MemberInfoAPI.swift */; };
 		1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654010A2C6BACDC008A9DBF /* SelectionManager.swift */; };
+		1654014E2C6F9582008A9DBF /* APIResponseNoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654014D2C6F9582008A9DBF /* APIResponseNoteResponse.swift */; };
+		165401502C6F960A008A9DBF /* NoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654014F2C6F960A008A9DBF /* NoteResponse.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -137,6 +139,8 @@
 		165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoRequest.swift; sourceTree = "<group>"; };
 		165401082C6BA644008A9DBF /* MemberInfoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoAPI.swift; sourceTree = "<group>"; };
 		1654010A2C6BACDC008A9DBF /* SelectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionManager.swift; sourceTree = "<group>"; };
+		1654014D2C6F9582008A9DBF /* APIResponseNoteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseNoteResponse.swift; sourceTree = "<group>"; };
+		1654014F2C6F960A008A9DBF /* NoteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteResponse.swift; sourceTree = "<group>"; };
 		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -244,6 +248,7 @@
 				165401012C69F297008A9DBF /* WineNews */,
 				1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */,
 				165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */,
+				1654014F2C6F960A008A9DBF /* NoteResponse.swift */,
 			);
 			path = Datas;
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 				165400F92C69F15D008A9DBF /* APIResponseWineNewsResponse.swift */,
 				165400FD2C69F218008A9DBF /* APIResponseWineClassResponse.swift */,
 				1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */,
+				1654014D2C6F9582008A9DBF /* APIResponseNoteResponse.swift */,
 				1F8F99F42C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift */,
 				1F8F99FB2C6F53A300EAEF6C /* APIResponseWineInfoResponse.swift */,
 			);
@@ -646,6 +652,7 @@
 				5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */,
 				1F8F99F82C6F52C600EAEF6C /* WineSearchResponse.swift in Sources */,
 				165400F62C69EF89008A9DBF /* WineNewsRequest.swift in Sources */,
+				1654014E2C6F9582008A9DBF /* APIResponseNoteResponse.swift in Sources */,
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
 				1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */,
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
@@ -678,6 +685,7 @@
 				5E2219432C69D5D0005849FB /* ModalViewController.swift in Sources */,
 				165400FC2C69F1A3008A9DBF /* WineClassRequest.swift in Sources */,
 				165401002C69F251008A9DBF /* WineClassResponse.swift in Sources */,
+				165401502C6F960A008A9DBF /* NoteResponse.swift in Sources */,
 				5E2219482C69D5D0005849FB /* CommunityListViewController.swift in Sources */,
 				5E2219492C69D5D0005849FB /* CommunityMainViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
