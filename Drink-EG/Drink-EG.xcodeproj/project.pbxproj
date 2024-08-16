@@ -33,6 +33,12 @@
 		165401112C6E2B79008A9DBF /* WineNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401102C6E2B79008A9DBF /* WineNewsViewController.swift */; };
 		165401132C6E2BAA008A9DBF /* WineKnowledgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401122C6E2BAA008A9DBF /* WineKnowledgeViewController.swift */; };
 		165401162C6E3858008A9DBF /* CardSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 165401152C6E3858008A9DBF /* CardSlider */; };
+		165401192C6E555A008A9DBF /* CardSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401182C6E555A008A9DBF /* CardSliderViewController.swift */; };
+		1654011B2C6E5661008A9DBF /* CardTitleview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654011A2C6E5661008A9DBF /* CardTitleview.swift */; };
+		1654011D2C6E5681008A9DBF /* CardsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654011C2C6E5681008A9DBF /* CardsLayout.swift */; };
+		1654011F2C6E56A9008A9DBF /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654011E2C6E56A9008A9DBF /* UIViewExtension.swift */; };
+		165401212C6E56BD008A9DBF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401202C6E56BD008A9DBF /* RatingView.swift */; };
+		165401232C6E57BC008A9DBF /* CardSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401222C6E57BC008A9DBF /* CardSliderCell.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
@@ -136,6 +142,12 @@
 		1654010E2C6E2B4B008A9DBF /* MyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewController.swift; sourceTree = "<group>"; };
 		165401102C6E2B79008A9DBF /* WineNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineNewsViewController.swift; sourceTree = "<group>"; };
 		165401122C6E2BAA008A9DBF /* WineKnowledgeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineKnowledgeViewController.swift; sourceTree = "<group>"; };
+		165401182C6E555A008A9DBF /* CardSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardSliderViewController.swift; path = ../../../../../../../../Downloads/CardSliderViewController.swift; sourceTree = "<group>"; };
+		1654011A2C6E5661008A9DBF /* CardTitleview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardTitleview.swift; path = ../../../../../../../../Downloads/CardTitleview.swift; sourceTree = "<group>"; };
+		1654011C2C6E5681008A9DBF /* CardsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardsLayout.swift; path = ../../../../../../../../Downloads/CardsLayout.swift; sourceTree = "<group>"; };
+		1654011E2C6E56A9008A9DBF /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = ../../../../../../../../Downloads/UIViewExtension.swift; sourceTree = "<group>"; };
+		165401202C6E56BD008A9DBF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RatingView.swift; path = ../../../../../../../../Downloads/RatingView.swift; sourceTree = "<group>"; };
+		165401222C6E57BC008A9DBF /* CardSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardSliderCell.swift; path = ../../../../../../../../Downloads/CardSliderCell.swift; sourceTree = "<group>"; };
 		16752F9C2C5A7FB90001907D /* HexCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexCode.swift; sourceTree = "<group>"; };
 		16B97CD02C4BEB0900D8B453 /* Drink-EG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drink-EG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -267,6 +279,19 @@
 			path = APIResponseModels;
 			sourceTree = "<group>";
 		};
+		165401172C6E5545008A9DBF /* CustomCardSlider */ = {
+			isa = PBXGroup;
+			children = (
+				165401182C6E555A008A9DBF /* CardSliderViewController.swift */,
+				1654011A2C6E5661008A9DBF /* CardTitleview.swift */,
+				1654011C2C6E5681008A9DBF /* CardsLayout.swift */,
+				1654011E2C6E56A9008A9DBF /* UIViewExtension.swift */,
+				165401202C6E56BD008A9DBF /* RatingView.swift */,
+				165401222C6E57BC008A9DBF /* CardSliderCell.swift */,
+			);
+			path = CustomCardSlider;
+			sourceTree = "<group>";
+		};
 		16B97CC72C4BEB0900D8B453 = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +417,7 @@
 		16B97CF32C4BF40100D8B453 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				165401172C6E5545008A9DBF /* CustomCardSlider */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -625,7 +651,9 @@
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
 				1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */,
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
+				165401192C6E555A008A9DBF /* CardSliderViewController.swift in Sources */,
 				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
+				165401212C6E56BD008A9DBF /* RatingView.swift in Sources */,
 				5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */,
 				1F205A432C6B66EB00E80659 /* TasteTestThirdCollectionViewCell.swift in Sources */,
 				5E23147F2C5901BB004E2013 /* (null) in Sources */,
@@ -639,11 +667,15 @@
 				1F598EFD2C58150E000CE79F /* JoinViewController.swift in Sources */,
 				165400E32C69D6B9008A9DBF /* CallMoyaExample.swift in Sources */,
 				165400E72C69DDBE008A9DBF /* TastingNoteAPI.swift in Sources */,
+				1654011F2C6E56A9008A9DBF /* UIViewExtension.swift in Sources */,
 				1654010F2C6E2B4B008A9DBF /* MyCollectionViewController.swift in Sources */,
+				1654011D2C6E5681008A9DBF /* CardsLayout.swift in Sources */,
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */,
+				165401232C6E57BC008A9DBF /* CardSliderCell.swift in Sources */,
 				1654010D2C6C7FBB008A9DBF /* APIResponseMemberResponse.swift in Sources */,
+				1654011B2C6E5661008A9DBF /* CardTitleview.swift in Sources */,
 				165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */,
 				1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */,
 				165400FA2C69F15D008A9DBF /* APIResponseWineNewsResponse.swift in Sources */,
