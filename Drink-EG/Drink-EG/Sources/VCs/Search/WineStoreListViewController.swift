@@ -157,12 +157,17 @@ extension WineStoreListViewController: UICollectionViewDataSource, UICollectionV
         if let previousViewController = navigationController?.viewControllers.dropLast().last {
             if previousViewController is WineInfoViewController {
                 let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell
-                selectedShop = WineShopContents[indexPath.item]
+                let data = whineShopList[indexPath.row]
                 let wineOrderViewController = WineOrderViewController()
-                wineOrderViewController.shop = selectedShop
+                wineOrderViewController.shop = data.name
+                wineOrderViewController.shopAddr = data.address
+                wineOrderViewController.distanceDouble = data.distanceToUser
+                wineOrderViewController.priceInt = data.price
+                
                 wineOrderViewController.wineName = self.name.text ?? "값없음"
                 wineOrderViewController.wineImage = imageView.image
                 wineOrderViewController.score = self.scoreDouble
+                
                 navigationController?.pushViewController(wineOrderViewController, animated: true)
             } else if previousViewController is ShoppingCartListViewController {
                 let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell

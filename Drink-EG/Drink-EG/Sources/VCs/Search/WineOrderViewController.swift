@@ -10,8 +10,6 @@ import SnapKit
 
 class WineOrderViewController: UIViewController {
     
-    
-    
     private var quantity: Int = 0 {
         didSet {
             updateNumLabel()
@@ -22,6 +20,10 @@ class WineOrderViewController: UIViewController {
     var score = 4.5
     var wineName: String = ""
     var wineImage: UIImage?
+    var shopAddr : String?
+    var distanceDouble : Double?
+    var priceInt: Int?
+    
     private let scoreLabel = UILabel()
     private let shopName = UILabel()
     
@@ -298,10 +300,16 @@ class WineOrderViewController: UIViewController {
 //    }
     
     private func configureShopName() {
-        shopName.text = shop
         shopName.font = .boldSystemFont(ofSize: 18)
         shopName.textColor = .black
         shopName.numberOfLines = 0
+    }
+    
+    private func configureShopInfo() {
+        shopName.text = shop
+        address.text = shopAddr
+        distance.text = " \(distanceDouble) km"
+        price.text = "\(priceInt)"
     }
     
     private func configureWineName() {
