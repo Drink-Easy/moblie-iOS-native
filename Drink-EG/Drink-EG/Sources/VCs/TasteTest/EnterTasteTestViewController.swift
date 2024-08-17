@@ -64,10 +64,10 @@ class EnterTasteTestViewController: UIViewController {
         
         view.addSubview(labelStackView)
         labelStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(125)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
             make.leading.equalToSuperview().offset(27)
-            make.width.equalTo(338)
-            make.height.equalTo(165)
+//            make.width.equalTo(338)
+//            make.height.equalTo(165)
         }
         
         view.addSubview(imageView)
@@ -77,11 +77,9 @@ class EnterTasteTestViewController: UIViewController {
         
         view.addSubview(startButton)
         startButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(727)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
             make.height.equalTo(60)
-            make.width.equalTo(327)
         }
     }
     
