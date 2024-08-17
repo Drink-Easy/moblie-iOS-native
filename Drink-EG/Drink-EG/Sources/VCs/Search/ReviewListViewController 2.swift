@@ -6,16 +6,10 @@
 //
 
 import UIKit
-import SnapKit
-import Moya
 
 class ReviewListViewController: UIViewController {
     
-    let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
-    
-    var wineId: Int?
-    var reviewResults: [WineReview] = []
-    var wineImage: String?
+    private var ReviewContents: [String] = ["lhj1024", "dyk1234", "leeeSh0101", "hoooyeon56"]
     
     var score = 4.5
     private let scoreLabel = UILabel()
@@ -36,27 +30,19 @@ class ReviewListViewController: UIViewController {
         return s
     }()
     
-    var name: UILabel = {
+    private let name: UILabel = {
         let l = UILabel()
+        l.text = "Red Label"
         l.font = .boldSystemFont(ofSize: 22)
         l.textColor = .black
-        l.numberOfLines = 0
-        l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
-        l.minimumScaleFactor = 0.5
         return l
     }()
     
-    lazy var image: UIImageView = {
+    private let image: UIImageView = {
         let i = UIImageView()
+        i.image = UIImage(named: "Red Label")
         i.layer.cornerRadius = 10
         i.layer.masksToBounds = true
-        i.layer.borderWidth = 1.5
-        i.layer.borderColor = UIColor(hex: "#E5E5E5")?.cgColor
-        if let imageUrl = wineImage, let url = URL(string: imageUrl) {
-            i.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
-        } else {
-            i.image = UIImage(named: "Loxton")
-        }
         return i
     }()
     
@@ -85,16 +71,9 @@ class ReviewListViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
+
         view.backgroundColor = .white
-        getReviewList(query: self.wineId ?? 1) { [weak self] isSuccess in
-            if isSuccess {
-                self?.reviewListCollectionView.reloadData()
-                self?.setupUI()
-            } else {
-                print("GET 호출 실패")
-            }
-        }
+        setupUI()
     }
     
     private func setupUI() {
@@ -125,7 +104,6 @@ class ReviewListViewController: UIViewController {
         name.snp.makeConstraints { make in
             make.top.equalTo(image)
             make.leading.equalTo(image.snp.trailing).offset(16)
-            make.width.lessThanOrEqualTo(175)
         }
         
         view.addSubview(scoreLabel)
@@ -147,51 +125,24 @@ class ReviewListViewController: UIViewController {
         scoreLabel.font = .boldSystemFont(ofSize: 14)
         scoreLabel.textColor = UIColor(hex: "#FA735B")
     }
-    
+
 }
 
 extension ReviewListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return reviewResults.count
+        return ReviewContents.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewListCollectionViewCell", for: indexPath) as! ReviewListCollectionViewCell
         
-        let review = reviewResults[indexPath.row]
-        cell.configure(review: review)
+        cell.configure(name: ReviewContents[indexPath.item])
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width - 32, height: 110)
-    }
-    
-    func getReviewList(query: Int, completion: @escaping (Bool) -> Void) {
-        provider.request(.getWineReview(wineId: query)) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    if let jsonString = String(data: response.data, encoding: .utf8) {
-                        print("Received JSON: \(jsonString)")
-                    }
-                    let responseData = try JSONDecoder().decode(APIResponseWineReviewResponse.self, from: response.data)
-                    self.reviewResults = responseData.result
-                    self.reviewListCollectionView.reloadData()
-                    completion(true)
-                } catch {
-                    print("Failed to decode response: \(error)")
-                    completion(false)
-                }
-            case.failure(let error):
-                print("Error: \(error.localizedDescription)")
-                if let response = error.response {
-                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
-                }
-                completion(false)
-            }
-        }
     }
 }

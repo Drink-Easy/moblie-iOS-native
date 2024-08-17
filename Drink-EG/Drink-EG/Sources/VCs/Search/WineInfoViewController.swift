@@ -17,6 +17,8 @@ class WineInfoViewController: UIViewController {
     var wineImage: String?
     var wineId: Int?
     
+    var sort: String = ""
+    var area: String = ""
     var sweetness: Int = 0
     var acid: Int = 0
     var tannin: Int = 0
@@ -93,9 +95,9 @@ class WineInfoViewController: UIViewController {
         return l
     }()
     
-    private let specInfo: UILabel = {
+    private lazy var specInfo: UILabel = {
         let l = UILabel()
-        l.text = "종류: 레드 와인\n생산지: 호주, South Australia"
+        l.text = "종류: \(sort)\n생산지: \(area)"
         l.font = .systemFont(ofSize: 12)
         l.textColor = .black
         l.numberOfLines = 0
@@ -153,18 +155,6 @@ class WineInfoViewController: UIViewController {
         return l
     }
     
-    private var AromaLabel: UILabel {
-        return createLabel(text: "Aroma")
-    }
-    
-    private var TasteLabel: UILabel {
-        return createLabel(text: "Taste")
-    }
-    
-    private var FinishLabel: UILabel {
-        return createLabel(text: "Finish")
-    }
-    
     private func createButton(title: String) -> UIButton {
         let v = UIButton(type: .system)
         v.layer.cornerRadius = 18
@@ -182,17 +172,12 @@ class WineInfoViewController: UIViewController {
         return v
     }
         
-    private var Aroma: UIButton {
-        return createButton(title: aroma)
-    }
-        
-    private var Taste: UIButton {
-        return createButton(title: taste)
-    }
-        
-    private var Finish: UIButton {
-        return createButton(title: finish)
-    }
+    private var AromaLabel: UILabel!
+    private var TasteLabel: UILabel!
+    private var FinishLabel: UILabel!
+    private var Aroma: UIButton!
+    private var Taste: UIButton!
+    private var Finish: UIButton!
     
     private let goToReviewButton: UIButton = {
         let b = UIButton(type: .system)
@@ -213,6 +198,11 @@ class WineInfoViewController: UIViewController {
     
     @objc private func reviewButtonTapped() {
         let reviewListViewController = ReviewListViewController()
+        let scoreDouble = Double(self.score.text ?? "")
+        reviewListViewController.score = scoreDouble ?? 4.5
+        reviewListViewController.name.text = self.name.text
+        reviewListViewController.wineImage = self.wineImage
+        reviewListViewController.wineId = self.wineId
         navigationController?.pushViewController(reviewListViewController, animated: true)
     }
     
@@ -244,13 +234,26 @@ class WineInfoViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        //getWineInfo()
-        setupUI()
+        getWineInfo { [weak self] isSuccess in
+            if isSuccess {
+                self?.setupUI()
+            } else {
+                print("데이터를 받아오는데 실패했습니다. 다시 시도해주세요.")
+            }
+        }
     }
     
     private func setupUI() {
         
         setupPentagonChart()
+        
+        AromaLabel = createLabel(text: "Aroma")
+        TasteLabel = createLabel(text: "Taste")
+        FinishLabel = createLabel(text: "Finish")
+            
+        Aroma = createButton(title: aroma)
+        Taste = createButton(title: taste)
+        Finish = createButton(title: finish)
         
         view.addSubview(label)
         label.snp.makeConstraints { make in
@@ -273,6 +276,7 @@ class WineInfoViewController: UIViewController {
             make.bottom.equalToSuperview().inset(20)
         }
         
+        // 상단 와인 정보
         contentView.addSubview(infoView)
         infoView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
@@ -343,19 +347,20 @@ class WineInfoViewController: UIViewController {
         }
         
         explainEntireView.addSubview(AromaLabel)
-        explainEntireView.addSubview(TasteLabel)
-        explainEntireView.addSubview(FinishLabel)
-        
         AromaLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(23)
             make.leading.equalToSuperview().offset(33)
         }
         
+        
+        
+        explainEntireView.addSubview(TasteLabel)
         TasteLabel.snp.makeConstraints { make in
             make.top.equalTo(AromaLabel)
             make.centerX.equalToSuperview()
         }
         
+        explainEntireView.addSubview(FinishLabel)
         FinishLabel.snp.makeConstraints { make in
             make.top.equalTo(TasteLabel)
             make.trailing.equalToSuperview().inset(33)
@@ -380,11 +385,14 @@ class WineInfoViewController: UIViewController {
             make.centerX.equalTo(FinishLabel)
         }
         
+        // StackView 정의
+        // TODO : 함수 분리
         let stackView = UIStackView(arrangedSubviews: [goToReviewButton, goToShopButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 9
                 
+        
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
             make.top.equalTo(explainEntireView.snp.bottom).offset(30)
@@ -400,31 +408,63 @@ class WineInfoViewController: UIViewController {
 }
 
 extension WineInfoViewController {
-    func getWineInfo() {
+    func getWineInfo(completion: @escaping (Bool) -> Void) {
         provider.request(.getWineInfo(wineId: self.wineId ?? 1)) { result in
             switch result {
             case .success(let response):
                 do {
+                    
+                    if let jsonString = String(data: response.data, encoding: .utf8) {
+                        print("Received JSON: \(jsonString)")
+                    }
+                    
                     let responseData = try JSONDecoder().decode(APIResponseWineInfoResponse.self, from: response.data)
-                    self.sweetness = responseData.result.sugarContent
-                    self.acid = responseData.result.acidity
-                    self.alcohol = responseData.result.alcohol
-                    self.bodied = responseData.result.body
-                    self.tannin = responseData.result.tannin
-                    self.aroma = responseData.result.scentAroma[0]
-                    self.taste = responseData.result.scentTaste[0]
-                    self.taste = responseData.result.scentFinish[0]
+//                    self.handleResponseData()
+                    self.sort = responseData.result.sort
+                    self.area = responseData.result.area
+                    let sugar = Int(responseData.result.sugarContent)
+                    self.sweetness = sugar
+                    let acidd = Int(responseData.result.acidity)
+                    self.acid = acidd
+                    let alcoholl = Int(responseData.result.alcohol)
+                    self.alcohol = alcoholl
+                    let bodyy = Int(responseData.result.body)
+                    self.bodied = bodyy
+                    let tanninn = Int(responseData.result.tannin)
+                    self.tannin = tanninn
+                    if (responseData.result.scentAroma.isEmpty) {
+                        self.aroma = ""
+                    } else {
+                        self.aroma = responseData.result.scentAroma[0]
+                    }
+                    if (responseData.result.scentTaste.isEmpty) {
+                        self.taste = ""
+                    } else {
+                        self.taste = responseData.result.scentTaste[0]
+                    }
+                    if (responseData.result.scentFinish.isEmpty) {
+                        self.finish = ""
+                    } else {
+                        self.finish = responseData.result.scentFinish[0]
+                    }
                     let scoreString: String = String(responseData.result.rating)
                     self.score.text = scoreString
+                    completion(true)
                 } catch {
                     print("Failed to decode response: \(error)")
+                    completion(false)
                 }
             case.failure(let error):
                 print("Error: \(error.localizedDescription)")
                 if let response = error.response {
                     print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
                 }
+                completion(false)
             }
         }
+    }
+    
+    func handleResponseData(_ data: WineInfo) {
+        
     }
 }
