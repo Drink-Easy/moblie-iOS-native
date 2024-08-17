@@ -198,7 +198,7 @@ class WineOrderViewController: UIViewController {
 
     private func setupUI() {
         configureWineName()
-//        configureScore()
+        configureShopInfo()
         configureShopName()
         
         view.addSubview(label)
