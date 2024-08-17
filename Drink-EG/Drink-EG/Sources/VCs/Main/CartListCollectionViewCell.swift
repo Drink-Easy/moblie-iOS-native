@@ -43,14 +43,6 @@ class CartListCollectionViewCell: UICollectionViewCell {
     
     let marketNprice = UILabel()
     
-    private let score: UILabel = {
-        let l3 = UILabel()
-        l3.text = "4.5 ★"
-        l3.font = .boldSystemFont(ofSize: 12)
-        l3.textColor = UIColor(hex: "#FF7A6D")
-        return l3
-    }()
-    
     private let changeMarketButton: UIButton = {
         let b = UIButton(type: .system)
         b.backgroundColor = UIColor(hex: "#FA735B")
@@ -200,7 +192,6 @@ class CartListCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(imageView)
         self.contentView.addSubview(name)
         self.contentView.addSubview(marketNprice)
-        self.contentView.addSubview(score)
         self.contentView.addSubview(CheckButton)
         self.contentView.addSubview(changeMarketButton)
         self.contentView.addSubview(changeNumButton)
@@ -231,11 +222,6 @@ class CartListCollectionViewCell: UICollectionViewCell {
         marketNprice.snp.makeConstraints { make in
             make.top.equalTo(name.snp.bottom).offset(7)
             make.leading.equalTo(name)
-        }
-        
-        score.snp.makeConstraints { make in
-            make.centerY.equalTo(name)
-            make.leading.equalTo(name.snp.trailing).offset(13)
         }
         
         changeMarketButton.snp.makeConstraints { make in

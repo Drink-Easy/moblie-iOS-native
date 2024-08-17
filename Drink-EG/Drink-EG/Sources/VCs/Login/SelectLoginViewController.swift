@@ -82,12 +82,13 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
         let joinStackView = UIStackView(arrangedSubviews: [label, joinButton])
         joinStackView.axis = .horizontal
         joinStackView.distribution = .fillProportionally
-        joinStackView.spacing = 4
+        joinStackView.spacing = 6
         
         view.addSubview(joinStackView)
         joinStackView.snp.makeConstraints { make in
 //            make.top.equalTo(loginButton.snp.bottom).offset(50)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.width.greaterThanOrEqualTo(200)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(25)
         }
     }
