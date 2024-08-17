@@ -9,8 +9,9 @@ import UIKit
 import SnapKit
 
 class WineOrderViewController: UIViewController {
+    let shoppingManager = ShoppingListManager.shared
     
-    private var quantity: Int = 0 {
+    private var quantity: Int = 1 {
         didSet {
             updateNumLabel()
         }
@@ -18,6 +19,15 @@ class WineOrderViewController: UIViewController {
     
     var shop: String?
     var score = 4.5
+    var wineName: String = ""
+    var wineImage: UIImage?
+    var shopAddr : String?
+    var distanceDouble : Double?
+    var priceInt: Int?
+    
+    var wine : Wine?
+    var curShop : ShopData?
+    
     private let scoreLabel = UILabel()
     private let shopName = UILabel()
     
@@ -161,9 +171,17 @@ class WineOrderViewController: UIViewController {
         b.layer.masksToBounds = true
         b.layer.borderWidth = 2
         b.layer.borderColor = UIColor(hex: "#FA735B")?.cgColor
-        
+        b.addTarget(self, action: #selector(goToCartButtonTapped), for: .touchUpInside)
         return b
     }()
+    
+    @objc private func goToCartButtonTapped() {
+        let shoppingCartListVC = ShoppingCartListViewController()
+        if let wineData = self.wine, let shopData = self.curShop {
+            shoppingManager.addNewWine(UserWineData(wine: wineData, shop: shopData), quantity)
+        }
+        navigationController?.pushViewController(shoppingCartListVC, animated: true)
+    }
     
     private let goToBuyButton: UIButton = {
         let b = UIButton(type: .system)
@@ -191,7 +209,8 @@ class WineOrderViewController: UIViewController {
     }
 
     private func setupUI() {
-        configureScore()
+        configureWineName()
+        configureShopInfo()
         configureShopName()
         
         view.addSubview(label)
@@ -221,11 +240,11 @@ class WineOrderViewController: UIViewController {
             make.leading.equalTo(image.snp.trailing).offset(22)
         }
         
-        view.addSubview(scoreLabel)
-        scoreLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(name)
-            make.leading.equalTo(name.snp.trailing).offset(18)
-        }
+//        view.addSubview(scoreLabel)
+//        scoreLabel.snp.makeConstraints { make in
+//            make.centerY.equalTo(name)
+//            make.leading.equalTo(name.snp.trailing).offset(18)
+//        }
         
         view.addSubview(infoView)
         infoView.snp.makeConstraints { make in
@@ -286,16 +305,29 @@ class WineOrderViewController: UIViewController {
         }
     }
     
-    private func configureScore() {
-        scoreLabel.text = "★ \(score)"
-        scoreLabel.font = .boldSystemFont(ofSize: 14)
-        scoreLabel.textColor = UIColor(hex: "#FA735B")
-    }
+//    private func configureScore() {
+//        scoreLabel.text = "★ \(score)"
+//        scoreLabel.font = .boldSystemFont(ofSize: 14)
+//        scoreLabel.textColor = UIColor(hex: "#FA735B")
+//    }
     
     private func configureShopName() {
-        shopName.text = shop
         shopName.font = .boldSystemFont(ofSize: 18)
         shopName.textColor = .black
         shopName.numberOfLines = 0
+    }
+    
+    private func configureShopInfo() {
+        if let shopdata = curShop {
+            shopName.text = shop
+            address.text = shopAddr
+            distance.text = " \(shopdata.distanceToUser) km"
+            price.text = "\(shopdata.price) ₩"
+        }
+    }
+    
+    private func configureWineName() {
+        name.text = self.wineName
+        image.image = self.wineImage
     }
 }

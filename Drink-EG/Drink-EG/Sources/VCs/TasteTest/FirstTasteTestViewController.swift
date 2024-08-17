@@ -41,21 +41,12 @@ class FirstTasteTestViewController: UIViewController {
         configureManiacButton()
         configureNextButton()
         
-        view.addSubview(nextButton)
-        nextButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(727)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
         view.addSubview(iamLabel)
         iamLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(125)
-            make.leading.equalToSuperview().offset(18)
-            make.width.equalTo(338)
-            make.height.equalTo(44)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(18)
+//            make.width.equalTo(338)
+//            make.height.equalTo(44)
         }
         
         let buttonStackView = UIStackView(arrangedSubviews: [newbeeButton, maniacButton])
@@ -65,10 +56,16 @@ class FirstTasteTestViewController: UIViewController {
                 
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(218)
-            make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(361)
-            make.height.equalTo(328)
+            make.top.equalTo(iamLabel.snp.bottom).offset(49)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.greaterThanOrEqualTo(328)
+        }
+        
+        view.addSubview(nextButton)
+        nextButton.snp.makeConstraints { make in
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(33)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
+            make.height.equalTo(60)
         }
     }
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Wine: Decodable {
+struct Wine: Codable {
     let wineId: Int
     let name: String
     let imageUrl: String?

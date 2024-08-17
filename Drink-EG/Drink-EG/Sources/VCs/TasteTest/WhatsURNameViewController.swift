@@ -66,28 +66,26 @@ class WhatsURNameViewController: UIViewController, UITextFieldDelegate, CLLocati
     private func setupUI() {
         configureNextButton()
         
-        view.addSubview(nextButton)
-        nextButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(727)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(125)
-            make.leading.equalToSuperview().offset(18)
-            make.width.equalTo(338)
-            make.height.equalTo(44)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(18)
+//            make.width.equalTo(338)
+//            make.height.equalTo(44)
         }
         
         view.addSubview(nameTextField)
         nameTextField.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(46)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(17)
-            make.height.greaterThanOrEqualTo(60)
+            make.height.equalTo(60)
+        }
+        
+        view.addSubview(nextButton)
+        nextButton.snp.makeConstraints { make in
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(33)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
+            make.height.equalTo(60)
         }
     }
     

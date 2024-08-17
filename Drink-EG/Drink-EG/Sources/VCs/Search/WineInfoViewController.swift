@@ -27,6 +27,7 @@ class WineInfoViewController: UIViewController {
     var aroma: String = ""
     var taste: String = ""
     var finish: String = ""
+    var scoreDouble: Double = 0.0
     
     let pentagonChart = PolygonChartView()
     lazy var dataList: [RadarChartData] = [RadarChartData(type: .sweetness, value: sweetness),
@@ -189,8 +190,7 @@ class WineInfoViewController: UIViewController {
     
     @objc private func reviewButtonTapped() {
         let reviewListViewController = ReviewListViewController()
-        let scoreDouble = Double(self.score.text ?? "")
-        reviewListViewController.score = scoreDouble ?? 4.5
+        reviewListViewController.score = self.scoreDouble
         reviewListViewController.name.text = self.name.text
         reviewListViewController.wineImage = self.wineImage
         reviewListViewController.wineId = self.wineId
@@ -214,6 +214,11 @@ class WineInfoViewController: UIViewController {
     
     @objc private func shopButtonTapped() {
         let wineStoreListViewController = WineStoreListViewController()
+        wineStoreListViewController.curWine = repackWineData()
+        wineStoreListViewController.scoreDouble = self.scoreDouble
+        wineStoreListViewController.name.text = self.name.text
+        wineStoreListViewController.imageView.image = self.imageView.image
+        //reviewListViewController.wineId = self.wineId
         navigationController?.pushViewController(wineStoreListViewController, animated: true)
     }
     
@@ -337,7 +342,6 @@ class WineInfoViewController: UIViewController {
         }
         
         
-        
         explainEntireView.addSubview(TasteLabel)
         TasteLabel.snp.makeConstraints { make in
             make.top.equalTo(AromaLabel)
@@ -431,8 +435,10 @@ extension WineInfoViewController {
                     } else {
                         self.finish = responseData.result.scentFinish[0]
                     }
+                    self.scoreDouble = responseData.result.rating
                     let scoreString: String = String(responseData.result.rating)
                     self.score.text = "★ \(scoreString)"
+                    
                     completion(true)
                 } catch {
                     print("Failed to decode response: \(error)")
@@ -450,5 +456,9 @@ extension WineInfoViewController {
     
     func handleResponseData(_ data: WineInfo) {
         
+    }
+    
+    func repackWineData() -> Wine {
+        return Wine(wineId: self.wineId!, name: self.name.text!, imageUrl: self.wineImage, rating: self.scoreDouble, price: 0)
     }
 }
