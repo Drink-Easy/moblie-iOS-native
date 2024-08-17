@@ -8,11 +8,16 @@
 import UIKit
 import SnapKit
 
+protocol CartListCollectionViewCellDelegate: AnyObject {
+    func checkButtonTapped(on cell: CartListCollectionViewCell, isSelected: Bool)
+}
+
 class CartListCollectionViewCell: UICollectionViewCell {
     
+    weak var delegate: CartListCollectionViewCellDelegate?
     var changeMarketButtonAction : (() -> Void) = {}
     
-    private var quantity: Int = 1 {
+    var quantity: Int = 1 {
         didSet {
             updateNumLabel()
         }
@@ -20,9 +25,9 @@ class CartListCollectionViewCell: UICollectionViewCell {
     
     private let CheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nCheckImage = UIImage(named: "icon_cartCheck_nfill")
-    private let CheckButton = UIButton(type: .custom)
+    let CheckButton = UIButton(type: .custom)
     var shop = "PODO"
-    var price = 27000
+    var price = 0
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
@@ -118,13 +123,13 @@ class CartListCollectionViewCell: UICollectionViewCell {
         return b
     }()
     
-    private func configureCheckButton() {
+    func configureCheckButton() {
         CheckButton.setImage(nCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
         CheckButton.backgroundColor = .clear
         CheckButton.addTarget(self, action: #selector(CheckButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func CheckButtonTapped(_ sender: UIButton) {
+    @objc func CheckButtonTapped(_ sender: UIButton) {
         // Bool 값 toggle
         sender.isSelected.toggle()
             
@@ -138,6 +143,8 @@ class CartListCollectionViewCell: UICollectionViewCell {
             self.contentView.backgroundColor = UIColor(hex: "EDEDED")
             self.contentView.layer.borderColor = UIColor(hex: "D9D9D9")?.cgColor
         }
+        
+        delegate?.checkButtonTapped(on: self, isSelected: sender.isSelected)
     }
     
     private func configureMarketNPlace(_ shopName: String, _ priceInt: Int, _ count: Int) {
@@ -261,6 +268,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         
         self.configureMarketNPlace(shopName, price, count)
     }
+    
     func configure2(isSelected: Bool) {
         CheckButton.isSelected = isSelected
     }
