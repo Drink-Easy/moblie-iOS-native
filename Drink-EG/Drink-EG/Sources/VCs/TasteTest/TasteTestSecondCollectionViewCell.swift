@@ -8,6 +8,7 @@
 import UIKit
 
 class TasteTestSecondCollectionViewCell: UICollectionViewCell {
+    var nationEngName : String = ""
     
     let View: UIView = {
         let v = UIView()
@@ -65,7 +66,7 @@ class TasteTestSecondCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(imageName: String) {
+    func configure(imageName: String, nationName: String) {
         if let image = UIImage(named: imageName) {
             if (imageName == "기타1") {
                 self.name.text = "기타"
@@ -73,6 +74,7 @@ class TasteTestSecondCollectionViewCell: UICollectionViewCell {
                 self.name.text = imageName
             }
             imageView.image = image
+            self.nationEngName = nationName
         }
     }
 }

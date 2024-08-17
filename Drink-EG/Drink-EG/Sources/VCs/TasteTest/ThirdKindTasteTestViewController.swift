@@ -10,6 +10,7 @@ import UIKit
 class ThirdKindTasteTestViewController: UIViewController {
 
     var kind: [String] = ["레드", "화이트", "스파클링", "로제", "주정강화", "네츄럴", "기타"]
+    var kindEng : [String] = ["Red", "White", "Sparkling", "Rose", "Port", "Natural", "etc"]
     var selectedIndexPaths: [IndexPath] = []
     var selectedWineName : [String] = []
     
@@ -149,7 +150,7 @@ extension ThirdKindTasteTestViewController: UICollectionViewDataSource, UICollec
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TasteTestFirstCollectionViewCell", for: indexPath) as! TasteTestFirstCollectionViewCell
             
-        cell.configure(imageName: kind[indexPath.item])
+        cell.configure(imageName: kind[indexPath.item], kindName: kindEng[indexPath.item])
         
         return cell
     }
@@ -162,8 +163,9 @@ extension ThirdKindTasteTestViewController: UICollectionViewDataSource, UICollec
                 cell.imageView.layer.borderWidth = 4  // 테두리 두께 설정
                 
                 // 선택된 셀의 indexPath를 배열에 추가
+                
                 selectedIndexPaths.append(indexPath)
-                selectedWineName.append(cell.name.text ?? "")
+                selectedWineName.append(cell.kindEngName)
             } else {
                 // 셀이 이미 선택된 상태였을 때 (다시 클릭하면 원래대로)
                 cell.imageView.layer.borderWidth = 0
@@ -173,7 +175,7 @@ extension ThirdKindTasteTestViewController: UICollectionViewDataSource, UICollec
                     selectedIndexPaths.remove(at: index)
                 }
                 
-                selectedWineName = selectedWineName.filter{$0 != (cell.name.text ?? "")}
+                selectedWineName = selectedWineName.filter{$0 != (cell.kindEngName)}
             }
                 
             // nextButton의 상태 업데이트
