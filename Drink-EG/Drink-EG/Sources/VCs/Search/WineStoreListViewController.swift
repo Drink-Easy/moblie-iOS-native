@@ -13,6 +13,9 @@ class WineStoreListViewController: UIViewController {
     weak var delegate: StoreListDelegate?
     var selectedShop: String?
     
+    var scoreDouble = 4.5
+    var wineImage: String?
+    
     private var WineShopContents: [String] = ["PODO", "루바토 와인", "버건디", "와인나우", "보데가 와인"]
     
     private let label: UILabel = {
@@ -33,15 +36,14 @@ class WineStoreListViewController: UIViewController {
         return v
     }()
     
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "Loxton")
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
         return iv
     }()
     
-    private let name: UILabel = {
+    let name: UILabel = {
         let l1 = UILabel()
         l1.text = "Loxton"
         l1.font = .boldSystemFont(ofSize: 18)
@@ -50,9 +52,9 @@ class WineStoreListViewController: UIViewController {
         return l1
     }()
     
-    private let score: UILabel = {
+    lazy var score: UILabel = {
         let l3 = UILabel()
-        l3.text = "4.5 ★"
+        l3.text = "\(scoreDouble) ★"
         l3.font = .boldSystemFont(ofSize: 12)
         l3.textColor = UIColor(hex: "#FF7A6D")
         return l3
@@ -151,6 +153,9 @@ extension WineStoreListViewController: UICollectionViewDataSource, UICollectionV
                 selectedShop = WineShopContents[indexPath.item]
                 let wineOrderViewController = WineOrderViewController()
                 wineOrderViewController.shop = selectedShop
+                wineOrderViewController.wineName = self.name.text ?? "값없음"
+                wineOrderViewController.wineImage = imageView.image
+                wineOrderViewController.score = self.scoreDouble
                 navigationController?.pushViewController(wineOrderViewController, animated: true)
             } else if previousViewController is ShoppingCartListViewController {
                 let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell
