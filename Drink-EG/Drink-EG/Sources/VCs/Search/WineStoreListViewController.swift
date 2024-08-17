@@ -14,6 +14,13 @@ class WineStoreListViewController: UIViewController {
     var selectedShop: String?
     
     private var WineShopContents: [String] = ["PODO", "루바토 와인", "버건디", "와인나우", "보데가 와인"]
+    var whineShopList : [ShopData] = [
+        ShopData(name: "PODO", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 27000),
+        ShopData(name: "루바토 와인", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 30000),
+        ShopData(name: "버건디", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 28400),
+        ShopData(name: "와인나우", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 74280),
+        ShopData(name: "보데가 와인", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 91500)
+    ]
     
     private let label: UILabel = {
         let l = UILabel()
