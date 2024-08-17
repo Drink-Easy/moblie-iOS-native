@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import SnapKit
+import Moya
+import SDWebImage
 
 class RecomCollectionViewCell: UICollectionViewCell {
     
@@ -22,12 +25,12 @@ class RecomCollectionViewCell: UICollectionViewCell {
         return l1
     }()
     
-    private let label2: UILabel = {
-        let l2 = UILabel()
-        l2.font = .systemFont(ofSize: 10, weight: .regular)
-        l2.textColor = .black
-        return l2
-    }()
+//    private let label2: UILabel = {
+//        let l2 = UILabel()
+//        l2.font = .systemFont(ofSize: 10, weight: .regular)
+//        l2.textColor = .black
+//        return l2
+//    }()
     
     private let view: UIView = {
         let v = UIView()
@@ -50,7 +53,7 @@ class RecomCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(imageView)
         self.contentView.addSubview(view)
         self.contentView.addSubview(label1)
-        self.contentView.addSubview(label2)
+//        self.contentView.addSubview(label2)
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.masksToBounds = true
   
@@ -63,10 +66,10 @@ class RecomCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(view.snp.top).offset(10)
         }
         
-        label2.snp.makeConstraints { make in
-            make.leading.equalTo(label1.snp.leading)
-            make.top.equalTo(view.snp.top).offset(28)
-        }
+//        label2.snp.makeConstraints { make in
+//            make.leading.equalTo(label1.snp.leading)
+//            make.top.equalTo(view.snp.top).offset(28)
+//        }
         
         view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
@@ -77,11 +80,9 @@ class RecomCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func configure(imageName: String) {
-        if let image = UIImage(named: imageName) {
-            label1.text = imageName
-            label2.text = "2024"
-            imageView.image = image
-        }
+    func configure(recom: RecommendWineResponse) {
+        let imageURL = URL(string: recom.imageUrl)
+        imageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"))
+        label1.text = recom.wineName
     }
 }

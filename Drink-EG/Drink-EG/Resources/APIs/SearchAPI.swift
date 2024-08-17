@@ -17,6 +17,7 @@ enum SearchAPI {
     case getWineName(wineName: String)
     case getWineInfo(wineId: Int)
     case getWineReview(wineId: Int)
+    case getHomeInfo
 }
 
 extension SearchAPI: TargetType {
@@ -36,13 +37,15 @@ extension SearchAPI: TargetType {
             return "wine/\(wineId)"
         case .getWineReview(let wineId):
             return "wine/review/\(wineId)"
+        case .getHomeInfo:
+            return "home"
         }
     }
     
     var method: Moya.Method {
         /// 각 case 별로 적합한 method 배정
         switch self {
-        case .getWineName, .getWineInfo, .getWineReview:
+        case .getWineName, .getWineInfo, .getWineReview, .getHomeInfo:
             return .get
         }
     }
@@ -51,7 +54,7 @@ extension SearchAPI: TargetType {
         switch self {
         case .getWineName(let wineName):
             return .requestParameters(parameters: ["searchName": wineName], encoding: URLEncoding.queryString)
-        case .getWineInfo, .getWineReview:
+        case .getWineInfo, .getWineReview, .getHomeInfo:
             return .requestPlain
         }
     }

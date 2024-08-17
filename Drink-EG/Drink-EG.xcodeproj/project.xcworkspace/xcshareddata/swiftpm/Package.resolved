@@ -11,15 +11,6 @@
       }
     },
     {
-      "identity" : "cardslider",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Ramotion/cardslider.git",
-      "state" : {
-        "revision" : "016e2996d9f9fc20ac108ad82fd9fce007546be1",
-        "version" : "0.1.0"
-      }
-    },
-    {
       "identity" : "cosmos",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/evgenyneu/Cosmos",
@@ -76,7 +67,7 @@
     {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SnapKit/SnapKit",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
       "state" : {
         "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
         "version" : "5.7.1"

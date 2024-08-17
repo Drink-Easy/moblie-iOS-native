@@ -7,8 +7,16 @@
 
 import UIKit
 import SnapKit
+import Moya
+import SDWebImage
 
 class HomeViewController: UIViewController {
+    
+    let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
+    
+    private var AdContents: [String] = ["ad1", "ad2"]
+    private var RecomContents: [RecommendWineResponse] = []
+    var name: String = ""
     
     var selectedWine: String?
     
@@ -32,9 +40,6 @@ class HomeViewController: UIViewController {
     let goToNoteButton = UIButton(type: .system)
     let firstLine = UILabel()
     let NoteLabel = UILabel()
-    
-    private var AdContents: [String] = ["ad1", "ad2"]
-    private var RecomContents: [String] = ["Red Label", "Castello Monaci", "Loxton"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +47,15 @@ class HomeViewController: UIViewController {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         view.backgroundColor = .white
-        setupUI()
+        getHomeInfo { [weak self] isSuccess in
+            if isSuccess {
+                self?.RecomCollectionView.reloadData()
+                self?.setupUI()
+            } else {
+                print("GET 호출 실패")
+            }
+        }
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -228,12 +241,12 @@ class HomeViewController: UIViewController {
     }
     
     private func configureLabel() {
-        firstLine.text = "션/위승주 님이 좋아할 만한 와인"
+        firstLine.text = "\(name) 님이 좋아할 만한 와인"
         firstLine.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         
         guard let text = self.firstLine.text else { return }
         let attributedStr = NSMutableAttributedString(string: text)
-        attributedStr.addAttribute(.font, value: UIFont.systemFont(ofSize: 24, weight: .bold), range: (text as NSString).range(of: "션/위승주"))
+        attributedStr.addAttribute(.font, value: UIFont.systemFont(ofSize: 24, weight: .bold), range: (text as NSString).range(of: "\(name)"))
         self.firstLine.attributedText = attributedStr
         
         NoteLabel.text = "테이스팅 노트"
@@ -342,7 +355,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         else if collectionView.tag == 2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecomCollectionViewCell", for: indexPath) as! RecomCollectionViewCell
             
-            cell.configure(imageName: RecomContents[indexPath.item])
+            let recom = RecomContents[indexPath.row]
+            cell.configure(recom: recom)
             return cell
             
         }
@@ -351,11 +365,11 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.tag == 2 {
-            selectedWine = RecomContents[indexPath.item]
+            let selectedWine = RecomContents[indexPath.row]
             let wineInfoViewController = WineInfoViewController()
-//            wineInfoViewController.name.text = selectedWine.name
-//            wineInfoViewController.wineImage = selectedWine.imageUrl
-//            wineInfoViewController.wineId = selectedWine.wineId
+            wineInfoViewController.name.text = selectedWine.wineName
+            wineInfoViewController.wineImage = selectedWine.imageUrl
+            wineInfoViewController.wineId = selectedWine.wineId
             navigationController?.pushViewController(wineInfoViewController, animated: true)
         }
     }
@@ -368,6 +382,33 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return CGSize(width: collectionView.frame.height - 4, height: collectionView.frame.height)
         }
         return CGSize.zero
+    }
+    
+    func getHomeInfo(completion: @escaping (Bool) -> Void) {
+        provider.request(.getHomeInfo) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    if let jsonString = String(data: response.data, encoding: .utf8) {
+                        print("Received JSON: \(jsonString)")
+                    }
+                    let responseData = try JSONDecoder().decode(APIResponseHomeResponse.self, from: response.data)
+                    self.name = responseData.result.name
+                    self.RecomContents = responseData.result.recommendWineDTOs
+                    self.RecomCollectionView.reloadData()
+                    completion(true)
+                } catch {
+                    print("Failed to decode response: \(error)")
+                    completion(false)
+                }
+            case.failure(let error):
+                print("Error: \(error.localizedDescription)")
+                if let response = error.response {
+                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
+                }
+                completion(false)
+            }
+        }
     }
 }
     

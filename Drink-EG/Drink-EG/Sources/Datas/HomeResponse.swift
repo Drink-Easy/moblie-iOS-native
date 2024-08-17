@@ -8,5 +8,6 @@
 import Foundation
 
 struct HomeResponse : Codable {
+    let name : String
     let recommendWineDTOs : [RecommendWineResponse]
 }
