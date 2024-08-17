@@ -35,6 +35,8 @@ class RatingViewController: UIViewController {
     var selectedWineId: Int?
     var selectedWineName: String?
     var selectedWineImage: String?
+    var selectedWineSort: String?
+    var selectedWineArea: String?
     
     let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
     
@@ -143,7 +145,7 @@ class RatingViewController: UIViewController {
             make.top.equalTo(tasteView.snp.top).offset(25)
         }
         
-        guard let selectedAromaOptions = selectedOptions["Aroma"] else { return }
+        guard let selectedAromaOptions = selectedOptions["scentAroma"] else { return }
         let count = selectedAromaOptions.count
         
         var previousButton: UIButton? = nil
@@ -199,7 +201,7 @@ class RatingViewController: UIViewController {
             make.top.equalTo(aromaLabel.snp.bottom).offset(200)
         }
         
-        guard let selectedTasteOptions = selectedOptions["Taste"] else { return }
+        guard let selectedTasteOptions = selectedOptions["scentTaste"] else { return }
         let count = selectedTasteOptions.count
         
         var previousButton: UIButton? = nil
@@ -255,7 +257,7 @@ class RatingViewController: UIViewController {
             make.top.equalTo(tasteLabel.snp.bottom).offset(200)
         }
         
-        guard let selectedFinishOptions = selectedOptions["Finish"] else { return }
+        guard let selectedFinishOptions = selectedOptions["scentFinish"] else { return }
         let count = selectedFinishOptions.count
         
         var previousButton: UIButton? = nil
@@ -416,6 +418,8 @@ class RatingViewController: UIViewController {
         nextVC.value = value
         nextVC.selectedWineName = selectedWineName
         nextVC.selectedWineImage = selectedWineImage
+        nextVC.area = selectedWineArea
+        nextVC.sort = selectedWineSort
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -433,9 +437,9 @@ class RatingViewController: UIViewController {
         let color = receivedColor
         let satisfaction = Int(value)
         let memo = reviewText.text ?? ""
-        let scentAroma = selectedOptions["Aroma"] ?? []
-        let scentTaste = selectedOptions["Taste"] ?? []
-        let scentFinish = selectedOptions["Finish"] ?? []
+        let scentAroma = selectedOptions["scentAroma"] ?? []
+        let scentTaste = selectedOptions["scentTaste"] ?? []
+        let scentFinish = selectedOptions["scentFinish"] ?? []
         
         var sugarContent: Int?
         var acidity: Int?

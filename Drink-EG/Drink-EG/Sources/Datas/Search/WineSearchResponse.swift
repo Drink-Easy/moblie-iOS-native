@@ -13,4 +13,6 @@ struct Wine: Decodable {
     let imageUrl: String?
     let rating: Double
     let price: Int
+    let area: String
+    let sort: String
 }

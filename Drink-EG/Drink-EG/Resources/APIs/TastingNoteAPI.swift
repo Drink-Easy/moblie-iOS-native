@@ -41,7 +41,7 @@ extension TastingNoteAPI: TargetType {
             return "tasting-note/\(noteId)"
         case .postNewNote:
             return "tasting-note/new-note"
-        case .patchNote(let wineId, let color, let sugarContent, let acidity, let tannin, let body, let alcohol, let scentAroma, let scentTaste, let scentFinish, let satisfaction, let review):
+        case .patchNote(let wineId, _, _, _, _, _, _, _, _, _, _, _):
             return "wine-note/\(wineId)"
         case .deleteNote(let noteId):
             return "tasting-note/\(noteId)"
