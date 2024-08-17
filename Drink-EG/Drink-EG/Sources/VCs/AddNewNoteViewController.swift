@@ -162,6 +162,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
             case .success(let response):
                 do {
                     let responseData = try JSONDecoder().decode(APIResponseWineSearchResponse.self, from: response.data)
+                    print(responseData)
                     self.wineResults = responseData.result
                     self.suggestionTableView.reloadData()
                 } catch {

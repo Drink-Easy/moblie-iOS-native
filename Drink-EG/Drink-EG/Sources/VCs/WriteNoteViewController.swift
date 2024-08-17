@@ -128,16 +128,18 @@ class WriteNoteViewController: UIViewController {
     func setupWineName() {
         wineView.addSubview(wineName)
         wineName.text = selectedWineName ?? ""
-        wineName.numberOfLines = 2
+        wineName.numberOfLines = 0
+        wineName.lineBreakMode = .byWordWrapping
         wineName.font = UIFont(name: "Pretendard-SemiBold", size: 18)
     }
     
     func setupWineNameConstraints() {
         wineName.snp.makeConstraints{ make in
-            make.centerY.equalTo(wineImageView.snp.centerY)
+            // make.centerY.equalTo(wineImageView.snp.centerY)
             make.leading.equalTo(wineImageView.snp.trailing).offset(25)
-            make.top.equalTo(wineView.snp.top).offset(36)
-            make.bottom.equalTo(wineView.snp.bottom).offset(-36)
+            make.trailing.equalTo(wineView.snp.trailing).offset(-10)
+            make.top.equalTo(wineView.snp.top).offset(31)
+            // make.bottom.equalTo(wineView.snp.bottom).offset(-36)
         }
     }
     

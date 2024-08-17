@@ -22,6 +22,8 @@ class CheckNoteViewController: UIViewController {
     
     var selectedWineName: String?
     var selectedWineImage: String?
+    var area: String?
+    var sort: String?
     
     func setupPentagonChart() {
         pentagonChart.backgroundColor = .clear
@@ -78,9 +80,9 @@ class CheckNoteViewController: UIViewController {
         return l
     }()
     
-    private let specInfo: UILabel = {
+    lazy var specInfo: UILabel = {
         let l = UILabel()
-        l.text = "종류: 레드 와인\n품종: 쉬라 100%\n생산지: 호주, South Australia"
+        l.text = "품종: \(sort ?? "N/A")\n생산지: \(area ?? "N/A")"
         l.font = .systemFont(ofSize: 12)
         l.textColor = .black
         l.numberOfLines = 0
@@ -209,7 +211,7 @@ class CheckNoteViewController: UIViewController {
     func setupButton() {
         tasteView.addSubview(aromaButton)
         aromaButton.setTitle(selectedOptions["scentAroma"]?[0], for: .normal)
-        aromaButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        aromaButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 14)
         aromaButton.setTitleColor(.black, for: .normal)
         aromaButton.backgroundColor = UIColor(hex: "FBCBC4")
         aromaButton.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
@@ -217,7 +219,7 @@ class CheckNoteViewController: UIViewController {
         
         tasteView.addSubview(tasteButton)
         tasteButton.setTitle(selectedOptions["scentTaste"]?[0], for: .normal)
-        tasteButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        tasteButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 14)
         tasteButton.setTitleColor(.black, for: .normal)
         tasteButton.backgroundColor = UIColor(hex: "FBCBC4")
         tasteButton.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
@@ -225,7 +227,7 @@ class CheckNoteViewController: UIViewController {
         
         tasteView.addSubview(finishButton)
         finishButton.setTitle(selectedOptions["scentFinish"]?[0], for: .normal)
-        finishButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        finishButton.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 14)
         finishButton.setTitleColor(.black, for: .normal)
         finishButton.backgroundColor = UIColor(hex: "FBCBC4")
         finishButton.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
@@ -319,38 +321,40 @@ class CheckNoteViewController: UIViewController {
         tasteView.addSubview(aromaLabel)
         aromaLabel.snp.makeConstraints { make in
             make.top.equalTo(tasteView.snp.top).offset(23)
-            make.leading.equalTo(tasteView.snp.leading).offset(27)
+            make.centerX.equalTo(aromaButton.snp.centerX)
+            make.width.equalTo(tasteView.snp.width).multipliedBy(0.25)
         }
         
         tasteView.addSubview(tasteLabel)
         tasteLabel.snp.makeConstraints { make in
             make.centerY.equalTo(aromaLabel.snp.centerY)
-            make.leading.equalTo(aromaLabel.snp.trailing).offset(68)
+            make.centerX.equalTo(tasteButton.snp.centerX)
+            make.width.equalTo(tasteView.snp.width).multipliedBy(0.25)
         }
         
         tasteView.addSubview(finishLabel)
         finishLabel.snp.makeConstraints { make in
             make.centerY.equalTo(tasteLabel.snp.centerY)
-            make.leading.equalTo(tasteLabel.snp.trailing).offset(78)
+            make.centerX.equalTo(finishButton.snp.centerX)
+            make.width.equalTo(tasteView.snp.width).multipliedBy(0.25)
         }
         
         aromaButton.snp.makeConstraints { make in
             make.top.equalTo(aromaLabel.snp.bottom).offset(7)
             make.leading.equalTo(tasteView.snp.leading).offset(9)
-            make.centerX.equalTo(aromaLabel.snp.centerX)
+            make.width.equalTo(tasteView.snp.width).multipliedBy(0.25)
         }
         
         tasteButton.snp.makeConstraints { make in
             make.top.equalTo(tasteLabel.snp.bottom).offset(7)
-            make.centerX.equalTo(tasteLabel.snp.centerX)
-            make.leading.equalTo(aromaButton.snp.trailing).offset(45)
+            make.centerX.equalTo(tasteView.snp.centerX)
+            make.width.equalTo(tasteView.snp.width).multipliedBy(0.25)
         }
         
         finishButton.snp.makeConstraints { make in
             make.top.equalTo(finishLabel.snp.bottom).offset(7)
-            make.centerX.equalTo(finishLabel.snp.centerX)
-            make.leading.equalTo(tasteButton.snp.trailing).offset(53)
             make.trailing.equalTo(tasteView.snp.trailing).offset(-9)
+            make.width.equalTo(tasteView.snp.width).multipliedBy(0.25)
         }
         
         tastingNoteView.addSubview(vectorView)

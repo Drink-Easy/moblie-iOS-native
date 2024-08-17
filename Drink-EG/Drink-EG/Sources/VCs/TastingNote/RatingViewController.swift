@@ -480,7 +480,7 @@ class RatingViewController: UIViewController {
                     nextVC.selectedOptions = self.selectedOptions
                     nextVC.reviewString = memo
                     nextVC.value = self.value
-                    self.navigationController?.pushViewController(nextVC, animated: true)
+                    // self.navigationController?.pushViewController(nextVC, animated: true)
                 case .failure(let error):
                     print("Failed to post note: \(error)")
                 }
@@ -538,7 +538,7 @@ class RatingViewController: UIViewController {
                     nextVC.selectedOptions = self.selectedOptions
                     nextVC.reviewString = review
                     nextVC.value = self.value
-                    self.navigationController?.pushViewController(nextVC, animated: true)
+                    // self.navigationController?.pushViewController(nextVC, animated: true)
                 case .failure(let error):
                     print("Failed to patch note: \(error)")
                 }

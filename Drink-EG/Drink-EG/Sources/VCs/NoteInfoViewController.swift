@@ -153,15 +153,16 @@ class NoteInfoViewController: UIViewController {
     func setupWineName() {
         wineView.addSubview(wineName)
         wineName.text = selectedWineName ?? ""
-        
+        wineName.font = UIFont(name: "Pretendard-SemiBold", size: 18)
+        wineName.numberOfLines = 0
+        wineName.lineBreakMode = .byWordWrapping
     }
     
     func setupWineNameConstraints() {
         wineName.snp.makeConstraints{ make in
-            make.centerY.equalTo(wineImageView.snp.centerY)
-            make.leading.equalTo(wineImageView.snp.trailing).offset(25)
+            make.leading.equalTo(wineImageView.snp.trailing).offset(20)
+            make.trailing.equalTo(wineView.snp.trailing).offset(-10)
             make.top.equalTo(wineView.snp.top).offset(36)
-            make.bottom.equalTo(wineView.snp.bottom).offset(-36)
         }
     }
     
