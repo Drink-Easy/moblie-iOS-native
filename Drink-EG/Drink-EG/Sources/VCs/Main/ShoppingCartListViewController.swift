@@ -15,8 +15,9 @@ protocol StoreListDelegate: AnyObject {
 class ShoppingCartListViewController: UIViewController {
     
     var selectedStore: String?
+    let shoppingListManager = ShoppingListManager.shared
     
-    private var CartContents: [ShoppingObject] = ShoppingListManager.shared.myCartWines
+    private var CartContents: [ShoppingObject] = []
     private var itemsSelectedState: [Bool] = []
     
     private var totalSum : Int = 0
@@ -82,6 +83,8 @@ class ShoppingCartListViewController: UIViewController {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
+        CartContents = shoppingListManager.myCartWines
+        
         view.backgroundColor = .white
         itemsSelectedState = Array(repeating: false, count: 20)
         setupUI()
@@ -94,7 +97,6 @@ class ShoppingCartListViewController: UIViewController {
     
     func updateStoreInCart() {
         // 여기서 장바구니 셀의 매장 이름을 변경하는 코드를 작성합니다.
-        
         cartListCollectionView.reloadData()
     }
     

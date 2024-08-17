@@ -214,6 +214,7 @@ class WineInfoViewController: UIViewController {
     
     @objc private func shopButtonTapped() {
         let wineStoreListViewController = WineStoreListViewController()
+        wineStoreListViewController.curWine = repackWineData()
         wineStoreListViewController.scoreDouble = self.scoreDouble
         wineStoreListViewController.name.text = self.name.text
         wineStoreListViewController.imageView.image = self.imageView.image
@@ -455,5 +456,9 @@ extension WineInfoViewController {
     
     func handleResponseData(_ data: WineInfo) {
         
+    }
+    
+    func repackWineData() -> Wine {
+        return Wine(wineId: self.wineId!, name: self.name.text!, imageUrl: self.wineImage, rating: self.scoreDouble, price: 0)
     }
 }

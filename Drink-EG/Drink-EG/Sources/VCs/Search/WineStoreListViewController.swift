@@ -13,6 +13,8 @@ class WineStoreListViewController: UIViewController {
     weak var delegate: StoreListDelegate?
     var selectedShop: String?
     
+    var curWine : Wine?
+    
     var scoreDouble = 4.5
     var wineImage: String?
     
@@ -159,13 +161,18 @@ extension WineStoreListViewController: UICollectionViewDataSource, UICollectionV
                 let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell
                 let data = whineShopList[indexPath.row]
                 let wineOrderViewController = WineOrderViewController()
+                
+                wineOrderViewController.wine = curWine
+                wineOrderViewController.curShop = data
+                
+                wineOrderViewController.wineImage = imageView.image
+                
+                // TODO : 삭제 가능한 데이터들
                 wineOrderViewController.shop = data.name
                 wineOrderViewController.shopAddr = data.address
                 wineOrderViewController.distanceDouble = data.distanceToUser
                 wineOrderViewController.priceInt = data.price
-                
                 wineOrderViewController.wineName = self.name.text ?? "값없음"
-                wineOrderViewController.wineImage = imageView.image
                 wineOrderViewController.score = self.scoreDouble
                 
                 navigationController?.pushViewController(wineOrderViewController, animated: true)

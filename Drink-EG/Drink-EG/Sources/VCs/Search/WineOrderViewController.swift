@@ -10,7 +10,9 @@ import SnapKit
 
 class WineOrderViewController: UIViewController {
     
-    private var quantity: Int = 0 {
+    let shoppingManager = ShoppingListManager.shared
+    
+    private var quantity: Int = 1 {
         didSet {
             updateNumLabel()
         }
@@ -23,6 +25,9 @@ class WineOrderViewController: UIViewController {
     var shopAddr : String?
     var distanceDouble : Double?
     var priceInt: Int?
+    
+    var wine : Wine?
+    var curShop : ShopData?
     
     private let scoreLabel = UILabel()
     private let shopName = UILabel()
@@ -167,9 +172,17 @@ class WineOrderViewController: UIViewController {
         b.layer.masksToBounds = true
         b.layer.borderWidth = 2
         b.layer.borderColor = UIColor(hex: "#FA735B")?.cgColor
-        
+        b.addTarget(self, action: #selector(goToCartButtonTapped), for: .touchUpInside)
         return b
     }()
+    
+    @objc private func goToCartButtonTapped() {
+        let shoppingCartListVC = ShoppingCartListViewController()
+        if let wineData = self.wine, let shopData = self.curShop {
+            shoppingManager.addNewWine(UserWineData(wine: wineData, shop: shopData), quantity)
+        }
+        navigationController?.pushViewController(shoppingCartListVC, animated: true)
+    }
     
     private let goToBuyButton: UIButton = {
         let b = UIButton(type: .system)
