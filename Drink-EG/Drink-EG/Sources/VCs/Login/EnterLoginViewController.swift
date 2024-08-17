@@ -35,22 +35,20 @@ class EnterLoginViewController: UIViewController {
         StartLoginCollectionView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            //make.width.equalTo(view)
-            //make.height.equalTo(687)
         }
         
         view.addSubview(pageControl)
         pageControl.snp.makeConstraints { make in
             make.top.equalTo(StartLoginCollectionView.snp.bottom)
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
         view.addSubview(startButton)
         startButton.snp.makeConstraints { make in
             make.top.equalTo(pageControl.snp.bottom).offset(32)
-            make.centerX.equalToSuperview()
+//            make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
-            make.bottom.equalTo(view).inset(60)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
             make.height.greaterThanOrEqualTo(60)
         }
     }
@@ -58,10 +56,10 @@ class EnterLoginViewController: UIViewController {
     private func configureStartButton() {
         startButton.setTitle("시작하기", for: .normal)
         startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        startButton.setTitleColor(.black, for: .normal)
+        startButton.setTitleColor(.white, for: .normal)
         startButton.contentHorizontalAlignment = .center
         
-        startButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
+        startButton.backgroundColor = UIColor(hex: "#FF6F62")
         startButton.layer.cornerRadius = 16
         startButton.layer.borderWidth = 0
         
@@ -99,8 +97,8 @@ class EnterLoginViewController: UIViewController {
     
     lazy var pageControl: UIPageControl = {
         let p = UIPageControl()
-        p.pageIndicatorTintColor = UIColor(hue: 0, saturation: 0, brightness: 0.46, alpha: 1.0)
-        p.currentPageIndicatorTintColor = UIColor(hue: 0.1389, saturation: 0.72, brightness: 1, alpha: 1.0)
+        p.pageIndicatorTintColor = UIColor(hex: "#767676")
+        p.currentPageIndicatorTintColor = UIColor(hex: "#FF6F62")
         return p
     }()
 

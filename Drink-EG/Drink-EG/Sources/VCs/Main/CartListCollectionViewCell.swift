@@ -8,11 +8,16 @@
 import UIKit
 import SnapKit
 
+protocol CartListCollectionViewCellDelegate: AnyObject {
+    func checkButtonTapped(on cell: CartListCollectionViewCell, isSelected: Bool)
+}
+
 class CartListCollectionViewCell: UICollectionViewCell {
     
+    weak var delegate: CartListCollectionViewCellDelegate?
     var changeMarketButtonAction : (() -> Void) = {}
     
-    private var quantity: Int = 0 {
+    var quantity: Int = 1 {
         didSet {
             updateNumLabel()
         }
@@ -20,7 +25,9 @@ class CartListCollectionViewCell: UICollectionViewCell {
     
     private let CheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nCheckImage = UIImage(named: "icon_cartCheck_nfill")
-    private let CheckButton = UIButton(type: .custom)
+    let CheckButton = UIButton(type: .custom)
+    var shop = "PODO"
+    var price = 0
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
@@ -39,52 +46,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         return l1
     }()
     
-    private let marketNprice: UILabel = {
-        let l2 = UILabel()
-        
-        let firstImageAttachment = NSTextAttachment()
-        firstImageAttachment.image = UIImage(named: "icon_market")
-        
-        let firstImageOffsetY: CGFloat = -2.0 // 텍스트와 이미지의 정렬을 맞추기 위해 조정합니다.
-        firstImageAttachment.bounds = CGRect(x: 0, y: firstImageOffsetY, width: 12, height: 12) // 이미지의 크기를 설정합니다.
-
-        let secondImageAttachment = NSTextAttachment()
-        secondImageAttachment.image = UIImage(named: "Vector")
-                
-        let secondImageOffsetY: CGFloat = -2.0 // 이미지와 텍스트의 정렬을 맞추기 위해 조정
-        secondImageAttachment.bounds = CGRect(x: 0, y: secondImageOffsetY, width: 1, height: 12)
-
-        let completeText = NSMutableAttributedString(string: "")
-        
-        // 첫 번째 이미지 추가
-        let firstAttachmentString = NSAttributedString(attachment: firstImageAttachment)
-        completeText.append(firstAttachmentString)
-
-        // 매장 텍스트 추가
-        let textBeforeSecondImage = NSAttributedString(string: " PODO  ", attributes: [.font: UIFont.systemFont(ofSize: 16)])
-        completeText.append(textBeforeSecondImage)
-
-        // 두 번째 이미지 추가
-        let secondAttachmentString = NSAttributedString(attachment: secondImageAttachment)
-        completeText.append(secondAttachmentString)
-
-        // 가격 텍스트 추가
-        let textAfterSecondImage = NSAttributedString(string: "  25,000 ₩", attributes: [.font: UIFont.systemFont(ofSize: 16)])
-        completeText.append(textAfterSecondImage)
-
-        l2.attributedText = completeText
-        l2.font = .boldSystemFont(ofSize: 12)
-        l2.textColor = UIColor(hex: "#767676")
-        return l2
-    }()
-    
-    private let score: UILabel = {
-        let l3 = UILabel()
-        l3.text = "4.5 ★"
-        l3.font = .boldSystemFont(ofSize: 12)
-        l3.textColor = UIColor(hex: "#FF7A6D")
-        return l3
-    }()
+    let marketNprice = UILabel()
     
     private let changeMarketButton: UIButton = {
         let b = UIButton(type: .system)
@@ -161,13 +123,13 @@ class CartListCollectionViewCell: UICollectionViewCell {
         return b
     }()
     
-    private func configureCheckButton() {
+    func configureCheckButton() {
         CheckButton.setImage(nCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
         CheckButton.backgroundColor = .clear
         CheckButton.addTarget(self, action: #selector(CheckButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func CheckButtonTapped(_ sender: UIButton) {
+    @objc func CheckButtonTapped(_ sender: UIButton) {
         // Bool 값 toggle
         sender.isSelected.toggle()
             
@@ -181,6 +143,43 @@ class CartListCollectionViewCell: UICollectionViewCell {
             self.contentView.backgroundColor = UIColor(hex: "EDEDED")
             self.contentView.layer.borderColor = UIColor(hex: "D9D9D9")?.cgColor
         }
+        
+        delegate?.checkButtonTapped(on: self, isSelected: sender.isSelected)
+    }
+    
+    private func configureMarketNPlace(_ shopName: String, _ priceInt: Int, _ count: Int) {
+        let firstImageAttachment = NSTextAttachment()
+        firstImageAttachment.image = UIImage(named: "icon_market")
+        
+        let firstImageOffsetY: CGFloat = -2.0 // 텍스트와 이미지의 정렬을 맞추기 위해 조정합니다.
+        firstImageAttachment.bounds = CGRect(x: 0, y: firstImageOffsetY, width: 12, height: 12) // 이미지의 크기를 설정합니다.
+
+        let secondImageAttachment = NSTextAttachment()
+        secondImageAttachment.image = UIImage(named: "Vector")
+                
+        let secondImageOffsetY: CGFloat = -2.0 // 이미지와 텍스트의 정렬을 맞추기 위해 조정
+        secondImageAttachment.bounds = CGRect(x: 0, y: secondImageOffsetY, width: 1, height: 12)
+
+        let completeText = NSMutableAttributedString(string: "")
+        
+        // 첫 번째 이미지 추가
+        let firstAttachmentString = NSAttributedString(attachment: firstImageAttachment)
+        completeText.append(firstAttachmentString)
+
+        // 매장 텍스트 추가
+        let textBeforeSecondImage = NSAttributedString(string: " \(shopName)  ", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        completeText.append(textBeforeSecondImage)
+
+        // 두 번째 이미지 추가
+        let secondAttachmentString = NSAttributedString(attachment: secondImageAttachment)
+        completeText.append(secondAttachmentString)
+
+        // 가격 텍스트 추가
+        let textAfterSecondImage = NSAttributedString(string: "  \(priceInt * count) ₩", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        completeText.append(textAfterSecondImage)
+
+        marketNprice.attributedText = completeText
+        marketNprice.textColor = UIColor(hex: "#767676")
     }
     
     override init(frame: CGRect) {
@@ -195,11 +194,11 @@ class CartListCollectionViewCell: UICollectionViewCell {
     //레이아웃까지
     private func setupUI() {
         configureCheckButton()
+        configureMarketNPlace(self.shop, self.price, self.quantity)
         
         self.contentView.addSubview(imageView)
         self.contentView.addSubview(name)
         self.contentView.addSubview(marketNprice)
-        self.contentView.addSubview(score)
         self.contentView.addSubview(CheckButton)
         self.contentView.addSubview(changeMarketButton)
         self.contentView.addSubview(changeNumButton)
@@ -232,11 +231,6 @@ class CartListCollectionViewCell: UICollectionViewCell {
             make.leading.equalTo(name)
         }
         
-        score.snp.makeConstraints { make in
-            make.centerY.equalTo(name)
-            make.leading.equalTo(name.snp.trailing).offset(13)
-        }
-        
         changeMarketButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(14)
             make.leading.equalToSuperview().offset(213)
@@ -262,12 +256,19 @@ class CartListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure1(imageName: String) {
+    func configure1(imageName: String, wineName: String, price: Int, count: Int, shopName: String) {
         if let image = UIImage(named: imageName) {
-            self.name.text = imageName
             imageView.image = image
         }
+        
+        self.name.text = wineName
+        self.price = price
+        self.quantity = count
+        self.shop = shopName
+        
+        self.configureMarketNPlace(shopName, price, count)
     }
+    
     func configure2(isSelected: Bool) {
         CheckButton.isSelected = isSelected
     }

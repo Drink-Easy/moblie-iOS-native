@@ -30,8 +30,6 @@ class SecondTasteTestViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
@@ -47,21 +45,12 @@ class SecondTasteTestViewController: UIViewController {
         configureFourthButton()
         configureNextButton()
         
-        view.addSubview(nextButton)
-        nextButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(727)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
         view.addSubview(Label)
         Label.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(125)
-            make.leading.equalToSuperview().offset(18)
-            make.width.equalTo(338)
-            make.height.equalTo(44)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(18)
+//            make.width.equalTo(338)
+//            make.height.equalTo(44)
         }
         
         let buttonStackView = UIStackView(arrangedSubviews: [firstButton, secondButton, thirdButton, fourthButton])
@@ -71,10 +60,16 @@ class SecondTasteTestViewController: UIViewController {
                 
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(218)
-            make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(361)
-            make.height.equalTo(368)
+            make.top.equalTo(Label.snp.bottom).offset(49)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.greaterThanOrEqualTo(368)
+        }
+        
+        view.addSubview(nextButton)
+        nextButton.snp.makeConstraints { make in
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(33)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
+            make.height.equalTo(60)
         }
     }
     
@@ -86,10 +81,10 @@ class SecondTasteTestViewController: UIViewController {
         firstButton.contentHorizontalAlignment = .left
         firstButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 0)
         
-        firstButton.backgroundColor = UIColor(hex: "#FFFCD6")
+        firstButton.backgroundColor = UIColor(hex: "#FFCDC5")
         firstButton.layer.cornerRadius = 16
         firstButton.layer.borderWidth = 3
-        firstButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+        firstButton.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
         
         firstButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
@@ -102,10 +97,10 @@ class SecondTasteTestViewController: UIViewController {
         secondButton.contentHorizontalAlignment = .left
         secondButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 0)
         
-        secondButton.backgroundColor = UIColor(hex: "#FFFCD6")
+        secondButton.backgroundColor = UIColor(hex: "#FFCDC5")
         secondButton.layer.cornerRadius = 16
         secondButton.layer.borderWidth = 3
-        secondButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+        secondButton.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
         
         secondButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
@@ -118,10 +113,10 @@ class SecondTasteTestViewController: UIViewController {
         thirdButton.contentHorizontalAlignment = .left
         thirdButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 0)
         
-        thirdButton.backgroundColor = UIColor(hex: "#FFFCD6")
+        thirdButton.backgroundColor = UIColor(hex: "#FFCDC5")
         thirdButton.layer.cornerRadius = 16
         thirdButton.layer.borderWidth = 3
-        thirdButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+        thirdButton.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
         
         thirdButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
@@ -134,10 +129,10 @@ class SecondTasteTestViewController: UIViewController {
         fourthButton.contentHorizontalAlignment = .left
         fourthButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 0)
         
-        fourthButton.backgroundColor = UIColor(hex: "#FFFCD6")
+        fourthButton.backgroundColor = UIColor(hex: "#FFCDC5")
         fourthButton.layer.cornerRadius = 16
         fourthButton.layer.borderWidth = 3
-        fourthButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+        fourthButton.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
         
         fourthButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
@@ -148,16 +143,16 @@ class SecondTasteTestViewController: UIViewController {
             if Btn == sender {
                 // 만약 현재 버튼이 이 함수를 호출한 버튼이라면
                 Btn.isSelected = true
-                Btn.backgroundColor = UIColor(hex: "#FFEA75")
+                Btn.backgroundColor = UIColor(hex: "#FF9F8E")
                 Btn.layer.cornerRadius = 16
                 Btn.layer.borderWidth = 0
             } else {
                 // 이 함수를 호출한 버튼이 아니라면
                 Btn.isSelected = false
-                Btn.backgroundColor = UIColor(hex: "#FFFCD6")
+                Btn.backgroundColor = UIColor(hex: "#FFCDC5")
                 Btn.layer.cornerRadius = 16
                 Btn.layer.borderWidth = 3
-                Btn.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+                Btn.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
             }
         }
         // 선택된 버튼에 따른 다음 버튼 활성화
@@ -169,7 +164,17 @@ class SecondTasteTestViewController: UIViewController {
         if firstButton.isSelected || secondButton.isSelected || thirdButton.isSelected || fourthButton.isSelected {
             nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
             nextButton.isEnabled = true
-            nextButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
+            nextButton.backgroundColor = UIColor(hex: "FA735B")
+            
+            if firstButton.isSelected {
+                SelectionManager.shared.setPrice(answer: 50000)
+            } else if secondButton.isSelected {
+                SelectionManager.shared.setPrice(answer: 100000)
+            } else if thirdButton.isSelected {
+                SelectionManager.shared.setPrice(answer: 300000)
+            } else if fourthButton.isSelected {
+                SelectionManager.shared.setPrice(answer: 10000000)
+            }
         } else {
             nextButton.removeTarget(nil, action: nil, for: .allEvents)
             nextButton.isEnabled = false
@@ -180,12 +185,12 @@ class SecondTasteTestViewController: UIViewController {
     private func configureNextButton() {
         nextButton.setTitle("다음", for: .normal)
         nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        nextButton.setTitleColor(.black, for: .normal)
+        nextButton.setTitleColor(.white, for: .normal)
         nextButton.contentHorizontalAlignment = .center
         
         nextButton.setImage(UIImage(named: "icon_next"), for: .normal)
         nextButton.imageView?.contentMode = .center
-        nextButton.tintColor = UIColor(hex: "#767676")
+        nextButton.tintColor = .white
         nextButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 105, bottom: 0, right: 0)
         
         nextButton.backgroundColor = UIColor(hex: "#E2E2E2")
@@ -194,7 +199,7 @@ class SecondTasteTestViewController: UIViewController {
     }
     
     @objc private func nextButtonTapped() {
-        let thirdTasteTestViewController = ThirdTasteTestViewController()
+        let thirdTasteTestViewController = ThirdKindTasteTestViewController()
         navigationController?.pushViewController(thirdTasteTestViewController, animated: true)
     }
 }

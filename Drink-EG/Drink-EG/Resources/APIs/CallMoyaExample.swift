@@ -1,10 +1,16 @@
+////
+////  CallMoyaExample.swift
+////  Drink-EG
+////
+////  Created by 김도연 on 8/11/24.
+////
 //
-//  CallMoyaExample.swift
-//  Drink-EG
+//import Foundation
+//import Moya
 //
-//  Created by 김도연 on 8/11/24.
+//// ViewController에서 provider 선언
+//let provider = MoyaProvider<BasicAPI>()
 //
-
 import Foundation
 import Moya
 

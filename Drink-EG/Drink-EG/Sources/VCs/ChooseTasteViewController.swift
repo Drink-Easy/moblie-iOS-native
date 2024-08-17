@@ -19,6 +19,7 @@ class ChooseTasteViewController: UIViewController {
                         [UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton()],
                         [UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton(), UIButton()],
     ]
+    var selectedOptions: [String: [String]] = [:]
     let tastingnoteLabel = UILabel()
     let aromaLabel = UILabel()
     let tasteLabel = UILabel()
@@ -26,9 +27,17 @@ class ChooseTasteViewController: UIViewController {
     let wineView = UIView()
     let wineImageView = UIImageView()
     let wineName = UILabel()
+    let nextButton = UIButton()
     let scrollView = UIScrollView()
     let contentView = UIView()
+    
+    var dataList: [RadarChartData] = []
     var receivedColor = ""
+    var selectedWineId: Int?
+    var selectedWineImage: String?
+    var selectedWineName: String?
+    var selectedWineArea: String?
+    var selectedWineSort: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,13 +68,8 @@ class ChooseTasteViewController: UIViewController {
         setupAromaLabelConstraints()
         setupTasteOptionsLabelConstraints()
         setupFinishOptionsLabelConstraints()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.barTintColor = UIColor.red // 네비게이션 바 배경색
-        self.navigationController?.navigationBar.tintColor = UIColor.red // 네비게이션 아이템 색상
+        setupNextButton()
+        setupNextButtonConstraints()
     }
     
     func setupNavigationBarButton() {
@@ -92,7 +96,7 @@ class ChooseTasteViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(1374)
+            make.height.equalTo(UIScreen.main.bounds.height * 1.6)
         }
     }
     
@@ -133,7 +137,11 @@ class ChooseTasteViewController: UIViewController {
         wineImageView.contentMode = .scaleAspectFit
         wineImageView.layer.cornerRadius = 10
         wineImageView.layer.masksToBounds = true
-        wineImageView.image = UIImage(named: "SampleImage")
+        if let imageUrl = selectedWineImage, let url = URL(string: imageUrl) {
+            wineImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            wineImageView.image = UIImage(named: "Loxton")
+        }
     }
     
     func setupWineImageViewConstraints() {
@@ -148,16 +156,17 @@ class ChooseTasteViewController: UIViewController {
     
     func setupWineName() {
         wineView.addSubview(wineName)
-        wineName.text = "19 Crhnes"
-        
+        wineName.text = selectedWineName ?? ""
+        wineName.font = UIFont(name: "Pretendard-SemiBold", size: 18)
+        wineName.numberOfLines = 0
+        wineName.lineBreakMode = .byWordWrapping
     }
     
     func setupWineNameConstraints() {
         wineName.snp.makeConstraints{ make in
-            make.centerY.equalTo(wineImageView.snp.centerY)
-            make.leading.equalTo(wineImageView.snp.trailing).offset(25)
-            make.top.equalTo(wineView.snp.top).offset(36)
-            make.bottom.equalTo(wineView.snp.bottom).offset(-36)
+            make.leading.equalTo(wineImageView.snp.trailing).offset(20)
+            make.trailing.equalTo(wineView.snp.trailing).offset(-10)
+            make.centerY.equalTo(wineView.snp.centerY)
         }
     }
     
@@ -250,6 +259,7 @@ class ChooseTasteViewController: UIViewController {
     
     func setupTasteOptions() {
         let array = ["레드베리", "체리", "딸기", "자두", "우드", "바닐라", "훈제", "민트", "너트", "라임", "자몽", "아카시아", "시가", "흙", "가죽", "직접추가"]
+        let fontSize = UIScreen.main.bounds.width * 0.04
         for i in 0..<tasteOptions.count {
             for j in 0..<tasteOptions[i].count {
                 let button = tasteOptions[i][j]
@@ -270,31 +280,59 @@ class ChooseTasteViewController: UIViewController {
                 // 직접추가 버튼에만 아이콘 추가
                 if array[j] == "직접추가" {
                     config.image = UIImage(systemName: "plus.circle")
-                    config.imagePadding = 6
+                    config.imagePadding = 3
                     config.imagePlacement = .trailing
+                    button.configuration = config
+                    button.snp.makeConstraints { make in
+                        make.width.equalTo(110)
+                    }
+                } else {
+                    button.configuration = config
+                    let titleSize = button.titleLabel!.intrinsicContentSize
+                    button.snp.makeConstraints { make in
+                        make.width.equalTo(titleSize.width+30)
+                        make.height.greaterThanOrEqualTo(33)
+                    }
                 }
-                
-                button.configuration = config
                 button.addTarget(self, action: #selector(tasteOptionsTapped(_:)), for: .touchUpInside)
-                
-                let titleSize = button.titleLabel!.intrinsicContentSize
-                button.snp.makeConstraints { make in
-                    make.width.equalTo(titleSize.width+30)
-                    make.height.greaterThanOrEqualTo(33)
-                }
             }
         }
     }
     
     @objc func tasteOptionsTapped(_ sender : UIButton) {
+        guard let title = sender.configuration?.title else { return }
+        // Determine which section the button belongs to
+        var section: String?
+        if tasteOptions[0].contains(sender) {
+            section = "scentAroma"
+        } else if tasteOptions[1].contains(sender) {
+            section = "scentTaste"
+        } else if tasteOptions[2].contains(sender) {
+            section = "Finish"
+        }
+        
+        guard let selectedSection = section else { return }
+        
         if sender.backgroundColor == UIColor(hex: "FBCBC4") {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor(hex: "C3C3C3")?.cgColor
+            if var selectedTitles = selectedOptions[selectedSection], let index = selectedTitles.firstIndex(of: title) {
+                selectedTitles.remove(at: index)
+                selectedOptions[selectedSection] = selectedTitles
+            }
         } else {
+            // Select the button
             sender.backgroundColor = UIColor(hex: "FBCBC4")
             sender.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
+            if var selectedTitles = selectedOptions[selectedSection] {
+                selectedTitles.append(title)
+                selectedOptions[selectedSection] = selectedTitles
+            } else {
+                selectedOptions[selectedSection] = [title]
+            }
         }
-        sender.layer.cornerRadius = sender.frame.height / 2 // 버튼 모양에 따라 코너 반경 조정
+        
+        sender.layer.cornerRadius = sender.frame.height / 2
         sender.layer.masksToBounds = true
     }
     
@@ -325,7 +363,6 @@ class ChooseTasteViewController: UIViewController {
                 make.height.equalTo(buttonHeight)
             }
         }
-        
     }
     
     func setupTasteOptionsLabelConstraints() {
@@ -385,5 +422,39 @@ class ChooseTasteViewController: UIViewController {
         }
     }
     
+    func setupNextButton() {
+        tasteView.addSubview(nextButton)
+        nextButton.backgroundColor = UIColor(hex: "FA735B")
+        nextButton.setTitle("다음", for: .normal)
+        nextButton.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 20)
+        nextButton.titleLabel?.textColor = .white
+        nextButton.layer.cornerRadius = 16
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func nextButtonTapped() {
+        let nextVC = RatingViewController()
+        print(selectedOptions)
+        
+        nextVC.dataList = dataList
+        nextVC.selectedOptions = selectedOptions
+        nextVC.receivedColor = receivedColor
+        nextVC.selectedWineId = selectedWineId
+        nextVC.selectedWineName = selectedWineName
+        nextVC.selectedWineImage = selectedWineImage
+        nextVC.selectedWineArea = selectedWineArea
+        nextVC.selectedWineSort = selectedWineSort
+        
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    func setupNextButtonConstraints() {
+        nextButton.snp.makeConstraints { make in
+            make.top.equalTo(tasteOptions[2][14].snp.bottom).offset(49)
+            make.leading.equalTo(tasteView.snp.leading).offset(17)
+            make.centerX.equalTo(tasteView.snp.centerX)
+            make.height.greaterThanOrEqualTo(60)
+        }
+    }
     
 }

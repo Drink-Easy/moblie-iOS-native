@@ -28,8 +28,6 @@ class FirstTasteTestViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named:"icon_back")
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named:"icon_back")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
@@ -43,21 +41,12 @@ class FirstTasteTestViewController: UIViewController {
         configureManiacButton()
         configureNextButton()
         
-        view.addSubview(nextButton)
-        nextButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(727)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
         view.addSubview(iamLabel)
         iamLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(125)
-            make.leading.equalToSuperview().offset(18)
-            make.width.equalTo(338)
-            make.height.equalTo(44)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(18)
+//            make.width.equalTo(338)
+//            make.height.equalTo(44)
         }
         
         let buttonStackView = UIStackView(arrangedSubviews: [newbeeButton, maniacButton])
@@ -67,10 +56,16 @@ class FirstTasteTestViewController: UIViewController {
                 
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(218)
-            make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(361)
-            make.height.equalTo(328)
+            make.top.equalTo(iamLabel.snp.bottom).offset(49)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.greaterThanOrEqualTo(328)
+        }
+        
+        view.addSubview(nextButton)
+        nextButton.snp.makeConstraints { make in
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(33)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
+            make.height.equalTo(60)
         }
     }
     
@@ -86,10 +81,10 @@ class FirstTasteTestViewController: UIViewController {
         newbeeButton.contentHorizontalAlignment = .left
         newbeeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 0)
         
-        newbeeButton.backgroundColor = UIColor(hex: "#FFFCD6")
+        newbeeButton.backgroundColor = UIColor(hex: "#FFCDC5")
         newbeeButton.layer.cornerRadius = 16
         newbeeButton.layer.borderWidth = 3
-        newbeeButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+        newbeeButton.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
         
         newbeeButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
@@ -106,10 +101,10 @@ class FirstTasteTestViewController: UIViewController {
         maniacButton.contentHorizontalAlignment = .left
         maniacButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 0)
         
-        maniacButton.backgroundColor = UIColor(hex: "#FFFCD6")
+        maniacButton.backgroundColor = UIColor(hex: "#FFCDC5")
         maniacButton.layer.cornerRadius = 16
         maniacButton.layer.borderWidth = 3
-        maniacButton.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+        maniacButton.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
         
         maniacButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
@@ -120,16 +115,16 @@ class FirstTasteTestViewController: UIViewController {
             if Btn == sender {
                 // 만약 현재 버튼이 이 함수를 호출한 버튼이라면
                 Btn.isSelected = true
-                Btn.backgroundColor = UIColor(hex: "#FFEA75")
+                Btn.backgroundColor = UIColor(hex: "#FF9F8E")
                 Btn.layer.cornerRadius = 16
                 Btn.layer.borderWidth = 0
             } else {
                 // 이 함수를 호출한 버튼이 아니라면
                 Btn.isSelected = false
-                Btn.backgroundColor = UIColor(hex: "#FFFCD6")
+                Btn.backgroundColor = UIColor(hex: "#FFCDC5")
                 Btn.layer.cornerRadius = 16
                 Btn.layer.borderWidth = 3
-                Btn.layer.borderColor = UIColor(hex: "#FFF3C2")?.cgColor
+                Btn.layer.borderColor = UIColor(hex: "#FF9F8E")?.cgColor
             }
         }
         // 선택된 버튼에 따른 다음 버튼 활성화
@@ -141,7 +136,14 @@ class FirstTasteTestViewController: UIViewController {
         if newbeeButton.isSelected || maniacButton.isSelected {
             nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
             nextButton.isEnabled = true
-            nextButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
+            nextButton.backgroundColor = UIColor(hex: "FA735B")
+            
+            // 버튼 선택 결과 전달
+            if newbeeButton.isSelected {
+                SelectionManager.shared.setNewbie(answer: true)
+            } else if maniacButton.isSelected {
+                SelectionManager.shared.setNewbie(answer: false)
+            }
         } else {
             nextButton.removeTarget(nil, action: nil, for: .allEvents)
             nextButton.isEnabled = false
@@ -152,12 +154,12 @@ class FirstTasteTestViewController: UIViewController {
     private func configureNextButton() {
         nextButton.setTitle("다음", for: .normal)
         nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        nextButton.setTitleColor(.black, for: .normal)
+        nextButton.setTitleColor(.white, for: .normal)
         nextButton.contentHorizontalAlignment = .center
         
         nextButton.setImage(UIImage(named: "icon_next"), for: .normal)
         nextButton.imageView?.contentMode = .center
-        nextButton.tintColor = UIColor(hex: "#767676")
+        nextButton.tintColor = .white
         nextButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 105, bottom: 0, right: 0)
         
         nextButton.backgroundColor = UIColor(hex: "#E2E2E2")
