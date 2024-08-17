@@ -22,16 +22,11 @@ class RecomCollectionViewCell: UICollectionViewCell {
         l1.font = .systemFont(ofSize: 14, weight: .bold)
         l1.textColor = .black
         l1.numberOfLines = 0
+        l1.adjustsFontSizeToFitWidth = true
+        l1.minimumScaleFactor = 0.5
         return l1
     }()
-    
-//    private let label2: UILabel = {
-//        let l2 = UILabel()
-//        l2.font = .systemFont(ofSize: 10, weight: .regular)
-//        l2.textColor = .black
-//        return l2
-//    }()
-    
+        
     private let view: UIView = {
         let v = UIView()
         v.backgroundColor = UIColor(hue: 0.0417, saturation: 0.19, brightness: 1, alpha: 0.7)
@@ -64,13 +59,10 @@ class RecomCollectionViewCell: UICollectionViewCell {
         label1.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.leading).offset(9)
             make.top.equalTo(view.snp.top).offset(10)
+            make.width.lessThanOrEqualToSuperview().inset(10)
+            make.height.lessThanOrEqualTo(30)
         }
-        
-//        label2.snp.makeConstraints { make in
-//            make.leading.equalTo(label1.snp.leading)
-//            make.top.equalTo(view.snp.top).offset(28)
-//        }
-        
+            
         view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(imageView.snp.bottom)
