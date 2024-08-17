@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import SnapKit
+import AuthenticationServices
 
-class SelectLoginViewController: UIViewController {
+class SelectLoginViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
 
     let loginButton = UIButton(type: .system)
     
     let kakaoButton = UIButton(type: .system)
-    let appleButton = UIButton(type: .system)
+    let appleButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
     
     let joinButton = UIButton(type: .system)
     
@@ -129,20 +131,78 @@ class SelectLoginViewController: UIViewController {
     }
     
     private func configureAppleButton() {
-        appleButton.setTitle("애플 로그인", for: .normal)
-        appleButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        appleButton.setTitleColor(.white, for: .normal)
-        appleButton.contentHorizontalAlignment = .center
-        
-        appleButton.setImage(UIImage(named: "apple")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        appleButton.tintColor = .white
-        appleButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -30, bottom: 0, right: 0)
-        
-        appleButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
-        appleButton.layer.cornerRadius = 16
-        appleButton.layer.borderWidth = 2
-        appleButton.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
+        appleButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
     }
+    
+    //MARK: - Apple Login delegate
+    @objc
+    func handleAuthorizationAppleIDButtonPress() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            
+            if  let authorizationCode = appleIDCredential.authorizationCode,
+                let identityToken = appleIDCredential.identityToken,
+                let authCodeString = String(data: authorizationCode, encoding: .utf8),
+                let identifyTokenString = String(data: identityToken, encoding: .utf8) {
+                print("authorizationCode: \(authorizationCode)\n")
+                print("identityToken: \(identityToken)\n")
+                print("authCodeString: \(authCodeString)\n")
+                print("identifyTokenString: \(identifyTokenString)\n")
+            }
+            
+            print("useridentifier: \(userIdentifier)")
+            print("fullName: \(fullName)")
+            print("email: \(email)")
+            
+            // move to MainPage
+            goToNextView()
+            
+        case let passwordCredential as ASPasswordCredential:
+            // Sign in using an existing iCloud Keychain credential.
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+            
+            print("username: \(username)")
+            print("password: \(password)")
+        default:
+            break
+        }
+    }
+    
+    private func goToNextView() {
+        if LoginViewController.isFirstLogin {
+            let enterTasteTestViewController = EnterTasteTestViewController()
+            navigationController?.pushViewController(enterTasteTestViewController, animated: true)
+        } else {
+            let homeViewController = HomeViewController()
+            navigationController?.pushViewController(homeViewController, animated: true)
+        }
+        
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // 로그인 실패(유저의 취소도 포함)
+        print("login failed - \(error.localizedDescription)")
+    }
+    
     
     private func configureJoinButton() {
         joinButton.setTitle("회원가입", for: .normal)

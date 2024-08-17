@@ -8,6 +8,7 @@
 import UIKit
 
 class TasteTestFirstCollectionViewCell: UICollectionViewCell {
+    var kindEngName : String = ""
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.layer.cornerRadius = 10
@@ -52,10 +53,11 @@ class TasteTestFirstCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(imageName: String) {
+    func configure(imageName: String, kindName : String) {
         if let image = UIImage(named: imageName) {
             self.name.text = imageName
             imageView.image = image
+            self.kindEngName = kindName
         }
     }
 }
