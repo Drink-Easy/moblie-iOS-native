@@ -43,15 +43,15 @@ class StartLoginCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        self.contentView.addSubview(imageView)
-        self.contentView.addSubview(label1)
-        self.contentView.addSubview(label2)
+        let safeView = UIView()
+        self.contentView.addSubview(safeView)
+        
+        safeView.addSubview(imageView)
+        safeView.addSubview(label1)
+        safeView.addSubview(label2)
         
         imageView.snp.makeConstraints { make in
-            make.top.equalTo(contentView).offset(50)
-            make.centerX.equalToSuperview()
-            //make.width.equalTo(325)
-            //make.height.equalTo(300)
+            make.centerX.centerY.equalToSuperview()
         }
         
         label1.snp.makeConstraints { make in
@@ -63,6 +63,15 @@ class StartLoginCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(label1.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
         }
+        
+        safeView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-50)
+        }
+        
+        
+        
+        
         
     }
     

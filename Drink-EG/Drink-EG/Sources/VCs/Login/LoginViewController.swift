@@ -117,7 +117,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
         idTextField.snp.makeConstraints { make in
             make.top.equalTo(idLabel.snp.bottom).offset(10)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
-            make.height.greaterThanOrEqualTo(60)
+            make.height.equalTo(60)
         }
         
         view.addSubview(pwLabel)
@@ -164,7 +164,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
         
         view.addSubview(joinStackView)
         joinStackView.snp.makeConstraints { make in
-            make.top.equalTo(loginButton.snp.bottom).offset(250)
+//            make.top.equalTo(loginButton.snp.bottom).offset(250)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
             make.width.greaterThanOrEqualTo(200)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(25)

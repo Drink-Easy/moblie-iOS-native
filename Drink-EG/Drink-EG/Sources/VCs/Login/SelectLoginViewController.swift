@@ -56,7 +56,7 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
         imageView.snp.makeConstraints { make in
             make.centerX.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
-            make.width.greaterThanOrEqualTo(165)
+            make.width.lessThanOrEqualTo(165)
             make.height.equalTo(imageView.snp.width)
         }
 
@@ -76,7 +76,7 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
         loginButton.snp.makeConstraints { make in
             make.top.equalTo(buttonStackView.snp.bottom).offset(70)
             make.leading.trailing.equalTo(buttonStackView)
-            make.height.greaterThanOrEqualTo(60)
+            make.height.equalTo(60)
         }
         
         let joinStackView = UIStackView(arrangedSubviews: [label, joinButton])
@@ -86,7 +86,7 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
         
         view.addSubview(joinStackView)
         joinStackView.snp.makeConstraints { make in
-            make.top.equalTo(loginButton.snp.bottom).offset(50)
+//            make.top.equalTo(loginButton.snp.bottom).offset(50)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(25)
         }

@@ -108,7 +108,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         idTextField.snp.makeConstraints { make in
             make.top.equalTo(idLabel.snp.bottom).offset(10)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
-            make.height.greaterThanOrEqualTo(60)
+            make.height.equalTo(60)
         }
         
         view.addSubview(pwLabel)
@@ -151,7 +151,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         
         view.addSubview(loginStackView)
         loginStackView.snp.makeConstraints { make in
-            make.top.equalTo(joinButton.snp.bottom).offset(227)
+//            make.top.equalTo(joinButton.snp.bottom).offset(227)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
             make.width.greaterThanOrEqualTo(180)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(25)

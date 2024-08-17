@@ -46,7 +46,7 @@ class EnterLoginViewController: UIViewController {
         view.addSubview(startButton)
         startButton.snp.makeConstraints { make in
             make.top.equalTo(pageControl.snp.bottom).offset(32)
-            make.centerX.equalToSuperview()
+//            make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
             make.height.greaterThanOrEqualTo(60)
