@@ -91,7 +91,7 @@ class WineInfoViewController: UIViewController {
         l.textColor = .black
         l.numberOfLines = 0
         l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
-        l.minimumScaleFactor = 0.5
+        l.minimumScaleFactor = 0.7
         return l
     }()
     
@@ -106,18 +106,9 @@ class WineInfoViewController: UIViewController {
     
     private let score: UILabel = {
         let l = UILabel()
-        l.text = "4.5"
         l.font = .boldSystemFont(ofSize: 12)
-        l.textColor = UIColor(hex: "#767676")
+        l.textColor = UIColor(hex: "#FA735B")
         return l
-    }()
-    
-    private let color: UIView = {
-        let v = UIView()
-        v.backgroundColor = UIColor(hex: "#BA2121")
-        v.layer.cornerRadius = 11
-        v.layer.masksToBounds = true
-        return v
     }()
     
     private let tastingNoteView: UIView = {
@@ -295,7 +286,7 @@ class WineInfoViewController: UIViewController {
         name.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(11)
             make.leading.equalTo(imageView.snp.trailing).offset(20)
-            make.width.lessThanOrEqualTo(220)
+            make.width.lessThanOrEqualTo(205)
             make.height.lessThanOrEqualTo(40)
         }
         
@@ -307,15 +298,8 @@ class WineInfoViewController: UIViewController {
         
         infoView.addSubview(score)
         score.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().inset(25)
-        }
-        
-        infoView.addSubview(color)
-        color.snp.makeConstraints { make in
-            make.top.equalTo(score.snp.bottom).offset(14)
-            make.trailing.equalToSuperview().inset(23)
-            make.width.height.equalTo(22)
+            make.top.equalTo(name.snp.top)
+            make.trailing.equalToSuperview().inset(15)
         }
         
         contentView.addSubview(tastingNoteView)
@@ -448,7 +432,7 @@ extension WineInfoViewController {
                         self.finish = responseData.result.scentFinish[0]
                     }
                     let scoreString: String = String(responseData.result.rating)
-                    self.score.text = scoreString
+                    self.score.text = "★ \(scoreString)"
                     completion(true)
                 } catch {
                     print("Failed to decode response: \(error)")

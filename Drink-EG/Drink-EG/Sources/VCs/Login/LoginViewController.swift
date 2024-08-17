@@ -22,9 +22,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
     let loginButton = UIButton(type: .system)
     let joinButton = UIButton(type: .system)
     
-    let kakaoButton = UIButton(type: .system)
-    let appleButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
-    
     let idStoreButton = UIButton(type: .custom)
     private let checkImage = UIImage(named: "icon_check_fill")
     private let ncheckImage = UIImage(named: "icon_check_nfill")
@@ -37,7 +34,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
     private let notYetLabel: UILabel = {
         let l = UILabel()
         l.text = "아직 회원이 아니신가요?"
-        l.textColor = UIColor(hue: 0, saturation: 0, brightness: 0.71, alpha: 1.0)
+        l.textColor = UIColor(hex: "#B7B7B7")
         l.font = UIFont.boldSystemFont(ofSize: 14)
         
         return l
@@ -105,38 +102,35 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
     private func setupUI() {
         configureLoginButton()
         configureJoinButton()
-        configureKakaoButton()
-        configureAppleButton()
         configureIdStoreButton()
         configureIdSearchButton()
         configureIdTextField()
         configurePwTextField()
-        
-        let joinStackView = UIStackView(arrangedSubviews: [notYetLabel, joinButton])
-        joinStackView.axis = .horizontal
-        joinStackView.distribution = .fillProportionally
-        joinStackView.spacing = 4
-        
-        view.addSubview(joinStackView)
-        joinStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(771)
-            make.leading.trailing.equalTo(view).inset(96)
-            make.width.equalTo(190)
-            make.height.equalTo(22)
+            
+        view.addSubview(idLabel)
+        idLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(53)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(43)
         }
         
-        let buttonStackView = UIStackView(arrangedSubviews: [kakaoButton, appleButton])
-        buttonStackView.axis = .vertical
-        buttonStackView.distribution = .fillEqually
-        buttonStackView.spacing = 13
-        
-        view.addSubview(buttonStackView)
-        buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(joinStackView.snp.bottom).offset(50)
-            make.leading.trailing.equalToSuperview().inset(100)
-            make.centerX.equalToSuperview()
-            make.width.greaterThanOrEqualTo(173)
+        view.addSubview(idTextField)
+        idTextField.snp.makeConstraints { make in
+            make.top.equalTo(idLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
             make.height.greaterThanOrEqualTo(60)
+        }
+        
+        view.addSubview(pwLabel)
+        pwLabel.snp.makeConstraints { make in
+            make.top.equalTo(idTextField.snp.bottom).offset(20)
+            make.leading.equalTo(idLabel)
+        }
+        
+        view.addSubview(pwTextField)
+        pwTextField.snp.makeConstraints { make in
+            make.top.equalTo(pwLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(idTextField)
+            make.height.equalTo(idTextField)
         }
         
         let idStoreStackView = UIStackView(arrangedSubviews: [idStoreButton, idStoreLabel])
@@ -146,65 +140,44 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
         
         view.addSubview(idStoreStackView)
         idStoreStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(368)
-            make.leading.equalTo(view).offset(43)
-            make.width.equalTo(110)
-            make.height.equalTo(22)
-        }
-        
-        view.addSubview(idLabel)
-        idLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(140)
-            make.leading.equalTo(view).offset(43)
-        }
-        
-        view.addSubview(idTextField)
-        idTextField.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(172)
-            make.leading.trailing.equalTo(view).inset(33)
-            make.width.equalTo(327)
-            make.height.equalTo(60)
-        }
-        
-        view.addSubview(pwLabel)
-        pwLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(252)
-            make.leading.equalTo(view).offset(43)
-        }
-        
-        view.addSubview(pwTextField)
-        pwTextField.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(284)
-            make.leading.trailing.equalTo(view).inset(33)
-            make.width.equalTo(327)
-            make.height.equalTo(60)
-        }
-        
-        view.addSubview(loginButton)
-        loginButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(461)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
+            make.top.equalTo(pwTextField.snp.bottom).offset(24)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(43)
         }
         
         view.addSubview(idSearchButton)
         idSearchButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(368)
-            make.trailing.equalTo(view).inset(43)
-            make.width.equalTo(117)
-            make.height.equalTo(22)
+            make.top.equalTo(idStoreStackView)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
+        }
+        
+        view.addSubview(loginButton)
+        loginButton.snp.makeConstraints { make in
+            make.top.equalTo(idStoreStackView).offset(71)
+            make.leading.trailing.equalTo(pwTextField)
+            make.height.equalTo(pwTextField)
+        }
+        
+        let joinStackView = UIStackView(arrangedSubviews: [notYetLabel, joinButton])
+        joinStackView.axis = .horizontal
+        joinStackView.distribution = .fillProportionally
+        joinStackView.spacing = 6
+        
+        view.addSubview(joinStackView)
+        joinStackView.snp.makeConstraints { make in
+            make.top.equalTo(loginButton.snp.bottom).offset(250)
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.width.greaterThanOrEqualTo(200)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(25)
         }
     }
     
     private func configureLoginButton() {
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        loginButton.setTitleColor(.black, for: .normal)
+        loginButton.setTitleColor(.white, for: .normal)
         loginButton.contentHorizontalAlignment = .center
         
-        loginButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
+        loginButton.backgroundColor = UIColor(hex: "#FF6F62")
         loginButton.layer.cornerRadius = 16
         loginButton.layer.borderWidth = 0
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
@@ -246,7 +219,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
     private func configureJoinButton() {
         joinButton.setTitle("회원가입", for: .normal)
         joinButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        joinButton.setTitleColor(UIColor(hex: "#FFEA75"), for: .normal)
+        joinButton.setTitleColor(UIColor(hex: "#FF6F62"), for: .normal)
         joinButton.contentHorizontalAlignment = .center
         
         joinButton.backgroundColor = .clear
@@ -256,21 +229,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
     @objc private func joinButtonTapped() {
         let joinViewController = JoinViewController()
         navigationController?.pushViewController(joinViewController, animated: true)
-    }
-    
-    private func configureKakaoButton() {
-        //카카오 이미지를 아이콘 포멧 이미지에 맞게 바꿈
-        kakaoButton.setImage(UIImage(named: "kakao")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        kakaoButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
-        kakaoButton.layer.cornerRadius = 16
-        kakaoButton.layer.borderWidth = 2
-        kakaoButton.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
-        
-    }
-    
-    private func configureAppleButton() {
-        appleButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
     }
     
     //MARK: - Apple Login delegate
@@ -392,9 +350,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
         // 텍스트 필드가 선택되었을 때 배경색 변경
-        textField.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 0.2)
+        textField.backgroundColor = UIColor(hue: 0.0111, saturation: 0.61, brightness: 1, alpha: 0.2)
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor(hex: "#FFEA75")?.cgColor
+        textField.layer.borderColor = UIColor(hex: "#FF6F62")?.cgColor
         if textField.tag == 1 {
             textField.setIdIcon(UIImage(named: "icon_person_fill")!)
         }

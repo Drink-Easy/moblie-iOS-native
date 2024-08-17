@@ -23,7 +23,7 @@ class RecomCollectionViewCell: UICollectionViewCell {
         l1.textColor = .black
         l1.numberOfLines = 0
         l1.adjustsFontSizeToFitWidth = true
-        l1.minimumScaleFactor = 0.5
+        l1.minimumScaleFactor = 0.7
         return l1
     }()
         
@@ -36,6 +36,12 @@ class RecomCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        layer.shadowOpacity = 0.3
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowRadius = 5
+        layer.masksToBounds = false
         setupUI()
     }
     
@@ -51,6 +57,7 @@ class RecomCollectionViewCell: UICollectionViewCell {
 //        self.contentView.addSubview(label2)
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.masksToBounds = true
+
   
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

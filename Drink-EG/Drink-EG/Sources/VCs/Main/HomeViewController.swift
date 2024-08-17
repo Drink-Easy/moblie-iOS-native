@@ -40,7 +40,7 @@ class HomeViewController: UIViewController {
     let goToNoteButton = UIButton(type: .system)
     let firstLine = UILabel()
     let NoteLabel = UILabel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,17 +55,17 @@ class HomeViewController: UIViewController {
                 print("GET 호출 실패")
             }
         }
-
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-            
+        
         // 버튼 하단에 노란색으로 칠하는 layer 추가
         let Layer = CALayer()
         Layer.frame = CGRect(x: 0, y: 72, width: goToNoteButton.frame.width, height: goToNoteButton.frame.height - 72)
         Layer.backgroundColor = UIColor(hue: 0.0417, saturation: 0.19, brightness: 1, alpha: 0.8).cgColor
-                    
+        
         // 버튼에 layer 추가
         goToNoteButton.layer.addSublayer(Layer)
         
@@ -106,20 +106,20 @@ class HomeViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
-                
+        
         view.addSubview(stackView)
-                
+        
         // SnapKit을 사용하여 제약 조건 설정
         stackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(34)
         }
-                
+        
         searchButton.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.88)
         }
-                
+        
         cartButton.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.12)
         }
@@ -139,10 +139,10 @@ class HomeViewController: UIViewController {
             make.height.greaterThanOrEqualTo(scrollView.snp.height).priority(.low)
             make.width.equalTo(scrollView.frameLayoutGuide)
         }
-                
+        
         contentView.addSubview(AdImageCollectionView)
         contentView.addSubview(pageControl)
-                                
+        
         AdImageCollectionView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(10)
             make.centerX.equalToSuperview()
@@ -150,7 +150,7 @@ class HomeViewController: UIViewController {
             make.width.equalTo(356)
             make.height.equalTo(247)
         }
-                
+        
         pageControl.snp.makeConstraints { make in
             make.top.equalTo(AdImageCollectionView.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
@@ -170,6 +170,7 @@ class HomeViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(AdImageCollectionView)
             make.height.equalTo(166)
+            
         }
         
         contentView.addSubview(NoteLabel)
@@ -194,7 +195,7 @@ class HomeViewController: UIViewController {
     private func configureSearchButton() {
         searchButton.setTitle(" 관심있는 와인을 검색해 보세요!", for: .normal)
         searchButton.setTitleColor(UIColor(hue: 0, saturation: 0, brightness: 0.45, alpha: 1.0), for: .normal)
-        searchButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12) 
+        searchButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         searchButton.contentHorizontalAlignment = .left
         searchButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 0)
         
@@ -215,17 +216,17 @@ class HomeViewController: UIViewController {
     
     private func configureCartButton() {
         cartButton.setTitle("", for: .normal)
-            
+        
         // 장바구니 이미지 설정
         let cartImage = UIImage(named: "icon_cart")
         cartButton.setImage(cartImage, for: .normal)
         cartButton.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1.0)
-            
+        
         // 장바구니 버튼의 레이아웃 설정
         cartButton.backgroundColor = .clear  // 배경색 제거
         cartButton.layer.cornerRadius = 0   // 모서리 반경 제거
         cartButton.layer.borderWidth = 0    // 테두리 제거
-            
+        
         // 버튼 액션 추가
         cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
     }
@@ -262,7 +263,7 @@ class HomeViewController: UIViewController {
         goToNoteButton.setImage(UIImage(named: "HomeGoToTastingNote")?.withRenderingMode(.alwaysOriginal), for: .normal)
         
         goToNoteButton.addTarget(self, action: #selector(noteButtonTapped), for: .touchUpInside)
-
+        
     }
     
     @objc private func noteButtonTapped() {
@@ -278,7 +279,7 @@ class HomeViewController: UIViewController {
         layout.minimumInteritemSpacing = 0
         layout.footerReferenceSize = .zero
         layout.headerReferenceSize = .zero
-                
+        
         // collection view setting
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.isScrollEnabled = true
@@ -288,11 +289,11 @@ class HomeViewController: UIViewController {
         cv.delegate = self
         cv.dataSource = self
         cv.tag = 1
-                
+        
         // UI setting
         cv.backgroundColor = .clear
         cv.layer.cornerRadius = 16
-                
+        
         return cv
     }()
     
@@ -306,6 +307,8 @@ class HomeViewController: UIViewController {
     lazy var RecomCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 10 // 셀 사이의 간격
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) // 컬렉션뷰의 양 끝에 패딩 추가
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(RecomCollectionViewCell.self, forCellWithReuseIdentifier: "RecomCollectionViewCell")
@@ -379,7 +382,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         }
         else if collectionView.tag == 2 {
-            return CGSize(width: collectionView.frame.height - 4, height: collectionView.frame.height)
+            return CGSize(width: ((collectionView.frame.height)*0.9), height: ((collectionView.frame.height)*0.9))
         }
         return CGSize.zero
     }
@@ -411,6 +414,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
     }
 }
-    
-    
+
+
 

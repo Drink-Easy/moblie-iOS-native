@@ -52,6 +52,14 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
         configureAppleButton()
         configureJoinButton()
         
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
+            make.width.greaterThanOrEqualTo(165)
+            make.height.equalTo(imageView.snp.width)
+        }
+
         let buttonStackView = UIStackView(arrangedSubviews: [kakaoButton, appleButton])
         buttonStackView.axis = .vertical
         buttonStackView.distribution = .fillEqually
@@ -59,10 +67,16 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
                 
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(449)
-            make.leading.trailing.equalToSuperview().inset(33)
-            make.width.equalTo(327)
-            make.height.equalTo(132)
+            make.top.equalTo(imageView.snp.bottom).offset(100)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
+            make.height.greaterThanOrEqualTo(132)
+        }
+        
+        view.addSubview(loginButton)
+        loginButton.snp.makeConstraints { make in
+            make.top.equalTo(buttonStackView.snp.bottom).offset(70)
+            make.leading.trailing.equalTo(buttonStackView)
+            make.height.greaterThanOrEqualTo(60)
         }
         
         let joinStackView = UIStackView(arrangedSubviews: [label, joinButton])
@@ -72,36 +86,19 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
         
         view.addSubview(joinStackView)
         joinStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(771)
-            make.leading.trailing.equalTo(view).inset(96)
-            make.width.equalTo(190)
-            make.height.equalTo(22)
-        }
-        
-        view.addSubview(loginButton)
-        loginButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(651)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
-        view.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.bottom.equalTo(buttonStackView.snp.top).offset(-100)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(165)
+            make.top.equalTo(loginButton.snp.bottom).offset(50)
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(25)
         }
     }
     
     private func configureLoginButton() {
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        loginButton.setTitleColor(.black, for: .normal)
+        loginButton.setTitleColor(.white, for: .normal)
         loginButton.contentHorizontalAlignment = .center
         
-        loginButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
+        loginButton.backgroundColor = UIColor(hex: "#FF6F62")
         loginButton.layer.cornerRadius = 16
         loginButton.layer.borderWidth = 0
         
@@ -207,7 +204,7 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
     private func configureJoinButton() {
         joinButton.setTitle("회원가입", for: .normal)
         joinButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        joinButton.setTitleColor(UIColor(hex: "#FFEA75"), for: .normal)
+        joinButton.setTitleColor(UIColor(hex: "#FF6F62"), for: .normal)
         joinButton.contentHorizontalAlignment = .center
         
         joinButton.backgroundColor = .clear
