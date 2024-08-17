@@ -10,6 +10,7 @@ import UIKit
 class ThirdNationTasteTestViewController: UIViewController {
 
     var nation: [String] = ["프랑스", "이탈리아", "미국", "칠레", "스페인", "호주", "아르헨티나", "독일", "뉴질랜드", "포르투갈", "오스트리아", "그리스", "슬로베니아", "헝가리", "캐나다", "대한민국", "기타1"]
+    var nationEng: [String] = ["France", "Italy", "United States", "Chile", "Spain", "Australia", "Argentina", "Germany", "New Zealand", "Portugal", "Austria", "Greece", "Slovenia", "Hungary", "Canada", "South Korea", "Other"]
     var selectedIndexPaths: [IndexPath] = []
     private var selectedNations : [String] = []
     
@@ -148,7 +149,7 @@ extension ThirdNationTasteTestViewController: UICollectionViewDataSource, UIColl
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TasteTestSecondCollectionViewCell", for: indexPath) as! TasteTestSecondCollectionViewCell
             
-        cell.configure(imageName: nation[indexPath.item])
+        cell.configure(imageName: nation[indexPath.item], nationName: nationEng[indexPath.item])
         
         return cell
     }
@@ -162,7 +163,7 @@ extension ThirdNationTasteTestViewController: UICollectionViewDataSource, UIColl
                 
                 // 선택된 셀의 indexPath를 배열에 추가
                 selectedIndexPaths.append(indexPath)
-                selectedNations.append(cell.name.text ?? "")
+                selectedNations.append(cell.nationEngName)
                 
             } else {
                 // 셀이 이미 선택된 상태였을 때 (다시 클릭하면 원래대로)
@@ -173,7 +174,7 @@ extension ThirdNationTasteTestViewController: UICollectionViewDataSource, UIColl
                     selectedIndexPaths.remove(at: index)
                 }
                 
-                selectedNations = selectedNations.filter{$0 != (cell.name.text ?? "")}
+                selectedNations = selectedNations.filter{$0 != (cell.nationEngName)}
             }
                 
             // nextButton의 상태 업데이트
