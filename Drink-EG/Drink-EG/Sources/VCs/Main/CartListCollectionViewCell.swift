@@ -21,8 +21,8 @@ class CartListCollectionViewCell: UICollectionViewCell {
     private let CheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nCheckImage = UIImage(named: "icon_cartCheck_nfill")
     private let CheckButton = UIButton(type: .custom)
-    private var shop = "PODO"
-    private var price = 27000
+    var shop = "PODO"
+    var price = 27000
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
@@ -263,11 +263,15 @@ class CartListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure1(imageName: String) {
+    func configure1(imageName: String, wineName: String, price: Int, count: Int, shopName: String) {
         if let image = UIImage(named: imageName) {
-            self.name.text = imageName
             imageView.image = image
         }
+        
+        self.name.text = wineName
+        self.price = price
+        self.quantity = count
+        self.shop = shopName
     }
     func configure2(isSelected: Bool) {
         CheckButton.isSelected = isSelected

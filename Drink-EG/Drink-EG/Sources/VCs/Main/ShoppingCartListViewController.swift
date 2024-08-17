@@ -16,8 +16,10 @@ class ShoppingCartListViewController: UIViewController {
     
     var selectedStore: String?
     
-    private var CartContents: [String] = ["Red Label", "Castello Monaci", "Loxton", "Samos", "Vendredi"]
+    private var CartContents: [ShoppingObject] = ShoppingListManager.shared.myCartWines
     private var itemsSelectedState: [Bool] = []
+    
+    private var totalSum : Int = 0
     
     private let allCheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nAllCheckImage = UIImage(named: "icon_cartCheck_nfill")
@@ -42,9 +44,9 @@ class ShoppingCartListViewController: UIViewController {
         return b
     }()
     
-    private let buyButton: UIButton = {
+    lazy var buyButton: UIButton = {
         let b = UIButton(type: .system)
-        b.setTitle("50,000원 구매하기", for: .normal)
+        b.setTitle("\(totalSum)원 구매하기", for: .normal)
         b.setTitleColor(.white, for: .normal)
         b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         b.contentHorizontalAlignment = .center
@@ -180,7 +182,10 @@ extension ShoppingCartListViewController: UICollectionViewDataSource, UICollecti
             self.navigationController?.pushViewController(wineStoreListViewController, animated: true)
         }
             
-        cell.configure1(imageName: CartContents[indexPath.item])
+        // 셀마다 데이터 넣어줌
+        cell.configure1(imageName: CartContents[indexPath.row].wineData.wine.name)
+//        cell.configure1(imageName: CartContents[indexPath.row].wineData.wine.imageUrl)
+        
         cell.configure2(isSelected: itemsSelectedState[indexPath.item])
         
         return cell

@@ -53,6 +53,8 @@
 		16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */; };
 		16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */; };
 		16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */; };
+		16C19AA62C70B67200E93FD0 /* ShoppingListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */; };
+		16C19AA92C70B8D500E93FD0 /* UserWineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AA82C70B8D500E93FD0 /* UserWineData.swift */; };
 		1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */; };
 		1F205A332C69FE9800E80659 /* JoinNLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */; };
 		1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */; };
@@ -181,6 +183,8 @@
 		16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingVideoViewController.swift; sourceTree = "<group>"; };
 		16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoViewController.swift; sourceTree = "<group>"; };
 		16C19AA12C70723200E93FD0 /* Drink-EG.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Drink-EG.entitlements"; sourceTree = "<group>"; };
+		16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListManager.swift; sourceTree = "<group>"; };
+		16C19AA82C70B8D500E93FD0 /* UserWineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWineData.swift; sourceTree = "<group>"; };
 		1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNLoginRequest.swift; sourceTree = "<group>"; };
 		1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseLoginResponse.swift; sourceTree = "<group>"; };
@@ -268,6 +272,7 @@
 		165400F42C69EEE6008A9DBF /* Datas */ = {
 			isa = PBXGroup;
 			children = (
+				16C19AA72C70B8B700E93FD0 /* ShoppingCart */,
 				165401512C6FC558008A9DBF /* User */,
 				1F8F99F62C6F52A100EAEF6C /* Search */,
 				165401022C69F305008A9DBF /* WineClass */,
@@ -463,6 +468,7 @@
 			children = (
 				165401052C69FA97008A9DBF /* APIResponseModels */,
 				1654010A2C6BACDC008A9DBF /* SelectionManager.swift */,
+				16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -571,6 +577,14 @@
 				1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		16C19AA72C70B8B700E93FD0 /* ShoppingCart */ = {
+			isa = PBXGroup;
+			children = (
+				16C19AA82C70B8D500E93FD0 /* UserWineData.swift */,
+			);
+			path = ShoppingCart;
 			sourceTree = "<group>";
 		};
 		1F598EEF2C58136B000CE79F /* Login */ = {
@@ -778,6 +792,7 @@
 				5E2219422C69D5D0005849FB /* CustomCommentsCollectionView.swift in Sources */,
 				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
 				1F205A3F2C6B37BF00E80659 /* TasteTestFirstCollectionViewCell.swift in Sources */,
+				16C19AA92C70B8D500E93FD0 /* UserWineData.swift in Sources */,
 				165400EB2C69DDD9008A9DBF /* WineClassBookmarkAPI.swift in Sources */,
 				1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */,
 				5E2219372C69D5AE005849FB /* UIColorToHexCode.swift in Sources */,
@@ -800,6 +815,7 @@
 				5E2219452C69D5D0005849FB /* CommunityInfoViewController.swift in Sources */,
 				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
 				1F8F99F32C6F386B00EAEF6C /* SearchAPI.swift in Sources */,
+				16C19AA62C70B67200E93FD0 /* ShoppingListManager.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 				5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */,
 				1654014C2C6F41B0008A9DBF /* ContentView.swift in Sources */,
