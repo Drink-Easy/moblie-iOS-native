@@ -18,27 +18,7 @@ class WineShopListCollectionViewCell: UICollectionViewCell {
         return l1
     }()
     
-    private let distance: UILabel = {
-        let l2 = UILabel()
-        
-        let imageAttachment = NSTextAttachment()
-        imageAttachment.image = UIImage(named: "icon_location")
-        
-        let imageOffsetY: CGFloat = -2.0 // 텍스트와 이미지의 정렬을 맞추기 위해 조정합니다.
-        imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 10, height: 14) // 이미지의 크기를 설정합니다.
-        
-        let completeText = NSMutableAttributedString(string: "")
-        
-        let attachmentString = NSAttributedString(attachment: imageAttachment)
-        completeText.append(attachmentString)
-
-        // 매장 텍스트 추가
-        let text = NSAttributedString(string: " 2.3 km", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
-        completeText.append(text)
-        l2.attributedText = completeText
-        l2.textColor = UIColor(hex: "#FF7A6D")
-        return l2
-    }()
+    private let distance = UILabel()
     
     private let address: UILabel = {
         let l3 = UILabel()
@@ -65,7 +45,27 @@ class WineShopListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    fileprivate func setDistanceText(_ textData : String) {
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = UIImage(named: "icon_location")
+        
+        let imageOffsetY: CGFloat = -2.0 // 텍스트와 이미지의 정렬을 맞추기 위해 조정합니다.
+        imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 10, height: 14) // 이미지의 크기를 설정합니다.
+        
+        let completeText = NSMutableAttributedString(string: "")
+        
+        let attachmentString = NSAttributedString(attachment: imageAttachment)
+        completeText.append(attachmentString)
+        
+        // 매장 텍스트 추가
+        let text = NSAttributedString(string: " \(textData) km", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        completeText.append(text)
+        distance.attributedText = completeText
+        distance.textColor = UIColor(hex: "#FF7A6D")
+    }
+    
     private func setupUI() {
+        setDistanceText("0.0")
         
         self.contentView.addSubview(shopName)
         self.contentView.addSubview(distance)
@@ -98,7 +98,10 @@ class WineShopListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(name: String) {
-        self.shopName.text = name
+    func configure(shop : ShopData) {
+        self.shopName.text = shop.name
+        self.address.text = shop.address
+        setDistanceText("\(shop.distanceToUser)")
+        self.price.text = "\(shop.price) ₩"
     }
 }

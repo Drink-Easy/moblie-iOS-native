@@ -18,13 +18,13 @@ class WineStoreListViewController: UIViewController {
     var scoreDouble = 4.5
     var wineImage: String?
     
-    private var WineShopContents: [String] = ["PODO", "루바토 와인", "버건디", "와인나우", "보데가 와인"]
+//    private var WineShopContents: [String] = ["PODO", "루바토 와인", "버건디", "와인나우", "보데가 와인"]
     var whineShopList : [ShopData] = [
         ShopData(name: "PODO", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 27000),
-        ShopData(name: "루바토 와인", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 30000),
-        ShopData(name: "버건디", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 28400),
-        ShopData(name: "와인나우", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 74280),
-        ShopData(name: "보데가 와인", address: "서울특별시 마포구 와우산로 94", distanceToUser: 1.2, price: 91500)
+        ShopData(name: "루바토 와인", address: "서울특별시 종로구 자하문로 6", distanceToUser: 3.2, price: 30000),
+        ShopData(name: "버건디", address: "서울특별시 동대문구 장안로 31", distanceToUser: 10.3, price: 28400),
+        ShopData(name: "와인나우", address: "서울특별시 송파구 잠실대로 25", distanceToUser: 5.3, price: 74280),
+        ShopData(name: "보데가 와인", address: "서울특별시 영등포구 국제금융로 16", distanceToUser: 4.2, price: 91500)
     ]
     
     private let label: UILabel = {
@@ -142,20 +142,19 @@ class WineStoreListViewController: UIViewController {
 
 extension WineStoreListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return WineShopContents.count
+        return whineShopList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WineShopListCollectionViewCell", for: indexPath) as! WineShopListCollectionViewCell
         
-        cell.configure(name: WineShopContents[indexPath.item])
+        cell.configure(shop: whineShopList[indexPath.row])
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         if let previousViewController = navigationController?.viewControllers.dropLast().last {
             if previousViewController is WineInfoViewController {
                 let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell

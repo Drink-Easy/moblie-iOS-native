@@ -140,7 +140,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func configureMarketNPlace() {
+    private func configureMarketNPlace(_ shopName: String, _ priceInt: Int, _ count: Int) {
         let firstImageAttachment = NSTextAttachment()
         firstImageAttachment.image = UIImage(named: "icon_market")
         
@@ -160,7 +160,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         completeText.append(firstAttachmentString)
 
         // 매장 텍스트 추가
-        let textBeforeSecondImage = NSAttributedString(string: " \(shop)  ", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        let textBeforeSecondImage = NSAttributedString(string: " \(shopName)  ", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
         completeText.append(textBeforeSecondImage)
 
         // 두 번째 이미지 추가
@@ -168,7 +168,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         completeText.append(secondAttachmentString)
 
         // 가격 텍스트 추가
-        let textAfterSecondImage = NSAttributedString(string: "  \(price * quantity) ₩", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        let textAfterSecondImage = NSAttributedString(string: "  \(priceInt * count) ₩", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
         completeText.append(textAfterSecondImage)
 
         marketNprice.attributedText = completeText
@@ -187,7 +187,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
     //레이아웃까지
     private func setupUI() {
         configureCheckButton()
-        configureMarketNPlace()
+        configureMarketNPlace(self.shop, self.price, self.quantity)
         
         self.contentView.addSubview(imageView)
         self.contentView.addSubview(name)
@@ -258,6 +258,8 @@ class CartListCollectionViewCell: UICollectionViewCell {
         self.price = price
         self.quantity = count
         self.shop = shopName
+        
+        self.configureMarketNPlace(shopName, price, count)
     }
     func configure2(isSelected: Bool) {
         CheckButton.isSelected = isSelected

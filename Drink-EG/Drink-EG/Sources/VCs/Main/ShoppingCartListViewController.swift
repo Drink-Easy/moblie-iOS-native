@@ -76,6 +76,12 @@ class ShoppingCartListViewController: UIViewController {
         return cv
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        CartContents = shoppingListManager.myCartWines
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,6 +94,9 @@ class ShoppingCartListViewController: UIViewController {
         view.backgroundColor = .white
         itemsSelectedState = Array(repeating: false, count: 20)
         setupUI()
+        DispatchQueue.main.async {
+            self.cartListCollectionView.reloadData()
+        }
     }
     
     func didSelectStore(_ store: String) {

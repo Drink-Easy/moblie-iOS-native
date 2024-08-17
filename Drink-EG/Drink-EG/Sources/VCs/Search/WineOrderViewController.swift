@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 class WineOrderViewController: UIViewController {
-    
     let shoppingManager = ShoppingListManager.shared
     
     private var quantity: Int = 1 {
@@ -319,10 +318,12 @@ class WineOrderViewController: UIViewController {
     }
     
     private func configureShopInfo() {
-        shopName.text = shop
-        address.text = shopAddr
-        distance.text = " \(distanceDouble) km"
-        price.text = "\(priceInt)"
+        if let shopdata = curShop {
+            shopName.text = shop
+            address.text = shopAddr
+            distance.text = " \(shopdata.distanceToUser) km"
+            price.text = "\(shopdata.price) ₩"
+        }
     }
     
     private func configureWineName() {
