@@ -9,7 +9,6 @@ import UIKit
 import Moya
  
 class ThirdVarietyTasteTestViewController: UIViewController {
-
     var variety: [String] = ["까베르네소비뇽", "샤도네이", "메를로", "까베르네프랑", "피노누아", "쉬라즈", "쇼비뇽 블랑", "그르나슈", "말벡", "산지오베제", "모스카토", "리슬링", "템프라니요", "네비올로", "블랜드", "쁘띠베르도", "무르베드르", "카르메너르", "기타"]
     var selectedIndexPaths: [IndexPath] = []
     private var selectedVariety : [String] = []
@@ -135,8 +134,16 @@ class ThirdVarietyTasteTestViewController: UIViewController {
     
     @objc private func startButtonTapped() {
         assignRequestDTO()
-        callAPI()
-        
+        callAPI() { [weak self] isSuccess in
+            if isSuccess {
+                self?.goToHomeView()
+            } else {
+                print("유저 정보 전송 실패")
+            }
+        }
+    }
+    
+    private func goToHomeView() {
         let mainTabBarViewController = MainTabBarViewController()
         navigationController?.pushViewController(mainTabBarViewController, animated: true)
     }
@@ -150,24 +157,38 @@ class ThirdVarietyTasteTestViewController: UIViewController {
                 isNewbie: selectionMng.isNewbie,
                 monthPrice: selectionMng.monthPrice,
                 wineSort: selectionMng.wineSort,
-                wineNation: selectionMng.wineNation,
+                wineArea: selectionMng.wineNation,
                 wineVariety: selectionMng.wineVariety,
                 region: selectionMng.userAddr,
-                userName: selectionMng.userName
+                name: selectionMng.userName
             )
         }
         
-        func callAPI() {
-            guard let memberInfoDTO = memberInfoDTO else { return }
-            provider.request(.patchMember(data: memberInfoDTO)) { result in
-                switch result {
-                case .success(let response):
-                    print("Success: \(response)")
-                case .failure(let error):
-                    print("Error: \(error)")
+        func callAPI(completion: @escaping (Bool) -> Void) {
+            if let data = self.memberInfoDTO {
+                provider.request(.patchMember(data: data)) { result in
+                    switch result {
+                    case .success(let response):
+                        do {
+                            let data = try response.map(APIResponseMemberResponse.self)
+                            print("Success: \(data)")
+                            LoginViewController.isFirstLogin = false
+                            completion(data.isSuccess)
+                        } catch {
+                            print("Failed to map data: \(error)")
+                            completion(false)
+                        }
+                    case .failure(let error):
+                            print("Request failed: \(error)")
+                            completion(false)
+                    }
                 }
+            } else {
+                print("유저 선택 정보가 없습니다.")
+                completion(false)
             }
         }
+    
 }
 
 extension ThirdVarietyTasteTestViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
