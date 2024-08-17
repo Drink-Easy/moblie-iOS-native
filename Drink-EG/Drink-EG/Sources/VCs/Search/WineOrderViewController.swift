@@ -20,6 +20,8 @@ class WineOrderViewController: UIViewController {
     
     var shop: String?
     var score = 4.5
+    var wineName: String = ""
+    var wineImage: UIImage?
     private let scoreLabel = UILabel()
     private let shopName = UILabel()
     
@@ -193,7 +195,8 @@ class WineOrderViewController: UIViewController {
     }
 
     private func setupUI() {
-        configureScore()
+        configureWineName()
+//        configureScore()
         configureShopName()
         
         view.addSubview(label)
@@ -223,11 +226,11 @@ class WineOrderViewController: UIViewController {
             make.leading.equalTo(image.snp.trailing).offset(22)
         }
         
-        view.addSubview(scoreLabel)
-        scoreLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(name)
-            make.leading.equalTo(name.snp.trailing).offset(18)
-        }
+//        view.addSubview(scoreLabel)
+//        scoreLabel.snp.makeConstraints { make in
+//            make.centerY.equalTo(name)
+//            make.leading.equalTo(name.snp.trailing).offset(18)
+//        }
         
         view.addSubview(infoView)
         infoView.snp.makeConstraints { make in
@@ -288,16 +291,21 @@ class WineOrderViewController: UIViewController {
         }
     }
     
-    private func configureScore() {
-        scoreLabel.text = "★ \(score)"
-        scoreLabel.font = .boldSystemFont(ofSize: 14)
-        scoreLabel.textColor = UIColor(hex: "#FA735B")
-    }
+//    private func configureScore() {
+//        scoreLabel.text = "★ \(score)"
+//        scoreLabel.font = .boldSystemFont(ofSize: 14)
+//        scoreLabel.textColor = UIColor(hex: "#FA735B")
+//    }
     
     private func configureShopName() {
         shopName.text = shop
         shopName.font = .boldSystemFont(ofSize: 18)
         shopName.textColor = .black
         shopName.numberOfLines = 0
+    }
+    
+    private func configureWineName() {
+        name.text = self.wineName
+        image.image = self.wineImage
     }
 }

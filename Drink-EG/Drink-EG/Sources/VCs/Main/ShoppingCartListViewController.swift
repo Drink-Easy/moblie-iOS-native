@@ -181,11 +181,14 @@ extension ShoppingCartListViewController: UICollectionViewDataSource, UICollecti
             let wineStoreListViewController = WineStoreListViewController()
             self.navigationController?.pushViewController(wineStoreListViewController, animated: true)
         }
-            
-        // 셀마다 데이터 넣어줌
-        cell.configure1(imageName: CartContents[indexPath.row].wineData.wine.name)
-//        cell.configure1(imageName: CartContents[indexPath.row].wineData.wine.imageUrl)
         
+        let data = CartContents[indexPath.row]
+        let wineName = data.wineData.wine.name
+        let shopName = data.wineData.shop.name
+        let price = data.wineData.shop.price
+        let count = data.count
+        
+        cell.configure1(imageName: wineName, wineName: wineName, price: price, count: count, shopName: shopName)
         cell.configure2(isSelected: itemsSelectedState[indexPath.item])
         
         return cell
