@@ -104,7 +104,6 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     let noteListLabel = UILabel() // 노트 보관함 Label
     var noteListGrid: UICollectionView! // 테이스팅 노트를 보관할 CollectionView
-    let images = ["Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci", "Castello Monaci"]
     var apiResult: [[String: String]] = []
     var cellCount: Int = 0
     
@@ -276,63 +275,13 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
         nextVC.value = data.satisfaction
         nextVC.dataList = dataList
         nextVC.selectedOptions = scentData
-        nextVC.selectedWineName = data.name
-        nextVC.selectedWineImage = data.picture
+        nextVC.selectedWineName = data.wineName
+        nextVC.selectedWineImage = data.imageUrl
+        nextVC.area = data.area
+        nextVC.sort = data.sort
         
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
-    
-//    func handleNoteDetailsResponse(_ response: Response) {
-//        do {
-//            if let jsonData = try response.mapJSON() as? [String: Any] {
-//                // 응답 데이터를 콘솔에 출력
-//                print("Response JSON: \(jsonData)")
-//                
-//                if let resultData = jsonData["result"] as? [String: Any] {
-//                    let scentAroma = (resultData["scentAroma"] as? [String] ?? []).map { $0.unescapedString }
-//                    let scentTaste = (resultData["scentTaste"] as? [String] ?? []).map { $0.unescapedString }
-//                    let scentFinish = (resultData["scentFinish"] as? [String] ?? []).map { $0.unescapedString }
-//                    
-//                    let review = (resultData["review"] as? String ?? "").unescapedString
-//                    let satisfaction = resultData["satisfaction"] as? Int ?? 0
-//                    let sugarContent = resultData["sugarContent"] as? Int ?? 0
-//                    let acidity = resultData["acidity"] as? Int ?? 0
-//                    let tannin = resultData["tannin"] as? Int ?? 0
-//                    let alcohol = resultData["alcohol"] as? Int ?? 0
-//                    let body = resultData["body"] as? Int ?? 0
-//                    let wineName = resultData["name"] as? String ?? ""
-//                    let wineImageUrl = resultData["picture"] as? String ?? ""
-//                    
-//                    let scentData: [String: [String]] = [
-//                        "scentAroma": scentAroma,
-//                        "scentTaste": scentTaste,
-//                        "scentFinish": scentFinish
-//                    ]
-//                    
-//                    let dataList: [RadarChartData] = [
-//                        RadarChartData(type: .acid, value: acidity),
-//                        RadarChartData(type: .tannin, value: tannin),
-//                        RadarChartData(type: .alcohol, value: alcohol),
-//                        RadarChartData(type: .bodied, value: body),
-//                        RadarChartData(type: .sweetness, value: sugarContent)
-//                    ]
-//                    
-//                    let nextVC = CheckNoteViewController()
-//                    nextVC.reviewString = review
-//                    nextVC.value = Double(satisfaction)
-//                    nextVC.dataList = dataList
-//                    nextVC.selectedOptions = scentData
-//                    nextVC.selectedWineName = wineName
-//                    nextVC.selectedWineImage = wineImageUrl
-//                    
-//                    self.navigationController?.pushViewController(nextVC, animated: true)
-//                }
-//            }
-//        } catch {
-//            print("Failed to map data: \(error)")
-//        }
-//    }
-    
     
     // MARK: "새로 적기" 버튼에 관한 UI
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -377,7 +326,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
 
 extension String {
     var unescapedString: String {
-        var mutableString = NSMutableString(string: self)
+        let mutableString = NSMutableString(string: self)
         CFStringTransform(mutableString, nil, "Any-Hex/Java" as NSString, true)
         return mutableString as String
     }

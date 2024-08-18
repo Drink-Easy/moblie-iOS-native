@@ -10,6 +10,7 @@ import UIKit
 class ThirdNationTasteTestViewController: UIViewController {
 
     var nation: [String] = ["프랑스", "이탈리아", "미국", "칠레", "스페인", "호주", "아르헨티나", "독일", "뉴질랜드", "포르투갈", "오스트리아", "그리스", "슬로베니아", "헝가리", "캐나다", "대한민국", "기타1"]
+    var nationEng: [String] = ["France", "Italy", "United States", "Chile", "Spain", "Australia", "Argentina", "Germany", "New Zealand", "Portugal", "Austria", "Greece", "Slovenia", "Hungary", "Canada", "South Korea", "Other"]
     var selectedIndexPaths: [IndexPath] = []
     private var selectedNations : [String] = []
     
@@ -66,21 +67,12 @@ class ThirdNationTasteTestViewController: UIViewController {
     private func setupUI() {
         configureNextButton()
         
-        view.addSubview(nextButton)
-        nextButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(727)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(125)
-            make.leading.equalToSuperview().offset(18)
-            make.width.equalTo(338)
-            make.height.equalTo(44)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(18)
+//            make.width.equalTo(338)
+//            make.height.equalTo(44)
         }
         
         view.addSubview(kindLabel)
@@ -94,6 +86,13 @@ class ThirdNationTasteTestViewController: UIViewController {
             make.top.equalTo(kindLabel.snp.bottom).offset(30)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(31)
             make.height.greaterThanOrEqualTo(443)
+        }
+        
+        view.addSubview(nextButton)
+        nextButton.snp.makeConstraints { make in
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(33)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
+            make.height.equalTo(60)
         }
     }
     
@@ -148,7 +147,7 @@ extension ThirdNationTasteTestViewController: UICollectionViewDataSource, UIColl
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TasteTestSecondCollectionViewCell", for: indexPath) as! TasteTestSecondCollectionViewCell
             
-        cell.configure(imageName: nation[indexPath.item])
+        cell.configure(imageName: nation[indexPath.item], nationName: nationEng[indexPath.item])
         
         return cell
     }
@@ -162,7 +161,7 @@ extension ThirdNationTasteTestViewController: UICollectionViewDataSource, UIColl
                 
                 // 선택된 셀의 indexPath를 배열에 추가
                 selectedIndexPaths.append(indexPath)
-                selectedNations.append(cell.name.text ?? "")
+                selectedNations.append(cell.nationEngName)
                 
             } else {
                 // 셀이 이미 선택된 상태였을 때 (다시 클릭하면 원래대로)
@@ -173,7 +172,7 @@ extension ThirdNationTasteTestViewController: UICollectionViewDataSource, UIColl
                     selectedIndexPaths.remove(at: index)
                 }
                 
-                selectedNations = selectedNations.filter{$0 != (cell.name.text ?? "")}
+                selectedNations = selectedNations.filter{$0 != (cell.nationEngName)}
             }
                 
             // nextButton의 상태 업데이트

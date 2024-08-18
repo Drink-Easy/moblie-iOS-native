@@ -103,6 +103,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         suggestionTableView.dataSource = self
         suggestionTableView.delegate = self
         suggestionTableView.register(CustomSuggestionCell.self, forCellReuseIdentifier: "cell")
+
     }
 
     func setupSuggestionTableViewConstraints() {
@@ -110,7 +111,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
             make.top.equalTo(wineSearchBar.snp.bottom).offset(35)
             make.leading.equalTo(wineSearchBar.snp.leading).offset(13)
             make.trailing.equalTo(wineSearchBar.snp.trailing).offset(-13)
-            make.height.greaterThanOrEqualTo(282)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-188)
         }
     }
 
@@ -123,12 +124,21 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
 
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 8 // 섹션 간의 간격
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return wineResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomSuggestionCell
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
+        cell.layer.cornerRadius = 10
+        cell.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+        
         let wine = wineResults[indexPath.row]
         cell.configure(with: wine, isSelected: false)
         return cell
@@ -147,12 +157,13 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         wineSearchBar.text = selectedWine.name
         wineResults = []
         suggestionTableView.reloadData()
-        
         // 다음 화면으로 이동
         let nextVC = WriteNoteViewController()
         nextVC.selectedWineName = selectedWine.name
         nextVC.selectedWineImage = selectedWine.imageUrl
         nextVC.selectedWineId = selectedWine.wineId
+        nextVC.selectedWineSort = selectedWine.sort
+        nextVC.selectedWineArea = selectedWine.area
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -162,6 +173,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
             case .success(let response):
                 do {
                     let responseData = try JSONDecoder().decode(APIResponseWineSearchResponse.self, from: response.data)
+                    print(responseData)
                     self.wineResults = responseData.result
                     self.suggestionTableView.reloadData()
                 } catch {

@@ -17,6 +17,8 @@ class WriteNoteViewController: UIViewController {
     var selectedWineName: String?
     var selectedWineImage: String?
     var selectedWineId: Int?
+    var selectedWineSort: String?
+    var selectedWineArea: String?
     
     
     let scrollView = UIScrollView()
@@ -91,6 +93,8 @@ class WriteNoteViewController: UIViewController {
         contentView.addSubview(wineView)
         wineView.backgroundColor = UIColor(hex: "FF9F8E80")
         wineView.layer.cornerRadius = 10
+        wineView.layer.borderWidth = 2
+        wineView.layer.borderColor = UIColor(red: 0.98, green: 0.451, blue: 0.357, alpha: 1).cgColor
     }
     
     func setupWineViewConstraints() {
@@ -128,7 +132,8 @@ class WriteNoteViewController: UIViewController {
     func setupWineName() {
         wineView.addSubview(wineName)
         wineName.text = selectedWineName ?? ""
-        wineName.numberOfLines = 2
+        wineName.numberOfLines = 0
+        wineName.lineBreakMode = .byWordWrapping
         wineName.font = UIFont(name: "Pretendard-SemiBold", size: 18)
     }
     
@@ -136,8 +141,7 @@ class WriteNoteViewController: UIViewController {
         wineName.snp.makeConstraints{ make in
             make.centerY.equalTo(wineImageView.snp.centerY)
             make.leading.equalTo(wineImageView.snp.trailing).offset(25)
-            make.top.equalTo(wineView.snp.top).offset(36)
-            make.bottom.equalTo(wineView.snp.bottom).offset(-36)
+            make.trailing.equalTo(wineView.snp.trailing).offset(-10)
         }
     }
     
@@ -157,7 +161,7 @@ class WriteNoteViewController: UIViewController {
     }
     
     func setupCategories() {
-        for (categoryIndex, category) in categories.enumerated() {
+        for (_, category) in categories.enumerated() {
             let label = UILabel()
             label.text = category
             label.backgroundColor = UIColor(hex: "FA735B")
@@ -244,6 +248,8 @@ class WriteNoteViewController: UIViewController {
         polygonVC.selectedWineId = selectedWineId
         polygonVC.selectedWineImage = selectedWineImage
         polygonVC.selectedWineName = selectedWineName
+        polygonVC.selectedWineArea = selectedWineArea
+        polygonVC.selectedWineSort = selectedWineSort
         navigationController?.pushViewController(polygonVC, animated: true)
     }
 }

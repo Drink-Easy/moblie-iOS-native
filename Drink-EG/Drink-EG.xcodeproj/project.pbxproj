@@ -28,18 +28,10 @@
 		165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */; };
 		165401092C6BA644008A9DBF /* MemberInfoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401082C6BA644008A9DBF /* MemberInfoAPI.swift */; };
 		1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654010A2C6BACDC008A9DBF /* SelectionManager.swift */; };
-		1654015A2C6FD0C2008A9DBF /* SwiftyMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 165401592C6FD0C2008A9DBF /* SwiftyMenu */; };
 		1654010D2C6C7FBB008A9DBF /* APIResponseMemberResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654010C2C6C7FBB008A9DBF /* APIResponseMemberResponse.swift */; };
 		1654010F2C6E2B4B008A9DBF /* MyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654010E2C6E2B4B008A9DBF /* MyCollectionViewController.swift */; };
 		165401112C6E2B79008A9DBF /* WineNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401102C6E2B79008A9DBF /* WineNewsViewController.swift */; };
 		165401132C6E2BAA008A9DBF /* WineKnowledgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401122C6E2BAA008A9DBF /* WineKnowledgeViewController.swift */; };
-		165401162C6E3858008A9DBF /* CardSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 165401152C6E3858008A9DBF /* CardSlider */; };
-		165401192C6E555A008A9DBF /* CardSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401182C6E555A008A9DBF /* CardSliderViewController.swift */; };
-		1654011B2C6E5661008A9DBF /* CardTitleview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654011A2C6E5661008A9DBF /* CardTitleview.swift */; };
-		1654011D2C6E5681008A9DBF /* CardsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654011C2C6E5681008A9DBF /* CardsLayout.swift */; };
-		1654011F2C6E56A9008A9DBF /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654011E2C6E56A9008A9DBF /* UIViewExtension.swift */; };
-		165401212C6E56BD008A9DBF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401202C6E56BD008A9DBF /* RatingView.swift */; };
-		165401232C6E57BC008A9DBF /* CardSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401222C6E57BC008A9DBF /* CardSliderCell.swift */; };
 		1654014C2C6F41B0008A9DBF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654014B2C6F41B0008A9DBF /* ContentView.swift */; };
 		1654014E2C6F9582008A9DBF /* APIResponseNoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654014D2C6F9582008A9DBF /* APIResponseNoteResponse.swift */; };
 		165401502C6F960A008A9DBF /* NoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654014F2C6F960A008A9DBF /* NoteResponse.swift */; };
@@ -61,6 +53,9 @@
 		16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */; };
 		16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */; };
 		16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */; };
+		16C19AA62C70B67200E93FD0 /* ShoppingListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */; };
+		16C19AA92C70B8D500E93FD0 /* UserWineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AA82C70B8D500E93FD0 /* UserWineData.swift */; };
+		16C19AAB2C7194D200E93FD0 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AAA2C7194D200E93FD0 /* LoginResponse.swift */; };
 		1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */; };
 		1F205A332C69FE9800E80659 /* JoinNLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */; };
 		1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */; };
@@ -197,6 +192,10 @@
 		16B97D132C4C0F4100D8B453 /* ClassVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassVideoViewController.swift; sourceTree = "<group>"; };
 		16B97D152C4C0F6400D8B453 /* SavingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingVideoViewController.swift; sourceTree = "<group>"; };
 		16B97D172C4C0F6E00D8B453 /* SearchVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoViewController.swift; sourceTree = "<group>"; };
+		16C19AA12C70723200E93FD0 /* Drink-EG.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Drink-EG.entitlements"; sourceTree = "<group>"; };
+		16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListManager.swift; sourceTree = "<group>"; };
+		16C19AA82C70B8D500E93FD0 /* UserWineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWineData.swift; sourceTree = "<group>"; };
+		16C19AAA2C7194D200E93FD0 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNLoginRequest.swift; sourceTree = "<group>"; };
 		1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseLoginResponse.swift; sourceTree = "<group>"; };
@@ -278,13 +277,11 @@
 			files = (
 				5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */,
 				5E22195E2C69DDB5005849FB /* SnapKit in Frameworks */,
-				165401162C6E3858008A9DBF /* CardSlider in Frameworks */,
 				5E2219672C69DE78005849FB /* KakaoSDK in Frameworks */,
 				5E22197B2C6BB56F005849FB /* SDWebImage in Frameworks */,
 				5E2219612C69DDBF005849FB /* Alamofire in Frameworks */,
 				5E22196A2C69DEEA005849FB /* Toast in Frameworks */,
 				5E22197D2C6BB56F005849FB /* SDWebImageMapKit in Frameworks */,
-				1654015A2C6FD0C2008A9DBF /* SwiftyMenu in Frameworks */,
 				5E2219642C69DE43005849FB /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,6 +292,7 @@
 		165400F42C69EEE6008A9DBF /* Datas */ = {
 			isa = PBXGroup;
 			children = (
+				16C19AA72C70B8B700E93FD0 /* ShoppingCart */,
 				165401512C6FC558008A9DBF /* User */,
 				1F8F99F62C6F52A100EAEF6C /* Search */,
 				165401022C69F305008A9DBF /* WineClass */,
@@ -367,6 +365,7 @@
 			children = (
 				1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */,
 				165401062C6BA5D8008A9DBF /* MemberInfoRequest.swift */,
+				16C19AAA2C7194D200E93FD0 /* LoginResponse.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -390,6 +389,7 @@
 		16B97CD22C4BEB0900D8B453 /* Drink-EG */ = {
 			isa = PBXGroup;
 			children = (
+				16C19AA12C70723200E93FD0 /* Drink-EG.entitlements */,
 				5E22196B2C6B2416005849FB /* Info.plist */,
 				16B97CEA2C4BF36300D8B453 /* Resources */,
 				16B97CF02C4BF3F100D8B453 /* Sources */,
@@ -489,6 +489,7 @@
 			children = (
 				165401052C69FA97008A9DBF /* APIResponseModels */,
 				1654010A2C6BACDC008A9DBF /* SelectionManager.swift */,
+				16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -608,6 +609,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		16C19AA72C70B8B700E93FD0 /* ShoppingCart */ = {
+			isa = PBXGroup;
+			children = (
+				16C19AA82C70B8D500E93FD0 /* UserWineData.swift */,
+			);
+			path = ShoppingCart;
+			sourceTree = "<group>";
+		};
 		1F598EEF2C58136B000CE79F /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -670,10 +679,8 @@
 				5E2219662C69DE78005849FB /* KakaoSDK */,
 				5E2219692C69DEEA005849FB /* Toast */,
 				5E2219702C6B5B5B005849FB /* Cosmos */,
-				165401152C6E3858008A9DBF /* CardSlider */,
 				5E22197A2C6BB56F005849FB /* SDWebImage */,
 				5E22197C2C6BB56F005849FB /* SDWebImageMapKit */,
-				165401592C6FD0C2008A9DBF /* SwiftyMenu */,
 			);
 			productName = "Drink-EG";
 			productReference = 16B97CD02C4BEB0900D8B453 /* Drink-EG.app */;
@@ -710,9 +717,7 @@
 				5E2219652C69DE78005849FB /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				5E2219682C69DEEA005849FB /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				5E22196F2C6B5B5B005849FB /* XCRemoteSwiftPackageReference "Cosmos" */,
-				165401142C6E3858008A9DBF /* XCRemoteSwiftPackageReference "cardslider" */,
 				5E2219792C6BB56F005849FB /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				165401582C6FD0C2008A9DBF /* XCRemoteSwiftPackageReference "SwiftyMenu" */,
 			);
 			productRefGroup = 16B97CD12C4BEB0900D8B453 /* Products */;
 			projectDirPath = "";
@@ -761,9 +766,7 @@
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
 				1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */,
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
-				165401192C6E555A008A9DBF /* CardSliderViewController.swift in Sources */,
 				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
-				165401212C6E56BD008A9DBF /* RatingView.swift in Sources */,
 				1F8F99FA2C6F538300EAEF6C /* WineInfoResponse.swift in Sources */,
 				5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */,
 				1F205A432C6B66EB00E80659 /* TasteTestThirdCollectionViewCell.swift in Sources */,
@@ -780,15 +783,12 @@
 				1F598EFD2C58150E000CE79F /* JoinViewController.swift in Sources */,
 				165400E32C69D6B9008A9DBF /* CallMoyaExample.swift in Sources */,
 				165400E72C69DDBE008A9DBF /* TastingNoteAPI.swift in Sources */,
-				1654011F2C6E56A9008A9DBF /* UIViewExtension.swift in Sources */,
 				1654010F2C6E2B4B008A9DBF /* MyCollectionViewController.swift in Sources */,
-				1654011D2C6E5681008A9DBF /* CardsLayout.swift in Sources */,
 				16B97CEC2C4BF37E00D8B453 /* Constant.swift in Sources */,
 				16B97D182C4C0F6E00D8B453 /* SearchVideoViewController.swift in Sources */,
 				1F598EEC2C524D2E000CE79F /* RecomCollectionViewCell.swift in Sources */,
-				165401232C6E57BC008A9DBF /* CardSliderCell.swift in Sources */,
 				1654010D2C6C7FBB008A9DBF /* APIResponseMemberResponse.swift in Sources */,
-				1654011B2C6E5661008A9DBF /* CardTitleview.swift in Sources */,
+				16C19AAB2C7194D200E93FD0 /* LoginResponse.swift in Sources */,
 				1F8F99F52C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift in Sources */,
 				165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */,
 				1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */,
@@ -829,6 +829,7 @@
 				5E2219422C69D5D0005849FB /* CustomCommentsCollectionView.swift in Sources */,
 				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
 				1F205A3F2C6B37BF00E80659 /* TasteTestFirstCollectionViewCell.swift in Sources */,
+				16C19AA92C70B8D500E93FD0 /* UserWineData.swift in Sources */,
 				165400EB2C69DDD9008A9DBF /* WineClassBookmarkAPI.swift in Sources */,
 				1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */,
 				5E2219372C69D5AE005849FB /* UIColorToHexCode.swift in Sources */,
@@ -853,6 +854,7 @@
 				5E2219452C69D5D0005849FB /* CommunityInfoViewController.swift in Sources */,
 				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
 				1F8F99F32C6F386B00EAEF6C /* SearchAPI.swift in Sources */,
+				16C19AA62C70B67200E93FD0 /* ShoppingListManager.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 				C30A84692C6F155500471D5D /* MyPageNoticeViewController.swift in Sources */,
 				5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */,
@@ -992,6 +994,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Drink-EG/Drink-EG.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 83K577A944;
@@ -1019,6 +1022,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Drink-EG/Drink-EG.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 83K577A944;
@@ -1065,20 +1069,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		165401582C6FD0C2008A9DBF /* XCRemoteSwiftPackageReference "SwiftyMenu" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/KarimEbrahemAbdelaziz/SwiftyMenu.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
-		165401142C6E3858008A9DBF /* XCRemoteSwiftPackageReference "cardslider" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Ramotion/cardslider.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
-			};
-		};
 		5E22195C2C69DDB5005849FB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1138,15 +1128,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		165401592C6FD0C2008A9DBF /* SwiftyMenu */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 165401582C6FD0C2008A9DBF /* XCRemoteSwiftPackageReference "SwiftyMenu" */;
-			productName = SwiftyMenu;
-		165401152C6E3858008A9DBF /* CardSlider */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 165401142C6E3858008A9DBF /* XCRemoteSwiftPackageReference "cardslider" */;
-			productName = CardSlider;
-		};
 		5E22195D2C69DDB5005849FB /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E22195C2C69DDB5005849FB /* XCRemoteSwiftPackageReference "SnapKit" */;

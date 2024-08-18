@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import SnapKit
+import AuthenticationServices
 
-class SelectLoginViewController: UIViewController {
+class SelectLoginViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
 
     let loginButton = UIButton(type: .system)
     
     let kakaoButton = UIButton(type: .system)
-    let appleButton = UIButton(type: .system)
+    let appleButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
     
     let joinButton = UIButton(type: .system)
     
@@ -50,6 +52,14 @@ class SelectLoginViewController: UIViewController {
         configureAppleButton()
         configureJoinButton()
         
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
+            make.width.lessThanOrEqualTo(165)
+            make.height.equalTo(imageView.snp.width)
+        }
+
         let buttonStackView = UIStackView(arrangedSubviews: [kakaoButton, appleButton])
         buttonStackView.axis = .vertical
         buttonStackView.distribution = .fillEqually
@@ -57,49 +67,39 @@ class SelectLoginViewController: UIViewController {
                 
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(449)
-            make.leading.trailing.equalToSuperview().inset(33)
-            make.width.equalTo(327)
-            make.height.equalTo(132)
+            make.top.equalTo(imageView.snp.bottom).offset(100)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
+            make.height.greaterThanOrEqualTo(132)
+        }
+        
+        view.addSubview(loginButton)
+        loginButton.snp.makeConstraints { make in
+            make.top.equalTo(buttonStackView.snp.bottom).offset(70)
+            make.leading.trailing.equalTo(buttonStackView)
+            make.height.equalTo(60)
         }
         
         let joinStackView = UIStackView(arrangedSubviews: [label, joinButton])
         joinStackView.axis = .horizontal
         joinStackView.distribution = .fillProportionally
-        joinStackView.spacing = 4
+        joinStackView.spacing = 6
         
         view.addSubview(joinStackView)
         joinStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(771)
-            make.leading.trailing.equalTo(view).inset(96)
-            make.width.equalTo(190)
-            make.height.equalTo(22)
-        }
-        
-        view.addSubview(loginButton)
-        loginButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(651)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
-        view.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.bottom.equalTo(buttonStackView.snp.top).offset(-100)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(165)
+//            make.top.equalTo(loginButton.snp.bottom).offset(50)
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.width.greaterThanOrEqualTo(200)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(25)
         }
     }
     
     private func configureLoginButton() {
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        loginButton.setTitleColor(.black, for: .normal)
+        loginButton.setTitleColor(.white, for: .normal)
         loginButton.contentHorizontalAlignment = .center
         
-        loginButton.backgroundColor = UIColor(hue: 0.1389, saturation: 0.54, brightness: 1, alpha: 1.0)
+        loginButton.backgroundColor = UIColor(hex: "#FF6F62")
         loginButton.layer.cornerRadius = 16
         loginButton.layer.borderWidth = 0
         
@@ -129,25 +129,83 @@ class SelectLoginViewController: UIViewController {
     }
     
     private func configureAppleButton() {
-        appleButton.setTitle("애플 로그인", for: .normal)
-        appleButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        appleButton.setTitleColor(.white, for: .normal)
-        appleButton.contentHorizontalAlignment = .center
-        
-        appleButton.setImage(UIImage(named: "apple")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        appleButton.tintColor = .white
-        appleButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -30, bottom: 0, right: 0)
-        
-        appleButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
-        appleButton.layer.cornerRadius = 16
-        appleButton.layer.borderWidth = 2
-        appleButton.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
+        appleButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
     }
+    
+    //MARK: - Apple Login delegate
+    @objc
+    func handleAuthorizationAppleIDButtonPress() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            
+            if  let authorizationCode = appleIDCredential.authorizationCode,
+                let identityToken = appleIDCredential.identityToken,
+                let authCodeString = String(data: authorizationCode, encoding: .utf8),
+                let identifyTokenString = String(data: identityToken, encoding: .utf8) {
+                print("authorizationCode: \(authorizationCode)\n")
+                print("identityToken: \(identityToken)\n")
+                print("authCodeString: \(authCodeString)\n")
+                print("identifyTokenString: \(identifyTokenString)\n")
+            }
+            
+            print("useridentifier: \(userIdentifier)")
+            print("fullName: \(fullName)")
+            print("email: \(email)")
+            
+            // move to MainPage
+            goToNextView()
+            
+        case let passwordCredential as ASPasswordCredential:
+            // Sign in using an existing iCloud Keychain credential.
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+            
+            print("username: \(username)")
+            print("password: \(password)")
+        default:
+            break
+        }
+    }
+    
+    private func goToNextView() {
+        if LoginViewController.isFirstLogin {
+            let enterTasteTestViewController = EnterTasteTestViewController()
+            navigationController?.pushViewController(enterTasteTestViewController, animated: true)
+        } else {
+            let homeViewController = HomeViewController()
+            navigationController?.pushViewController(homeViewController, animated: true)
+        }
+        
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // 로그인 실패(유저의 취소도 포함)
+        print("login failed - \(error.localizedDescription)")
+    }
+    
     
     private func configureJoinButton() {
         joinButton.setTitle("회원가입", for: .normal)
         joinButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        joinButton.setTitleColor(UIColor(hex: "#FFEA75"), for: .normal)
+        joinButton.setTitleColor(UIColor(hex: "#FF6F62"), for: .normal)
         joinButton.contentHorizontalAlignment = .center
         
         joinButton.backgroundColor = .clear

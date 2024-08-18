@@ -13,3 +13,4 @@ struct APIResponseWineSearchResponse: Decodable {
     let message: String
     let result: [Wine]
 }
+

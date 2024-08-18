@@ -72,21 +72,12 @@ class ThirdVarietyTasteTestViewController: UIViewController {
     private func setupUI() {
         configureStartButton()
         
-        view.addSubview(startButton)
-        startButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(727)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(125)
-            make.leading.equalToSuperview().offset(18)
-            make.width.equalTo(338)
-            make.height.equalTo(44)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(18)
+//            make.width.equalTo(338)
+//            make.height.equalTo(44)
         }
         
         view.addSubview(kindLabel)
@@ -100,6 +91,13 @@ class ThirdVarietyTasteTestViewController: UIViewController {
             make.top.equalTo(kindLabel.snp.bottom).offset(30)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(31)
             make.height.greaterThanOrEqualTo(443)
+        }
+        
+        view.addSubview(startButton)
+        startButton.snp.makeConstraints { make in
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(33)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
+            make.height.equalTo(60)
         }
     }
     
@@ -167,6 +165,7 @@ class ThirdVarietyTasteTestViewController: UIViewController {
         func callAPI(completion: @escaping (Bool) -> Void) {
             if let data = self.memberInfoDTO {
                 provider.request(.patchMember(data: data)) { result in
+                    print(data)
                     switch result {
                     case .success(let response):
                         do {

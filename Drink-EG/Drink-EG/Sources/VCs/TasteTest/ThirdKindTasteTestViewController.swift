@@ -10,6 +10,7 @@ import UIKit
 class ThirdKindTasteTestViewController: UIViewController {
 
     var kind: [String] = ["레드", "화이트", "스파클링", "로제", "주정강화", "네츄럴", "기타"]
+    var kindEng : [String] = ["Red", "White", "Sparkling", "Rose", "Port", "Natural", "etc"]
     var selectedIndexPaths: [IndexPath] = []
     var selectedWineName : [String] = []
     
@@ -66,21 +67,12 @@ class ThirdKindTasteTestViewController: UIViewController {
     private func setupUI() {
         configureNextButton()
         
-        view.addSubview(nextButton)
-        nextButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(727)
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(view).offset(33)
-            make.height.equalTo(60)
-            make.width.equalTo(327)
-        }
-        
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(125)
-            make.leading.equalToSuperview().offset(18)
-            make.width.equalTo(338)
-            make.height.equalTo(44)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(18)
+//            make.width.equalTo(338)
+//            make.height.equalTo(44)
         }
         
         view.addSubview(kindLabel)
@@ -94,6 +86,13 @@ class ThirdKindTasteTestViewController: UIViewController {
             make.top.equalTo(kindLabel.snp.bottom).offset(30)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(31)
             make.height.greaterThanOrEqualTo(443)
+        }
+        
+        view.addSubview(nextButton)
+        nextButton.snp.makeConstraints { make in
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(33)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
+            make.height.equalTo(60)
         }
     }
     
@@ -149,7 +148,7 @@ extension ThirdKindTasteTestViewController: UICollectionViewDataSource, UICollec
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TasteTestFirstCollectionViewCell", for: indexPath) as! TasteTestFirstCollectionViewCell
             
-        cell.configure(imageName: kind[indexPath.item])
+        cell.configure(imageName: kind[indexPath.item], kindName: kindEng[indexPath.item])
         
         return cell
     }
@@ -162,8 +161,9 @@ extension ThirdKindTasteTestViewController: UICollectionViewDataSource, UICollec
                 cell.imageView.layer.borderWidth = 4  // 테두리 두께 설정
                 
                 // 선택된 셀의 indexPath를 배열에 추가
+                
                 selectedIndexPaths.append(indexPath)
-                selectedWineName.append(cell.name.text ?? "")
+                selectedWineName.append(cell.kindEngName)
             } else {
                 // 셀이 이미 선택된 상태였을 때 (다시 클릭하면 원래대로)
                 cell.imageView.layer.borderWidth = 0
@@ -173,7 +173,7 @@ extension ThirdKindTasteTestViewController: UICollectionViewDataSource, UICollec
                     selectedIndexPaths.remove(at: index)
                 }
                 
-                selectedWineName = selectedWineName.filter{$0 != (cell.name.text ?? "")}
+                selectedWineName = selectedWineName.filter{$0 != (cell.kindEngName)}
             }
                 
             // nextButton의 상태 업데이트
