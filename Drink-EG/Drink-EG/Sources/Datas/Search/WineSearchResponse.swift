@@ -13,4 +13,6 @@ struct Wine: Codable {
     let imageUrl: String?
     let rating: Double
     let price: Int
+    let area: String
+    let sort: String
 }

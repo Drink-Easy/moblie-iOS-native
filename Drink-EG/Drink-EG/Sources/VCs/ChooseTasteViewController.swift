@@ -36,6 +36,8 @@ class ChooseTasteViewController: UIViewController {
     var selectedWineId: Int?
     var selectedWineImage: String?
     var selectedWineName: String?
+    var selectedWineArea: String?
+    var selectedWineSort: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,7 +166,7 @@ class ChooseTasteViewController: UIViewController {
         wineName.snp.makeConstraints{ make in
             make.leading.equalTo(wineImageView.snp.trailing).offset(20)
             make.trailing.equalTo(wineView.snp.trailing).offset(-10)
-            make.top.equalTo(wineView.snp.top).offset(36)
+            make.centerY.equalTo(wineView.snp.centerY)
         }
     }
     
@@ -302,9 +304,9 @@ class ChooseTasteViewController: UIViewController {
         // Determine which section the button belongs to
         var section: String?
         if tasteOptions[0].contains(sender) {
-            section = "Aroma"
+            section = "scentAroma"
         } else if tasteOptions[1].contains(sender) {
-            section = "Taste"
+            section = "scentTaste"
         } else if tasteOptions[2].contains(sender) {
             section = "Finish"
         }
@@ -361,7 +363,6 @@ class ChooseTasteViewController: UIViewController {
                 make.height.equalTo(buttonHeight)
             }
         }
-        
     }
     
     func setupTasteOptionsLabelConstraints() {
@@ -441,6 +442,8 @@ class ChooseTasteViewController: UIViewController {
         nextVC.selectedWineId = selectedWineId
         nextVC.selectedWineName = selectedWineName
         nextVC.selectedWineImage = selectedWineImage
+        nextVC.selectedWineArea = selectedWineArea
+        nextVC.selectedWineSort = selectedWineSort
         
         navigationController?.pushViewController(nextVC, animated: true)
     }

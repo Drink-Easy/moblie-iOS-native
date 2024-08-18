@@ -74,18 +74,20 @@ class CheckNoteViewController: UIViewController {
     private lazy var name: UILabel = {
         let l = UILabel()
         l.text = selectedWineName ?? ""
-        l.font = .boldSystemFont(ofSize: 18)
+        l.font = .boldSystemFont(ofSize: 16)
         l.textColor = .black
-        l.numberOfLines = 2
+        l.numberOfLines = 1
+        l.lineBreakMode = .byTruncatingTail
         return l
     }()
     
     lazy var specInfo: UILabel = {
         let l = UILabel()
         l.text = "품종: \(sort ?? "N/A")\n생산지: \(area ?? "N/A")"
-        l.font = .systemFont(ofSize: 12)
+        l.font = UIFont(name: "Pretendard-Bold", size: 12)
         l.textColor = .black
-        l.numberOfLines = 0
+        l.numberOfLines = 2
+        l.lineBreakMode = .byTruncatingTail
         return l
     }()
     
@@ -265,15 +267,16 @@ class CheckNoteViewController: UIViewController {
         
         infoView.addSubview(name)
         name.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(11)
+            make.top.equalToSuperview().offset(12)
             make.leading.equalTo(imageView.snp.trailing).offset(20)
-            // make.trailing.equalTo(score.snp.leading).offset(-10)
+            make.trailing.equalTo(infoView.snp.trailing).offset(-50)
         }
         
         infoView.addSubview(specInfo)
         specInfo.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.bottom).offset(11)
+            make.top.equalTo(name.snp.bottom).offset(5)
             make.leading.equalTo(name)
+            make.trailing.equalTo(name.snp.trailing)
         }
         
         infoView.addSubview(score)

@@ -8,11 +8,16 @@
 import UIKit
 import SnapKit
 
+protocol CartListCollectionViewCellDelegate: AnyObject {
+    func checkButtonTapped(on cell: CartListCollectionViewCell, isSelected: Bool)
+}
+
 class CartListCollectionViewCell: UICollectionViewCell {
     
+    weak var delegate: CartListCollectionViewCellDelegate?
     var changeMarketButtonAction : (() -> Void) = {}
     
-    private var quantity: Int = 1 {
+    var quantity: Int = 1 {
         didSet {
             updateNumLabel()
         }
@@ -20,9 +25,9 @@ class CartListCollectionViewCell: UICollectionViewCell {
     
     private let CheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nCheckImage = UIImage(named: "icon_cartCheck_nfill")
-    private let CheckButton = UIButton(type: .custom)
+    let CheckButton = UIButton(type: .custom)
     var shop = "PODO"
-    var price = 27000
+    var price = 0
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
@@ -42,14 +47,6 @@ class CartListCollectionViewCell: UICollectionViewCell {
     }()
     
     let marketNprice = UILabel()
-    
-    private let score: UILabel = {
-        let l3 = UILabel()
-        l3.text = "4.5 ★"
-        l3.font = .boldSystemFont(ofSize: 12)
-        l3.textColor = UIColor(hex: "#FF7A6D")
-        return l3
-    }()
     
     private let changeMarketButton: UIButton = {
         let b = UIButton(type: .system)
@@ -126,13 +123,13 @@ class CartListCollectionViewCell: UICollectionViewCell {
         return b
     }()
     
-    private func configureCheckButton() {
+    func configureCheckButton() {
         CheckButton.setImage(nCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
         CheckButton.backgroundColor = .clear
         CheckButton.addTarget(self, action: #selector(CheckButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func CheckButtonTapped(_ sender: UIButton) {
+    @objc func CheckButtonTapped(_ sender: UIButton) {
         // Bool 값 toggle
         sender.isSelected.toggle()
             
@@ -146,9 +143,11 @@ class CartListCollectionViewCell: UICollectionViewCell {
             self.contentView.backgroundColor = UIColor(hex: "EDEDED")
             self.contentView.layer.borderColor = UIColor(hex: "D9D9D9")?.cgColor
         }
+        
+        delegate?.checkButtonTapped(on: self, isSelected: sender.isSelected)
     }
     
-    private func configureMarketNPlace() {
+    private func configureMarketNPlace(_ shopName: String, _ priceInt: Int, _ count: Int) {
         let firstImageAttachment = NSTextAttachment()
         firstImageAttachment.image = UIImage(named: "icon_market")
         
@@ -168,7 +167,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         completeText.append(firstAttachmentString)
 
         // 매장 텍스트 추가
-        let textBeforeSecondImage = NSAttributedString(string: " \(shop)  ", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        let textBeforeSecondImage = NSAttributedString(string: " \(shopName)  ", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
         completeText.append(textBeforeSecondImage)
 
         // 두 번째 이미지 추가
@@ -176,7 +175,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         completeText.append(secondAttachmentString)
 
         // 가격 텍스트 추가
-        let textAfterSecondImage = NSAttributedString(string: "  \(price * quantity) ₩", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        let textAfterSecondImage = NSAttributedString(string: "  \(priceInt * count) ₩", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
         completeText.append(textAfterSecondImage)
 
         marketNprice.attributedText = completeText
@@ -195,12 +194,11 @@ class CartListCollectionViewCell: UICollectionViewCell {
     //레이아웃까지
     private func setupUI() {
         configureCheckButton()
-        configureMarketNPlace()
+        configureMarketNPlace(self.shop, self.price, self.quantity)
         
         self.contentView.addSubview(imageView)
         self.contentView.addSubview(name)
         self.contentView.addSubview(marketNprice)
-        self.contentView.addSubview(score)
         self.contentView.addSubview(CheckButton)
         self.contentView.addSubview(changeMarketButton)
         self.contentView.addSubview(changeNumButton)
@@ -231,11 +229,6 @@ class CartListCollectionViewCell: UICollectionViewCell {
         marketNprice.snp.makeConstraints { make in
             make.top.equalTo(name.snp.bottom).offset(7)
             make.leading.equalTo(name)
-        }
-        
-        score.snp.makeConstraints { make in
-            make.centerY.equalTo(name)
-            make.leading.equalTo(name.snp.trailing).offset(13)
         }
         
         changeMarketButton.snp.makeConstraints { make in
@@ -272,7 +265,10 @@ class CartListCollectionViewCell: UICollectionViewCell {
         self.price = price
         self.quantity = count
         self.shop = shopName
+        
+        self.configureMarketNPlace(shopName, price, count)
     }
+    
     func configure2(isSelected: Bool) {
         CheckButton.isSelected = isSelected
     }
