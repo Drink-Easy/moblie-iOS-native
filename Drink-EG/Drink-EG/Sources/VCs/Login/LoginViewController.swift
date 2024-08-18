@@ -97,6 +97,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         setupUI()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     private func setupUI() {
         configureLoginButton()
         configureJoinButton()
