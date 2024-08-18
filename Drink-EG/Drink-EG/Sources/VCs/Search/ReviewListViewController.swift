@@ -179,6 +179,16 @@ extension ReviewListViewController: UICollectionViewDataSource, UICollectionView
                     }
                     let responseData = try JSONDecoder().decode(APIResponseWineReviewResponse.self, from: response.data)
                     self.reviewResults = responseData.result
+                    if self.reviewResults.isEmpty {
+                        let noReview = UILabel()
+                        noReview.text = "등록된 리뷰가 없습니다."
+                        noReview.font = .boldSystemFont(ofSize: 15)
+                        noReview.textColor = UIColor(hex: "#767676")
+                        self.reviewListCollectionView.addSubview(noReview)
+                        noReview.snp.makeConstraints { make in
+                            make.centerX.centerY.equalToSuperview()
+                        }
+                    }
                     self.reviewListCollectionView.reloadData()
                     completion(true)
                 } catch {
