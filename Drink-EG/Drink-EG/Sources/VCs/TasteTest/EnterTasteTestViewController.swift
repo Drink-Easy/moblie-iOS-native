@@ -70,9 +70,15 @@ class EnterTasteTestViewController: UIViewController {
 //            make.height.equalTo(165)
         }
         
-        view.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.bottom.equalTo(view)
+        if let image = imageView.image {
+            let aspectRatio = image.size.width / image.size.height
+            view.addSubview(imageView)
+            imageView.snp.makeConstraints { make in
+                make.centerX.equalTo(view.safeAreaLayoutGuide)
+                make.bottom.equalTo(view)
+                make.width.equalTo(view)
+                make.height.equalTo(imageView.snp.width).dividedBy(aspectRatio)
+            }
         }
         
         view.addSubview(startButton)
