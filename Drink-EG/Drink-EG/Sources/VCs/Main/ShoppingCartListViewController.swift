@@ -48,6 +48,7 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         b.setTitleColor(UIColor(hex: "#767676"), for: .normal)
         b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         b.backgroundColor = .clear
+        b.addTarget(self, action: #selector(checkDeleteButtonTapped(_:)), for: .touchUpInside)
         return b
     }()
     
@@ -178,6 +179,54 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         }
         return allIndexPaths
     }
+    
+    @objc private func checkDeleteButtonTapped(_ sender: UIButton) {
+        // 선택된 셀의 인덱스 경로를 저장할 배열을 초기화합니다.
+        var indexPathsToDelete: [IndexPath] = []
+
+        // 전체 셀을 반복하면서 선택된 셀의 인덱스 경로를 수집합니다.
+        for indexPath in getIndexPathAllCells() {
+            if let cell = cartListCollectionView.cellForItem(at: indexPath) as? CartListCollectionViewCell {
+                if cell.CheckButton.isSelected {
+                    // 선택된 셀의 인덱스 경로를 배열에 추가합니다.
+                    indexPathsToDelete.append(indexPath)
+                    // 총 합계와 선택된 셀 개수를 업데이트합니다.
+                    currentCheckCellCount -= 1
+                    totalSum -= cell.price * cell.quantity
+                }
+            }
+        }
+
+        // 인덱스 경로 배열을 역순으로 정렬하여 삭제 작업을 수행합니다.
+        let sortedIndexPathsToDelete = indexPathsToDelete.sorted { $0.item > $1.item }
+        
+        // 선택된 셀들만 삭제합니다.
+        for indexPath in sortedIndexPathsToDelete {
+            let item = CartContents[indexPath.row]
+            CartContents.remove(at: indexPath.row)
+            shoppingListManager.deleteWine(item)
+        }
+
+        // 컬렉션 뷰의 삭제 애니메이션을 수행합니다.
+        cartListCollectionView.performBatchUpdates({
+            cartListCollectionView.deleteItems(at: sortedIndexPathsToDelete)
+        }, completion: { _ in
+            // UI 업데이트
+            self.buyButton.setTitle("\(self.totalSum)원 구매하기", for: .normal)
+            self.configureAllCheckLabel()
+            
+            // 전체 선택 버튼의 상태를 업데이트합니다.
+            if self.currentCheckCellCount == self.CartContents.count && self.CartContents.isEmpty == false {
+                self.allCheckButton.setImage(self.allCheckImage?.withRenderingMode(.alwaysOriginal), for: .selected)
+                self.allCheckButton.isSelected = true
+            } else {
+                self.allCheckButton.setImage(self.nAllCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+                self.allCheckButton.isSelected = false
+            }
+        })
+    }
+
+
     
     @objc private func allCheckButtonTapped(_ sender: UIButton) {
         // Bool 값 toggle
