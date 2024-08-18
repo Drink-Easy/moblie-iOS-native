@@ -322,7 +322,7 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
             self.configureAllCheckLabel()
             
             // 전체 선택 버튼의 상태를 업데이트합니다.
-            if self.currentCheckCellCount == self.CartContents.count {
+            if self.currentCheckCellCount == self.CartContents.count && self.CartContents.isEmpty == false {
                 self.allCheckButton.setImage(self.allCheckImage?.withRenderingMode(.alwaysOriginal), for: .selected)
                 self.allCheckButton.isSelected = true
             } else {
