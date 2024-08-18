@@ -8,10 +8,8 @@
 import UIKit
 import SnapKit
 import Moya
-import AuthenticationServices
 
-
-class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     public static var isFirstLogin : Bool = true
     
     let provider = MoyaProvider<LoginAPI>()
@@ -231,65 +229,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
         navigationController?.pushViewController(joinViewController, animated: true)
     }
     
-    //MARK: - Apple Login delegate
-    @objc
-    func handleAuthorizationAppleIDButtonPress() {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
-    }
-    
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        switch authorization.credential {
-        case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
-            
-            if  let authorizationCode = appleIDCredential.authorizationCode,
-                let identityToken = appleIDCredential.identityToken,
-                let authCodeString = String(data: authorizationCode, encoding: .utf8),
-                let identityTokenString = String(data: identityToken, encoding: .utf8) {
-                print("authorizationCode: \(authorizationCode)\n")
-                print("identityToken: \(identityToken)\n")
-                print("authCodeString: \(authCodeString)\n")
-                print("identityTokenString: \(identityTokenString)\n")
-            }
-            
-            print("useridentifier: \(userIdentifier)")
-            print("fullName: \(fullName)")
-            print("email: \(email)")
-            
-            // move to MainPage
-            goToNextView()
-            
-        case let passwordCredential as ASPasswordCredential:
-            // Sign in using an existing iCloud Keychain credential.
-            let username = passwordCredential.user
-            let password = passwordCredential.password
-            
-            print("username: \(username)")
-            print("password: \(password)")
-        default:
-            break
-        }
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // 로그인 실패(유저의 취소도 포함)
-        print("login failed - \(error.localizedDescription)")
-    }
-    
-    
     private func configureIdStoreButton() {
         idStoreButton.setImage(ncheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
         idStoreButton.backgroundColor = .clear
@@ -412,8 +351,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ASAuthorizatio
                         let cookies = HTTPCookie.cookies(withResponseHeaderFields: ["Set-Cookie": setCookie], for: httpResponse.url!)
                         
                         for cookie in cookies {
-                            //                            print("Cookie Name: \(cookie.name), Value: \(cookie.value)")
                             HTTPCookieStorage.shared.setCookie(cookie)
+                        }
+                        do {
+                            let data = try response.map(LoginResponse.self)
+                            LoginViewController.isFirstLogin = data.isFirst
+                        } catch {
+                            completion(false)
                         }
                     }
                     completion(true)

@@ -14,7 +14,7 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
     let loginButton = UIButton(type: .system)
     
     let kakaoButton = UIButton(type: .system)
-    let appleButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
+    let appleButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
     
     let joinButton = UIButton(type: .system)
     

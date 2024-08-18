@@ -451,4 +451,11 @@ extension WineInfoViewController {
     func handleResponseData(_ data: WineInfo) {
         
     }
+<<<<<<< Updated upstream
+=======
+    
+    func repackWineData() -> Wine {
+        return Wine(wineId: self.wineId!, name: self.name.text!, imageUrl: self.wineImage, rating: self.scoreDouble, price: 0, area: "", sort: "")
+    }
+>>>>>>> Stashed changes
 }
