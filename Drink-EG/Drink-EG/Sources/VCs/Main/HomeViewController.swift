@@ -371,7 +371,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let selectedWine = RecomContents[indexPath.row]
             let wineInfoViewController = WineInfoViewController()
             wineInfoViewController.name.text = selectedWine.wineName
-            wineInfoViewController.wineImage = selectedWine.imageUrl
+            wineInfoViewController.wineImageURL = selectedWine.imageUrl
             wineInfoViewController.wineId = selectedWine.wineId
             navigationController?.pushViewController(wineInfoViewController, animated: true)
         }

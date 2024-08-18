@@ -18,9 +18,14 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
     let shoppingListManager = ShoppingListManager.shared
     
     private var CartContents: [ShoppingObject] = []
-    private var itemsSelectedState: [Bool] = []
     
-    private var totalSum : Int = 0
+    private var totalSum: Int = 0 {
+        didSet {
+            if totalSum < 0 {
+                totalSum = 0
+            }
+        }
+    }
     var currentCheckCellCount : Int = 0
     
     private let allCheckImage = UIImage(named: "icon_cartCheck_fill")
@@ -93,7 +98,6 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         CartContents = shoppingListManager.myCartWines
         
         view.backgroundColor = .white
-        itemsSelectedState = Array(repeating: false, count: 20)
         setupUI()
         DispatchQueue.main.async {
             self.cartListCollectionView.reloadData()
@@ -210,38 +214,6 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         // 모든 셀의 configure2를 호출하여 선택 상태 업데이트
         cartListCollectionView.reloadData()
     }
-    
-//    @objc private func allCheckButtonTapped(_ sender: UIButton) {
-//        // Bool 값 toggle
-//        let isSelectingAll = !sender.isSelected
-//        sender.isSelected = isSelectingAll
-//        
-//        // 버튼이 클릭될 때마다, 버튼 이미지를 변환
-//        let newImage = isSelectingAll ? allCheckImage?.withRenderingMode(.alwaysOriginal) : nAllCheckImage?.withRenderingMode(.alwaysOriginal)
-//        sender.setImage(newImage, for: .normal)
-//        
-//        // 모든 셀에 대해 체크 상태 업데이트
-//        currentCheckCellCount = isSelectingAll ? CartContents.count : 0
-//        totalSum = 0  // totalSum 초기화
-//        for indexPath in getIndexPathAllCells() {
-//            if let cell = cartListCollectionView.cellForItem(at: indexPath) as? CartListCollectionViewCell {
-//                if cell.CheckButton.isSelected != isSelectingAll {
-//                    cell.CheckButton.isSelected = isSelectingAll
-//                    cell.CheckButtonTapped(cell.CheckButton) // 직접 호출하여 셀의 선택 상태를 변경
-//                }
-//                if isSelectingAll {
-//                    totalSum += cell.price * cell.quantity  // 전체 선택 시 모든 셀의 가격을 더합니다.
-//                }
-//            }
-//        }
-//        
-//        // totalSum을 표시할 UI 업데이트 (예: 구매 버튼의 타이틀)
-//        buyButton.setTitle("\(totalSum)원 구매하기", for: .normal)
-//        
-//        // 전체 선택 상태를 업데이트하고 라벨을 갱신
-//        configureAllCheckLabel()
-//        cartListCollectionView.reloadData()
-//    }
 
     
     func configureAllCheckLabel() {
@@ -274,6 +246,68 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
             allCheckButton.isSelected = false
         }
     }
+    
+    func deleteButtonTapped(on cell: CartListCollectionViewCell) {
+        guard let indexPath = cartListCollectionView.indexPath(for: cell) else { return }
+        
+        // 셀의 체크 상태를 확인하고 totalSum과 currentCheckCellCount를 업데이트합니다.
+        if cell.CheckButton.isSelected {
+            currentCheckCellCount -= 1
+            totalSum -= cell.price * cell.quantity
+            buyButton.setTitle("\(totalSum)원 구매하기", for: .normal)
+        }
+        
+        // `ShoppingListManager`를 통해 삭제할 아이템을 가져옵니다.
+        let wineToDelete = CartContents[indexPath.row]
+        
+        // 로컬 데이터 모델에서 해당 항목을 삭제합니다.
+        CartContents.remove(at: indexPath.row)
+        
+        // `ShoppingListManager`를 통해 삭제합니다.
+        shoppingListManager.deleteWine(wineToDelete)
+        
+        // 컬렉션 뷰 업데이트를 수행합니다.
+        cartListCollectionView.performBatchUpdates({
+            cartListCollectionView.deleteItems(at: [indexPath])
+        }, completion: { _ in
+            self.configureAllCheckLabel()
+            
+            // 전체 선택 버튼의 상태를 업데이트합니다.
+            if self.currentCheckCellCount == self.CartContents.count {
+                self.allCheckButton.setImage(self.allCheckImage?.withRenderingMode(.alwaysOriginal), for: .selected)
+                self.allCheckButton.isSelected = true
+            } else {
+                self.allCheckButton.setImage(self.nAllCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+                self.allCheckButton.isSelected = false
+            }
+        })
+    }
+    
+    func quantityChanged(in cell: CartListCollectionViewCell) {
+        // 셀의 인덱스 경로를 찾습니다.
+        guard let indexPath = cartListCollectionView.indexPath(for: cell) else { return }
+        
+        // 현재 셀의 아이템을 가져옵니다.
+        let item = CartContents[indexPath.row]
+        
+        // 체크 버튼 상태에 따라 `totalSum`을 업데이트합니다.
+        if cell.CheckButton.isSelected {
+            // 수량이 변경되기 전의 기존 수량을 가져옵니다.
+            let previousQuantity = cell.previousQuantity
+            let updatedQuantity = cell.quantity
+            let price = item.wineData.shop.price
+            
+            // 기존 수량에 따른 가격을 총 합계에서 제거합니다.
+            totalSum -= previousQuantity * price
+            
+            // 새로운 수량과 가격을 반영하여 총 합계를 업데이트합니다.
+            totalSum += updatedQuantity * price
+        }
+        
+        // UI 업데이트
+        buyButton.setTitle("\(totalSum)원 구매하기", for: .normal)
+    }
+
 }
 
 extension ShoppingCartListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -293,11 +327,12 @@ extension ShoppingCartListViewController: UICollectionViewDataSource, UICollecti
         
         let data = CartContents[indexPath.row]
         let wineName = data.wineData.wine.name
+        let wineImage = data.wineData.wine.imageUrl
         let shopName = data.wineData.shop.name
         let price = data.wineData.shop.price
         let count = data.count
         
-        cell.configure1(imageName: wineName, wineName: wineName, price: price, count: count, shopName: shopName)
+        cell.configure1(imageName: wineImage, wineName: wineName, price: price, count: count, shopName: shopName)
 //        cell.configure2(isSelected: itemsSelectedState[indexPath.item])
         
         return cell

@@ -7,8 +7,14 @@
 
 import SnapKit
 import UIKit
+import SDWebImage
 
 class WineStoreListViewController: UIViewController {
+    
+    let customPickerButton = CustomPickerButton()
+    let pickerView = UIPickerView()
+    let toolbar = UIToolbar()
+    let pickerData = ["낮은 가격순", "가까운 거리순"]
     
     weak var delegate: StoreListDelegate?
     var selectedShop: String?
@@ -96,6 +102,12 @@ class WineStoreListViewController: UIViewController {
         
         view.backgroundColor = .white
         setupUI()
+        
+        if let imageUrl = wineImage, let url = URL(string: imageUrl) {
+            imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            imageView.image = UIImage(named: "Loxton")
+        }
     }
     
     private func setupUI() {
@@ -131,12 +143,41 @@ class WineStoreListViewController: UIViewController {
             make.leading.equalTo(name.snp.trailing).offset(13)
         }
         
+        customPickerButton.setupPickerView(pickerView, toolbar: toolbar, pickerData: pickerData)
+        view.addSubview(customPickerButton)
+        
+        customPickerButton.snp.makeConstraints { make in
+            make.top.equalTo(wineInfo.snp.bottom).offset(44) // Assuming `wineInfo` is defined somewhere
+            make.trailing.equalTo(wineInfo.snp.trailing)
+            make.width.equalTo(customPickerButton.buttonWidth)
+            make.height.equalTo(customPickerButton.pickerButtonHeight)
+        }
+        
+        // Setup Picker View
+        view.addSubview(pickerView)
+        
+        pickerView.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.top.equalTo(customPickerButton.snp.bottom) // Ensure it is below the button
+        }
+        
+        // Setup Toolbar
+        view.addSubview(toolbar)
+        
+        toolbar.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(pickerView.snp.top) // Ensure it is above the picker view
+        }
+        
         view.addSubview(wineShopListCollectionView)
         wineShopListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(wineInfo.snp.bottom).offset(76)
+            make.top.equalTo(customPickerButton.snp.bottom).offset(10)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
+        
+        view.sendSubviewToBack(wineShopListCollectionView)
     }
 }
 
@@ -164,7 +205,7 @@ extension WineStoreListViewController: UICollectionViewDataSource, UICollectionV
                 wineOrderViewController.wine = curWine
                 wineOrderViewController.curShop = data
                 
-                wineOrderViewController.wineImage = imageView.image
+                wineOrderViewController.wineImage = self.wineImage ?? ""
                 
                 // TODO : 삭제 가능한 데이터들
                 wineOrderViewController.shop = data.name

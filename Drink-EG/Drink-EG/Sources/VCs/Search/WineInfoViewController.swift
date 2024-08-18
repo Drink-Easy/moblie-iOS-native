@@ -14,7 +14,7 @@ class WineInfoViewController: UIViewController {
     
     let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
     
-    var wineImage: String?
+    var wineImageURL: String?
     var wineId: Int?
     
     var sort: String = ""
@@ -78,7 +78,7 @@ class WineInfoViewController: UIViewController {
         let iv = UIImageView()
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
-        if let imageUrl = wineImage, let url = URL(string: imageUrl) {
+        if let imageUrl = wineImageURL, let url = URL(string: imageUrl) {
             iv.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
         } else {
             iv.image = UIImage(named: "Loxton")
@@ -192,7 +192,7 @@ class WineInfoViewController: UIViewController {
         let reviewListViewController = ReviewListViewController()
         reviewListViewController.score = self.scoreDouble
         reviewListViewController.name.text = self.name.text
-        reviewListViewController.wineImage = self.wineImage
+        reviewListViewController.wineImage = self.wineImageURL
         reviewListViewController.wineId = self.wineId
         navigationController?.pushViewController(reviewListViewController, animated: true)
     }
@@ -217,7 +217,7 @@ class WineInfoViewController: UIViewController {
         wineStoreListViewController.curWine = repackWineData()
         wineStoreListViewController.scoreDouble = self.scoreDouble
         wineStoreListViewController.name.text = self.name.text
-        wineStoreListViewController.imageView.image = self.imageView.image
+        wineStoreListViewController.wineImage = self.wineImageURL ?? ""
         //reviewListViewController.wineId = self.wineId
         navigationController?.pushViewController(wineStoreListViewController, animated: true)
     }
@@ -458,6 +458,6 @@ extension WineInfoViewController {
       
     } 
     func repackWineData() -> Wine {
-        return Wine(wineId: self.wineId!, name: self.name.text!, imageUrl: self.wineImage, rating: self.scoreDouble, price: 0, area: "", sort: "")
+        return Wine(wineId: self.wineId!, name: self.name.text!, imageUrl: self.wineImageURL, rating: self.scoreDouble, price: 0, area: "", sort: "")
     }
 }
