@@ -47,7 +47,7 @@ class CheckNoteViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.equalTo(UIScreen.main.bounds.height * 1.3)
+            make.height.equalTo(UIScreen.main.bounds.height * 1.1)
         }
     }
     
