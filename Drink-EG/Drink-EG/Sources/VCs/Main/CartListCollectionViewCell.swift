@@ -13,12 +13,12 @@ protocol CartListCollectionViewCellDelegate: AnyObject {
     func checkButtonTapped(on cell: CartListCollectionViewCell, isSelected: Bool)
     func deleteButtonTapped(on cell: CartListCollectionViewCell)
     func quantityChanged(in cell: CartListCollectionViewCell)
+    func didTapChangeStoreButton(on cell: CartListCollectionViewCell)
 }
 
 class CartListCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: CartListCollectionViewCellDelegate?
-    var changeMarketButtonAction : (() -> Void) = {}
     
     var quantity: Int = 1 {
         didSet {
@@ -42,7 +42,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         return iv
     }()
     
-    private let name: UILabel = {
+    let name: UILabel = {
         let l1 = UILabel()
         l1.text = "Loxton"
         l1.font = .boldSystemFont(ofSize: 18)
@@ -67,7 +67,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
     }()
     
     @objc private func changeMarketButtonTapped() {
-        changeMarketButtonAction()
+        delegate?.didTapChangeStoreButton(on: self)
     }
     
     private let changeNumButton: UIButton = {
@@ -160,7 +160,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         delegate?.checkButtonTapped(on: self, isSelected: sender.isSelected)
     }
     
-    private func configureMarketNPlace(_ shopName: String, _ priceInt: Int, _ count: Int) {
+    func configureMarketNPlace(_ shopName: String, _ priceInt: Int, _ count: Int) {
         let firstImageAttachment = NSTextAttachment()
         firstImageAttachment.image = UIImage(named: "icon_market")
         

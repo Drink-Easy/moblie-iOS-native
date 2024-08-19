@@ -40,7 +40,7 @@ class ShoppingListManager {
     }
     
     /// 담아두기 목록에 와인, 판매처 정보로 찾아서 인덱스 반환
-    private func isExistingInList(_ name: String, in shopName : String) -> Int? {
+    func isExistingInList(_ name: String, in shopName : String) -> Int? {
         for (idx, data) in myCartWines.enumerated() {
             if data.wineData.wine.name == name && data.wineData.shop.name == shopName {
                 return idx
@@ -51,7 +51,7 @@ class ShoppingListManager {
     
     /// 담아두기 목록에 와인 정보로 찾아서 인덱스 반환
     /// 판매처 변경 시 호출됨
-    private func isExistingWineInList(_ name: String) -> Int? {
+    func isExistingWineInList(_ name: String) -> Int? {
         for (idx, data) in myCartWines.enumerated() {
             if data.wineData.wine.name == name {
                 return idx

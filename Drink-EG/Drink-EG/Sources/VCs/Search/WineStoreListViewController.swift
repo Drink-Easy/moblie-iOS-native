@@ -9,6 +9,10 @@ import SnapKit
 import UIKit
 import SDWebImage
 
+protocol StoreListDelegate: AnyObject {
+    func didSelectStore(_ store: ShopData)
+}
+
 class WineStoreListViewController: UIViewController {
     
     let customPickerButton = CustomPickerButton()
@@ -217,8 +221,8 @@ extension WineStoreListViewController: UICollectionViewDataSource, UICollectionV
                 
                 navigationController?.pushViewController(wineOrderViewController, animated: true)
             } else if previousViewController is ShoppingCartListViewController {
-                let selectedCell = collectionView.cellForItem(at: indexPath) as! WineShopListCollectionViewCell
-                delegate?.didSelectStore(selectedCell.shopName.text ?? "")
+                let selectedShop = whineShopList[indexPath.row]
+                delegate?.didSelectStore(selectedShop)
                 navigationController?.popViewController(animated: true) // 장바구니 화면으로 돌아가기
             }
         }

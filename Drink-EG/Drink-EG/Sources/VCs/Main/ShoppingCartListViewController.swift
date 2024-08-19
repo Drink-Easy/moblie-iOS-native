@@ -8,16 +8,15 @@
 import UIKit
 import SnapKit
 
-protocol StoreListDelegate: AnyObject {
-    func didSelectStore(_ store: String)
-}
-
-class ShoppingCartListViewController: UIViewController, CartListCollectionViewCellDelegate {
+class ShoppingCartListViewController: UIViewController, CartListCollectionViewCellDelegate, StoreListDelegate {
 
     var selectedStore: String?
     let shoppingListManager = ShoppingListManager.shared
     
     private var CartContents: [ShoppingObject] = []
+    
+    // selectedCell을 인스턴스 변수로 선언하여 매장 변경을 선택한 셀을 추적합니다.
+    private var selectedCell: CartListCollectionViewCell?
     
     private var totalSum: Int = 0 {
         didSet {
@@ -87,6 +86,9 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         super.viewWillAppear(animated)
         
         CartContents = shoppingListManager.myCartWines
+        if shoppingListManager.myCartWines.isEmpty {
+            showNoWineLabel()
+        }
     }
     
     override func viewDidLoad() {
@@ -113,6 +115,18 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
     func updateStoreInCart() {
         // 여기서 장바구니 셀의 매장 이름을 변경하는 코드를 작성합니다.
         cartListCollectionView.reloadData()
+    }
+    
+    private func showNoWineLabel() {
+        let noWine = UILabel()
+        noWine.text = "장바구니에 담은 상품이 없습니다."
+        noWine.font = .boldSystemFont(ofSize: 15)
+        noWine.textColor = UIColor(hex: "#767676")
+        
+        self.cartListCollectionView.addSubview(noWine)
+        noWine.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
     }
     
     private func setupUI() {
@@ -224,6 +238,12 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
                 self.allCheckButton.isSelected = false
             }
         })
+        
+        if self.shoppingListManager.myCartWines.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                self.showNoWineLabel()
+            }
+        }
     }
 
 
@@ -270,6 +290,62 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         allCheckLabel.font = .boldSystemFont(ofSize: 14)
         allCheckLabel.textColor = UIColor(hex: "#767676")
     }
+    
+    func didTapChangeStoreButton(on cell: CartListCollectionViewCell) {
+        let wineShopListVC = WineStoreListViewController()
+        wineShopListVC.delegate = self
+        navigationController?.pushViewController(wineShopListVC, animated: true)
+        
+        // 선택된 셀을 추적하여 나중에 업데이트할 수 있도록 저장
+        selectedCell = cell
+    }
+    
+    func didSelectStore(_ store: ShopData) {
+        guard let selectedCell = selectedCell, let indexPath = cartListCollectionView.indexPath(for: selectedCell) else { return }
+        
+        // 현재 셀의 아이템을 가져옵니다.
+        var item = CartContents[indexPath.row]
+        
+        // 선택된 셀의 매장 이름과 가격을 업데이트합니다.
+        selectedCell.shop = store.name
+        selectedCell.price = store.price
+        
+        // 셀의 UI를 업데이트합니다.
+        selectedCell.configureMarketNPlace(store.name, store.price, selectedCell.quantity)
+        
+        // 장바구니 데이터를 업데이트합니다.
+        if let wineName = selectedCell.name.text, let index = shoppingListManager.isExistingWineInList(wineName) {
+            let shoppingObject = shoppingListManager.myCartWines[index]
+            let updatedShoppingObject = ShoppingObject(wineData: UserWineData(wine: shoppingObject.wineData.wine, shop: store))
+            shoppingListManager.updatePlace(updatedShoppingObject)
+        }
+        
+        // CartContents 배열의 항목을 업데이트합니다.
+        item.wineData.shop = store
+        CartContents[indexPath.row] = item
+        
+        // 총 합계 재계산
+        totalSum = 0
+        
+        // 모든 인덱스 경로를 가져옵니다.
+            for section in 0..<cartListCollectionView.numberOfSections {
+                for item in 0..<cartListCollectionView.numberOfItems(inSection: section) {
+                    let indexPath = IndexPath(item: item, section: section)
+                    if let cell = cartListCollectionView.cellForItem(at: indexPath) as? CartListCollectionViewCell {
+                        // 셀의 체크 상태 확인
+                        if cell.CheckButton.isSelected {
+                            let price = cell.price
+                            let quantity = cell.quantity
+                            totalSum += price * quantity
+                        }
+                    }
+                }
+            }
+        
+        // UI 업데이트
+        buyButton.setTitle("\(totalSum)원 구매하기", for: .normal)
+    }
+
     
     func checkButtonTapped(on cell: CartListCollectionViewCell, isSelected: Bool) {
         if isSelected {
@@ -330,6 +406,12 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
                 self.allCheckButton.isSelected = false
             }
         })
+        
+        if self.shoppingListManager.myCartWines.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.showNoWineLabel()
+            }
+        }
     }
     
     func quantityChanged(in cell: CartListCollectionViewCell) {
@@ -339,12 +421,13 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         // 현재 셀의 아이템을 가져옵니다.
         let item = CartContents[indexPath.row]
         
+        // 수량이 변경되기 전의 기존 수량을 가져옵니다.
+        let previousQuantity = cell.previousQuantity
+        let updatedQuantity = cell.quantity
+        let price = item.wineData.shop.price
+        
         // 체크 버튼 상태에 따라 `totalSum`을 업데이트합니다.
         if cell.CheckButton.isSelected {
-            // 수량이 변경되기 전의 기존 수량을 가져옵니다.
-            let previousQuantity = cell.previousQuantity
-            let updatedQuantity = cell.quantity
-            let price = item.wineData.shop.price
             
             // 기존 수량에 따른 가격을 총 합계에서 제거합니다.
             totalSum -= previousQuantity * price
@@ -352,6 +435,9 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
             // 새로운 수량과 가격을 반영하여 총 합계를 업데이트합니다.
             totalSum += updatedQuantity * price
         }
+        
+        item.count = updatedQuantity
+        CartContents[indexPath.row] = item
         
         // UI 업데이트
         buyButton.setTitle("\(totalSum)원 구매하기", for: .normal)
@@ -368,11 +454,6 @@ extension ShoppingCartListViewController: UICollectionViewDataSource, UICollecti
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartListCollectionViewCell", for: indexPath) as! CartListCollectionViewCell
         cell.delegate = self // 델리게이트 설정
-        
-        cell.changeMarketButtonAction = {
-            let wineStoreListViewController = WineStoreListViewController()
-            self.navigationController?.pushViewController(wineStoreListViewController, animated: true)
-        }
         
         let data = CartContents[indexPath.row]
         let wineName = data.wineData.wine.name
