@@ -195,6 +195,14 @@ class CheckNoteViewController: UIViewController {
         return v
     }()
     
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [name, specInfo])
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 5
+        return stackView
+    }()
+    
     let review = UILabel()
     
     func setupReview() {
@@ -236,7 +244,6 @@ class CheckNoteViewController: UIViewController {
         finishButton.layer.cornerRadius = 10
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -265,19 +272,35 @@ class CheckNoteViewController: UIViewController {
             make.width.equalTo(imageView.snp.height)
         }
         
-        infoView.addSubview(name)
-        name.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
+//        infoView.addSubview(stackView)
+//        stackView.snp.makeConstraints { make in
+//            make.leading.equalTo(imageView.snp.trailing).offset(20)
+//            make.trailing.equalTo(infoView.snp.trailing).offset(-50)
+//            //make.top.bottom.equalTo(infoView)
+//            make.centerY.equalTo(infoView.snp.centerY)
+//        }
+        
+        infoView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
             make.leading.equalTo(imageView.snp.trailing).offset(20)
             make.trailing.equalTo(infoView.snp.trailing).offset(-50)
         }
         
-        infoView.addSubview(specInfo)
-        specInfo.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.bottom).offset(5)
-            make.leading.equalTo(name)
-            make.trailing.equalTo(name.snp.trailing)
-        }
+//        stackView.addSubview(name)
+//        name.snp.makeConstraints { make in
+////            make.top.equalToSuperview()
+////            make.leading.equalTo(imageView.snp.trailing).offset(20)
+////            make.trailing.equalTo(infoView.snp.trailing).offset(-50)
+//            make.top.leading.equalToSuperview()
+//        }
+//        
+//        stackView.addSubview(specInfo)
+//        specInfo.snp.makeConstraints { make in
+//            make.top.equalTo(name.snp.bottom).offset(5)
+//            make.leading.equalTo(name)
+//            make.trailing.equalTo(name.snp.trailing)
+//        }
         
         infoView.addSubview(score)
         score.snp.makeConstraints { make in
