@@ -11,6 +11,7 @@ import Moya
 enum LoginAPI {
     case postLogin(data: JoinNLoginRequest)
     case postRegister(data : JoinNLoginRequest)
+    case postAppleLogin(identityTokenString: String)
 }
 
 extension LoginAPI: TargetType {
@@ -27,6 +28,8 @@ extension LoginAPI: TargetType {
             return "/login"
         case .postRegister:
             return "/join"
+        case .postAppleLogin:
+            return"/login/apple"
         }
     }
     
@@ -37,6 +40,8 @@ extension LoginAPI: TargetType {
             return .post
         case .postRegister:
             return .post
+        case .postAppleLogin:
+            return .post
         }
     }
     
@@ -44,17 +49,16 @@ extension LoginAPI: TargetType {
         switch self {
         case .postLogin(let data), .postRegister(let data) :
             return .requestJSONEncodable(data)
+        case .postAppleLogin(let identityTokenString) :
+            return .requestParameters(parameters: ["identityToken" : identityTokenString], encoding: JSONEncoding.default)
         }
     }
     
     // API 호출 시, header에 token 넣어서 전달
     var headers: [String : String]? {
-        switch self {
-        case .postLogin, .postRegister:
-            return [
-                "Content-type": "application/json"
-            ]
-        }
+        return [
+            "Content-type": "application/json"
+        ]
     }
     
     var validationType: ValidationType {

@@ -56,6 +56,8 @@
 		16C19AA62C70B67200E93FD0 /* ShoppingListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */; };
 		16C19AA92C70B8D500E93FD0 /* UserWineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AA82C70B8D500E93FD0 /* UserWineData.swift */; };
 		16C19AAB2C7194D200E93FD0 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AAA2C7194D200E93FD0 /* LoginResponse.swift */; };
+		16C19AB02C73A3B100E93FD0 /* AppleLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AAF2C73A3B100E93FD0 /* AppleLoginResponse.swift */; };
+		16C19AB22C73A3FD00E93FD0 /* MemberResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AB12C73A3FD00E93FD0 /* MemberResponse.swift */; };
 		1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */; };
 		1F205A332C69FE9800E80659 /* JoinNLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */; };
 		1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */; };
@@ -189,6 +191,8 @@
 		16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListManager.swift; sourceTree = "<group>"; };
 		16C19AA82C70B8D500E93FD0 /* UserWineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWineData.swift; sourceTree = "<group>"; };
 		16C19AAA2C7194D200E93FD0 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		16C19AAF2C73A3B100E93FD0 /* AppleLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginResponse.swift; sourceTree = "<group>"; };
+		16C19AB12C73A3FD00E93FD0 /* MemberResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberResponse.swift; sourceTree = "<group>"; };
 		1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNLoginRequest.swift; sourceTree = "<group>"; };
 		1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseLoginResponse.swift; sourceTree = "<group>"; };
@@ -295,6 +299,7 @@
 			children = (
 				165400F52C69EF89008A9DBF /* WineNewsRequest.swift */,
 				165400F72C69EFBD008A9DBF /* WineNewsResponse.swift */,
+				16C19AB12C73A3FD00E93FD0 /* MemberResponse.swift */,
 			);
 			path = WineNews;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				1F8F99F42C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift */,
 				1F8F99FB2C6F53A300EAEF6C /* APIResponseWineInfoResponse.swift */,
 				1F8F99FF2C6FADBE00EAEF6C /* APIResponseWineReviewResponse.swift */,
+				16C19AAF2C73A3B100E93FD0 /* AppleLoginResponse.swift */,
 			);
 			path = APIResponseModels;
 			sourceTree = "<group>";
@@ -473,9 +479,8 @@
 		16B97CF22C4BF3FC00D8B453 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				16C19AAE2C73A39A00E93FD0 /* Managers */,
 				165401052C69FA97008A9DBF /* APIResponseModels */,
-				1654010A2C6BACDC008A9DBF /* SelectionManager.swift */,
-				16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -594,6 +599,15 @@
 				16C19AA82C70B8D500E93FD0 /* UserWineData.swift */,
 			);
 			path = ShoppingCart;
+			sourceTree = "<group>";
+		};
+		16C19AAE2C73A39A00E93FD0 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				1654010A2C6BACDC008A9DBF /* SelectionManager.swift */,
+				16C19AA52C70B67200E93FD0 /* ShoppingListManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		1F598EEF2C58136B000CE79F /* Login */ = {
@@ -732,6 +746,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16C19AB22C73A3FD00E93FD0 /* MemberResponse.swift in Sources */,
 				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
 				1F205A392C6B33F700E80659 /* ThirdKindTasteTestViewController.swift in Sources */,
 				165400E22C69D6B9008A9DBF /* CookiePlugin.swift in Sources */,
@@ -819,6 +834,7 @@
 				165401552C6FC5CD008A9DBF /* HomeResponse.swift in Sources */,
 				165400ED2C69DDF2008A9DBF /* WineNewsAPI.swift in Sources */,
 				1F8F9A002C6FADBE00EAEF6C /* APIResponseWineReviewResponse.swift in Sources */,
+				16C19AB02C73A3B100E93FD0 /* AppleLoginResponse.swift in Sources */,
 				5E2219532C69D5E7005849FB /* NoteInfoViewController.swift in Sources */,
 				165400FE2C69F218008A9DBF /* APIResponseWineClassResponse.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
