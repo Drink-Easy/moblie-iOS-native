@@ -103,6 +103,13 @@ class WineStoreListViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
+        // 네비게이션 바 설정
+//        if let navigationBar = navigationController?.navigationBar {
+//            navigationBar.isTranslucent = false
+//            navigationBar.shadowImage = UIImage() // 하단에 생기는 경계선을 없앰
+//            navigationBar.setBackgroundImage(UIImage(), for: .default) // 배경 이미지를 투명하게 설정
+//            navigationBar.barTintColor = .white // 필요 시 배경 색을 흰색으로 설정
+//        }
         
         view.backgroundColor = .white
         setupUI()
@@ -115,74 +122,75 @@ class WineStoreListViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
+            view.addSubview(label)
+            label.snp.makeConstraints { make in
+                make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+                make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
+            }
+            
+            view.addSubview(wineInfo)
+            wineInfo.snp.makeConstraints { make in
+                make.top.equalTo(label.snp.bottom).offset(26)
+                make.trailing.leading.equalToSuperview().inset(16)
+                make.height.lessThanOrEqualTo(120)
+            }
+            
+            wineInfo.addSubview(imageView)
+            imageView.snp.makeConstraints { make in
+                make.top.bottom.equalToSuperview().inset(20)
+                make.leading.equalToSuperview().offset(12)
+                make.width.equalTo(imageView.snp.height)
+            }
+            
+            wineInfo.addSubview(name)
+            name.snp.makeConstraints { make in
+                make.top.equalTo(imageView)
+                make.leading.equalTo(imageView.snp.trailing).offset(23)
+            }
+            
+            wineInfo.addSubview(score)
+            score.snp.makeConstraints { make in
+                make.centerY.equalTo(name)
+                make.leading.equalTo(name.snp.trailing).offset(13)
+            }
+            
+            customPickerButton.setupPickerView(pickerView, toolbar: toolbar, pickerData: pickerData)
+            view.addSubview(customPickerButton)
+            
+            customPickerButton.snp.makeConstraints { make in
+                make.top.equalTo(wineInfo.snp.bottom).offset(44)
+                make.trailing.equalTo(wineInfo.snp.trailing)
+                make.width.equalTo(customPickerButton.buttonWidth)
+                make.height.equalTo(customPickerButton.pickerButtonHeight)
+            }
+            
+            // Setup Picker View
+            view.addSubview(pickerView)
+            
+            pickerView.snp.makeConstraints { make in
+                make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+                make.height.equalTo(200) // 높이 설정
+            }
+            
+            // Setup Toolbar
+            view.addSubview(toolbar)
+            
+            toolbar.snp.makeConstraints { make in
+                make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+                make.bottom.equalTo(pickerView.snp.top)
+                make.height.equalTo(44) // 높이 설정
+            }
+            
+            view.addSubview(wineShopListCollectionView)
+            wineShopListCollectionView.snp.makeConstraints { make in
+                make.top.equalTo(customPickerButton.snp.bottom).offset(10)
+                make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
+                make.bottom.equalTo(view.safeAreaLayoutGuide).inset(15)
+            }
+            
+            view.sendSubviewToBack(wineShopListCollectionView)
         }
-        
-        view.addSubview(wineInfo)
-        wineInfo.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(26)
-            make.trailing.leading.equalToSuperview().inset(16)
-            make.height.lessThanOrEqualTo(120)
-        }
-        
-        wineInfo.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(20)
-            make.leading.equalToSuperview().offset(12)
-            make.width.equalTo(imageView.snp.height)
-        }
-        
-        wineInfo.addSubview(name)
-        name.snp.makeConstraints { make in
-            make.top.equalTo(imageView)
-            make.leading.equalTo(imageView.snp.trailing).offset(23)
-        }
-        
-        wineInfo.addSubview(score)
-        score.snp.makeConstraints { make in
-            make.centerY.equalTo(name)
-            make.leading.equalTo(name.snp.trailing).offset(13)
-        }
-        
-        customPickerButton.setupPickerView(pickerView, toolbar: toolbar, pickerData: pickerData)
-        view.addSubview(customPickerButton)
-        
-        customPickerButton.snp.makeConstraints { make in
-            make.top.equalTo(wineInfo.snp.bottom).offset(44) // Assuming `wineInfo` is defined somewhere
-            make.trailing.equalTo(wineInfo.snp.trailing)
-            make.width.equalTo(customPickerButton.buttonWidth)
-            make.height.equalTo(customPickerButton.pickerButtonHeight)
-        }
-        
-        // Setup Picker View
-        view.addSubview(pickerView)
-        
-        pickerView.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.top.equalTo(customPickerButton.snp.bottom) // Ensure it is below the button
-        }
-        
-        // Setup Toolbar
-        view.addSubview(toolbar)
-        
-        toolbar.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(pickerView.snp.top) // Ensure it is above the picker view
-        }
-        
-        view.addSubview(wineShopListCollectionView)
-        wineShopListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(customPickerButton.snp.bottom).offset(10)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(15)
-        }
-        
-        view.sendSubviewToBack(wineShopListCollectionView)
-    }
 }
 
 extension WineStoreListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

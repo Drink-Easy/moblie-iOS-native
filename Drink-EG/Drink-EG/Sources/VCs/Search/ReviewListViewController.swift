@@ -20,6 +20,11 @@ class ReviewListViewController: UIViewController {
     var score = 4.5
     private let scoreLabel = UILabel()
     
+    let customPickerButton = CustomPickerButton()
+    let pickerView = UIPickerView()
+    let toolbar = UIToolbar()
+    let pickerData = ["최신 리뷰 순", "별점 높은 순", "별점 낮은 순"]
+    
     private let label: UILabel = {
         let l = UILabel()
         l.text = "다른유저 리뷰"
@@ -134,12 +139,42 @@ class ReviewListViewController: UIViewController {
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
+        customPickerButton.setupPickerView(pickerView, toolbar: toolbar, pickerData: pickerData)
+        view.addSubview(customPickerButton)
+        
+        customPickerButton.snp.makeConstraints { make in
+            make.bottom.equalTo(image.snp.bottom).offset(10)
+            make.trailing.equalTo(stick.snp.trailing)
+            make.width.equalTo(customPickerButton.buttonWidth)
+            make.height.equalTo(customPickerButton.pickerButtonHeight)
+        }
+        
+        // Setup Picker View
+        view.addSubview(pickerView)
+        
+        pickerView.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.height.equalTo(200) // 높이 설정
+        }
+        
+        // Setup Toolbar
+        view.addSubview(toolbar)
+        
+        toolbar.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(pickerView.snp.top)
+            make.height.equalTo(44) // 높이 설정
+        }
+        
         view.addSubview(reviewListCollectionView)
         reviewListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(image.snp.bottom).offset(22)
+            make.top.equalTo(image.snp.bottom).offset(20)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        view.sendSubviewToBack(reviewListCollectionView)
     }
     
     private func configureScore() {

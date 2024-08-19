@@ -304,7 +304,7 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         guard let selectedCell = selectedCell, let indexPath = cartListCollectionView.indexPath(for: selectedCell) else { return }
         
         // 현재 셀의 아이템을 가져옵니다.
-        var item = CartContents[indexPath.row]
+        let item = CartContents[indexPath.row]
         
         // 선택된 셀의 매장 이름과 가격을 업데이트합니다.
         selectedCell.shop = store.name
@@ -315,7 +315,8 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         
         // 장바구니 데이터를 업데이트합니다.
         if let wineName = selectedCell.name.text, let index = shoppingListManager.isExistingWineInList(wineName) {
-            let shoppingObject = shoppingListManager.myCartWines[index]
+            var shoppingObject = shoppingListManager.myCartWines[index]
+            // 기존 매장에서 새로운 매장으로 업데이트
             let updatedShoppingObject = ShoppingObject(wineData: UserWineData(wine: shoppingObject.wineData.wine, shop: store))
             shoppingListManager.updatePlace(updatedShoppingObject)
         }
