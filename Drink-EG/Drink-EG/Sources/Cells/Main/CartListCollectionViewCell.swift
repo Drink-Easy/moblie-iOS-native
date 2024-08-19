@@ -240,7 +240,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(13)
             make.leading.equalTo(imageView.snp.trailing).offset(13)
             if UIDevice.current.userInterfaceIdiom == .phone {
-                make.width.lessThanOrEqualTo(185)
+                make.width.lessThanOrEqualTo(180) //185
             }
             make.height.lessThanOrEqualTo(45)
         }

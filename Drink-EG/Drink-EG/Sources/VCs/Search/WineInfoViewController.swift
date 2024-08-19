@@ -314,7 +314,7 @@ class WineInfoViewController: UIViewController {
         tastingNoteView.snp.makeConstraints { make in
             make.top.equalTo(infoView.snp.bottom).offset(10.5)
             make.leading.trailing.equalTo(infoView)
-            make.height.greaterThanOrEqualTo(414)
+            make.height.greaterThanOrEqualTo(400)
         }
         
         tastingNoteView.addSubview(represent)
@@ -325,10 +325,11 @@ class WineInfoViewController: UIViewController {
         
         tastingNoteView.addSubview(pentagonChart)
         pentagonChart.snp.makeConstraints{ make in
-            make.top.equalTo(represent.snp.bottom).offset(29)
+            make.top.equalTo(represent.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.width.equalTo(353)
-            make.height.equalTo(309)
+            make.leading.equalToSuperview().offset(10) // 추가: 좌우 여백을 설정할 수 있습니다
+            make.bottom.equalToSuperview().offset(-10)
+            make.width.equalTo(pentagonChart.snp.height).multipliedBy(353.0/309.0)
         }
         
         contentView.addSubview(explainEntireView)
