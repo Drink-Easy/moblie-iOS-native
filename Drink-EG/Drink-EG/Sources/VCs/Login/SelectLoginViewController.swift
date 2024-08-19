@@ -160,17 +160,18 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
                 let identityToken = appleIDCredential.identityToken,
                 let authCodeString = String(data: authorizationCode, encoding: .utf8),
                 let identifyTokenString = String(data: identityToken, encoding: .utf8) {
-                print("authorizationCode: \(authorizationCode)\n")
-                print("identityToken: \(identityToken)\n")
-                print("authCodeString: \(authCodeString)\n")
-                print("identifyTokenString: \(identifyTokenString)\n")
+//                print("authorizationCode: \(authorizationCode)\n")
+//                print("identityToken: \(identityToken)\n")
+//                print("authCodeString: \(authCodeString)\n")
+//                print("identifyTokenString: \(identifyTokenString)\n")
             }
             
-            print("useridentifier: \(userIdentifier)")
-            print("fullName: \(fullName)")
-            print("email: \(email)")
+//            print("useridentifier: \(userIdentifier)")
+//            print("fullName: \(fullName)")
+//            print("email: \(email)")
             
             // move to MainPage
+            // 비동기 처리해주기
             goToNextView()
             
         case let passwordCredential as ASPasswordCredential:
