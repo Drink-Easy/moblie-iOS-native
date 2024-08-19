@@ -1,6 +1,6 @@
 import UIKit
 
-class CustomCommentsCollectionView: UITableViewCell {
+class CustomCommentsCollectionViewCell: UITableViewCell {
     let profileImageView = UIImageView()
     let nameLabel = UILabel()
     let dateLabel = UILabel()
