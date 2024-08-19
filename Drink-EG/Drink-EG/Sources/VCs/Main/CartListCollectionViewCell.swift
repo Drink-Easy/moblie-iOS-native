@@ -34,6 +34,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
     let CheckButton = UIButton(type: .custom)
     var shop = "PODO"
     var price = 0
+    var wineImage: String?
     
     private let imageView: UIImageView = {
         let iv = UIImageView()

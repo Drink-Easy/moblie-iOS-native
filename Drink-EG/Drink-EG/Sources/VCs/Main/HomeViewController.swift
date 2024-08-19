@@ -151,8 +151,8 @@ class HomeViewController: UIViewController {
         // SnapKit을 사용하여 제약 조건 설정
         stackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(34)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.greaterThanOrEqualTo(34)
         }
         
         searchButton.snp.makeConstraints { make in
@@ -186,8 +186,7 @@ class HomeViewController: UIViewController {
             make.top.equalTo(contentView.snp.top).offset(10)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(stackView)
-            make.width.equalTo(356)
-            make.height.equalTo(247)
+            make.height.equalTo(AdImageCollectionView.snp.width).multipliedBy(247.0/356.0)
         }
         
         pageControl.snp.makeConstraints { make in

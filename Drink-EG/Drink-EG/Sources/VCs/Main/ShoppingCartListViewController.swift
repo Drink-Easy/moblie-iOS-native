@@ -294,6 +294,9 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
     func didTapChangeStoreButton(on cell: CartListCollectionViewCell) {
         let wineShopListVC = WineStoreListViewController()
         wineShopListVC.delegate = self
+        wineShopListVC.wineImage = cell.wineImage
+        wineShopListVC.name.text = cell.name.text
+        wineShopListVC.score.text = ""
         navigationController?.pushViewController(wineShopListVC, animated: true)
         
         // 선택된 셀을 추적하여 나중에 업데이트할 수 있도록 저장
@@ -463,6 +466,7 @@ extension ShoppingCartListViewController: UICollectionViewDataSource, UICollecti
         let price = data.wineData.shop.price
         let count = data.count
         
+        cell.wineImage = wineImage
         cell.configure1(imageName: wineImage, wineName: wineName, price: price, count: count, shopName: shopName)
 //        cell.configure2(isSelected: itemsSelectedState[indexPath.item])
         
