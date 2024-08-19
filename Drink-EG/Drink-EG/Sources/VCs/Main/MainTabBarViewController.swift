@@ -28,7 +28,7 @@ class MainTabBarViewController : UITabBarController {
         let nav2 = UINavigationController(rootViewController: WineClassMainViewController())
         let nav3 = UINavigationController(rootViewController: NoteListViewController())
         let nav4 = UINavigationController(rootViewController: CommunityMainViewController())
-        let nav5 = UINavigationController(rootViewController: SettingMainController())
+        let nav5 = UINavigationController(rootViewController: MypageViewController())
         
         nav1.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "TabHome"), tag: 0)
         nav2.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "TabClass"), tag: 1)

@@ -58,6 +58,15 @@
 		16C19AAB2C7194D200E93FD0 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AAA2C7194D200E93FD0 /* LoginResponse.swift */; };
 		16C19AB02C73A3B100E93FD0 /* AppleLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AAF2C73A3B100E93FD0 /* AppleLoginResponse.swift */; };
 		16C19AB22C73A3FD00E93FD0 /* MemberResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AB12C73A3FD00E93FD0 /* MemberResponse.swift */; };
+		16C19ABD2C73AB6300E93FD0 /* MyPageSuggestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AB42C73AB6300E93FD0 /* MyPageSuggestViewController.swift */; };
+		16C19ABE2C73AB6300E93FD0 /* MyPageQnaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AB52C73AB6300E93FD0 /* MyPageQnaViewController.swift */; };
+		16C19ABF2C73AB6300E93FD0 /* MyPageNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AB62C73AB6300E93FD0 /* MyPageNoticeViewController.swift */; };
+		16C19AC02C73AB6300E93FD0 /* MyPageBusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AB72C73AB6300E93FD0 /* MyPageBusinessViewController.swift */; };
+		16C19AC12C73AB6300E93FD0 /* MyPageOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AB82C73AB6300E93FD0 /* MyPageOrderViewController.swift */; };
+		16C19AC22C73AB6300E93FD0 /* MypageInfoBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AB92C73AB6300E93FD0 /* MypageInfoBottomViewController.swift */; };
+		16C19AC32C73AB6300E93FD0 /* MyPageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19ABA2C73AB6300E93FD0 /* MyPageSettingsViewController.swift */; };
+		16C19AC42C73AB6300E93FD0 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19ABB2C73AB6300E93FD0 /* WishListViewController.swift */; };
+		16C19AC52C73AB6300E93FD0 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19ABC2C73AB6300E93FD0 /* MypageViewController.swift */; };
 		1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */; };
 		1F205A332C69FE9800E80659 /* JoinNLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */; };
 		1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */; };
@@ -80,7 +89,6 @@
 		1F598F0F2C5CBE70000CE79F /* FirstTasteTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F0E2C5CBE70000CE79F /* FirstTasteTestViewController.swift */; };
 		1F598F112C5CBE7A000CE79F /* SecondTasteTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F598F102C5CBE7A000CE79F /* SecondTasteTestViewController.swift */; };
 		1F8DE5772C4D4ED800961A59 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */; };
-		1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */; };
 		1F8F99F32C6F386B00EAEF6C /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99F22C6F386B00EAEF6C /* SearchAPI.swift */; };
 		1F8F99F52C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99F42C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift */; };
 		1F8F99F82C6F52C600EAEF6C /* WineSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F99F72C6F52C600EAEF6C /* WineSearchResponse.swift */; };
@@ -193,6 +201,15 @@
 		16C19AAA2C7194D200E93FD0 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		16C19AAF2C73A3B100E93FD0 /* AppleLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginResponse.swift; sourceTree = "<group>"; };
 		16C19AB12C73A3FD00E93FD0 /* MemberResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberResponse.swift; sourceTree = "<group>"; };
+		16C19AB42C73AB6300E93FD0 /* MyPageSuggestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageSuggestViewController.swift; sourceTree = "<group>"; };
+		16C19AB52C73AB6300E93FD0 /* MyPageQnaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageQnaViewController.swift; sourceTree = "<group>"; };
+		16C19AB62C73AB6300E93FD0 /* MyPageNoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageNoticeViewController.swift; sourceTree = "<group>"; };
+		16C19AB72C73AB6300E93FD0 /* MyPageBusinessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageBusinessViewController.swift; sourceTree = "<group>"; };
+		16C19AB82C73AB6300E93FD0 /* MyPageOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageOrderViewController.swift; sourceTree = "<group>"; };
+		16C19AB92C73AB6300E93FD0 /* MypageInfoBottomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageInfoBottomViewController.swift; sourceTree = "<group>"; };
+		16C19ABA2C73AB6300E93FD0 /* MyPageSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageSettingsViewController.swift; sourceTree = "<group>"; };
+		16C19ABB2C73AB6300E93FD0 /* WishListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
+		16C19ABC2C73AB6300E93FD0 /* MypageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinNLoginRequest.swift; sourceTree = "<group>"; };
 		1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseLoginResponse.swift; sourceTree = "<group>"; };
@@ -215,7 +232,6 @@
 		1F598F0E2C5CBE70000CE79F /* FirstTasteTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTasteTestViewController.swift; sourceTree = "<group>"; };
 		1F598F102C5CBE7A000CE79F /* SecondTasteTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTasteTestViewController.swift; sourceTree = "<group>"; };
 		1F8DE5762C4D4ED700961A59 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
-		1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingMainController.swift; path = "Drink-EG/Sources/VCs/Main/SettingMainController.swift"; sourceTree = SOURCE_ROOT; };
 		1F8F99F22C6F386B00EAEF6C /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		1F8F99F42C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseWineSearchResponse.swift; sourceTree = "<group>"; };
 		1F8F99F72C6F52C600EAEF6C /* WineSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchResponse.swift; sourceTree = "<group>"; };
@@ -575,7 +591,15 @@
 		16B97CFB2C4BFB5E00D8B453 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */,
+				16C19AB72C73AB6300E93FD0 /* MyPageBusinessViewController.swift */,
+				16C19AB92C73AB6300E93FD0 /* MypageInfoBottomViewController.swift */,
+				16C19AB62C73AB6300E93FD0 /* MyPageNoticeViewController.swift */,
+				16C19AB82C73AB6300E93FD0 /* MyPageOrderViewController.swift */,
+				16C19AB52C73AB6300E93FD0 /* MyPageQnaViewController.swift */,
+				16C19ABA2C73AB6300E93FD0 /* MyPageSettingsViewController.swift */,
+				16C19AB42C73AB6300E93FD0 /* MyPageSuggestViewController.swift */,
+				16C19ABC2C73AB6300E93FD0 /* MypageViewController.swift */,
+				16C19ABB2C73AB6300E93FD0 /* WishListViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -748,6 +772,7 @@
 			files = (
 				16C19AB22C73A3FD00E93FD0 /* MemberResponse.swift in Sources */,
 				16B97D042C4C0CD700D8B453 /* WineInfoViewController.swift in Sources */,
+				16C19AC22C73AB6300E93FD0 /* MypageInfoBottomViewController.swift in Sources */,
 				1F205A392C6B33F700E80659 /* ThirdKindTasteTestViewController.swift in Sources */,
 				165400E22C69D6B9008A9DBF /* CookiePlugin.swift in Sources */,
 				1F598F0F2C5CBE70000CE79F /* FirstTasteTestViewController.swift in Sources */,
@@ -756,13 +781,16 @@
 				165400F62C69EF89008A9DBF /* WineNewsRequest.swift in Sources */,
 				1654014E2C6F9582008A9DBF /* APIResponseNoteResponse.swift in Sources */,
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
+				16C19ABE2C73AB6300E93FD0 /* MyPageQnaViewController.swift in Sources */,
 				1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */,
+				16C19AC42C73AB6300E93FD0 /* WishListViewController.swift in Sources */,
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
 				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
 				1F8F99FA2C6F538300EAEF6C /* WineInfoResponse.swift in Sources */,
 				5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */,
 				1F205A432C6B66EB00E80659 /* TasteTestThirdCollectionViewCell.swift in Sources */,
 				1FBD19572C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift in Sources */,
+				16C19AC52C73AB6300E93FD0 /* MypageViewController.swift in Sources */,
 				5E23147F2C5901BB004E2013 /* (null) in Sources */,
 				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
 				165400F82C69EFBD008A9DBF /* WineNewsResponse.swift in Sources */,
@@ -785,6 +813,7 @@
 				1F8F99F52C6F40F400EAEF6C /* APIResponseWineSearchResponse.swift in Sources */,
 				165401072C6BA5D8008A9DBF /* MemberInfoRequest.swift in Sources */,
 				1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */,
+				16C19AC12C73AB6300E93FD0 /* MyPageOrderViewController.swift in Sources */,
 				165400FA2C69F15D008A9DBF /* APIResponseWineNewsResponse.swift in Sources */,
 				1F205A452C6B707C00E80659 /* WhatsURNameViewController.swift in Sources */,
 				5E2219582C69D5E7005849FB /* PolygonChartView.swift in Sources */,
@@ -830,7 +859,7 @@
 				1F205A332C69FE9800E80659 /* JoinNLoginRequest.swift in Sources */,
 				1F205A3D2C6B34A300E80659 /* ThirdVarietyTasteTestViewController.swift in Sources */,
 				1FBD19552C6D2BF7005C16A8 /* ReviewListViewController.swift in Sources */,
-				1F8DE5792C4D5A4D00961A59 /* SettingMainController.swift in Sources */,
+				16C19AC32C73AB6300E93FD0 /* MyPageSettingsViewController.swift in Sources */,
 				165401552C6FC5CD008A9DBF /* HomeResponse.swift in Sources */,
 				165400ED2C69DDF2008A9DBF /* WineNewsAPI.swift in Sources */,
 				1F8F9A002C6FADBE00EAEF6C /* APIResponseWineReviewResponse.swift in Sources */,
@@ -838,16 +867,19 @@
 				5E2219532C69D5E7005849FB /* NoteInfoViewController.swift in Sources */,
 				165400FE2C69F218008A9DBF /* APIResponseWineClassResponse.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
+				16C19ABD2C73AB6300E93FD0 /* MyPageSuggestViewController.swift in Sources */,
 				165401572C6FC618008A9DBF /* APIResponseHomeResponse.swift in Sources */,
 				1F598F032C581A7D000CE79F /* StartLoginCollectionViewCell.swift in Sources */,
 				5E2219452C69D5D0005849FB /* CommunityInfoViewController.swift in Sources */,
 				1F598EFB2C5814F9000CE79F /* EnterLoginViewController.swift in Sources */,
+				16C19ABF2C73AB6300E93FD0 /* MyPageNoticeViewController.swift in Sources */,
 				1F8F99F32C6F386B00EAEF6C /* SearchAPI.swift in Sources */,
 				16C19AA62C70B67200E93FD0 /* ShoppingListManager.swift in Sources */,
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 				5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */,
 				1654014C2C6F41B0008A9DBF /* ContentView.swift in Sources */,
 				5E2219442C69D5D0005849FB /* CreateNewCommViewController.swift in Sources */,
+				16C19AC02C73AB6300E93FD0 /* MyPageBusinessViewController.swift in Sources */,
 				5E2219472C69D5D0005849FB /* CustomCollectionViewCell.swift in Sources */,
 				5E22195B2C69D5E7005849FB /* WriteNoteViewController.swift in Sources */,
 				165401132C6E2BAA008A9DBF /* WineKnowledgeViewController.swift in Sources */,
