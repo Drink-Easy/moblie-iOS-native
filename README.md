@@ -21,6 +21,43 @@
 ## 🔧 Stack
 
 ## :open_file_folder: Project Structure
+```markdown
+└── Drink-EG
+    ├── Drink-EG
+    │   ├── Resources
+    │   │   ├── APIs
+    │   │   │   └── Example
+    │   │   ├── Extensions
+    │   │   └── Fonts
+    │   └── Sources
+    │       ├── Cells
+    │       │   ├── Main
+    │       │   ├── Search
+    │       │   ├── TasteTest
+    │       │   ├── TastingNote
+    │       │   └── WineClass
+    │       ├── Datas
+    │       │   ├── Search
+    │       │   ├── ShoppingCart
+    │       │   ├── User
+    │       │   ├── WineClass
+    │       │   └── WineNews
+    │       ├── Models
+    │       │   ├── APIResponseModels
+    │       │   ├── CardSliderSwiftUI
+    │       │   └── Managers
+    │       ├── Protocols
+    │       └── VCs
+    │           ├── Community
+    │           ├── Login
+    │           ├── Main
+    │           ├── Search
+    │           ├── Settings
+    │           ├── TasteTest
+    │           ├── TastingNote
+    │           └── WineClass
+    └── Drink-EG.xcodeproj
+```
 
 ## 🔨 Server Architecture
 
