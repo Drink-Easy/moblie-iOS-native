@@ -259,15 +259,15 @@
 		5E22196B2C6B2416005849FB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E22196D2C6B2EA0005849FB /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		5E2219722C6B661A005849FB /* CheckNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNoteViewController.swift; sourceTree = "<group>"; };
-		C30A845E2C6F14B000471D5D /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MypageViewController.swift; path = "Drink-EG/Sources/VCs/Main/MypageViewController.swift"; sourceTree = SOURCE_ROOT; };
-		C30A84602C6F14C400471D5D /* MypageInfoBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MypageInfoBottomViewController.swift; path = "Drink-EG/Sources/VCs/Main/MypageInfoBottomViewController.swift"; sourceTree = SOURCE_ROOT; };
-		C30A84622C6F14CE00471D5D /* MyPageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageSettingsViewController.swift; path = "Drink-EG/Sources/VCs/Main/MyPageSettingsViewController.swift"; sourceTree = SOURCE_ROOT; };
-		C30A84642C6F14F700471D5D /* MyPageOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageOrderViewController.swift; path = "Drink-EG/Sources/VCs/Main/MyPageOrderViewController.swift"; sourceTree = SOURCE_ROOT; };
-		C30A84662C6F153E00471D5D /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WishListViewController.swift; path = "Drink-EG/Sources/VCs/Main/WishListViewController.swift"; sourceTree = SOURCE_ROOT; };
-		C30A84682C6F155500471D5D /* MyPageNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageNoticeViewController.swift; path = "Drink-EG/Sources/VCs/Main/MyPageNoticeViewController.swift"; sourceTree = SOURCE_ROOT; };
-		C30A846A2C6F157D00471D5D /* MyPageQnaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageQnaViewController.swift; path = "Drink-EG/Sources/VCs/Main/MyPageQnaViewController.swift"; sourceTree = SOURCE_ROOT; };
-		C30A846C2C6F159000471D5D /* MyPageBusinessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageBusinessViewController.swift; path = "Drink-EG/Sources/VCs/Main/MyPageBusinessViewController.swift"; sourceTree = SOURCE_ROOT; };
-		C30A846E2C6F15A300471D5D /* MyPageSuggestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageSuggestViewController.swift; path = "Drink-EG/Sources/VCs/Main/MyPageSuggestViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C30A845E2C6F14B000471D5D /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MypageViewController.swift; path = "Drink-EG/Sources/VCs/Settings/SettingPages/MypageViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C30A84602C6F14C400471D5D /* MypageInfoBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MypageInfoBottomViewController.swift; path = "Drink-EG/Sources/VCs/Settings/SettingPages/MypageInfoBottomViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C30A84622C6F14CE00471D5D /* MyPageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageSettingsViewController.swift; path = "Drink-EG/Sources/VCs/Settings/SettingPages/MyPageSettingsViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C30A84642C6F14F700471D5D /* MyPageOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageOrderViewController.swift; path = "Drink-EG/Sources/VCs/Settings/SettingPages/MyPageOrderViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C30A84662C6F153E00471D5D /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WishListViewController.swift; path = "Drink-EG/Sources/VCs/Settings/SettingPages/WishListViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C30A84682C6F155500471D5D /* MyPageNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageNoticeViewController.swift; path = "Drink-EG/Sources/VCs/Settings/SettingPages/MyPageNoticeViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C30A846A2C6F157D00471D5D /* MyPageQnaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageQnaViewController.swift; path = "Drink-EG/Sources/VCs/Settings/SettingPages/MyPageQnaViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C30A846C2C6F159000471D5D /* MyPageBusinessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageBusinessViewController.swift; path = "Drink-EG/Sources/VCs/Settings/SettingPages/MyPageBusinessViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C30A846E2C6F15A300471D5D /* MyPageSuggestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageSuggestViewController.swift; path = "Drink-EG/Sources/VCs/Settings/SettingPages/MyPageSuggestViewController.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -583,15 +583,7 @@
 			isa = PBXGroup;
 			children = (
 				1F8DE5782C4D5A4D00961A59 /* SettingMainController.swift */,
-				C30A845E2C6F14B000471D5D /* MypageViewController.swift */,
-				C30A84602C6F14C400471D5D /* MypageInfoBottomViewController.swift */,
-				C30A84622C6F14CE00471D5D /* MyPageSettingsViewController.swift */,
-				C30A84642C6F14F700471D5D /* MyPageOrderViewController.swift */,
-				C30A84662C6F153E00471D5D /* WishListViewController.swift */,
-				C30A84682C6F155500471D5D /* MyPageNoticeViewController.swift */,
-				C30A846A2C6F157D00471D5D /* MyPageQnaViewController.swift */,
-				C30A846C2C6F159000471D5D /* MyPageBusinessViewController.swift */,
-				C30A846E2C6F15A300471D5D /* MyPageSuggestViewController.swift */,
+				16C19AB32C73AB0600E93FD0 /* SettingPages */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -615,6 +607,22 @@
 				16C19AA82C70B8D500E93FD0 /* UserWineData.swift */,
 			);
 			path = ShoppingCart;
+			sourceTree = "<group>";
+		};
+		16C19AB32C73AB0600E93FD0 /* SettingPages */ = {
+			isa = PBXGroup;
+			children = (
+				C30A845E2C6F14B000471D5D /* MypageViewController.swift */,
+				C30A84602C6F14C400471D5D /* MypageInfoBottomViewController.swift */,
+				C30A84622C6F14CE00471D5D /* MyPageSettingsViewController.swift */,
+				C30A84642C6F14F700471D5D /* MyPageOrderViewController.swift */,
+				C30A84662C6F153E00471D5D /* WishListViewController.swift */,
+				C30A84682C6F155500471D5D /* MyPageNoticeViewController.swift */,
+				C30A846A2C6F157D00471D5D /* MyPageQnaViewController.swift */,
+				C30A846C2C6F159000471D5D /* MyPageBusinessViewController.swift */,
+				C30A846E2C6F15A300471D5D /* MyPageSuggestViewController.swift */,
+			);
+			path = SettingPages;
 			sourceTree = "<group>";
 		};
 		1F598EEF2C58136B000CE79F /* Login */ = {
