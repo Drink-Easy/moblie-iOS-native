@@ -48,8 +48,8 @@ class CartListCollectionViewCell: UICollectionViewCell {
         l1.text = "Loxton"
         l1.font = .boldSystemFont(ofSize: 18)
         l1.textColor = .black
-        l1.numberOfLines = 0
-        l1.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
+        l1.numberOfLines = 2
+        l1.lineBreakMode = .byTruncatingTail // 생략 부호(...)가 꼬리에 위치하도록 설정
         return l1
     }()
     
@@ -238,9 +238,10 @@ class CartListCollectionViewCell: UICollectionViewCell {
         
         name.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(13)
-            make.leading.equalTo(imageView.snp.trailing).offset(15)
-//            make.trailing.equalTo(deleteButton.snp.leading).inset(10)
-            make.width.lessThanOrEqualTo(185)
+            make.leading.equalTo(imageView.snp.trailing).offset(13)
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                make.width.lessThanOrEqualTo(185)
+            }
             make.height.lessThanOrEqualTo(45)
         }
         
@@ -266,7 +267,6 @@ class CartListCollectionViewCell: UICollectionViewCell {
         NumLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }
-        
         deleteButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(14)

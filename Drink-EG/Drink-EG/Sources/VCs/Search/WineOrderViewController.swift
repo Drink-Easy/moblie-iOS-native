@@ -52,10 +52,10 @@ class WineOrderViewController: UIViewController {
     private let name: UILabel = {
         let l = UILabel()
         l.text = "Red Label"
-        l.font = .boldSystemFont(ofSize: 22)
+        l.font = .boldSystemFont(ofSize: 20)
         l.textColor = .black
-        l.numberOfLines = 0
-        l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
+        l.numberOfLines = 2
+        l.lineBreakMode = .byTruncatingTail // 생략 부호(...)가 꼬리에 위치하도록 설정
         return l
     }()
     
@@ -248,10 +248,10 @@ class WineOrderViewController: UIViewController {
         view.addSubview(name)
         name.snp.makeConstraints { make in
             make.top.equalTo(image.snp.top)
-            make.leading.equalTo(image.snp.trailing).offset(15)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(15)
+            make.leading.equalTo(image.snp.trailing).offset(13)
+            make.trailing.equalTo(stick.snp.trailing).offset(-5)
             make.height.lessThanOrEqualTo(60)
-            make.width.lessThanOrEqualTo(250)
+//            make.width.lessThanOrEqualTo(250)
         }
         
 //        view.addSubview(scoreLabel)

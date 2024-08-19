@@ -287,26 +287,27 @@ class WineInfoViewController: UIViewController {
             make.width.equalTo(imageView.snp.height)
         }
         
+        infoView.addSubview(score)
+        score.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(13)
+            make.trailing.equalToSuperview().inset(15)
+        }
+        
         infoView.addSubview(name)
         name.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
-            make.leading.equalTo(imageView.snp.trailing).offset(13)
-            make.width.lessThanOrEqualTo(205)
+            make.leading.equalTo(imageView.snp.trailing).offset(10)
+            make.trailing.equalTo(score.snp.leading).offset(-10)
+//            make.width.lessThanOrEqualTo(205)
             make.height.lessThanOrEqualTo(40)
         }
         
         infoView.addSubview(specInfo)
         specInfo.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.bottom).offset(10)
+            make.top.equalTo(name.snp.bottom).offset(8)
             make.leading.equalTo(name)
-            make.width.lessThanOrEqualTo(255)
-            make.height.lessThanOrEqualTo(38)
-        }
-        
-        infoView.addSubview(score)
-        score.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.top)
-            make.trailing.equalToSuperview().inset(15)
+            make.trailing.equalToSuperview().offset(-10)
+            make.height.lessThanOrEqualTo(37)
         }
         
         contentView.addSubview(tastingNoteView)

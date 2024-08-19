@@ -45,8 +45,8 @@ class ReviewListViewController: UIViewController {
         let l = UILabel()
         l.font = .boldSystemFont(ofSize: 22)
         l.textColor = .black
-        l.numberOfLines = 0
-        l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
+        l.numberOfLines = 2
+        l.lineBreakMode = .byTruncatingTail // 생략 부호(...)가 꼬리에 위치하도록 설정
         return l
     }()
     
@@ -125,18 +125,19 @@ class ReviewListViewController: UIViewController {
             make.height.lessThanOrEqualTo(140)
         }
         
-        view.addSubview(name)
-        name.snp.makeConstraints { make in
-            make.top.equalTo(image)
-            make.leading.equalTo(image.snp.trailing).offset(16)
-            make.width.lessThanOrEqualTo(175)
-            make.height.lessThanOrEqualTo(80)
-        }
-        
         view.addSubview(scoreLabel)
         scoreLabel.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.top)
+            make.top.equalTo(image.snp.top)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
+        
+        view.addSubview(name)
+        name.snp.makeConstraints { make in
+            make.top.equalTo(image.snp.top)
+            make.leading.equalTo(image.snp.trailing).offset(13)
+            make.trailing.equalTo(scoreLabel.snp.leading).offset(-10)
+//            make.width.lessThanOrEqualTo(175)
+            make.height.lessThanOrEqualTo(80)
         }
         
         customPickerButton.setupPickerView(pickerView, toolbar: toolbar, pickerData: pickerData)

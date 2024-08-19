@@ -67,8 +67,8 @@ class WineStoreListViewController: UIViewController {
         l1.text = "Loxton"
         l1.font = .boldSystemFont(ofSize: 18)
         l1.textColor = .black
-        l1.numberOfLines = 0
-        l1.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
+        l1.numberOfLines = 2
+        l1.lineBreakMode = .byTruncatingTail // 생략 부호(...)가 꼬리에 위치하도록 설정
         return l1
     }()
     
@@ -142,19 +142,20 @@ class WineStoreListViewController: UIViewController {
                 make.leading.equalToSuperview().offset(12)
                 make.width.equalTo(imageView.snp.height)
             }
-            
+        
+            wineInfo.addSubview(score)
+            score.snp.makeConstraints { make in
+                make.top.equalTo(imageView.snp.top)
+                make.trailing.equalToSuperview().inset(15)
+            }
+        
             wineInfo.addSubview(name)
             name.snp.makeConstraints { make in
                 make.top.equalTo(imageView.snp.top)
                 make.leading.equalTo(imageView.snp.trailing).offset(13)
-                make.width.lessThanOrEqualTo(205)
+                make.trailing.equalTo(score.snp.leading).offset(-10)
+//                make.width.lessThanOrEqualTo(205)
                 make.height.lessThanOrEqualTo(55)
-            }
-            
-            wineInfo.addSubview(score)
-            score.snp.makeConstraints { make in
-                make.top.equalTo(name.snp.top)
-                make.trailing.equalToSuperview().inset(15)
             }
             
             customPickerButton.setupPickerView(pickerView, toolbar: toolbar, pickerData: pickerData)
