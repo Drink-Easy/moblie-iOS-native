@@ -7,9 +7,12 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 protocol CartListCollectionViewCellDelegate: AnyObject {
     func checkButtonTapped(on cell: CartListCollectionViewCell, isSelected: Bool)
+    func deleteButtonTapped(on cell: CartListCollectionViewCell)
+    func quantityChanged(in cell: CartListCollectionViewCell)
 }
 
 class CartListCollectionViewCell: UICollectionViewCell {
@@ -20,8 +23,11 @@ class CartListCollectionViewCell: UICollectionViewCell {
     var quantity: Int = 1 {
         didSet {
             updateNumLabel()
+            configureMarketNPlace(self.shop, self.price, self.quantity)
         }
     }
+    //이전 수량을 저장
+    var previousQuantity: Int = 1
     
     private let CheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nCheckImage = UIImage(named: "icon_cartCheck_nfill")
@@ -31,7 +37,6 @@ class CartListCollectionViewCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "Loxton")
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
         return iv
@@ -86,6 +91,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
     private func updateNumLabel() {
         let label = "\(quantity)"
         NumLabel.text = label
+        delegate?.quantityChanged(in: self) // 수량 변경 시 delegate 호출
     }
         
     @objc func changeNumButtonTapped(_ sender: UIButton, forEvent event: UIEvent) {
@@ -105,10 +111,12 @@ class CartListCollectionViewCell: UICollectionViewCell {
     }
         
     private func decreaseQuantity() {
+        previousQuantity = quantity
         quantity = max(quantity - 1, 1)
     }
 
     private func increaseQuantity() {
+        previousQuantity = quantity
         quantity += 1
     }
     
@@ -120,8 +128,13 @@ class CartListCollectionViewCell: UICollectionViewCell {
         b.setImage(image, for: .normal)
         b.tintColor = UIColor(hex: "999999")
         b.backgroundColor = .clear
+        b.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         return b
     }()
+    
+    @objc private func deleteButtonTapped() {
+        delegate?.deleteButtonTapped(on: self) // 델리게이트 호출
+    }
     
     func configureCheckButton() {
         CheckButton.setImage(nCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -256,9 +269,11 @@ class CartListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure1(imageName: String, wineName: String, price: Int, count: Int, shopName: String) {
-        if let image = UIImage(named: imageName) {
-            imageView.image = image
+    func configure1(imageName: String?, wineName: String, price: Int, count: Int, shopName: String) {
+        if let imageUrl = imageName, let url = URL(string: imageUrl) {
+            self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            self.imageView.image = UIImage(named: "Loxton")
         }
         
         self.name.text = wineName
@@ -273,4 +288,3 @@ class CartListCollectionViewCell: UICollectionViewCell {
         CheckButton.isSelected = isSelected
     }
 }
-

@@ -13,6 +13,7 @@ import SDWebImage
 class HomeViewController: UIViewController {
     
     let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
+    let shoppingListManager = ShoppingListManager.shared
     
     private var AdContents: [String] = ["ad1", "ad2"]
     private var RecomContents: [RecommendWineResponse] = []
@@ -41,6 +42,38 @@ class HomeViewController: UIViewController {
     let firstLine = UILabel()
     let NoteLabel = UILabel()
     
+    lazy var badgeLabel: UILabel = {
+      let label = UILabel(frame: CGRect(x: 0, y: 0, width: 16, height: 16))
+      label.translatesAutoresizingMaskIntoConstraints = false
+      label.layer.cornerRadius = label.bounds.size.height / 2
+      label.textAlignment = .center
+      label.layer.masksToBounds = true
+      label.textColor = .white
+      label.font = .boldSystemFont(ofSize: 10)
+      label.backgroundColor = UIColor(hex: "FF7A6D")
+      return label
+    }()
+    
+    private func showBadge() {
+        badgeLabel.text = "\(shoppingListManager.myCartWines.count)"
+        
+        // 장바구니가 비어 있는지 확인
+        if shoppingListManager.myCartWines.isEmpty {
+            // 장바구니가 비어 있으면 badgeLabel을 cartButton에서 제거
+            badgeLabel.removeFromSuperview()
+        } else {
+            // 장바구니에 아이템이 있으면 badgeLabel을 cartButton에 추가
+            if badgeLabel.superview == nil {
+                cartButton.addSubview(badgeLabel)
+            }
+            badgeLabel.snp.makeConstraints { make in
+                make.centerX.equalTo(cartButton.snp.centerX).offset(10)
+                make.top.equalTo(cartButton).inset(2)
+                make.width.height.equalTo(16)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,7 +88,13 @@ class HomeViewController: UIViewController {
                 print("GET 호출 실패")
             }
         }
-        
+    }
+    
+    // 홈으로 갈 때마다 쇼핑카트 badge의 상태가 업데이트
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // badgeLabel 업데이트
+        showBadge()
     }
     
     override func viewDidLayoutSubviews() {
@@ -371,7 +410,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let selectedWine = RecomContents[indexPath.row]
             let wineInfoViewController = WineInfoViewController()
             wineInfoViewController.name.text = selectedWine.wineName
-            wineInfoViewController.wineImage = selectedWine.imageUrl
+            wineInfoViewController.wineImageURL = selectedWine.imageUrl
             wineInfoViewController.wineId = selectedWine.wineId
             navigationController?.pushViewController(wineInfoViewController, animated: true)
         }

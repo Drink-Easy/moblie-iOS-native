@@ -157,7 +157,7 @@ extension SearchHomeViewController: UICollectionViewDataSource, UICollectionView
         
         let wineInfoViewController = WineInfoViewController()
         wineInfoViewController.name.text = selectedWine.name
-        wineInfoViewController.wineImage = selectedWine.imageUrl
+        wineInfoViewController.wineImageURL = selectedWine.imageUrl
         wineInfoViewController.wineId = selectedWine.wineId
         navigationController?.pushViewController(wineInfoViewController, animated: true)
     }

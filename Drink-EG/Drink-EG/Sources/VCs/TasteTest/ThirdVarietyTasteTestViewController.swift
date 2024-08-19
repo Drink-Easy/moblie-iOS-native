@@ -165,12 +165,12 @@ class ThirdVarietyTasteTestViewController: UIViewController {
         func callAPI(completion: @escaping (Bool) -> Void) {
             if let data = self.memberInfoDTO {
                 provider.request(.patchMember(data: data)) { result in
-                    print(data)
+//                    print(data)
                     switch result {
                     case .success(let response):
                         do {
                             let data = try response.map(APIResponseMemberResponse.self)
-                            print("Success: \(data)")
+//                            print("Success: \(data)")
                             LoginViewController.isFirstLogin = false
                             completion(data.isSuccess)
                         } catch {
