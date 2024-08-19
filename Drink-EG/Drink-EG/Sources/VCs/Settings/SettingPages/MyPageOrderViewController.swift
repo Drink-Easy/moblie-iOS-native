@@ -4,18 +4,20 @@
 //
 //  Created by 이호연 on 8/16/24.
 //
-
 import UIKit
 import SnapKit
 
 class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     private let items = [
-        ["title": "19charles", "detail": "PODO | 165,000원", "imageName": "SampleImage"],
-        ["title": "19charles", "detail": "PODO | 165,000원", "imageName": "SampleImage"],
-        ["title": "19charles", "detail": "PODO | 165,000원", "imageName": "SampleImage"],
-        ["title": "19charles", "detail": "PODO | 165,000원", "imageName": "SampleImage"],
+        ["title": "Castello Monaci", "iconName": "Store","detail": "PODO | 165,000 ₩", "imageName": "Castello Monaci"],
+        ["title": "Dos Copas", "iconName": "Store", "detail": "루바토 와인 | 34,000 ₩", "imageName": "Dos Copas"],
+        ["title": "Loxton", "iconName": "Store", "detail": "PODO | 12,800 ₩", "imageName": "Loxton"],
+        ["title": "Red Label", "iconName": "Store", "detail": "PODO | 56,000 ₩", "imageName": "Red Label"],
     ]
+    let myPageOrderIcons = [
+            UIImage(named: "Store")
+            ]
 
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -46,9 +48,11 @@ class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UIC
     lazy var orderDetailButton: UIButton = {
         let button = UIButton()
         button.setTitle("주문상세", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor(hex: "#767676"), for: .normal)
         let chevronIcon = UIImage(systemName: "chevron.right")
         button.setImage(chevronIcon, for: .normal)
+        button.tintColor = UIColor(hex: "#767676")
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.semanticContentAttribute = .forceRightToLeft
         button.addTarget(self, action: #selector(orderDetailButtonTapped), for: .touchUpInside)
         return button
@@ -92,7 +96,7 @@ class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UIC
 
     func setupOrderTitleLabel() {
         OrdertitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(66)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
             make.leading.equalTo(view).offset(16)
         }
     }
@@ -111,7 +115,7 @@ class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UIC
     func setupOrderLowerCollectionView() {
         for item in items {
             let cellView = CustomCellView()
-            cellView.configure(title: item["title"]!, detail: item["detail"]!, imageName: item["imageName"]!)
+            cellView.configure(title: item["title"]!, iconName: item["iconName"]!, detail: item["detail"]!, imageName: item["imageName"]!)
             
             cellView.layer.cornerRadius = 10
             cellView.layer.masksToBounds = true
@@ -120,7 +124,9 @@ class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UIC
             
             cellView.snp.makeConstraints { make in
                 make.height.equalTo(94)
-                make.width.equalTo(366)
+                make.trailing.equalTo(view).offset(-16)
+                make.leading.equalTo(view).offset(16)
+
             }
         }
     }
@@ -142,6 +148,7 @@ class CustomCellView: UIView {
     let titleLabel = UILabel()
     let detailLabel = UILabel()
     let imageView = UIImageView()
+    let iconLabel = UIImageView()
     let quantityLabel = UILabel()
 
     override init(frame: CGRect) {
@@ -149,17 +156,21 @@ class CustomCellView: UIView {
         
         layer.cornerRadius = 10
         layer.masksToBounds = true
-        backgroundColor = UIColor.lightGray
+        backgroundColor = UIColor(hex: "E5E5E5")
 
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(detailLabel)
+        addSubview(iconLabel)
+
         addSubview(quantityLabel)
 
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
 
+        iconLabel.contentMode = .scaleAspectFill
+        
         titleLabel.textColor = .black
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
 
@@ -167,7 +178,7 @@ class CustomCellView: UIView {
         detailLabel.font = UIFont.systemFont(ofSize: 12)
 
         quantityLabel.text = "1개"
-        quantityLabel.textColor = .black
+        quantityLabel.textColor = .gray
         quantityLabel.font = UIFont.systemFont(ofSize: 12)
 
         setupConstraints()
@@ -175,33 +186,44 @@ class CustomCellView: UIView {
 
     func setupConstraints() {
         imageView.snp.makeConstraints { make in
-            make.width.height.equalTo(60)
+            make.width.height.equalTo(80)
             make.leading.equalToSuperview().offset(10)
             make.centerY.equalToSuperview()
         }
+        
+        
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(8)
-            make.top.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(15)
+            make.trailing.lessThanOrEqualTo(quantityLabel.snp.leading).offset(-10)
+        }
+        
+        iconLabel.snp.makeConstraints { make in
+            make.width.height.equalTo(10)
+            make.leading.equalTo(titleLabel.snp.leading)
+            make.top.equalTo(quantityLabel.snp.top).offset(3)
             make.trailing.lessThanOrEqualTo(quantityLabel.snp.leading).offset(-10)
         }
 
         detailLabel.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.leading)
+            make.leading.equalTo(iconLabel.snp.leading).offset(10)
             make.top.equalTo(quantityLabel.snp.top).offset(0)
             make.trailing.lessThanOrEqualTo(quantityLabel.snp.leading).offset(-10)
         }
 
         quantityLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-10)
-            make.bottom.equalToSuperview().offset(-20)
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-15)
         }
     }
 
-    func configure(title: String, detail: String, imageName: String) {
+    func configure(title: String, iconName: String, detail: String, imageName: String) {
         titleLabel.text = title
         detailLabel.text = detail
         imageView.image = UIImage(named: imageName)
+        iconLabel.image = UIImage(named: iconName)
+
     }
 
     required init?(coder: NSCoder) {

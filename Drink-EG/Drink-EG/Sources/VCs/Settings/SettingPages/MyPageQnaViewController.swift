@@ -4,7 +4,6 @@
 //
 //  Created by 이호연 on 8/16/24.
 //
-
 import UIKit
 import SnapKit
 
@@ -15,7 +14,7 @@ class MyPageQnaViewController: UIViewController, UITableViewDelegate, UITableVie
     let myPageQnaFirstMenuIcons = [
             UIImage(systemName: "envelope.fill"),
             UIImage(systemName: "message"),
-            UIImage(systemName: "phone")      
+            UIImage(systemName: "phone")
         ]
     
     let cellID = "MyPageSettingsCellID"

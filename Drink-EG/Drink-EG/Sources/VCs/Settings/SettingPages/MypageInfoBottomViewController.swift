@@ -194,7 +194,7 @@ class MypageInfoViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 40
-        imageView.image = UIImage(named: "SampleImage") 
+        imageView.image = UIImage(named: "IDperson")
     }
 
     func setupMyImageViewConstraints() {
@@ -238,16 +238,19 @@ class MypageInfoViewController: UIViewController {
         }
     }
         
-        @objc func myinfoButtonTapped() {
-            navigationController?.popViewController(animated: true)
-        }
+    @objc func myinfoButtonTapped() {
+        let controller = MyPageSettingsViewController()
         
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(controller, animated: true)
+        } else {
+            self.view.window?.rootViewController = UINavigationController(rootViewController: controller)
+            self.view.window?.makeKeyAndVisible()
+        }
     }
     
+}
 
      
-    
-    
-    
     
     

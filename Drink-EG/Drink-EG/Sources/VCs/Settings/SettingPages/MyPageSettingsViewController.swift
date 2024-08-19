@@ -40,7 +40,15 @@ class MyPageSettingsViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @objc func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        let controller = MypageViewController()
+
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(controller, animated: true)
+        } else {
+            let navController = UINavigationController(rootViewController: controller)
+            self.view.window?.rootViewController = navController
+            self.view.window?.makeKeyAndVisible()
+        }
     }
     
     func configureUI() {
@@ -66,7 +74,7 @@ class MyPageSettingsViewController: UIViewController, UITableViewDelegate, UITab
         // Layout constraints for label
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 46),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ])
         
@@ -125,4 +133,3 @@ class MyPageSettingsCell: UITableViewCell {
         ])
     }
 }
-

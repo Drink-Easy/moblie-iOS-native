@@ -4,7 +4,6 @@
 //
 //  Created by 이호연 on 8/16/24.
 //
-
 import UIKit
 import SnapKit
 
@@ -98,8 +97,8 @@ extension MyPageNoticeViewController: UITableViewDataSource {
             cell.menuLabel.text = menuTitle
             if menuTitle == "모두보기" {
                 cell.backgroundColor = .white
-                tableView.separatorStyle = .none
-
+                cell.layer.borderColor = UIColor.white.cgColor
+                cell.layer.borderWidth = 1.0
                 cell.menuLabel.textColor = UIColor(hex: "FA735B")
                 cell.iconImageView.image = UIImage(systemName: "arrowtriangle.down.fill")?.withRenderingMode(.alwaysTemplate)
                 cell.iconImageView.tintColor = UIColor(hex: "FA735B")
@@ -111,6 +110,8 @@ extension MyPageNoticeViewController: UITableViewDataSource {
             cell.menuLabel.text = menuTitle
             if menuTitle == "모두보기" {
                 cell.backgroundColor = .white
+                cell.layer.borderColor = UIColor.white.cgColor
+
                 cell.menuLabel.textColor = UIColor(hex: "FA735B")
                 cell.iconImageView.image = UIImage(systemName: "arrowtriangle.down.fill")?.withRenderingMode(.alwaysTemplate)
                 cell.iconImageView.tintColor = UIColor(hex: "FA735B")
@@ -234,7 +235,7 @@ class MyPageNoticeCell: UITableViewCell {
         iconImageView.snp.makeConstraints { make in
             make.centerY.equalTo(contentView.snp.centerY)
             make.leading.equalTo(menuLabel.snp.trailing).offset(10)
-            make.width.height.equalTo(17) 
+            make.width.height.equalTo(17)
         }
     }
 }
