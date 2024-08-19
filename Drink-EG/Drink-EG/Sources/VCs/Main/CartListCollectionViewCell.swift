@@ -48,6 +48,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         l1.font = .boldSystemFont(ofSize: 18)
         l1.textColor = .black
         l1.numberOfLines = 0
+        l1.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
         return l1
     }()
     
@@ -235,27 +236,30 @@ class CartListCollectionViewCell: UICollectionViewCell {
         }
         
         name.snp.makeConstraints { make in
-            make.top.equalTo(imageView)
+            make.top.equalToSuperview().offset(13)
             make.leading.equalTo(imageView.snp.trailing).offset(15)
+//            make.trailing.equalTo(deleteButton.snp.leading).inset(10)
+            make.width.lessThanOrEqualTo(185)
+            make.height.lessThanOrEqualTo(45)
         }
         
         marketNprice.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.bottom).offset(7)
+            make.top.equalTo(name.snp.bottom).offset(3)
             make.leading.equalTo(name)
         }
         
-        changeMarketButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(14)
-            make.leading.equalToSuperview().offset(213)
-            make.width.greaterThanOrEqualTo(67)
-            make.height.greaterThanOrEqualTo(24)
-        }
-        
         changeNumButton.snp.makeConstraints { make in
-            make.top.equalTo(changeMarketButton)
-            make.leading.equalTo(changeMarketButton.snp.trailing).offset(6)
+            make.bottom.equalToSuperview().inset(10)
+            make.trailing.equalToSuperview().inset(12)
             make.width.greaterThanOrEqualTo(63)
             make.height.greaterThanOrEqualTo(26)
+        }
+        
+        changeMarketButton.snp.makeConstraints { make in
+            make.top.equalTo(changeNumButton)
+            make.trailing.equalTo(changeNumButton.snp.leading).offset(-6)
+            make.width.greaterThanOrEqualTo(67)
+            make.height.greaterThanOrEqualTo(20)
         }
         
         NumLabel.snp.makeConstraints { make in

@@ -92,7 +92,6 @@ class WineInfoViewController: UIViewController {
         l.textColor = .black
         l.numberOfLines = 0
         l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
-        l.minimumScaleFactor = 0.7
         return l
     }()
     
@@ -102,6 +101,7 @@ class WineInfoViewController: UIViewController {
         l.font = .systemFont(ofSize: 12)
         l.textColor = .black
         l.numberOfLines = 0
+        l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
         return l
     }()
     
@@ -289,16 +289,18 @@ class WineInfoViewController: UIViewController {
         
         infoView.addSubview(name)
         name.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(11)
-            make.leading.equalTo(imageView.snp.trailing).offset(20)
+            make.top.equalToSuperview().offset(10)
+            make.leading.equalTo(imageView.snp.trailing).offset(13)
             make.width.lessThanOrEqualTo(205)
             make.height.lessThanOrEqualTo(40)
         }
         
         infoView.addSubview(specInfo)
         specInfo.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.bottom).offset(11)
+            make.top.equalTo(name.snp.bottom).offset(10)
             make.leading.equalTo(name)
+            make.width.lessThanOrEqualTo(255)
+            make.height.lessThanOrEqualTo(38)
         }
         
         infoView.addSubview(score)

@@ -68,12 +68,13 @@ class WineStoreListViewController: UIViewController {
         l1.font = .boldSystemFont(ofSize: 18)
         l1.textColor = .black
         l1.numberOfLines = 0
+        l1.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
         return l1
     }()
     
     lazy var score: UILabel = {
         let l3 = UILabel()
-        l3.text = "\(scoreDouble) ★"
+        l3.text = "★ \(scoreDouble)"
         l3.font = .boldSystemFont(ofSize: 12)
         l3.textColor = UIColor(hex: "#FF7A6D")
         return l3
@@ -144,14 +145,16 @@ class WineStoreListViewController: UIViewController {
             
             wineInfo.addSubview(name)
             name.snp.makeConstraints { make in
-                make.top.equalTo(imageView)
-                make.leading.equalTo(imageView.snp.trailing).offset(23)
+                make.top.equalTo(imageView.snp.top)
+                make.leading.equalTo(imageView.snp.trailing).offset(13)
+                make.width.lessThanOrEqualTo(205)
+                make.height.lessThanOrEqualTo(55)
             }
             
             wineInfo.addSubview(score)
             score.snp.makeConstraints { make in
-                make.centerY.equalTo(name)
-                make.leading.equalTo(name.snp.trailing).offset(13)
+                make.top.equalTo(name.snp.top)
+                make.trailing.equalToSuperview().inset(15)
             }
             
             customPickerButton.setupPickerView(pickerView, toolbar: toolbar, pickerData: pickerData)

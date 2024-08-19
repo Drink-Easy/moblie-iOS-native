@@ -47,7 +47,6 @@ class ReviewListViewController: UIViewController {
         l.textColor = .black
         l.numberOfLines = 0
         l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
-        l.minimumScaleFactor = 0.5
         return l
     }()
     
@@ -131,11 +130,12 @@ class ReviewListViewController: UIViewController {
             make.top.equalTo(image)
             make.leading.equalTo(image.snp.trailing).offset(16)
             make.width.lessThanOrEqualTo(175)
+            make.height.lessThanOrEqualTo(80)
         }
         
         view.addSubview(scoreLabel)
         scoreLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(name)
+            make.top.equalTo(name.snp.top)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
