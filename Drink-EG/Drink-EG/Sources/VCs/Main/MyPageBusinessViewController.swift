@@ -5,7 +5,6 @@
 //  Created by 이호연 on 8/16/24.
 //
 
-import Foundation
 import UIKit
 
 class MyPageBusinessViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -47,10 +46,8 @@ class MyPageBusinessViewController: UIViewController, UITableViewDelegate, UITab
         
         view.backgroundColor = .white
         
-        // Add the label to the view
         view.addSubview(label)
         
-        // Add the table view to the view
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
@@ -58,19 +55,16 @@ class MyPageBusinessViewController: UIViewController, UITableViewDelegate, UITab
         tableView.delegate = self
         tableView.dataSource = self
         
-        // Register the cell with the correct identifier
-        tableView.register(MyPageSettingsCell.self, forCellReuseIdentifier: cellID)
+        tableView.register(MyPageBusinessCell.self, forCellReuseIdentifier: cellID)
         
 
         
-        // Layout constraints for label
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ])
         
-        // Layout constraints for table view
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -79,7 +73,6 @@ class MyPageBusinessViewController: UIViewController, UITableViewDelegate, UITab
         ])
     }
     
-    // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

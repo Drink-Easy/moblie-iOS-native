@@ -33,10 +33,9 @@ class MypageViewController: UIViewController {
     }
     
     func configureUI() {
-        //tableview.backgroundColor = .yellow
         
         view.addSubview(tableview)
-        tableview.backgroundColor = .white // tableView의 배경색을 흰색으로 설정
+        tableview.backgroundColor = .white
 
         
         
@@ -112,25 +111,11 @@ extension MypageViewController: UITableViewDataSource {
             
         }
     }
-    
-    
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let controller = MyPageUIViewController()
-//        navigationController?.pushViewController(controller, animated: true)
-//    }
+
 }
 
 extension MypageViewController: UITableViewDelegate {
-    
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = HeaderView()
-//
-//        header.backgroundColor = .yellow
-//
-//        return header
-//    }
+
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
@@ -146,10 +131,15 @@ extension MypageViewController: UITableViewDelegate {
             case 0:
                 switch indexPath.row {
                 case 0:
-                    let controller = MypageInfoViewController()
-                    navigationController?.pushViewController(controller, animated: true)
+                    
+                    let bottomSheetContent = MypageInfoViewController() // 실제 사용하고자 하는 뷰 컨트롤러
+                        let bottomSheetVC = MyPageBottomSheetViewController(contentViewController: bottomSheetContent)
+                        bottomSheetVC.modalPresentationStyle = .overFullScreen
+                        bottomSheetVC.modalTransitionStyle = .crossDissolve
+                        present(bottomSheetVC, animated: true, completion: nil)
                 case 1:
-                    print("\(myPagefirstMenu[indexPath.row])")
+                    let controller = MyPageSettingsViewController()
+                    navigationController?.pushViewController(controller, animated: true)
                 case 2:
                     print("\(myPagefirstMenu[indexPath.row])")
                 default:
@@ -158,7 +148,7 @@ extension MypageViewController: UITableViewDelegate {
             case 1:
                 switch indexPath.row {
                 case 0:
-                    let controller = MypageViewController()
+                    let controller = MyPageSettingsViewController()
                     navigationController?.pushViewController(controller, animated: true)
                 case 1:
                     print("\(myPageSecondMenu[indexPath.row])")
@@ -185,44 +175,7 @@ extension MypageViewController: UITableViewDelegate {
         }
     }
 
-/*
-class HeaderView: UIView {
-    
-    let profileImage: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(systemName: "person.fill")
-        iv.contentMode = .scaleToFill
-        //iv.backgroundColor = .black
-        iv.layer.cornerRadius = 120 / 2
-        iv.clipsToBounds = true
-        return iv
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        configureUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureUI() {
-        
-        addSubview(profileImage)
-        profileImage.translatesAutoresizingMaskIntoConstraints = false
-        profileImage.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        profileImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        profileImage.widthAnchor.constraint(equalToConstant: 120).isActive = true
-        profileImage.heightAnchor.constraint(equalToConstant: 120).isActive = true
 
-
-    }
-    
-}
-
-*/
  
 class FirstSectionHeader: UIView {
     
@@ -244,13 +197,6 @@ class FirstSectionHeader: UIView {
         titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         titleLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//        titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-//        titleLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//        titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-//        titleLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//        titleLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
-//        titleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        //titleLabel.padding.constraint(equalTo: 12).isActive = true
 
     }
     
@@ -379,20 +325,17 @@ class TopHeader: UIView {
     }
     
     func setupStackView() {
-        // 왼쪽 스택뷰: mypageLabel만 포함
         let leftStackView = UIStackView(arrangedSubviews: [mypageLabel])
         leftStackView.axis = .horizontal
         leftStackView.alignment = .leading
 
-        // 오른쪽 스택뷰: searchButton과 cartButton을 포함
         let rightStackView = UIStackView(arrangedSubviews: [searchButton, cartButton])
         rightStackView.axis = .horizontal
         rightStackView.alignment = .trailing
         rightStackView.spacing = 20
 
-        // 메인 스택뷰: leftStackView와 rightStackView를 포함
         stackView.addArrangedSubview(leftStackView)
-        stackView.addArrangedSubview(UIView()) // 중간의 flexible space를 위해 빈 뷰 추가
+        stackView.addArrangedSubview(UIView()) 
         stackView.addArrangedSubview(rightStackView)
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -414,6 +357,7 @@ class TopHeader: UIView {
         topView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     }
 }
+
 class MyPageCell: UITableViewCell {
     
     let menuLable = UILabel()
@@ -438,7 +382,6 @@ class MyPageCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
     func configureUI() {

@@ -5,12 +5,19 @@
 //  Created by 이호연 on 8/16/24.
 //
 
-import Foundation
 import UIKit
+import SnapKit
 
 class MyPageQnaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let myPageMenu = ["메일 문의", "채팅 문의", "전화 문의", "문의 내역 조회"]
+    let myPageQnaFirstMenu = ["메일 문의", "채팅 문의", "전화 문의"]
+    let myPageQnaSecondMenu = ["문의 내역 조회"]
+    let myPageQnaFirstMenuIcons = [
+            UIImage(systemName: "envelope.fill"),
+            UIImage(systemName: "message"),
+            UIImage(systemName: "phone")      
+        ]
+    
     let cellID = "MyPageSettingsCellID"
     let tableView = UITableView(frame: .zero, style: .grouped)
     
@@ -47,10 +54,8 @@ class MyPageQnaViewController: UIViewController, UITableViewDelegate, UITableVie
         
         view.backgroundColor = .white
         
-        // Add the label to the view
         view.addSubview(label)
         
-        // Add the table view to the view
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
@@ -58,56 +63,89 @@ class MyPageQnaViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         
-        // Register the cell with the correct identifier
-        tableView.register(MyPageSettingsCell.self, forCellReuseIdentifier: cellID)
-        
+        tableView.register(MyPageQnaCell.self, forCellReuseIdentifier: cellID)
+
 
         
-        // Layout constraints for label
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
-        ])
-        
-        // Layout constraints for table view
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
+        label.snp.makeConstraints { make in
+                    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+                    make.leading.equalTo(view.snp.leading).offset(20)
+                }
+                
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(label.snp.bottom).offset(20)
+            make.left.right.bottom.equalTo(view)
+        }
     }
     
-    // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myPageMenu.count
+        if section == 0 {
+            return myPageQnaFirstMenu.count
+        }
+        else {
+            return myPageQnaSecondMenu.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? MyPageQnaCell else {
-            fatalError("Failed to dequeue MyPageSettingsCell")
+            fatalError("Failed to dequeue MyPageQnaCell")
         }
-        cell.menuLabel.text = myPageMenu[indexPath.row]
+        
         cell.backgroundColor = UIColor(hex: "D9D9D9")
+        if indexPath.section == 0{
+            cell.menuLabel.text = myPageQnaFirstMenu[indexPath.row]
+            cell.iconImageView.image = myPageQnaFirstMenuIcons[indexPath.row]
+            cell.imageView?.tintColor = .black
+            
+        }
+        else {
+            cell.menuLabel.text = myPageQnaSecondMenu[indexPath.row]
+        }
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+            return 10 // 원하는 섹션 간 간격으로 설정
+        }
+
+        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            let headerView = UIView()
+            headerView.backgroundColor = .clear
+            return headerView
+        }
+
+        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            let footerView = UIView()
+            footerView.backgroundColor = .clear
+            return footerView
+        }
 }
+
+
 
 class MyPageQnaCell: UITableViewCell {
     
-    let menuLabel = UILabel()
+    let menuLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
+    
+    let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .black
+        return imageView
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         configureUI()
     }
 
@@ -116,13 +154,19 @@ class MyPageQnaCell: UITableViewCell {
     }
     
     func configureUI() {
-        addSubview(menuLabel)
-        menuLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(menuLabel)
+        contentView.addSubview(iconImageView)
+
+        iconImageView.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView.snp.centerY)
+            make.leading.equalTo(contentView.snp.leading).offset(20)
+            make.width.height.equalTo(17)
+        }
         
-        NSLayoutConstraint.activate([
-            menuLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            menuLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 12)
-        ])
+        menuLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView.snp.centerY)
+            make.leading.equalTo(iconImageView.snp.trailing).offset(10)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-16)
+        }
     }
 }
-

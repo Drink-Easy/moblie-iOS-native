@@ -5,10 +5,12 @@
 //  Created by 이호연 on 8/16/24.
 //
 
-import Foundation
 import UIKit
+import SnapKit
 
-class WishListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+
+class MyPageWishListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     private let items = [
         ["title": "19charles", "imageName": "SampleImage", "rating": "4.5", "price": "165,000원"],
@@ -40,7 +42,6 @@ class WishListViewController: UIViewController, UICollectionViewDelegate, UIColl
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fillEqually
-        stackView.layer.cornerRadius = 10
         return stackView
     }()
 
@@ -69,11 +70,7 @@ class WishListViewController: UIViewController, UICollectionViewDelegate, UIColl
             make.edges.equalTo(view)
         }
 
-        contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView)
-            make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(view.snp.height).offset(500)
-        }
+
     }
 
     func setupNavigationBarButton() {
@@ -97,18 +94,17 @@ class WishListViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     func setupWishCommunityLowerCollectionView() {
         for item in items {
-            let collectionView = WishCustomCollectionViewCell(frame: .zero)
-            collectionView.backgroundColor = UIColor.lightGray
-            collectionView.configure(title: item["title"]!, imageName: item["imageName"]!, rating: item["rating"]!, price: item["price"]!)
-            collectionView.layer.cornerRadius = 10
-            collectionView.layer.masksToBounds = true
-            collectionView.contentView.layer.cornerRadius = 10
-            collectionView.contentView.layer.masksToBounds = true
-            collectionView.snp.makeConstraints { make in
-                make.height.equalTo(120) // Increased height to accommodate price
+            let cellView = WishCustomCellView()
+            cellView.configure(title: item["title"]!, imageName: item["imageName"]!, rating: item["rating"]!, price: item["price"]!)
+            cellView.layer.cornerRadius = 10
+            cellView.layer.masksToBounds = true
+            
+            lowerCollectionStackView.addArrangedSubview(cellView)
+
+            cellView.snp.makeConstraints { make in
+                make.height.equalTo(120)
                 make.width.equalTo(366)
             }
-            lowerCollectionStackView.addArrangedSubview(collectionView)
         }
     }
 
@@ -120,43 +116,34 @@ class WishListViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
-    }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishCustomCollectionViewCell", for: indexPath) as! WishCustomCollectionViewCell
-        let item = items[indexPath.item]
-        cell.configure(title: item["title"]!, imageName: item["imageName"]!, rating: item["rating"]!, price: item["price"]!)
-        return cell
-    }
+
 }
 
-class WishCustomCollectionViewCell: UICollectionViewCell {
+class WishCustomCellView: UIView {
     let titleLabel = UILabel()
     let imageView = UIImageView()
     let ratingLabel = UILabel()
-    let priceLabel = UILabel() // Price label
+    let priceLabel = UILabel()
     let likeButton = UIButton(type: .custom)
     
-    private let likeImage = UIImage(systemName: "heart.circle.fill")
-    private let nlikeImage = UIImage(systemName: "heart.circle.fill")
+    private let likeImage = UIImage(systemName: "heart.circle")
+    private let nlikeImage = UIImage(systemName: "heart.fill")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        contentView.layer.cornerRadius = 10
-        contentView.layer.masksToBounds = true
-        contentView.clipsToBounds = true
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
+        backgroundColor = UIColor.lightGray
         
-        contentView.layer.cornerRadius = 10
-        contentView.layer.masksToBounds = true
+    
 
-        contentView.addSubview(imageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(ratingLabel)
-        contentView.addSubview(priceLabel) // Add the price label
-        contentView.addSubview(likeButton)
+        addSubview(imageView)
+        addSubview(titleLabel)
+        addSubview(ratingLabel)
+        addSubview(priceLabel)
+        addSubview(likeButton)
 
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -169,7 +156,7 @@ class WishCustomCollectionViewCell: UICollectionViewCell {
         ratingLabel.font = UIFont.systemFont(ofSize: 12)
         
         priceLabel.textColor = .black
-        priceLabel.font = UIFont.systemFont(ofSize: 16) // Set font size for price label
+        priceLabel.font = UIFont.systemFont(ofSize: 16)
         
         configureLikeButton()
         setupConstraints()
@@ -178,17 +165,17 @@ class WishCustomCollectionViewCell: UICollectionViewCell {
     func setupConstraints() {
         imageView.snp.makeConstraints { make in
             make.width.height.equalTo(80)
-            make.leading.equalTo(contentView.snp.leading).offset(8)
-            make.centerY.equalTo(contentView.snp.centerY)
+            make.leading.equalTo(snp.leading).offset(8)
+            make.centerY.equalTo(snp.centerY)
         }
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(8)
-            make.top.equalTo(contentView.snp.top).offset(10)
+            make.top.equalTo(snp.top).offset(10)
         }
 
         ratingLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(contentView.snp.trailing).offset(-8)
+            make.trailing.equalTo(snp.trailing).offset(-8)
             make.top.equalTo(titleLabel.snp.top)
         }
         
@@ -198,9 +185,9 @@ class WishCustomCollectionViewCell: UICollectionViewCell {
         }
         
         likeButton.snp.makeConstraints { make in
-            make.trailing.equalTo(contentView.snp.trailing).offset(-8)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
-            make.width.height.equalTo(24) // Set size for the like button
+            make.trailing.equalTo(snp.trailing).offset(-8)
+            make.bottom.equalTo(snp.bottom).offset(-10)
+            make.width.height.equalTo(24)
         }
     }
 
@@ -208,7 +195,7 @@ class WishCustomCollectionViewCell: UICollectionViewCell {
         titleLabel.text = title
         imageView.image = UIImage(named: imageName)
         ratingLabel.text = rating
-        priceLabel.text = price // Configure price label
+        priceLabel.text = price 
     }
 
     private func configureLikeButton() {

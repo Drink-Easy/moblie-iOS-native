@@ -5,12 +5,10 @@
 //  Created by 이호연 on 8/16/24.
 //
 
-import Foundation
 import UIKit
 import SnapKit
 
-
-class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     private let items = [
         ["title": "19charles", "detail": "PODO | 165,000원", "imageName": "SampleImage"],
@@ -42,8 +40,6 @@ class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fillEqually
-        stackView.layer.cornerRadius = 10
-        
         return stackView
     }()
 
@@ -84,12 +80,6 @@ class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
-
-//        contentView.snp.makeConstraints { make in
-//            make.edges.equalTo(scrollView)
-//            make.width.equalTo(scrollView)
-//            make.height.greaterThanOrEqualTo(view.snp.height).offset(500)
-//        }
     }
 
     func setupOrderNavigationBarButton() {
@@ -120,20 +110,18 @@ class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UIC
 
     func setupOrderLowerCollectionView() {
         for item in items {
-            let collectionView = OrderCustomCollectionViewCell(frame: .zero)
-            collectionView.backgroundColor = UIColor.lightGray
-            collectionView.configure(title: item["title"]!, detail: item["detail"]!, imageName: item["imageName"]!)
-            collectionView.layer.cornerRadius = 10
-            collectionView.layer.masksToBounds = true
-            collectionView.contentView.layer.cornerRadius = 10
-            collectionView.contentView.layer.masksToBounds = true
+            let cellView = CustomCellView()
+            cellView.configure(title: item["title"]!, detail: item["detail"]!, imageName: item["imageName"]!)
             
-            collectionView.snp.makeConstraints { make in
+            cellView.layer.cornerRadius = 10
+            cellView.layer.masksToBounds = true
+            
+            OrderlowerCollectionStackView.addArrangedSubview(cellView)
+            
+            cellView.snp.makeConstraints { make in
                 make.height.equalTo(94)
                 make.width.equalTo(366)
-                
             }
-            OrderlowerCollectionStackView.addArrangedSubview(collectionView)
         }
     }
 
@@ -145,30 +133,12 @@ class MyPageOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrderCustomCollectionViewCell", for: indexPath) as! OrderCustomCollectionViewCell
-        let item = items[indexPath.item]
-        cell.configure(title: item["title"]!, detail: item["detail"]!, imageName: item["imageName"]!)
-        return cell
-    }
-    
     @objc func orderDetailButtonTapped() {
-        // 주석 처리된 상세 페이지 코드
-        /*
-        let detailViewController = OrderDetailViewController()
-        navigationController?.pushViewController(detailViewController, animated: true)
-        */
+        
     }
 }
 
-
-
-
-class OrderCustomCollectionViewCell: UICollectionViewCell {
+class CustomCellView: UIView {
     let titleLabel = UILabel()
     let detailLabel = UILabel()
     let imageView = UIImageView()
@@ -176,15 +146,15 @@ class OrderCustomCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
+        backgroundColor = UIColor.lightGray
 
-        contentView.layer.cornerRadius = 20
-        contentView.layer.masksToBounds = true
-        contentView.clipsToBounds = true
-
-        contentView.addSubview(imageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(detailLabel)
-        contentView.addSubview(quantityLabel)
+        addSubview(imageView)
+        addSubview(titleLabel)
+        addSubview(detailLabel)
+        addSubview(quantityLabel)
 
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -199,37 +169,34 @@ class OrderCustomCollectionViewCell: UICollectionViewCell {
         quantityLabel.text = "1개"
         quantityLabel.textColor = .black
         quantityLabel.font = UIFont.systemFont(ofSize: 12)
-        
-        
 
-        setupOrderConstraints()
+        setupConstraints()
     }
 
-    func setupOrderConstraints() {
+    func setupConstraints() {
         imageView.snp.makeConstraints { make in
             make.width.height.equalTo(60)
-            make.leading.equalTo(contentView.snp.leading).offset(10)
-            make.centerY.equalTo(contentView.snp.centerY)
+            make.leading.equalToSuperview().offset(10)
+            make.centerY.equalToSuperview()
         }
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(8)
-            make.top.equalTo(contentView.snp.top).offset(20)
+            make.top.equalToSuperview().offset(20)
             make.trailing.lessThanOrEqualTo(quantityLabel.snp.leading).offset(-10)
         }
 
         detailLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel.snp.leading)
-            make.bottom.equalTo(quantityLabel.snp.top).offset(-4)
+            make.top.equalTo(quantityLabel.snp.top).offset(0)
             make.trailing.lessThanOrEqualTo(quantityLabel.snp.leading).offset(-10)
         }
 
         quantityLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(contentView.snp.trailing).offset(-10)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-20)
+            make.trailing.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-20)
         }
     }
-
 
     func configure(title: String, detail: String, imageName: String) {
         titleLabel.text = title
@@ -241,14 +208,3 @@ class OrderCustomCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-// 주석 처리된 상세 페이지 코드 예시
-/*
-class OrderDetailViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        // 추가적인 상세 페이지 UI 설정
-    }
-}
-*/
