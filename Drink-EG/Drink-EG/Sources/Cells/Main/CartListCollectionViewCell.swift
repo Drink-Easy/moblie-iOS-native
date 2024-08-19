@@ -293,4 +293,3 @@ class CartListCollectionViewCell: UICollectionViewCell {
         CheckButton.isSelected = isSelected
     }
 }
-
