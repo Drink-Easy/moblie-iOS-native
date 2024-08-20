@@ -20,6 +20,11 @@ class ReviewListViewController: UIViewController {
     var score = 4.5
     private let scoreLabel = UILabel()
     
+    let customPickerButton = CustomPickerButton()
+    let pickerView = UIPickerView()
+    let toolbar = UIToolbar()
+    let pickerData = ["최신 리뷰 순", "별점 높은 순", "별점 낮은 순"]
+    
     private let label: UILabel = {
         let l = UILabel()
         l.text = "다른유저 리뷰"
@@ -40,9 +45,8 @@ class ReviewListViewController: UIViewController {
         let l = UILabel()
         l.font = .boldSystemFont(ofSize: 22)
         l.textColor = .black
-        l.numberOfLines = 0
-        l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
-        l.minimumScaleFactor = 0.5
+        l.numberOfLines = 2
+        l.lineBreakMode = .byTruncatingTail // 생략 부호(...)가 꼬리에 위치하도록 설정
         return l
     }()
     
@@ -121,25 +125,57 @@ class ReviewListViewController: UIViewController {
             make.height.lessThanOrEqualTo(140)
         }
         
-        view.addSubview(name)
-        name.snp.makeConstraints { make in
-            make.top.equalTo(image)
-            make.leading.equalTo(image.snp.trailing).offset(16)
-            make.width.lessThanOrEqualTo(175)
-        }
-        
         view.addSubview(scoreLabel)
         scoreLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(name)
+            make.top.equalTo(image.snp.top)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
+        
+        view.addSubview(name)
+        name.snp.makeConstraints { make in
+            make.top.equalTo(image.snp.top)
+            make.leading.equalTo(image.snp.trailing).offset(13)
+            make.trailing.equalTo(scoreLabel.snp.leading).offset(-10)
+//            make.width.lessThanOrEqualTo(175)
+            make.height.lessThanOrEqualTo(80)
+        }
+        
+        customPickerButton.setupPickerView(pickerView, toolbar: toolbar, pickerData: pickerData)
+        view.addSubview(customPickerButton)
+        
+        customPickerButton.snp.makeConstraints { make in
+            make.bottom.equalTo(image.snp.bottom).offset(10)
+            make.trailing.equalTo(stick.snp.trailing)
+            make.width.equalTo(customPickerButton.buttonWidth)
+            make.height.equalTo(customPickerButton.pickerButtonHeight)
+        }
+        
+        // Setup Picker View
+        view.addSubview(pickerView)
+        
+        pickerView.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.height.equalTo(200) // 높이 설정
+        }
+        
+        // Setup Toolbar
+        view.addSubview(toolbar)
+        
+        toolbar.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(pickerView.snp.top)
+            make.height.equalTo(44) // 높이 설정
         }
         
         view.addSubview(reviewListCollectionView)
         reviewListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(image.snp.bottom).offset(22)
+            make.top.equalTo(image.snp.bottom).offset(20)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        view.sendSubviewToBack(reviewListCollectionView)
     }
     
     private func configureScore() {
@@ -179,6 +215,16 @@ extension ReviewListViewController: UICollectionViewDataSource, UICollectionView
                     }
                     let responseData = try JSONDecoder().decode(APIResponseWineReviewResponse.self, from: response.data)
                     self.reviewResults = responseData.result
+                    if self.reviewResults.isEmpty {
+                        let noReview = UILabel()
+                        noReview.text = "등록된 리뷰가 없습니다."
+                        noReview.font = .boldSystemFont(ofSize: 15)
+                        noReview.textColor = UIColor(hex: "#767676")
+                        self.reviewListCollectionView.addSubview(noReview)
+                        noReview.snp.makeConstraints { make in
+                            make.centerX.centerY.equalToSuperview()
+                        }
+                    }
                     self.reviewListCollectionView.reloadData()
                     completion(true)
                 } catch {

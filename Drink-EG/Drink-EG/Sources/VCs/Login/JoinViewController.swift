@@ -318,7 +318,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                 case .success(let response):
                     do {
                         let data = try response.map(APIResponseString.self)
-                        print("User Created: \(data)")
+//                        print("User Created: \(data)")
                         completion(data.isSuccess)
                     } catch {
                         print("Failed to map data: \(error)")

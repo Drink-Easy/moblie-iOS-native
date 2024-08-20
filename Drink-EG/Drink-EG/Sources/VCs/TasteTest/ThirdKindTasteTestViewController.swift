@@ -9,8 +9,8 @@ import UIKit
 
 class ThirdKindTasteTestViewController: UIViewController {
 
-    var kind: [String] = ["레드", "화이트", "스파클링", "로제", "주정강화", "네츄럴", "기타"]
-    var kindEng : [String] = ["Red", "White", "Sparkling", "Rose", "Port", "Natural", "etc"]
+    var kind: [String] = ["레드", "화이트", "스파클링", "로제", "주정강화", "기타"]
+    var kindEng : [String] = ["레드", "화이트", "스파클링", "로제", "포트", "dessert"]
     var selectedIndexPaths: [IndexPath] = []
     var selectedWineName : [String] = []
     

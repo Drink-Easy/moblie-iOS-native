@@ -7,8 +7,10 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class WineOrderViewController: UIViewController {
+    
     let shoppingManager = ShoppingListManager.shared
     
     private var quantity: Int = 1 {
@@ -20,7 +22,7 @@ class WineOrderViewController: UIViewController {
     var shop: String?
     var score = 4.5
     var wineName: String = ""
-    var wineImage: UIImage?
+    var wineImage: String?
     var shopAddr : String?
     var distanceDouble : Double?
     var priceInt: Int?
@@ -50,8 +52,10 @@ class WineOrderViewController: UIViewController {
     private let name: UILabel = {
         let l = UILabel()
         l.text = "Red Label"
-        l.font = .boldSystemFont(ofSize: 22)
+        l.font = .boldSystemFont(ofSize: 20)
         l.textColor = .black
+        l.numberOfLines = 2
+        l.lineBreakMode = .byTruncatingTail // 생략 부호(...)가 꼬리에 위치하도록 설정
         return l
     }()
     
@@ -60,6 +64,8 @@ class WineOrderViewController: UIViewController {
         i.image = UIImage(named: "Red Label")
         i.layer.cornerRadius = 10
         i.layer.masksToBounds = true
+        i.layer.borderWidth = 1.5
+        i.layer.borderColor = UIColor(hex: "#E5E5E5")?.cgColor
         return i
     }()
     
@@ -73,9 +79,9 @@ class WineOrderViewController: UIViewController {
         return v
     }()
     
-    private let distance: UILabel = {
-        let l2 = UILabel()
-        
+    private let distance = UILabel()
+    
+    fileprivate func setDistanceText(_ textData : String) {
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(named: "icon_location")
         
@@ -86,14 +92,13 @@ class WineOrderViewController: UIViewController {
         
         let attachmentString = NSAttributedString(attachment: imageAttachment)
         completeText.append(attachmentString)
-
+        
         // 매장 텍스트 추가
-        let text = NSAttributedString(string: " 2.3 km", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
+        let text = NSAttributedString(string: " \(textData) km", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
         completeText.append(text)
-        l2.attributedText = completeText
-        l2.textColor = UIColor(hex: "#FF7A6D")
-        return l2
-    }()
+        distance.attributedText = completeText
+        distance.textColor = UIColor(hex: "#FF7A6D")
+    }
     
     private let address: UILabel = {
         let l3 = UILabel()
@@ -206,6 +211,12 @@ class WineOrderViewController: UIViewController {
         
         view.backgroundColor = .white
         setupUI()
+        
+        if let imageUrl = wineImage, let url = URL(string: imageUrl) {
+            image.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            image.image = UIImage(named: "Loxton")
+        }
     }
 
     private func setupUI() {
@@ -237,7 +248,10 @@ class WineOrderViewController: UIViewController {
         view.addSubview(name)
         name.snp.makeConstraints { make in
             make.top.equalTo(image.snp.top)
-            make.leading.equalTo(image.snp.trailing).offset(22)
+            make.leading.equalTo(image.snp.trailing).offset(13)
+            make.trailing.equalTo(stick.snp.trailing).offset(-5)
+            make.height.lessThanOrEqualTo(60)
+//            make.width.lessThanOrEqualTo(250)
         }
         
 //        view.addSubview(scoreLabel)
@@ -321,13 +335,12 @@ class WineOrderViewController: UIViewController {
         if let shopdata = curShop {
             shopName.text = shop
             address.text = shopAddr
-            distance.text = " \(shopdata.distanceToUser) km"
+            setDistanceText("\(shopdata.distanceToUser)")
             price.text = "\(shopdata.price) ₩"
         }
     }
     
     private func configureWineName() {
         name.text = self.wineName
-        image.image = self.wineImage
     }
 }

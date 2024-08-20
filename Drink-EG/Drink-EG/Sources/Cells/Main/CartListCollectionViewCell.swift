@@ -7,42 +7,49 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 protocol CartListCollectionViewCellDelegate: AnyObject {
     func checkButtonTapped(on cell: CartListCollectionViewCell, isSelected: Bool)
+    func deleteButtonTapped(on cell: CartListCollectionViewCell)
+    func quantityChanged(in cell: CartListCollectionViewCell)
+    func didTapChangeStoreButton(on cell: CartListCollectionViewCell)
 }
 
 class CartListCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: CartListCollectionViewCellDelegate?
-    var changeMarketButtonAction : (() -> Void) = {}
     
     var quantity: Int = 1 {
         didSet {
             updateNumLabel()
+            configureMarketNPlace(self.shop, self.price, self.quantity)
         }
     }
+    //이전 수량을 저장
+    var previousQuantity: Int = 1
     
     private let CheckImage = UIImage(named: "icon_cartCheck_fill")
     private let nCheckImage = UIImage(named: "icon_cartCheck_nfill")
     let CheckButton = UIButton(type: .custom)
     var shop = "PODO"
     var price = 0
+    var wineImage: String?
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "Loxton")
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
         return iv
     }()
     
-    private let name: UILabel = {
+    let name: UILabel = {
         let l1 = UILabel()
         l1.text = "Loxton"
         l1.font = .boldSystemFont(ofSize: 18)
         l1.textColor = .black
-        l1.numberOfLines = 0
+        l1.numberOfLines = 2
+        l1.lineBreakMode = .byTruncatingTail // 생략 부호(...)가 꼬리에 위치하도록 설정
         return l1
     }()
     
@@ -62,7 +69,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
     }()
     
     @objc private func changeMarketButtonTapped() {
-        changeMarketButtonAction()
+        delegate?.didTapChangeStoreButton(on: self)
     }
     
     private let changeNumButton: UIButton = {
@@ -86,6 +93,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
     private func updateNumLabel() {
         let label = "\(quantity)"
         NumLabel.text = label
+        delegate?.quantityChanged(in: self) // 수량 변경 시 delegate 호출
     }
         
     @objc func changeNumButtonTapped(_ sender: UIButton, forEvent event: UIEvent) {
@@ -105,10 +113,12 @@ class CartListCollectionViewCell: UICollectionViewCell {
     }
         
     private func decreaseQuantity() {
+        previousQuantity = quantity
         quantity = max(quantity - 1, 1)
     }
 
     private func increaseQuantity() {
+        previousQuantity = quantity
         quantity += 1
     }
     
@@ -120,8 +130,13 @@ class CartListCollectionViewCell: UICollectionViewCell {
         b.setImage(image, for: .normal)
         b.tintColor = UIColor(hex: "999999")
         b.backgroundColor = .clear
+        b.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         return b
     }()
+    
+    @objc private func deleteButtonTapped() {
+        delegate?.deleteButtonTapped(on: self) // 델리게이트 호출
+    }
     
     func configureCheckButton() {
         CheckButton.setImage(nCheckImage?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -147,7 +162,7 @@ class CartListCollectionViewCell: UICollectionViewCell {
         delegate?.checkButtonTapped(on: self, isSelected: sender.isSelected)
     }
     
-    private func configureMarketNPlace(_ shopName: String, _ priceInt: Int, _ count: Int) {
+    func configureMarketNPlace(_ shopName: String, _ priceInt: Int, _ count: Int) {
         let firstImageAttachment = NSTextAttachment()
         firstImageAttachment.image = UIImage(named: "icon_market")
         
@@ -222,33 +237,36 @@ class CartListCollectionViewCell: UICollectionViewCell {
         }
         
         name.snp.makeConstraints { make in
-            make.top.equalTo(imageView)
-            make.leading.equalTo(imageView.snp.trailing).offset(15)
+            make.top.equalToSuperview().offset(13)
+            make.leading.equalTo(imageView.snp.trailing).offset(13)
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                make.width.lessThanOrEqualTo(180) //185
+            }
+            make.height.lessThanOrEqualTo(45)
         }
         
         marketNprice.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.bottom).offset(7)
+            make.top.equalTo(name.snp.bottom).offset(3)
             make.leading.equalTo(name)
         }
         
-        changeMarketButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(14)
-            make.leading.equalToSuperview().offset(213)
-            make.width.greaterThanOrEqualTo(67)
-            make.height.greaterThanOrEqualTo(24)
-        }
-        
         changeNumButton.snp.makeConstraints { make in
-            make.top.equalTo(changeMarketButton)
-            make.leading.equalTo(changeMarketButton.snp.trailing).offset(6)
+            make.bottom.equalToSuperview().inset(10)
+            make.trailing.equalToSuperview().inset(12)
             make.width.greaterThanOrEqualTo(63)
             make.height.greaterThanOrEqualTo(26)
+        }
+        
+        changeMarketButton.snp.makeConstraints { make in
+            make.top.equalTo(changeNumButton)
+            make.trailing.equalTo(changeNumButton.snp.leading).offset(-6)
+            make.width.greaterThanOrEqualTo(67)
+            make.height.greaterThanOrEqualTo(20)
         }
         
         NumLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }
-        
         deleteButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(14)
@@ -256,9 +274,11 @@ class CartListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure1(imageName: String, wineName: String, price: Int, count: Int, shopName: String) {
-        if let image = UIImage(named: imageName) {
-            imageView.image = image
+    func configure1(imageName: String?, wineName: String, price: Int, count: Int, shopName: String) {
+        if let imageUrl = imageName, let url = URL(string: imageUrl) {
+            self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
+        } else {
+            self.imageView.image = UIImage(named: "Loxton")
         }
         
         self.name.text = wineName
@@ -273,4 +293,3 @@ class CartListCollectionViewCell: UICollectionViewCell {
         CheckButton.isSelected = isSelected
     }
 }
-

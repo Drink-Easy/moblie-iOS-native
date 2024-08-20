@@ -13,16 +13,3 @@ struct APIResponseMemberResponse : Codable {
     let message : String
     let result : MemberResponse?
 }
-
-struct MemberResponse : Codable {
-    let id : Int
-    let name : String
-    let username : String
-    let role : String
-    let isNewbie : Bool
-    let monthPriceMax : Int
-    let wineSort : [String]
-    let wineArea : [String]
-    let wineVariety : [String]
-    let region : String
-}

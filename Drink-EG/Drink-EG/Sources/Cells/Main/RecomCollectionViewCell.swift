@@ -13,17 +13,17 @@ import SDWebImage
 class RecomCollectionViewCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
-            let iv = UIImageView()
-            return iv
+        let iv = UIImageView()
+        return iv
     }()
     
     private let label1: UILabel = {
         let l1 = UILabel()
-        l1.font = .systemFont(ofSize: 14, weight: .bold)
+        l1.font = .systemFont(ofSize: 13, weight: .bold)
         l1.textColor = .black
-        l1.numberOfLines = 0
-        l1.adjustsFontSizeToFitWidth = true
-        l1.minimumScaleFactor = 0.7
+        l1.numberOfLines = 2
+        //l1.adjustsFontSizeToFitWidth = true
+        l1.lineBreakMode = .byTruncatingTail // 생략 부호(...)가 꼬리에 위치하도록 설정
         return l1
     }()
         
@@ -64,10 +64,10 @@ class RecomCollectionViewCell: UICollectionViewCell {
         }
         
         label1.snp.makeConstraints { make in
-            make.leading.equalTo(imageView.snp.leading).offset(9)
+            make.leading.trailing.equalToSuperview().inset(15)
             make.top.equalTo(view.snp.top).offset(10)
-            make.width.lessThanOrEqualToSuperview().inset(10)
-            make.height.lessThanOrEqualTo(30)
+//            make.width.lessThanOrEqualToSuperview().inset(15)
+            make.height.lessThanOrEqualTo(35)
         }
             
         view.snp.makeConstraints { make in

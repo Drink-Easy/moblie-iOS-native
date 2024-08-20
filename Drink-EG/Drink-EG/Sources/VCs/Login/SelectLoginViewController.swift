@@ -8,9 +8,11 @@
 import UIKit
 import SnapKit
 import AuthenticationServices
+import Moya
 
 class SelectLoginViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
 
+    let provider = MoyaProvider<LoginAPI>()
     let loginButton = UIButton(type: .system)
     
     let kakaoButton = UIButton(type: .system)
@@ -154,32 +156,25 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
             
-            if  let authorizationCode = appleIDCredential.authorizationCode,
-                let identityToken = appleIDCredential.identityToken,
-                let authCodeString = String(data: authorizationCode, encoding: .utf8),
-                let identifyTokenString = String(data: identityToken, encoding: .utf8) {
-                print("authorizationCode: \(authorizationCode)\n")
-                print("identityToken: \(identityToken)\n")
-                print("authCodeString: \(authCodeString)\n")
-                print("identifyTokenString: \(identifyTokenString)\n")
+            if let identityToken = appleIDCredential.identityToken,
+               let identityTokenString = String(data: identityToken, encoding: .utf8) {
+                postAppleLogin(token: identityTokenString) { isSuccess in
+                    if isSuccess {
+                        self.goToNextView()
+                    } else {
+                        print("로그인 실패")
+                    }
+                }
             }
-            
-            print("useridentifier: \(userIdentifier)")
-            print("fullName: \(fullName)")
-            print("email: \(email)")
-            
-            // move to MainPage
-            goToNextView()
             
         case let passwordCredential as ASPasswordCredential:
             // Sign in using an existing iCloud Keychain credential.
             let username = passwordCredential.user
             let password = passwordCredential.password
             
-            print("username: \(username)")
-            print("password: \(password)")
+//            print("username: \(username)")
+//            print("password: \(password)")
         default:
             break
         }
@@ -199,6 +194,34 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         // 로그인 실패(유저의 취소도 포함)
         print("login failed - \(error.localizedDescription)")
+    }
+    
+    //MARK: - Login API
+    private func postAppleLogin(token: String, completion: @escaping (Bool) -> Void) {
+        provider.request(.postAppleLogin(identityTokenString: token)) { result in
+            switch result {
+            case .success(let response):
+                if let httpResponse = response.response,
+                   let setCookie = httpResponse.allHeaderFields["Set-Cookie"] as? String {
+                    let cookies = HTTPCookie.cookies(withResponseHeaderFields: ["Set-Cookie": setCookie], for: httpResponse.url!)
+                    
+                    for cookie in cookies {
+                        HTTPCookieStorage.shared.setCookie(cookie)
+                    }
+                    do {
+                        let data = try response.map(AppleLoginResponse.self)
+                        LoginViewController.isFirstLogin = data.result.isFirst
+                        print(data)
+                    } catch {
+                        completion(false)
+                    }
+                }
+                completion(true)
+            case .failure(let error):
+                print("Request failed: \(error)")
+                completion(false)
+            }
+        }
     }
     
     
