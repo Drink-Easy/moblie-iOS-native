@@ -9,10 +9,12 @@ import UIKit
 import SnapKit
 import Moya
 import SDWebImage
+import SwiftyToaster
 
-class SearchHomeViewController : UIViewController, UISearchBarDelegate {
+class SearchHomeViewController : UIViewController, UISearchBarDelegate, WineListCollectionViewCellDelegate {
     
     let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
+    let provider2 = MoyaProvider<WishListAPI>(plugins: [CookiePlugin()])
 
     var wineResults: [Wine] = []
 
@@ -136,6 +138,31 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
             fetchWineSuggestion(with: query)
         }
     }
+    
+    func LikeWineTapped(on cell: WineListCollectionViewCell) {
+        // 1. collectionView에서 indexPath를 찾아야 합니다.
+        guard let indexPath = WineListCollectionView.indexPath(for: cell) else {
+            print("IndexPath not found for the given cell.")
+            return
+        }
+        
+        // 2. 선택된 와인을 가져옵니다.
+        let selectedWine = wineResults[indexPath.row]
+        
+        // 3. 새 WineLike 인스턴스를 생성합니다.
+        let wineLike = WineLike(wineId: selectedWine.wineId)
+        
+        // 4. 와인 ID를 사용하여 postWineLike 함수를 호출합니다.
+        postWineLike(wineLike: wineLike) { success in
+            if success {
+                print("Like succeeded for wine \(selectedWine.wineId)")
+            } else {
+                print("Failed to like wine \(selectedWine.wineId)")
+                Toaster.shared.makeToast("이미 저장된 와인입니다.", .short)
+                cell.likeButton.isSelected = false
+            }
+        }
+    }
 }
 
 extension SearchHomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -148,6 +175,7 @@ extension SearchHomeViewController: UICollectionViewDataSource, UICollectionView
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WineListCollectionViewCell", for: indexPath) as! WineListCollectionViewCell
             
         let wine = wineResults[indexPath.row]
+        cell.delegate = self // 델리게이트 설정
         cell.configure(wine: wine)
         
         return cell
@@ -187,6 +215,29 @@ extension SearchHomeViewController: UICollectionViewDataSource, UICollectionView
                     print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
                 }
             }
+        }
+    }
+    
+    func postWineLike(wineLike: WineLike, completion: @escaping (Bool) -> Void) {
+        provider2.request(.postWineLike(wineLike: wineLike)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    
+                    if let jsonString = String(data: response.data, encoding: .utf8) {
+                        print("Received JSON: \(jsonString)")
+                    }
+                    print("성공")
+                    completion(true)
+                }
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                if let response = error.response {
+                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
+                }
+                completion(false)
+            }
+            
         }
     }
 }
