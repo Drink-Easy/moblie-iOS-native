@@ -34,7 +34,20 @@ class MypageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        deselectAllCells()
         showBadge()
+    }
+    
+    private func deselectAllCells() {
+        if let selectedRows = tableView.indexPathsForSelectedRows {
+            for indexPath in selectedRows {
+                tableView.deselectRow(at: indexPath, animated: false)
+                // 선택된 셀의 배경색을 초기화 (선택된 셀의 커스텀 처리가 있다면 이 부분에서 초기화)
+                if let cell = tableView.cellForRow(at: indexPath) {
+                    cell.contentView.backgroundColor = UIColor(hex: "D9D9D9") // 원래 색상으로 복원
+                }
+            }
+        }
     }
     
     // title label
@@ -221,7 +234,12 @@ extension MypageViewController: UITableViewDelegate {
         case 2:
             switch indexPath.row {
             case 0:
-                let controller = MypageViewController()
+                let controller = PrivacyPolicyViewController()
+                PrivacyPolicyViewController.isService = true
+                navigationController?.pushViewController(controller, animated: true)
+            case 2:
+                let controller = PrivacyPolicyViewController()
+                PrivacyPolicyViewController.isService = false
                 navigationController?.pushViewController(controller, animated: true)
             default:
                 print("\(myPageThirdMenu[indexPath.row])")
