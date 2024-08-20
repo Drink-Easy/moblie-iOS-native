@@ -173,7 +173,7 @@ class RatingViewController: UIViewController {
                 make.width.equalTo(titleSize.width+37)
                 make.height.greaterThanOrEqualTo(33)
                 
-                if i % 4 == 0 {
+                if i % 3 == 0 {
                     // 첫 번째 버튼이거나 새로운 줄의 첫 번째 버튼
                     make.leading.equalTo(tasteView.snp.leading).offset(13)
                     if i == 0 {

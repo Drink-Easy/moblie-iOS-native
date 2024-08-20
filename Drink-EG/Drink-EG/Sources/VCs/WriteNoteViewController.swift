@@ -90,7 +90,7 @@ class WriteNoteViewController: UIViewController {
     func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         tastingnoteLabel.snp.makeConstraints{ make in
             make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).offset(20)
-            make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).offset(27)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).offset(25)
         }
     }
     
