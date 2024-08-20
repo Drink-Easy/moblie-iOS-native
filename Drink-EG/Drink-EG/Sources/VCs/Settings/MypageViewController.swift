@@ -49,6 +49,11 @@ class MypageViewController: UIViewController {
             }
         }
     }
+      
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
     
     // title label
     let mypageLabel: UILabel = {
@@ -217,17 +222,17 @@ extension MypageViewController: UITableViewDelegate {
                 bottomSheetVC.modalPresentationStyle = .overFullScreen
                 bottomSheetVC.modalTransitionStyle = .crossDissolve
                 present(bottomSheetVC, animated: true, completion: nil)
-            case 1:
-                let controller = MyPageSettingsViewController()
-                navigationController?.pushViewController(controller, animated: true)
+//            case 1:
+//                let controller = MyPageSettingsViewController()
+//                navigationController?.pushViewController(controller, animated: true)
             default:
                 print("\(myPagefirstMenu[indexPath.row])")
             }
         case 1:
             switch indexPath.row {
-            case 0:
-                let controller = MyPageSettingsViewController()
-                navigationController?.pushViewController(controller, animated: true)
+//            case 0:
+//                let controller = MyPageSettingsViewController()
+//                navigationController?.pushViewController(controller, animated: true)
             default:
                 print("\(myPageSecondMenu[indexPath.row])")
             }
