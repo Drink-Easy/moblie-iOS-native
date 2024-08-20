@@ -88,6 +88,36 @@ class HomeViewController: UIViewController {
                 print("GET 호출 실패")
             }
         }
+        
+        // 버튼 하단에 붉은색으로 칠하는 layer 추가
+        let Layer = CALayer()
+        Layer.name = "redLayer" // 레이어 식별용 이름 설정
+        Layer.backgroundColor = UIColor(hue: 0.0417, saturation: 0.19, brightness: 1, alpha: 0.8).cgColor
+        goToNoteButton.layer.addSublayer(Layer)
+        
+        // layer 위에 label 추가
+        let titleLabel = UILabel()
+        titleLabel.text = "테이스팅 노트 작성하기"
+        titleLabel.textColor = .black
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.textAlignment = .left
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        goToNoteButton.addSubview(titleLabel)
+        
+        let goToIcon = UIImageView()
+        goToIcon.image = UIImage(named: "icon_goTo")
+        goToNoteButton.addSubview(goToIcon)
+        
+        // 초기 레이아웃 설정
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(86) // 초기 위치 (임시 값)
+            make.leading.equalToSuperview().offset(18)
+        }
+        
+        goToIcon.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLabel) // 초기 위치 (임시 값)
+            make.trailing.equalToSuperview().inset(12)
+        }
     }
     
     // 홈으로 갈 때마다 쇼핑카트 badge의 상태가 업데이트
@@ -100,33 +130,18 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        // 버튼 하단에 노란색으로 칠하는 layer 추가
-        let Layer = CALayer()
-        Layer.frame = CGRect(x: 0, y: 72, width: goToNoteButton.frame.width, height: goToNoteButton.frame.height - 72)
-        Layer.backgroundColor = UIColor(hue: 0.0417, saturation: 0.19, brightness: 1, alpha: 0.8).cgColor
-        
-        // 버튼에 layer 추가
-        goToNoteButton.layer.addSublayer(Layer)
-        
-        //layer 위에 label 추가
-        let titleLabel = UILabel()
-        titleLabel.text = "테이스팅 노트 작성하기"
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.textAlignment = .left
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        goToNoteButton.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(86)
-            make.leading.equalToSuperview().offset(18)
+        // Layer의 크기 및 위치 조정
+        if let Layer = goToNoteButton.layer.sublayers?.first(where: { $0.name == "redLayer" }) {
+            let width = goToNoteButton.frame.width
+            let height = width * (47.0 / 353.0)
+            Layer.frame = CGRect(x: 0, y: goToNoteButton.bounds.height - height, width: width, height: height)
         }
         
-        let goToIcon = UIImageView()
-        goToIcon.image = UIImage(named: "icon_goTo")
-        goToNoteButton.addSubview(goToIcon)
-        goToIcon.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(86)
-            make.trailing.equalToSuperview().inset(12)
+        // titleLabel의 위치 조정
+        if let titleLabel = goToNoteButton.subviews.compactMap({ $0 as? UILabel }).first {
+            titleLabel.snp.updateConstraints { make in
+                make.top.equalTo(goToNoteButton.bounds.height - (goToNoteButton.frame.width * (47.0 / 353.0)) + 14)
+            }
         }
     }
     
@@ -151,8 +166,8 @@ class HomeViewController: UIViewController {
         // SnapKit을 사용하여 제약 조건 설정
         stackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(34)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.greaterThanOrEqualTo(34)
         }
         
         searchButton.snp.makeConstraints { make in
@@ -186,29 +201,28 @@ class HomeViewController: UIViewController {
             make.top.equalTo(contentView.snp.top).offset(10)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(stackView)
-            make.width.equalTo(356)
-            make.height.equalTo(247)
+            make.height.equalTo(AdImageCollectionView.snp.width).multipliedBy(247.0/356.0)
         }
         
         pageControl.snp.makeConstraints { make in
             make.top.equalTo(AdImageCollectionView.snp.bottom).offset(8)
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
         contentView.addSubview(firstLine)
         
         firstLine.snp.makeConstraints {make in
             make.top.equalTo(pageControl.snp.bottom).offset(12)
-            make.leading.trailing.equalTo(AdImageCollectionView)
+            make.leading.equalTo(AdImageCollectionView)
         }
         
         contentView.addSubview(RecomCollectionView)
         
         RecomCollectionView.snp.makeConstraints { make in
             make.top.equalTo(firstLine.snp.bottom).offset(13)
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalTo(AdImageCollectionView)
-            make.height.equalTo(166)
+            make.height.greaterThanOrEqualTo(166)
             
         }
         
@@ -220,9 +234,9 @@ class HomeViewController: UIViewController {
         
         contentView.addSubview(goToNoteButton)
         goToNoteButton.snp.makeConstraints { make in
-            make.top.equalTo(NoteLabel.snp.bottom).offset(22)
+            make.top.equalTo(NoteLabel.snp.bottom).offset(20)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(23)
-            make.height.greaterThanOrEqualTo(119)
+            make.height.equalTo(AdImageCollectionView.snp.width).multipliedBy(119.0/353.0)
             make.bottom.equalToSuperview().inset(20)
         }
         
@@ -300,6 +314,8 @@ class HomeViewController: UIViewController {
         goToNoteButton.layer.borderWidth = 0
         
         goToNoteButton.setImage(UIImage(named: "HomeGoToTastingNote")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        goToNoteButton.contentVerticalAlignment = .fill
+        goToNoteButton.contentHorizontalAlignment = .fill
         
         goToNoteButton.addTarget(self, action: #selector(noteButtonTapped), for: .touchUpInside)
         
