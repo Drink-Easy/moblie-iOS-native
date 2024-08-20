@@ -62,6 +62,11 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         setupNavigationBarButton()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)  //firstresponder가 전부 사라짐
+    }
+    
     func setupView() {
         view.addSubview(tastingnoteLabel)
         view.addSubview(wineSearchBar)
