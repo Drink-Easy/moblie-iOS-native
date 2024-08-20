@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Moya
+import SwiftyToaster
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     public static var isFirstLogin : Bool = true
@@ -198,7 +199,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
             } else {
                 print("로그인 실패")
-                // 실패 시에 대한 처리 (예: 에러 메시지 표시)
+                Toaster.shared.makeToast("400 Bad Request : Failed to Login", .short)
             }
         }
     }

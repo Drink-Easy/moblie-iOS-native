@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 import Moya
 import SDWebImage
+import SafariServices
+import SwiftyToaster
 
 class HomeViewController: UIViewController {
     
@@ -16,6 +18,7 @@ class HomeViewController: UIViewController {
     let shoppingListManager = ShoppingListManager.shared
     
     private var AdContents: [String] = ["ad1", "ad2"]
+    private var AdLinks: [String] = ["https://www.instagram.com/drinkeg.official?igsh=eGoyYzkxNmh5bXR5","https://github.com/Drink-Easy/moblie-iOS-native"]
     private var RecomContents: [RecommendWineResponse] = []
     var name: String = ""
     
@@ -86,6 +89,7 @@ class HomeViewController: UIViewController {
                 self?.setupUI()
             } else {
                 print("GET 호출 실패")
+                Toaster.shared.makeToast("503 Service Unavailable", .short)
             }
         }
         
@@ -422,6 +426,11 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView.tag == 1 {
+            let adURL = NSURL(string: AdLinks[indexPath.row])
+            let adSafariView: SFSafariViewController = SFSafariViewController(url: adURL as! URL)
+            self.present(adSafariView, animated: true, completion: nil)
+        }
         if collectionView.tag == 2 {
             let selectedWine = RecomContents[indexPath.row]
             let wineInfoViewController = WineInfoViewController()
@@ -448,7 +457,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             case .success(let response):
                 do {
                     if let jsonString = String(data: response.data, encoding: .utf8) {
-                        print("Received JSON: \(jsonString)")
+//                        print("Received JSON: \(jsonString)")
                     }
                     let responseData = try JSONDecoder().decode(APIResponseHomeResponse.self, from: response.data)
                     self.name = responseData.result.name

@@ -11,52 +11,50 @@ import SnapKit
 
 
 private let cellID = "Cell"
-
 class MypageViewController: UIViewController {
     
-    let tableview = UITableView(frame: .zero, style: .grouped)
+    let tableView = UITableView(frame: .zero, style: .grouped)
     
     let myPagefirstMenu = ["내 정보", "와인 주문 내역", "위시리스트"]
     let myPageSecondMenu = ["1:1 문의하기", "제휴 입점 문의하기", "개선 제안하기"]
     let myPageThirdMenu = ["서비스 이용약관", "위치정보 이용약관", "개인정보 처리방침"]
     
-    
+    let topHeader = TopHeader()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
-        
         configureUI()
-        
     }
     
     func configureUI() {
         
-        view.addSubview(tableview)
-        tableview.backgroundColor = .white
+        // TopHeader를 먼저 추가
+        view.addSubview(topHeader)
+        topHeader.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(100) // TopHeader의 높이를 설정합니다.
+        }
         
-        tableview.translatesAutoresizingMaskIntoConstraints = false
+        // TableView를 추가하고 TopHeader 아래에 배치
+        view.addSubview(tableView)
+        tableView.backgroundColor = .white
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(MyPageCell.self, forCellReuseIdentifier: cellID)
         
-        tableview.delegate = self
-        tableview.dataSource = self
-        
-        tableview.register(MyPageCell.self, forCellReuseIdentifier: cellID)
-        
-        
-        tableview.tableHeaderView = TopHeader(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 100))
-        
-        tableview.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableview.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableview.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(topHeader.snp.bottom) // TopHeader 아래에 배치
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
-    
 }
 
 extension MypageViewController: UITableViewDataSource {
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -65,27 +63,22 @@ extension MypageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return myPagefirstMenu.count
-        }
-        if section == 1 {
+        } else if section == 1 {
             return myPageSecondMenu.count
-        }
-        else {
+        } else {
             return myPageThirdMenu.count
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! MyPageCell
         cell.backgroundColor = UIColor(hex: "D9D9D9")
         
-        if indexPath.section == 0{
+        if indexPath.section == 0 {
             cell.textLabel?.text = myPagefirstMenu[indexPath.row]
-        }
-        if indexPath.section == 1{
+        } else if indexPath.section == 1 {
             cell.textLabel?.text = myPageSecondMenu[indexPath.row]
-        }
-        if indexPath.section == 2{
+        } else if indexPath.section == 2 {
             cell.textLabel?.text = myPageThirdMenu[indexPath.row]
         }
         
@@ -96,41 +89,31 @@ extension MypageViewController: UITableViewDataSource {
         if section == 0 {
             let header = FirstSectionHeader()
             return header
-        }
-        if section == 1 {
+        } else if section == 1 {
             let header = SecondSectionHeader()
             return header
-        }
-        else {
+        } else {
             let header = ThirdSectionHeader()
             return header
-            
         }
     }
-    
 }
 
 extension MypageViewController: UITableViewDelegate {
     
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 30
-        } else {
-            return 30
-        }
-        
+        return 30
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
-            cell.contentView.backgroundColor = UIColor(hex: "#FF9F8E")  // 셀의 배경색을 빨간색으로 변경
+            cell.contentView.backgroundColor = UIColor(hex: "#FF9F8E")
         }
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
-                let bottomSheetContent = MypageInfoViewController() // 실제 사용하고자 하는 뷰 컨트롤러
+                let bottomSheetContent = MypageInfoViewController()
                 let bottomSheetVC = MyPageBottomSheetViewController(contentViewController: bottomSheetContent)
                 bottomSheetVC.modalPresentationStyle = .overFullScreen
                 bottomSheetVC.modalTransitionStyle = .crossDissolve
@@ -138,8 +121,6 @@ extension MypageViewController: UITableViewDelegate {
             case 1:
                 let controller = MyPageSettingsViewController()
                 navigationController?.pushViewController(controller, animated: true)
-            case 2:
-                print("\(myPagefirstMenu[indexPath.row])")
             default:
                 print("\(myPagefirstMenu[indexPath.row])")
             }
@@ -148,10 +129,6 @@ extension MypageViewController: UITableViewDelegate {
             case 0:
                 let controller = MyPageSettingsViewController()
                 navigationController?.pushViewController(controller, animated: true)
-            case 1:
-                print("\(myPageSecondMenu[indexPath.row])")
-            case 2:
-                print("\(myPageSecondMenu[indexPath.row])")
             default:
                 print("\(myPageSecondMenu[indexPath.row])")
             }
@@ -160,10 +137,6 @@ extension MypageViewController: UITableViewDelegate {
             case 0:
                 let controller = MypageViewController()
                 navigationController?.pushViewController(controller, animated: true)
-            case 1:
-                print("\(myPageThirdMenu[indexPath.row])")
-            case 2:
-                print("\(myPageThirdMenu[indexPath.row])")
             default:
                 print("\(myPageThirdMenu[indexPath.row])")
             }
@@ -174,10 +147,11 @@ extension MypageViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
-            cell.contentView.backgroundColor = UIColor(hex: "D9D9D9") // 원래 색상으로 복원
+            cell.contentView.backgroundColor = UIColor(hex: "D9D9D9")
         }
     }
 }
+
 
 
 

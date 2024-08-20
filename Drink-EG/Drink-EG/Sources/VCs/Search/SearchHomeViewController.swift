@@ -92,7 +92,7 @@ class SearchHomeViewController : UIViewController, UISearchBarDelegate {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(10)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.greaterThanOrEqualTo(34)
+            make.height.greaterThanOrEqualTo(UIConstants.searchBarHeight)
         }
         
         view.addSubview(WineListCollectionView)

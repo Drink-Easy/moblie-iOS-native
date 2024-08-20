@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Moya
+import SwiftyToaster
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
     let provider = MoyaProvider<LoginAPI>()
@@ -178,7 +179,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                 self?.goToLoginView()
             } else {
                 print("회원가입 실패")
-                // 실패 시에 대한 처리 (예: 에러 메시지 표시)
+                Toaster.shared.makeToast("400 Bad Request: Failed to Register", .short)
             }
         }
     }

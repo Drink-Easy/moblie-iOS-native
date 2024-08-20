@@ -76,6 +76,7 @@
 		16C19AD82C73AE5E00E93FD0 /* WineClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19AD72C73AE5E00E93FD0 /* WineClassCell.swift */; };
 		16C19ADC2C73AE8D00E93FD0 /* CarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19ADB2C73AE8D00E93FD0 /* CarouselLayout.swift */; };
 		16C19ADE2C73AF6000E93FD0 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19ADD2C73AF6000E93FD0 /* UserDefaults.swift */; };
+		16C19AE12C74423300E93FD0 /* SwiftyToaster in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19AE02C74423300E93FD0 /* SwiftyToaster */; };
 		1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */; };
 		1F205A332C69FE9800E80659 /* JoinNLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */; };
 		1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */; };
@@ -295,6 +296,7 @@
 			files = (
 				5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */,
 				5E22195E2C69DDB5005849FB /* SnapKit in Frameworks */,
+				16C19AE12C74423300E93FD0 /* SwiftyToaster in Frameworks */,
 				5E2219672C69DE78005849FB /* KakaoSDK in Frameworks */,
 				5E22197B2C6BB56F005849FB /* SDWebImage in Frameworks */,
 				5E2219612C69DDBF005849FB /* Alamofire in Frameworks */,
@@ -737,6 +739,7 @@
 				5E2219702C6B5B5B005849FB /* Cosmos */,
 				5E22197A2C6BB56F005849FB /* SDWebImage */,
 				5E22197C2C6BB56F005849FB /* SDWebImageMapKit */,
+				16C19AE02C74423300E93FD0 /* SwiftyToaster */,
 			);
 			productName = "Drink-EG";
 			productReference = 16B97CD02C4BEB0900D8B453 /* Drink-EG.app */;
@@ -774,6 +777,7 @@
 				5E2219682C69DEEA005849FB /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				5E22196F2C6B5B5B005849FB /* XCRemoteSwiftPackageReference "Cosmos" */,
 				5E2219792C6BB56F005849FB /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				16C19ADF2C74423300E93FD0 /* XCRemoteSwiftPackageReference "SwiftyToaster" */,
 			);
 			productRefGroup = 16B97CD12C4BEB0900D8B453 /* Products */;
 			projectDirPath = "";
@@ -1137,6 +1141,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		16C19ADF2C74423300E93FD0 /* XCRemoteSwiftPackageReference "SwiftyToaster" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/noeyiz/SwiftyToaster.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
 		5E22195C2C69DDB5005849FB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1196,6 +1208,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		16C19AE02C74423300E93FD0 /* SwiftyToaster */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 16C19ADF2C74423300E93FD0 /* XCRemoteSwiftPackageReference "SwiftyToaster" */;
+			productName = SwiftyToaster;
+		};
 		5E22195D2C69DDB5005849FB /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E22195C2C69DDB5005849FB /* XCRemoteSwiftPackageReference "SnapKit" */;

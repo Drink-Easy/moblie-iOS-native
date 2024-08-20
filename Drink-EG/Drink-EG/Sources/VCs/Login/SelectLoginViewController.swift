@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import AuthenticationServices
 import Moya
+import SwiftyToaster
 
 class SelectLoginViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
 
@@ -164,6 +165,7 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
                         self.goToNextView()
                     } else {
                         print("로그인 실패")
+                        Toaster.shared.makeToast("400 Bad Request", .short)
                     }
                 }
             }

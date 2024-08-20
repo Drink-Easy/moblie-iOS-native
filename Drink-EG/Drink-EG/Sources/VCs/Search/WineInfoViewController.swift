@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import SDWebImage
 import Moya
+import SwiftyToaster
 
 class WineInfoViewController: UIViewController {
     
@@ -235,6 +236,7 @@ class WineInfoViewController: UIViewController {
                 self?.setupUI()
             } else {
                 print("데이터를 받아오는데 실패했습니다. 다시 시도해주세요.")
+                Toaster.shared.makeToast("400 Bad Request", .short)
             }
         }
     }

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Moya
+import SwiftyToaster
 
 class ReviewListViewController: UIViewController {
     
@@ -97,6 +98,7 @@ class ReviewListViewController: UIViewController {
                 self?.setupUI()
             } else {
                 print("GET 호출 실패")
+                Toaster.shared.makeToast("400 Bad Request", .short)
             }
         }
     }

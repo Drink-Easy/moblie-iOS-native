@@ -48,7 +48,7 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     private let label: UILabel = {
         let l = UILabel()
         l.text = "VINO 클래스"
-        l.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: .bold)
+        l.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         l.textColor = .black
         l.numberOfLines = 0
         return l
@@ -57,6 +57,7 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         
         setupAllUI()
     }
@@ -71,6 +72,7 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         
     }
     
+    // 첫번째 뷰 그라데이션
     func setGradientColor(_ view: UIView) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
@@ -88,16 +90,16 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         // Label 설정
         view.addSubview(label)
         label.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
         // SearchBar 설정
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(10)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
-            make.height.equalTo(UIConstants.searchBarHeight)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.greaterThanOrEqualTo(UIConstants.searchBarHeight)
         }
         
         // 새로운 UIView 추가
