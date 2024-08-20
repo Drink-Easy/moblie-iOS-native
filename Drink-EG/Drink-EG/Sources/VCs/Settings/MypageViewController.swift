@@ -41,7 +41,7 @@ class MypageViewController: UIViewController {
     let mypageLabel: UILabel = {
         let label = UILabel()
         label.text = "마이페이지"
-        label.font = .boldSystemFont(ofSize: 28)
+        label.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         label.textAlignment = .center
         label.textColor = .black
         return label
@@ -91,7 +91,8 @@ class MypageViewController: UIViewController {
             }
             badgeLabel.snp.makeConstraints { make in
                 make.centerX.equalTo(cartButton.snp.centerX).offset(10)
-                make.top.equalTo(cartButton).inset(2)
+                make.centerY.equalTo(cartButton.snp.centerY).offset(-8)
+//                make.top.equalTo(cartButton).inset(2)
                 make.width.height.equalTo(16)
             }
         }
@@ -99,7 +100,7 @@ class MypageViewController: UIViewController {
     
     func setupNavigationBarButton() {
         navigationItem.hidesBackButton = true
-        let backArrow = UIImage(systemName: "chevron.backward")
+        let backArrow = UIImage(systemName: "")
         let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem = leftButton
         leftButton.tintColor = .black

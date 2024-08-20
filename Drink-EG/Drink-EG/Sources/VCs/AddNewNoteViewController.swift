@@ -98,7 +98,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         wineSearchBar.snp.makeConstraints { make in
             make.top.equalTo(tastingnoteLabel.snp.bottom).offset(10)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
-            make.height.equalTo(UIConstants.searchBarHeight)
+            make.height.greaterThanOrEqualTo(UIConstants.searchBarHeight)
         }
     }
 

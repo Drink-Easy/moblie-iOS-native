@@ -583,6 +583,7 @@
 		16B97CFB2C4BFB5E00D8B453 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				16C19ABC2C73AB6300E93FD0 /* MypageViewController.swift */,
 				16C19AB72C73AB6300E93FD0 /* MyPageBusinessViewController.swift */,
 				16C19AB92C73AB6300E93FD0 /* MypageInfoBottomViewController.swift */,
 				16C19AB62C73AB6300E93FD0 /* MyPageNoticeViewController.swift */,
@@ -590,7 +591,6 @@
 				16C19AB52C73AB6300E93FD0 /* MyPageQnaViewController.swift */,
 				16C19ABA2C73AB6300E93FD0 /* MyPageSettingsViewController.swift */,
 				16C19AB42C73AB6300E93FD0 /* MyPageSuggestViewController.swift */,
-				16C19ABC2C73AB6300E93FD0 /* MypageViewController.swift */,
 				16C19ABB2C73AB6300E93FD0 /* WishListViewController.swift */,
 			);
 			path = Settings;

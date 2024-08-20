@@ -153,7 +153,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     func setupNavigationBarButton() {
         navigationItem.hidesBackButton = true
-        let backArrow = UIImage(systemName: "chevron.backward")
+        let backArrow = UIImage(systemName: "")
         let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem = leftButton
         leftButton.tintColor = .black
@@ -165,24 +165,29 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
         communityLabel.text = "와인 모임"
-        communityLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
+        communityLabel.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         communityLabel.textAlignment = .center
         communityLabel.textColor = .black
     }
     
     func setupcommunityLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         communityLabel.snp.makeConstraints{ make in
-            make.top.equalTo(contentView.snp.top).offset(46)
-            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.top.equalTo(contentView.snp.top).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(27)
         }
     }
     
     func setupcommunitySearchBarConstraints() {
+//        communitySearchBar.snp.makeConstraints { make in
+//            make.top.equalTo(communityLabel.snp.bottom).offset(46)
+//            make.leading.equalTo(communityLabel.snp.leading)
+//            make.centerX.equalTo(contentView.snp.centerX)
+//            make.height.equalTo(UIConstants.searchBarHeight)
+//        }
         communitySearchBar.snp.makeConstraints { make in
-            make.top.equalTo(communityLabel.snp.bottom).offset(46)
-            make.leading.equalTo(communityLabel.snp.leading)
-            make.centerX.equalTo(contentView.snp.centerX)
-            make.height.equalTo(UIConstants.searchBarHeight)
+            make.top.equalTo(communityLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.greaterThanOrEqualTo(UIConstants.searchBarHeight)
         }
     }
     

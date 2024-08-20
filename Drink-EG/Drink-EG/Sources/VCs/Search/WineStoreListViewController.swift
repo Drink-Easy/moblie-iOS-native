@@ -101,18 +101,8 @@ class WineStoreListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.navigationController?.navigationBar.tintColor = .black
-        // 네비게이션 바 설정
-//        if let navigationBar = navigationController?.navigationBar {
-//            navigationBar.isTranslucent = false
-//            navigationBar.shadowImage = UIImage() // 하단에 생기는 경계선을 없앰
-//            navigationBar.setBackgroundImage(UIImage(), for: .default) // 배경 이미지를 투명하게 설정
-//            navigationBar.barTintColor = .white // 필요 시 배경 색을 흰색으로 설정
-//        }
-        
         view.backgroundColor = .white
+        setupNavigationBarButton()
         setupUI()
         
         if let imageUrl = wineImage, let url = URL(string: imageUrl) {
@@ -120,6 +110,18 @@ class WineStoreListViewController: UIViewController {
         } else {
             imageView.image = UIImage(named: "Loxton")
         }
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = false
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {

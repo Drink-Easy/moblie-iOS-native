@@ -89,9 +89,8 @@ class ReviewListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
         view.backgroundColor = .white
+        setupNavigationBarButton()
         getReviewList(query: self.wineId ?? 1) { [weak self] isSuccess in
             if isSuccess {
                 self?.reviewListCollectionView.reloadData()
@@ -101,6 +100,18 @@ class ReviewListViewController: UIViewController {
                 Toaster.shared.makeToast("400 Bad Request", .short)
             }
         }
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = false
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {

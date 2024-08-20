@@ -78,8 +78,8 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     }
     
     func setupNavigationBarButton() {
-        navigationItem.hidesBackButton = true
-        let backArrow = UIImage(systemName: "chevron.backward")
+        navigationItem.hidesBackButton = false
+        let backArrow = UIImage(systemName: "")
         let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem = leftButton
         leftButton.tintColor = .black
