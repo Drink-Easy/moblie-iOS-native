@@ -50,6 +50,15 @@ class CheckNoteViewController: UIViewController {
         }
     }
     
+    private let wineInfoLabel: UILabel = {
+        let w = UILabel()
+        w.text = "와인 정보"
+        w.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
+        w.textAlignment = .center
+        w.textColor = .black
+        return w
+    }()
+    
     private let infoView: UIView = {
         let v = UIView()
         v.backgroundColor = UIColor(hex: "FBCBC4")
@@ -243,12 +252,30 @@ class CheckNoteViewController: UIViewController {
         finishButton.layer.cornerRadius = 10
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         print(selectedOptions)
+        setupNavigationBarButton()
         setupView()
         setupUI()
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = false
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {
@@ -256,11 +283,19 @@ class CheckNoteViewController: UIViewController {
         setupButton()
         setupReview()
         
+        contentView.addSubview(wineInfoLabel)
+        
+        wineInfoLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentView.safeAreaLayoutGuide).offset(20)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(27)
+        }
+        
         contentView.addSubview(infoView)
         
         infoView.snp.makeConstraints { make in
-            make.top.equalTo(contentView.safeAreaLayoutGuide).offset(50)
-            make.leading.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(14)
+            make.top.equalTo(wineInfoLabel.snp.bottom).offset(30)
+            make.leading.equalTo(wineInfoLabel.snp.leading)
+            make.centerX.equalTo(contentView.snp.centerX)
             make.height.equalTo(UIScreen.main.bounds.height * 0.09)
         }
         

@@ -45,6 +45,11 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
         return s
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -64,7 +69,7 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func setupNavigationBarButton() {
-        navigationItem.hidesBackButton = true
+        navigationItem.hidesBackButton = false
         let backArrow = UIImage(systemName: "chevron.backward")
         let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem = leftButton
@@ -77,26 +82,24 @@ class AddNewNoteViewController: UIViewController, UITableViewDataSource, UITable
     
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
         tastingnoteLabel.text = "테이스팅 노트"
-        tastingnoteLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
+        tastingnoteLabel.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         tastingnoteLabel.textAlignment = .center
         tastingnoteLabel.textColor = .black
     }
     
     func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         tastingnoteLabel.snp.makeConstraints{ make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(27)
         }
     }
     
     func setupWineSearchBarConstraints() {
         wineSearchBar.snp.makeConstraints { make in
-            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(46)
-            make.leading.equalTo(tastingnoteLabel.snp.leading)
-            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            make.height.equalTo(34)
+            make.top.equalTo(tastingnoteLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.equalTo(UIConstants.searchBarHeight)
         }
-        
     }
 
     func setupSuggestionTableView() {

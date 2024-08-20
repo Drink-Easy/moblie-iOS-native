@@ -67,7 +67,7 @@ class PolygonChartView: UIButton {
         for _ in 0 ..< step {
             stepLinePaths.append(CustomUIBezierPath())
         }
-        let heightMaxValue = rect.height / 2 * 0.7 // RadarChartView영역내에 모든 그림이 그려지도록 max value가 그려질 높이
+        let heightMaxValue = rect.height / 2 * 0.5 // RadarChartView영역내에 모든 그림이 그려지도록 max value가 그려질 높이
         let heightStep = heightMaxValue / CGFloat(step) // 1단계에 해당하는 높이
         let cx = rect.midX
         let cy = rect.midY

@@ -146,7 +146,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(view.snp.height).offset(500)
+            make.height.greaterThanOrEqualTo(UIScreen.main.bounds.height).multipliedBy(1.2)
         }
         
     }
@@ -182,7 +182,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
             make.top.equalTo(communityLabel.snp.bottom).offset(46)
             make.leading.equalTo(communityLabel.snp.leading)
             make.centerX.equalTo(contentView.snp.centerX)
-            make.height.equalTo(34)
+            make.height.equalTo(UIConstants.searchBarHeight)
         }
     }
     
