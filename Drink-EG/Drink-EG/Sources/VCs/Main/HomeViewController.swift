@@ -461,6 +461,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                     }
                     let responseData = try JSONDecoder().decode(APIResponseHomeResponse.self, from: response.data)
                     self.name = responseData.result.name
+                    SelectionManager.shared.userName = responseData.result.name
                     self.RecomContents = responseData.result.recommendWineDTOs
                     self.RecomCollectionView.reloadData()
                     completion(true)

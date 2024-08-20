@@ -207,7 +207,8 @@ class MypageInfoViewController: UIViewController {
 
     
     func setupMynameLabel() {
-        mynameLabel.text = "안녕하세요, 김이지님!"
+        let selectedManager = SelectionManager.shared
+        mynameLabel.text = "안녕하세요, \(selectedManager.userName) 님!"
         mynameLabel.font = .boldSystemFont(ofSize: 24)
         mynameLabel.textAlignment = .center
         mynameLabel.textColor = .black
