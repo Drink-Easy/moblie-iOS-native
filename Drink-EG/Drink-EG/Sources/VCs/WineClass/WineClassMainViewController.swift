@@ -47,7 +47,7 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     
     private let label: UILabel = {
         let l = UILabel()
-        l.text = "VINO 클래스"
+        l.text = "와인 클래스"
         l.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         l.textColor = .black
         l.numberOfLines = 0
@@ -58,8 +58,13 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        
+        setupNavigationBarButton()
         setupAllUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,6 +75,18 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         roundTopRightCorner(view: containerView, cornerRadius: 30)
         roundTopRightCorner(view: bottomView, cornerRadius: 30)
         
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = false
+        let backArrow = UIImage(systemName: "")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     // 첫번째 뷰 그라데이션

@@ -17,7 +17,7 @@ class MyPageBusinessViewController: UIViewController, UITableViewDelegate, UITab
     private let label: UILabel = {
         let l = UILabel()
         l.text = "제휴,입점 문의"
-        l.font = .systemFont(ofSize: 28, weight: .bold)
+        l.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         l.textColor = .black
         l.numberOfLines = 0
         return l

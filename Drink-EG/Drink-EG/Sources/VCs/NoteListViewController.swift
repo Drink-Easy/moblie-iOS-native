@@ -67,6 +67,7 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        
         setupAPI()
     }
     
@@ -87,8 +88,8 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func setupNavigationBarButton() {
-        navigationItem.hidesBackButton = true
-        let backArrow = UIImage(systemName: "chevron.backward")
+        navigationItem.hidesBackButton = false
+        let backArrow = UIImage(systemName: "")
         let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem = leftButton
         leftButton.tintColor = .black
@@ -101,15 +102,15 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: 노트 보관함에 관한 UI
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
         noteListLabel.text = "노트 보관함"
-        noteListLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
+        noteListLabel.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         noteListLabel.textAlignment = .center
         noteListLabel.textColor = .black
     }
     
     func setupNoteListLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         noteListLabel.snp.makeConstraints{ make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(46)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(27)
         }
     }
     

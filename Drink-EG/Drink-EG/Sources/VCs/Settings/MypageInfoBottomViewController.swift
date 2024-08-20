@@ -131,10 +131,10 @@ class MypageInfoViewController: UIViewController {
     let myinfoLabel = UILabel()
     let mynameLabel = UILabel()
     let myinfobutton = UIButton(type: .system)
-
+    
     
     let imageView = UIImageView()
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
