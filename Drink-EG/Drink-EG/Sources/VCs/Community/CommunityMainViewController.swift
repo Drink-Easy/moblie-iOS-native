@@ -146,7 +146,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(UIScreen.main.bounds.height).multipliedBy(1.2)
+            make.height.greaterThanOrEqualTo(1000)
         }
         
     }
@@ -231,7 +231,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     func setupDeadLineLabelConstraints() {
         deadlineLabel.snp.makeConstraints{ make in
-            make.top.equalTo(communitySearchBar.snp.bottom).offset(55)
+            make.top.equalTo(communitySearchBar.snp.bottom).offset(45)
             make.leading.equalTo(communitySearchBar.snp.leading)
         }
     }

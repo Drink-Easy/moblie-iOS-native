@@ -150,6 +150,7 @@
 		5E22197D2C6BB56F005849FB /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5E22197C2C6BB56F005849FB /* SDWebImageMapKit */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		5E42B0162C746B2800DAB751 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E42B0152C746B2800DAB751 /* PrivacyPolicyViewController.swift */; };
+		5E42B0182C74A39300DAB751 /* MovingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E42B0172C74A39300DAB751 /* MovingTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -290,6 +291,7 @@
 		5E22196D2C6B2EA0005849FB /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		5E2219722C6B661A005849FB /* CheckNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNoteViewController.swift; sourceTree = "<group>"; };
 		5E42B0152C746B2800DAB751 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		5E42B0172C74A39300DAB751 /* MovingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -433,6 +435,7 @@
 				16C19ACD2C73AD3000E93FD0 /* String.swift */,
 				16C19AD12C73AE0200E93FD0 /* UIView.swift */,
 				16C19ADD2C73AF6000E93FD0 /* UserDefaults.swift */,
+				5E42B0172C74A39300DAB751 /* MovingTextField.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -901,6 +904,7 @@
 				16C19AD82C73AE5E00E93FD0 /* WineClassCell.swift in Sources */,
 				1F598F012C581573000CE79F /* LoginViewController.swift in Sources */,
 				5E2219422C69D5D0005849FB /* CustomCommentsCollectionViewCell.swift in Sources */,
+				5E42B0182C74A39300DAB751 /* MovingTextField.swift in Sources */,
 				16B97D122C4C0F2400D8B453 /* WineClassMainViewController.swift in Sources */,
 				16C19AD42C73AE1C00E93FD0 /* CustomButton.swift in Sources */,
 				1F205A3F2C6B37BF00E80659 /* TasteTestFirstCollectionViewCell.swift in Sources */,
