@@ -13,32 +13,117 @@ import SnapKit
 private let cellID = "Cell"
 class MypageViewController: UIViewController {
     
+    let shoppingListManager = ShoppingListManager.shared
+    
     let tableView = UITableView(frame: .zero, style: .grouped)
     
     let myPagefirstMenu = ["내 정보", "와인 주문 내역", "위시리스트"]
     let myPageSecondMenu = ["1:1 문의하기", "제휴 입점 문의하기", "개선 제안하기"]
     let myPageThirdMenu = ["서비스 이용약관", "위치정보 이용약관", "개인정보 처리방침"]
-    
-    let topHeader = TopHeader()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
+        setupNavigationBarButton()
+        setupUI()
         configureUI()
     }
     
-    func configureUI() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        showBadge()
+    }
+    
+    // title label
+    let mypageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "마이페이지"
+        label.font = .boldSystemFont(ofSize: 28)
+        label.textAlignment = .center
+        label.textColor = .black
+        return label
+    }()
+    
+    // cartBtn
+    let cartButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("", for: .normal)
+        let cartImage = UIImage(named: "icon_cart")
+        button.setImage(cartImage, for: .normal)
+        button.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1.0)
+        button.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    // badgeLabel
+    lazy var badgeLabel: UILabel = {
+      let label = UILabel(frame: CGRect(x: 0, y: 0, width: 16, height: 16))
+      label.translatesAutoresizingMaskIntoConstraints = false
+      label.layer.cornerRadius = label.bounds.size.height / 2
+      label.textAlignment = .center
+      label.layer.masksToBounds = true
+      label.textColor = .white
+      label.font = .boldSystemFont(ofSize: 10)
+      label.backgroundColor = UIColor(hex: "FF7A6D")
+      return label
+    }()
+    
+    
+    @objc private func cartButtonTapped() {
+        let shoppingCartListViewController = ShoppingCartListViewController()
+        self.navigationController?.pushViewController(shoppingCartListViewController, animated: true)
+    }
+    
+    func showBadge() {
+        badgeLabel.text = "\(shoppingListManager.myCartWines.count)"
         
-        // TopHeader를 먼저 추가
-        view.addSubview(topHeader)
-        topHeader.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(100) // TopHeader의 높이를 설정합니다.
+        // 장바구니가 비어 있는지 확인
+        if shoppingListManager.myCartWines.isEmpty {
+            // 장바구니가 비어 있으면 badgeLabel을 cartButton에서 제거
+            badgeLabel.removeFromSuperview()
+        } else {
+            // 장바구니에 아이템이 있으면 badgeLabel을 cartButton에 추가
+            if badgeLabel.superview == nil {
+                cartButton.addSubview(badgeLabel)
+            }
+            badgeLabel.snp.makeConstraints { make in
+                make.centerX.equalTo(cartButton.snp.centerX).offset(10)
+                make.top.equalTo(cartButton).inset(2)
+                make.width.height.equalTo(16)
+            }
+        }
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = true
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func setupUI() {
+        view.addSubview(mypageLabel)
+        mypageLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
+        view.addSubview(cartButton)
+        cartButton.snp.makeConstraints { make in
+            make.top.equalTo(mypageLabel.snp.top)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-27)
+        }
+    }
+    
+    func configureUI() {
         // TableView를 추가하고 TopHeader 아래에 배치
         view.addSubview(tableView)
         tableView.backgroundColor = .white
@@ -47,7 +132,7 @@ class MypageViewController: UIViewController {
         tableView.register(MyPageCell.self, forCellReuseIdentifier: cellID)
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(topHeader.snp.bottom) // TopHeader 아래에 배치
+            make.top.equalTo(mypageLabel.snp.bottom).offset(20)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -153,8 +238,6 @@ extension MypageViewController: UITableViewDelegate {
 }
 
 
-
-
 class FirstSectionHeader: UIView {
     
     let titleLabel: UILabel = {
@@ -239,99 +322,12 @@ class ThirdSectionHeader: UIView {
         
     }
     
-    
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented" )
     }
     
 }
 
-class TopHeader: UIView {
-    
-    // UI 요소들
-    let topView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
-    
-    let searchButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("", for: .normal)
-        let searchImage = UIImage(systemName: "magnifyingglass")
-        button.setImage(searchImage, for: .normal)
-        button.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1.0)
-        return button
-    }()
-    
-    let cartButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("", for: .normal)
-        let cartImage = UIImage(systemName: "cart")
-        button.setImage(cartImage, for: .normal)
-        button.tintColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1.0)
-        return button
-    }()
-    
-    let mypageLabel: UILabel = {
-        let label = UILabel()
-        label.text = "마이페이지"
-        label.font = .boldSystemFont(ofSize: 28)
-        label.textAlignment = .center
-        label.textColor = .black
-        return label
-    }()
-    
-    let stackView = UIStackView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        addSubview(topView)
-        addSubview(stackView)
-        
-        setupStackView()
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupStackView() {
-        let leftStackView = UIStackView(arrangedSubviews: [mypageLabel])
-        leftStackView.axis = .horizontal
-        leftStackView.alignment = .leading
-        
-        let rightStackView = UIStackView(arrangedSubviews: [searchButton, cartButton])
-        rightStackView.axis = .horizontal
-        rightStackView.alignment = .trailing
-        rightStackView.spacing = 20
-        
-        stackView.addArrangedSubview(leftStackView)
-        stackView.addArrangedSubview(UIView())
-        stackView.addArrangedSubview(rightStackView)
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.spacing = 5
-    }
-    
-    func setupConstraints() {
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(34)
-        }
-        
-        topView.translatesAutoresizingMaskIntoConstraints = false
-        
-        topView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        topView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        topView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        topView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-    }
-}
 
 class MyPageCell: UITableViewCell {
     
