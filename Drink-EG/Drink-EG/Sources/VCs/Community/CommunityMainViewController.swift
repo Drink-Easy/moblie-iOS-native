@@ -182,7 +182,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
             make.top.equalTo(communityLabel.snp.bottom).offset(46)
             make.leading.equalTo(communityLabel.snp.leading)
             make.centerX.equalTo(contentView.snp.centerX)
-            make.height.equalTo(34)
+            make.height.equalTo(UIConstants.searchBarHeight)
         }
     }
     

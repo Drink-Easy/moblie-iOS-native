@@ -39,6 +39,11 @@ class RatingViewController: UIViewController {
     
     let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -71,7 +76,7 @@ class RatingViewController: UIViewController {
     }
     
     func setupNavigationBarButton() {
-        navigationItem.hidesBackButton = true
+        navigationItem.hidesBackButton = false
         let backArrow = UIImage(systemName: "chevron.backward")
         let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem = leftButton
@@ -101,15 +106,15 @@ class RatingViewController: UIViewController {
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
         contentView.addSubview(tastingnoteLabel)
         tastingnoteLabel.text = "테이스팅 노트"
-        tastingnoteLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
+        tastingnoteLabel.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         tastingnoteLabel.textAlignment = .center
         tastingnoteLabel.textColor = .black
     }
     
     func setuptastingnoteLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         tastingnoteLabel.snp.makeConstraints{ make in
-            make.top.equalTo(contentView.snp.top).offset(46)
-            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.top.equalTo(contentView.snp.top).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(27)
         }
     }
     
