@@ -75,6 +75,11 @@ class RatingViewController: UIViewController {
         setupCompleteButtonConstraints()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)  //firstresponder가 전부 사라짐
+    }
+    
     func setupNavigationBarButton() {
         navigationItem.hidesBackButton = false
         let backArrow = UIImage(systemName: "chevron.backward")

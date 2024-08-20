@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SwiftyToaster
 
 class ShoppingCartListViewController: UIViewController, CartListCollectionViewCellDelegate, StoreListDelegate {
 
@@ -60,6 +61,7 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         b.layer.cornerRadius = 10
         b.layer.borderWidth = 0
         b.backgroundColor = UIColor(hue: 0.025, saturation: 0.79, brightness: 0.98, alpha: 0.8)
+        b.addTarget(self, action: #selector(BuyButtonTapped), for: .touchUpInside)
         return b
     }()
     
@@ -204,6 +206,10 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
         return allIndexPaths
     }
     
+    @objc private func BuyButtonTapped() {
+        Toaster.shared.makeToast("\(totalSum)원 구매 완료 !")
+    }
+    
     @objc private func checkDeleteButtonTapped(_ sender: UIButton) {
         // 선택된 셀의 인덱스 경로를 저장할 배열을 초기화합니다.
         var indexPathsToDelete: [IndexPath] = []
@@ -255,7 +261,6 @@ class ShoppingCartListViewController: UIViewController, CartListCollectionViewCe
             }
         }
     }
-
 
     
     @objc private func allCheckButtonTapped(_ sender: UIButton) {
