@@ -47,7 +47,7 @@ class SecondTasteTestViewController: UIViewController {
         
         view.addSubview(Label)
         Label.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(18)
 //            make.width.equalTo(338)
 //            make.height.equalTo(44)
@@ -67,7 +67,7 @@ class SecondTasteTestViewController: UIViewController {
         
         view.addSubview(nextButton)
         nextButton.snp.makeConstraints { make in
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(33)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
             make.height.equalTo(60)
         }

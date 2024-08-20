@@ -9,12 +9,13 @@ import UIKit
 import SnapKit
 import SDWebImage
 import Moya
+import SwiftyToaster
 
 class WineInfoViewController: UIViewController {
     
     let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
     
-    var wineImage: String?
+    var wineImageURL: String?
     var wineId: Int?
     
     var sort: String = ""
@@ -78,7 +79,7 @@ class WineInfoViewController: UIViewController {
         let iv = UIImageView()
         iv.layer.cornerRadius = 10
         iv.layer.masksToBounds = true
-        if let imageUrl = wineImage, let url = URL(string: imageUrl) {
+        if let imageUrl = wineImageURL, let url = URL(string: imageUrl) {
             iv.sd_setImage(with: url, placeholderImage: UIImage(named: "Loxton"))
         } else {
             iv.image = UIImage(named: "Loxton")
@@ -92,7 +93,6 @@ class WineInfoViewController: UIViewController {
         l.textColor = .black
         l.numberOfLines = 0
         l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
-        l.minimumScaleFactor = 0.7
         return l
     }()
     
@@ -102,6 +102,7 @@ class WineInfoViewController: UIViewController {
         l.font = .systemFont(ofSize: 12)
         l.textColor = .black
         l.numberOfLines = 0
+        l.adjustsFontSizeToFitWidth = true // 텍스트가 레이블 너비에 맞도록 크기 조정
         return l
     }()
     
@@ -192,7 +193,7 @@ class WineInfoViewController: UIViewController {
         let reviewListViewController = ReviewListViewController()
         reviewListViewController.score = self.scoreDouble
         reviewListViewController.name.text = self.name.text
-        reviewListViewController.wineImage = self.wineImage
+        reviewListViewController.wineImage = self.wineImageURL
         reviewListViewController.wineId = self.wineId
         navigationController?.pushViewController(reviewListViewController, animated: true)
     }
@@ -217,26 +218,37 @@ class WineInfoViewController: UIViewController {
         wineStoreListViewController.curWine = repackWineData()
         wineStoreListViewController.scoreDouble = self.scoreDouble
         wineStoreListViewController.name.text = self.name.text
-        wineStoreListViewController.imageView.image = self.imageView.image
+        wineStoreListViewController.wineImage = self.wineImageURL ?? ""
         //reviewListViewController.wineId = self.wineId
         navigationController?.pushViewController(wineStoreListViewController, animated: true)
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.navigationController?.navigationBar.tintColor = .black
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
+        super.viewDidLoad()        
         view.backgroundColor = .white
+        
+        setupNavigationBarButton()
         
         getWineInfo { [weak self] isSuccess in
             if isSuccess {
                 self?.setupUI()
             } else {
                 print("데이터를 받아오는데 실패했습니다. 다시 시도해주세요.")
+                Toaster.shared.makeToast("400 Bad Request", .short)
             }
         }
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = false
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {
@@ -287,31 +299,34 @@ class WineInfoViewController: UIViewController {
             make.width.equalTo(imageView.snp.height)
         }
         
+        infoView.addSubview(score)
+        score.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(13)
+            make.trailing.equalToSuperview().inset(15)
+        }
+        
         infoView.addSubview(name)
         name.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(11)
-            make.leading.equalTo(imageView.snp.trailing).offset(20)
-            make.width.lessThanOrEqualTo(205)
+            make.top.equalToSuperview().offset(10)
+            make.leading.equalTo(imageView.snp.trailing).offset(10)
+            make.trailing.equalTo(score.snp.leading).offset(-10)
+//            make.width.lessThanOrEqualTo(205)
             make.height.lessThanOrEqualTo(40)
         }
         
         infoView.addSubview(specInfo)
         specInfo.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.bottom).offset(11)
+            make.top.equalTo(name.snp.bottom).offset(8)
             make.leading.equalTo(name)
-        }
-        
-        infoView.addSubview(score)
-        score.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.top)
-            make.trailing.equalToSuperview().inset(15)
+            make.trailing.equalToSuperview().offset(-10)
+            make.height.lessThanOrEqualTo(37)
         }
         
         contentView.addSubview(tastingNoteView)
         tastingNoteView.snp.makeConstraints { make in
             make.top.equalTo(infoView.snp.bottom).offset(10.5)
             make.leading.trailing.equalTo(infoView)
-            make.height.greaterThanOrEqualTo(414)
+            make.height.greaterThanOrEqualTo(400)
         }
         
         tastingNoteView.addSubview(represent)
@@ -322,10 +337,11 @@ class WineInfoViewController: UIViewController {
         
         tastingNoteView.addSubview(pentagonChart)
         pentagonChart.snp.makeConstraints{ make in
-            make.top.equalTo(represent.snp.bottom).offset(29)
+            make.top.equalTo(represent.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.width.equalTo(353)
-            make.height.equalTo(309)
+            make.leading.equalToSuperview().offset(10) // 추가: 좌우 여백을 설정할 수 있습니다
+            make.bottom.equalToSuperview().offset(-10)
+            make.width.equalTo(pentagonChart.snp.height).multipliedBy(353.0/309.0)
         }
         
         contentView.addSubview(explainEntireView)
@@ -455,10 +471,9 @@ extension WineInfoViewController {
     }
     
     func handleResponseData(_ data: WineInfo) {
-        
-    }
-    
+      
+    } 
     func repackWineData() -> Wine {
-        return Wine(wineId: self.wineId!, name: self.name.text!, imageUrl: self.wineImage, rating: self.scoreDouble, price: 0)
+        return Wine(wineId: self.wineId!, name: self.name.text!, imageUrl: self.wineImageURL, rating: self.scoreDouble, price: 0, area: "", sort: "")
     }
 }

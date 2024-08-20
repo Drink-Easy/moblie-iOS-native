@@ -17,13 +17,13 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     let newCreate = UILabel()
     var communityLowerCollectionViews: [CustomCollectionViewCell] = []
     var suggestion: [String] = []
-    var allSuggestion: [String] = ["Apple", "Banana", "Grape", "Orange", "Watermelon", "Strawberry"]
+    var allSuggestion: [String] = [""]
     
     private let items = [
-            ["title": "금요일 밤 와인모임", "subtitle": "뚝섬역에서 가볍게 함께 즐겨요!", "detail": "7/10 | 서울특별시, 용산구 | 25,000원", "imageName": "SampleImage"],
-            ["title": "목요일 밤 와인모임", "subtitle": "뚝섬역에서 가볍게 함께 즐겨요!", "detail": "6/10 | 서울특별시, 용산구 | 25,000원", "imageName": "SampleImage"],
-            ["title": "수요일 밤 와인모임", "subtitle": "뚝섬역에서 가볍게 함께 즐겨요!", "detail": "5/10 | 서울특별시, 용산구 | 25,000원", "imageName": "SampleImage"],
-            ["title": "화요일 밤 와인모임", "subtitle": "뚝섬역에서 가볍게 함께 즐겨요!", "detail": "4/10 | 서울특별시, 용산구 | 25,000원", "imageName": "SampleImage"],
+            ["title": "금요일 밤 와인모임", "subtitle": "강남역에서 가볍게 함께 즐겨요!", "detail": "7/10 | 서울특별시, 서초구 | 27,000원", "imageName": "Red Label"],
+            ["title": "목요일 밤 와인모임", "subtitle": "뚝섬역에서 가볍게 함께 즐겨요!", "detail": "6/10 | 서울특별시, 용산구 | 25,000원", "imageName": "ClassSampleImage"],
+            ["title": "수요일 밤 와인모임", "subtitle": "양재역에서 가볍게 함께 즐겨요!", "detail": "9/10 | 서울특별시, 서초구 | 20,000원", "imageName": "Loxton"],
+            ["title": "화요일 밤 와인모임", "subtitle": "용산역에서 가볍게 함께 즐겨요!", "detail": "3/10 | 서울특별시, 용산구 | 25,000원", "imageName": "Samos"],
         ]
     
     lazy var communitySearchBar: UISearchBar = {
@@ -146,14 +146,14 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(view.snp.height).offset(500)
+            make.height.greaterThanOrEqualTo(UIScreen.main.bounds.height).multipliedBy(1.2)
         }
         
     }
     
     func setupNavigationBarButton() {
         navigationItem.hidesBackButton = true
-        let backArrow = UIImage(systemName: "chevron.backward")
+        let backArrow = UIImage(systemName: "")
         let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem = leftButton
         leftButton.tintColor = .black
@@ -165,24 +165,29 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     func setupLabel() { // Label의 기본 속성을 설정하는 함수
         communityLabel.text = "와인 모임"
-        communityLabel.font = UIFont(name: "Pretendard-Bold", size: 28)
+        communityLabel.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         communityLabel.textAlignment = .center
         communityLabel.textColor = .black
     }
     
     func setupcommunityLabelConstraints() { // Label의 제약 조건을 설정하는 함수
         communityLabel.snp.makeConstraints{ make in
-            make.top.equalTo(contentView.snp.top).offset(46)
-            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.top.equalTo(contentView.snp.top).offset(20)
+            make.leading.equalTo(contentView.snp.leading).offset(27)
         }
     }
     
     func setupcommunitySearchBarConstraints() {
+//        communitySearchBar.snp.makeConstraints { make in
+//            make.top.equalTo(communityLabel.snp.bottom).offset(46)
+//            make.leading.equalTo(communityLabel.snp.leading)
+//            make.centerX.equalTo(contentView.snp.centerX)
+//            make.height.equalTo(UIConstants.searchBarHeight)
+//        }
         communitySearchBar.snp.makeConstraints { make in
-            make.top.equalTo(communityLabel.snp.bottom).offset(46)
-            make.leading.equalTo(communityLabel.snp.leading)
-            make.centerX.equalTo(contentView.snp.centerX)
-            make.height.equalTo(34)
+            make.top.equalTo(communityLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.greaterThanOrEqualTo(UIConstants.searchBarHeight)
         }
     }
     
@@ -259,10 +264,13 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
             let collectionView = CustomCollectionViewCell(frame: .zero)
             collectionView.backgroundColor = UIColor(hex: "E5E5E5")
             collectionView.configure(title: item["title"]!, subtitle: item["subtitle"]! , detail: item["detail"]!, imageName: item["imageName"]!)
+            
+            // 여기에 추가된 코드
             collectionView.layer.cornerRadius = 10
             collectionView.layer.masksToBounds = true
             collectionView.contentView.layer.cornerRadius = 10
             collectionView.contentView.layer.masksToBounds = true
+            
             collectionView.snp.makeConstraints { make in
                 make.height.equalTo(109)
             }
@@ -276,25 +284,12 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     
     @objc func lowerCollectionCellTapped(_ sender: UITapGestureRecognizer) {
         guard let tappedCell = sender.view as? CustomCollectionViewCell else { return }
-        
-        // 탭된 셀의 초기 프레임을 저장
-        let initialFrame = tappedCell.frame
 
-        // 셀을 상단으로 이동시키는 애니메이션. 여기 왜 안 되지...
-        UIView.animate(withDuration: 0.5, animations: {
-            tappedCell.frame.origin.y = self.view.safeAreaInsets.top
-        }) { _ in
-            // 애니메이션 후, 모달 뷰
-            let modalVC = ModalViewController()
-            modalVC.modalPresentationStyle = .pageSheet
-            modalVC.modalTransitionStyle = .coverVertical
-            self.present(modalVC, animated: true) {
-                // 다시 셀의 위치를 원래대로 되돌림
-                UIView.animate(withDuration: 0.5) {
-                    tappedCell.frame = initialFrame
-                }
-            }
-        }
+        // 바로 모달 뷰를 프레젠트
+        let modalVC = ModalViewController()
+        modalVC.modalPresentationStyle = .pageSheet
+        modalVC.modalTransitionStyle = .coverVertical
+        self.present(modalVC, animated: true, completion: nil)
     }
     
     
@@ -318,27 +313,11 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
-            
-            // 셀의 초기 위치를 저장
-            let initialFrame = cell.frame
-            
-            // 셀을 상단으로 이동하는 애니메이션 이것도 안 돼..
-            UIView.animate(withDuration: 0.5, animations: {
-                cell.frame.origin.y = self.view.safeAreaInsets.top
-            }) { _ in
-                // 모달 뷰를 프레젠트
-                let modalVC = ModalViewController()
-                modalVC.modalPresentationStyle = .pageSheet
-                modalVC.modalTransitionStyle = .coverVertical
-                self.present(modalVC, animated: true) {
-                    // 다시 셀을 원래 위치
-                    UIView.animate(withDuration: 0.5) {
-                        cell.frame = initialFrame
-                        collectionView.layoutIfNeeded()
-                    }
-                }
-            }
+        // 모달 뷰
+        let modalVC = ModalViewController()
+        modalVC.modalPresentationStyle = .pageSheet
+        modalVC.modalTransitionStyle = .coverVertical
+        self.present(modalVC, animated: true, completion: nil)
     }
     
     func setupPageControlConstraints() {

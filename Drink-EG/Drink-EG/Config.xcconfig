@@ -1,0 +1,10 @@
+//
+//  Config.xcconfig
+//  Drink-EG
+//
+//  Created by 김도연 on 8/20/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+KAKAO_NATIVE_APP_KEY = 785d285857e599ad49d6fbb477b060c4

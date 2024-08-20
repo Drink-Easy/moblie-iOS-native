@@ -5,7 +5,6 @@
 //  Created by 이수현 on 8/13/24.
 //
 
-import Foundation
 import UIKit
 import SnapKit
 import Moya
@@ -47,9 +46,18 @@ class CheckNoteViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.equalTo(UIScreen.main.bounds.height * 1.3)
+            make.height.equalTo(UIScreen.main.bounds.height * 1.1)
         }
     }
+    
+    private let wineInfoLabel: UILabel = {
+        let w = UILabel()
+        w.text = "와인 정보"
+        w.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
+        w.textAlignment = .center
+        w.textColor = .black
+        return w
+    }()
     
     private let infoView: UIView = {
         let v = UIView()
@@ -195,6 +203,14 @@ class CheckNoteViewController: UIViewController {
         return v
     }()
     
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [name, specInfo])
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 5
+        return stackView
+    }()
+    
     let review = UILabel()
     
     func setupReview() {
@@ -236,13 +252,30 @@ class CheckNoteViewController: UIViewController {
         finishButton.layer.cornerRadius = 10
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         print(selectedOptions)
+        setupNavigationBarButton()
         setupView()
         setupUI()
+    }
+    
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = false
+        let backArrow = UIImage(systemName: "chevron.backward")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {
@@ -250,11 +283,19 @@ class CheckNoteViewController: UIViewController {
         setupButton()
         setupReview()
         
+        contentView.addSubview(wineInfoLabel)
+        
+        wineInfoLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentView.safeAreaLayoutGuide).offset(20)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(27)
+        }
+        
         contentView.addSubview(infoView)
         
         infoView.snp.makeConstraints { make in
-            make.top.equalTo(contentView.safeAreaLayoutGuide).offset(50)
-            make.leading.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(14)
+            make.top.equalTo(wineInfoLabel.snp.bottom).offset(30)
+            make.leading.equalTo(wineInfoLabel.snp.leading)
+            make.centerX.equalTo(contentView.snp.centerX)
             make.height.equalTo(UIScreen.main.bounds.height * 0.09)
         }
         
@@ -265,19 +306,35 @@ class CheckNoteViewController: UIViewController {
             make.width.equalTo(imageView.snp.height)
         }
         
-        infoView.addSubview(name)
-        name.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
+//        infoView.addSubview(stackView)
+//        stackView.snp.makeConstraints { make in
+//            make.leading.equalTo(imageView.snp.trailing).offset(20)
+//            make.trailing.equalTo(infoView.snp.trailing).offset(-50)
+//            //make.top.bottom.equalTo(infoView)
+//            make.centerY.equalTo(infoView.snp.centerY)
+//        }
+        
+        infoView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
             make.leading.equalTo(imageView.snp.trailing).offset(20)
             make.trailing.equalTo(infoView.snp.trailing).offset(-50)
         }
         
-        infoView.addSubview(specInfo)
-        specInfo.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.bottom).offset(5)
-            make.leading.equalTo(name)
-            make.trailing.equalTo(name.snp.trailing)
-        }
+//        stackView.addSubview(name)
+//        name.snp.makeConstraints { make in
+////            make.top.equalToSuperview()
+////            make.leading.equalTo(imageView.snp.trailing).offset(20)
+////            make.trailing.equalTo(infoView.snp.trailing).offset(-50)
+//            make.top.leading.equalToSuperview()
+//        }
+//        
+//        stackView.addSubview(specInfo)
+//        specInfo.snp.makeConstraints { make in
+//            make.top.equalTo(name.snp.bottom).offset(5)
+//            make.leading.equalTo(name)
+//            make.trailing.equalTo(name.snp.trailing)
+//        }
         
         infoView.addSubview(score)
         score.snp.makeConstraints { make in
@@ -396,4 +453,3 @@ class CheckNoteViewController: UIViewController {
         }
     }
 }
-

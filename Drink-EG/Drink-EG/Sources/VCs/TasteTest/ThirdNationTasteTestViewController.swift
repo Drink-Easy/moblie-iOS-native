@@ -10,7 +10,7 @@ import UIKit
 class ThirdNationTasteTestViewController: UIViewController {
 
     var nation: [String] = ["프랑스", "이탈리아", "미국", "칠레", "스페인", "호주", "아르헨티나", "독일", "뉴질랜드", "포르투갈", "오스트리아", "그리스", "슬로베니아", "헝가리", "캐나다", "대한민국", "기타1"]
-    var nationEng: [String] = ["France", "Italy", "United States", "Chile", "Spain", "Australia", "Argentina", "Germany", "New Zealand", "Portugal", "Austria", "Greece", "Slovenia", "Hungary", "Canada", "South Korea", "Other"]
+//    var nationEng: [String] = ["France", "Italy", "United States", "Chile", "Spain", "Australia", "Argentina", "Germany", "New Zealand", "Portugal", "Austria", "Greece", "Slovenia", "Hungary", "Canada", "South Korea", "Other"]
     var selectedIndexPaths: [IndexPath] = []
     private var selectedNations : [String] = []
     
@@ -69,7 +69,7 @@ class ThirdNationTasteTestViewController: UIViewController {
         
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(81)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(18)
 //            make.width.equalTo(338)
 //            make.height.equalTo(44)
@@ -90,7 +90,7 @@ class ThirdNationTasteTestViewController: UIViewController {
         
         view.addSubview(nextButton)
         nextButton.snp.makeConstraints { make in
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(33)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(33)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(31)
             make.height.equalTo(60)
         }
@@ -147,7 +147,7 @@ extension ThirdNationTasteTestViewController: UICollectionViewDataSource, UIColl
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TasteTestSecondCollectionViewCell", for: indexPath) as! TasteTestSecondCollectionViewCell
             
-        cell.configure(imageName: nation[indexPath.item], nationName: nationEng[indexPath.item])
+        cell.configure(imageName: nation[indexPath.item], nationName: nation[indexPath.item])
         
         return cell
     }

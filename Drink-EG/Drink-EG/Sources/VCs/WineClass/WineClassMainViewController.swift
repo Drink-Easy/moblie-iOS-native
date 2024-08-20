@@ -47,8 +47,8 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     
     private let label: UILabel = {
         let l = UILabel()
-        l.text = "VINO 클래스"
-        l.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: .bold)
+        l.text = "와인 클래스"
+        l.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
         l.textColor = .black
         l.numberOfLines = 0
         return l
@@ -58,7 +58,13 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setupNavigationBarButton()
         setupAllUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -71,6 +77,19 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         
     }
     
+    func setupNavigationBarButton() {
+        navigationItem.hidesBackButton = false
+        let backArrow = UIImage(systemName: "")
+        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+        leftButton.tintColor = .black
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    // 첫번째 뷰 그라데이션
     func setGradientColor(_ view: UIView) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
@@ -88,16 +107,16 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         // Label 설정
         view.addSubview(label)
         label.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
         }
         
         // SearchBar 설정
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(10)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
-            make.height.equalTo(UIConstants.searchBarHeight)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.height.greaterThanOrEqualTo(UIConstants.searchBarHeight)
         }
         
         // 새로운 UIView 추가
@@ -225,323 +244,4 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         return cell
     }
 }
-
-class CarouselLayout: UICollectionViewFlowLayout {
-    
-    public var sideItemScale: CGFloat = UIConstants.sideItemScale
-    public var sideItemAlpha: CGFloat = UIConstants.sideItemAlpha
-    public var spacing: CGFloat = UIConstants.carouselSpacing
-    
-    public var isPagingEnabled: Bool = false
-    
-    private var isSetup: Bool = false
-    
-    override public func prepare() {
-        super.prepare()
-        if isSetup == false {
-            setupLayout()
-            isSetup = true
-        }
-    }
-    
-    private func setupLayout() {
-        guard let collectionView = self.collectionView else { return }
-        
-        let collectionViewSize = collectionView.bounds.size
-        let xInset = (collectionViewSize.width - self.itemSize.width) / 2
-        let yInset = (collectionViewSize.height - self.itemSize.height) / 2
-        
-        self.sectionInset = UIEdgeInsets(top: yInset, left: xInset, bottom: yInset, right: xInset)
-        let itemWidth = self.itemSize.width
-        let scaledItemOffset = (itemWidth - (itemWidth * (self.sideItemScale + (1 - self.sideItemScale) / 2))) / 2
-        self.minimumLineSpacing = spacing - scaledItemOffset
-        
-        self.scrollDirection = .horizontal
-    }
-    
-    public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true
-    }
-    
-    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let superAttributes = super.layoutAttributesForElements(in: rect),
-              let attributes = NSArray(array: superAttributes, copyItems: true) as? [UICollectionViewLayoutAttributes]
-        else { return nil }
-        
-        return attributes.map({ self.transformLayoutAttributes(attributes: $0) })
-    }
-    
-    private func transformLayoutAttributes(attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        guard let collectionView = self.collectionView else { return attributes }
-        
-        let collectionCenter = collectionView.frame.size.width / 2
-        let contentOffset = collectionView.contentOffset.x
-        let center = attributes.center.x - contentOffset
-        
-        let maxDistance = 8 * (self.itemSize.width + self.minimumLineSpacing)
-        let distance = min(abs(collectionCenter - center), maxDistance)
-        let ratio = (maxDistance - distance) / maxDistance
-        
-        let alpha = ratio * (1 - self.sideItemAlpha) + self.sideItemAlpha
-        let scale = ratio * (1 - self.sideItemScale) + self.sideItemScale
-        
-        attributes.alpha = alpha
-        if abs(collectionCenter - center) > maxDistance + 1 {
-            attributes.alpha = 0
-        }
-        
-        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
-        let dist = attributes.frame.midX - visibleRect.midX
-        var transform = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
-        transform = CATransform3DTranslate(transform, 0, 0, -abs(dist / 1000))
-        attributes.transform3D = transform
-        
-        return attributes
-    }
-    
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        guard let collectionView = self.collectionView else {
-            let latestOffset = super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
-            return latestOffset
-        }
-        
-        let targetRect = CGRect(x: proposedContentOffset.x, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
-        guard let rectAttributes = super.layoutAttributesForElements(in: targetRect) else { return .zero }
-        
-        var offsetAdjustment = CGFloat.greatestFiniteMagnitude
-        let horizontalCenter = proposedContentOffset.x + collectionView.frame.width / 2
-        
-        for layoutAttributes in rectAttributes {
-            let itemHorizontalCenter = layoutAttributes.center.x
-            if (itemHorizontalCenter - horizontalCenter).magnitude < offsetAdjustment.magnitude {
-                offsetAdjustment = itemHorizontalCenter - horizontalCenter
-            }
-        }
-        
-        return CGPoint(x: proposedContentOffset.x + offsetAdjustment, y: proposedContentOffset.y)
-    }
-}
-
-//class CarouselLayout: UICollectionViewFlowLayout {
-//    
-//    public var sideItemScale: CGFloat = 0.8 // 측면 아이템의 크기 비율
-//    public var sideItemAlpha: CGFloat = 0.6 // 측면 아이템의 투명도
-//    public var spacing: CGFloat = -80 // 셀 간의 간격 (겹치도록 음수로 설정)
-//
-//    public var isPagingEnabled: Bool = false
-//    
-//    private var isSetup: Bool = false
-//    
-//    override public func prepare() {
-//        super.prepare()
-//        if isSetup == false {
-//            setupLayout()
-//            isSetup = true
-//        }
-//    }
-//    
-//    private func setupLayout() {
-//        guard let collectionView = self.collectionView else { return }
-//        
-//        let collectionViewSize = collectionView.bounds.size
-//        let xInset = (collectionViewSize.width - self.itemSize.width) / 2
-//        let yInset = (collectionViewSize.height - self.itemSize.height) / 2
-//        
-//        self.sectionInset = UIEdgeInsets(top: yInset, left: xInset, bottom: yInset, right: xInset)
-//        
-//        // 셀 간의 간격 계산 (절반씩 겹치도록 설정)
-//        self.minimumLineSpacing = spacing
-//        
-//        self.scrollDirection = .horizontal
-//    }
-//    
-//    public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-//        return true
-//    }
-//    
-//    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-//        guard let superAttributes = super.layoutAttributesForElements(in: rect),
-//              let attributes = NSArray(array: superAttributes, copyItems: true) as? [UICollectionViewLayoutAttributes]
-//        else { return nil }
-//        
-//        return attributes.map({ self.transformLayoutAttributes(attributes: $0) })
-//    }
-//    
-//    private func transformLayoutAttributes(attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        guard let collectionView = self.collectionView else { return attributes }
-//        
-//        let collectionCenter = collectionView.frame.size.width / 2
-//        let contentOffset = collectionView.contentOffset.x
-//        let center = attributes.center.x - contentOffset
-//        
-//        // 중앙에서 떨어진 거리 계산
-//        let maxDistance = collectionView.frame.size.width / 2
-//        let distance = min(abs(collectionCenter - center), maxDistance)
-//        let ratio = (maxDistance - distance) / maxDistance
-//        
-//        // 투명도 및 크기 조정
-//        let alpha = ratio * (1 - self.sideItemAlpha) + self.sideItemAlpha
-//        let scale = ratio * (1 - self.sideItemScale) + self.sideItemScale
-//        
-//        attributes.alpha = alpha
-//        attributes.transform3D = CATransform3DMakeScale(scale, scale, 1)
-//        
-//        // 3D 효과 추가 (회전 효과)
-//        let rotationAngle = (1 - ratio) * (.pi / 8) // 최대 22.5도 회전
-//        attributes.transform3D = CATransform3DRotate(attributes.transform3D, rotationAngle, 0, 1, 0)
-//        
-//        // 중앙에서 멀어지면 투명하게
-//        if abs(collectionCenter - center) > maxDistance {
-//            attributes.alpha = 0
-//        }
-//        
-//        return attributes
-//    }
-//    
-//    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-//        guard let collectionView = self.collectionView else {
-//            let latestOffset = super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
-//            return latestOffset
-//        }
-//        
-//        let targetRect = CGRect(x: proposedContentOffset.x, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
-//        guard let rectAttributes = super.layoutAttributesForElements(in: targetRect) else { return .zero }
-//        
-//        var offsetAdjustment = CGFloat.greatestFiniteMagnitude
-//        let horizontalCenter = proposedContentOffset.x + collectionView.frame.width / 2
-//        
-//        for layoutAttributes in rectAttributes {
-//            let itemHorizontalCenter = layoutAttributes.center.x
-//            if abs(itemHorizontalCenter - horizontalCenter) < abs(offsetAdjustment) {
-//                offsetAdjustment = itemHorizontalCenter - horizontalCenter
-//            }
-//        }
-//        
-//        return CGPoint(x: proposedContentOffset.x + offsetAdjustment, y: proposedContentOffset.y)
-//    }
-//}
-
-
-class WineClassCell: UICollectionViewCell {
-    static let reuseIdentifier = "WineClassCell"
-    
-    let imageView = UIImageView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        contentView.addSubview(imageView)
-        
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        contentView.layer.cornerRadius = UIConstants.cellCornerRadius
-        contentView.layer.masksToBounds = true
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowOpacity = UIConstants.cellShadowOpacity
-        contentView.layer.shadowOffset = UIConstants.cellShadowOffset
-        contentView.layer.shadowRadius = UIConstants.cellShadowRadius
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(with image: UIImage) {
-        imageView.image = image
-    }
-}
-
-
-
-struct UIConstants {
-    static let searchBarHeight: CGFloat = 34
-    static let searchBarCornerRadius: CGFloat = 8
-    static let labelFontSize: CGFloat = 28
-    static let titleClassLabelFontSize: CGFloat = 24
-    static let labelTopOffset: CGFloat = 10
-    static let viewSideInset: CGFloat = 16
-    static let classViewHeight: CGFloat = 250
-    static let mainClassViewItemSize = CGSize(width: 100, height: 180)
-    static let mainClassViewSpacing: CGFloat = 20
-    static let carouselSpacing: CGFloat = -90
-    static let sideItemScale: CGFloat = 0.4
-    static let sideItemAlpha: CGFloat = 0.8
-    static let cellCornerRadius: CGFloat = 10
-    static let cellShadowOpacity: Float = 0.3
-    static let cellShadowOffset = CGSize(width: 0, height: 2)
-    static let cellShadowRadius: CGFloat = 5
-}
-
-class CustomButton: UIButton {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupButton()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupButton()
-    }
-    
-    private func setupButton() {
-        // 버튼 타이틀 설정
-        self.setTitle("내 보관함", for: .normal)
-        self.setTitleColor(.lightGray, for: .normal)
-        
-        // 버튼 배경색 설정
-        self.backgroundColor = .white
-        
-        // 버튼의 둥근 모서리 설정
-        self.layer.cornerRadius = 15
-        self.layer.masksToBounds = false
-        
-        // 그림자 설정
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.25
-        self.layer.shadowOffset = CGSize(width: 0, height: 2)
-        self.layer.shadowRadius = 5
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // 버튼의 크기가 결정된 후에 그림자 경로 설정
-        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.layer.cornerRadius).cgPath
-    }
-}
-
-
-extension UIView {
-    
-    func applyTopShadow(shadowColor: UIColor = .black, shadowOpacity: Float = 0.25, shadowRadius: CGFloat = 5, shadowOffset: CGSize = CGSize(width: 0, height: -3)) {
-        // 그림자 색상
-        self.layer.shadowColor = shadowColor.cgColor
-        
-        // 그림자 투명도
-        self.layer.shadowOpacity = shadowOpacity
-        
-        // 그림자 퍼짐 정도
-        self.layer.shadowRadius = shadowRadius
-        
-        // 그림자 오프셋 (상단에만 그림자가 보이도록 설정)
-        self.layer.shadowOffset = shadowOffset
-
-        // 레이아웃이 완료된 후에 shadowPath 설정
-        DispatchQueue.main.async {
-            let shadowPath = UIBezierPath()
-            shadowPath.move(to: CGPoint(x: 0, y: 0))
-            shadowPath.addLine(to: CGPoint(x: self.bounds.width, y: 0))
-            shadowPath.addLine(to: CGPoint(x: self.bounds.width, y: self.bounds.height / 4))
-            shadowPath.addLine(to: CGPoint(x: 0, y: self.bounds.height / 4))
-            shadowPath.close()
-            
-            self.layer.shadowPath = shadowPath.cgPath
-        }
-    }
-}
-
 
