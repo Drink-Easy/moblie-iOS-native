@@ -166,8 +166,9 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         
         setupTitleClassLabel()
         
-        let button = CustomButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "square.and.arrow.down.on.square"), for: .normal)
+        button.tintColor = .black
         
         containerView.addSubview(titleclassLabel)
         containerView.addSubview(button)
@@ -180,8 +181,7 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         button.snp.makeConstraints { b in
             b.top.equalTo(titleclassLabel.snp.top)
             b.trailing.equalTo(containerView.snp.trailing).inset(20)
-            b.height.greaterThanOrEqualTo(16)
-            b.width.greaterThanOrEqualTo(30)
+            b.height.equalTo(titleclassLabel.snp.height).multipliedBy(0.9)
         }
         
         setupMainClassView()
@@ -322,4 +322,3 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         return CGSize(width: height*0.6, height: height)
     }
 }
-
