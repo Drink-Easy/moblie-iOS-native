@@ -10,7 +10,7 @@ import SnapKit
 import Moya
 import SDWebImage
 
-class WineClassMainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+class WineClassMainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UICollectionViewDelegateFlowLayout {
     
     let provider = MoyaProvider<WineClassAPI>(plugins: [CookiePlugin()])
     
@@ -26,7 +26,7 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     
     var videoInfo : [WineClassResponse] = []
     
-    let ImageName: [String] = ["Castello Monaci", "Dos Copas", "Loxton", "Red Label", "Samos", "Vendredi"]
+//    let ImageName: [String] = ["Castello Monaci", "Dos Copas", "Loxton", "Red Label", "Samos", "Vendredi"]
     
     lazy var searchBar: UISearchBar = {
         let s = UISearchBar()
@@ -68,7 +68,6 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         callGetAllClass { isSucess in
             if isSucess {
                 self.setupAllUI()
-                print(self.videoInfo)
             } else {
                 print("400 서버 에러")
             }
@@ -94,14 +93,12 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     
     private func callGetAllClass(completion: @escaping (Bool) -> Void) {
         provider.request(.getAllWineClass) { result in
-            print(result)
             switch result {
             case .success(let response):
                 do {
                     let data = try response.map(APIResponseWineClassResponse.self)
-                    print(data)
+//                    print(data)
                     self.videoInfo = data.result
-                    self.videoInfo += data.result
                 }
                 catch {
                     completion(false)
@@ -187,13 +184,12 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
             b.width.greaterThanOrEqualTo(30)
         }
         
-        
         setupMainClassView()
         containerView.addSubview(mainClassView)
         mainClassView.snp.makeConstraints { make in
             make.top.equalTo(button.snp.bottom).offset(10)
             make.leading.trailing.equalTo(containerView).inset(10)
-            make.height.equalTo(UIConstants.classViewHeight) // 원하는 높이로 설정
+            make.height.equalTo(containerView.snp.height).multipliedBy(0.33)
         }
         
         bottomView.backgroundColor = .white // 원하는 배경색으로 변경
@@ -207,7 +203,6 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
             make.leading.trailing.bottom.equalToSuperview()
         }
         
-        
         setupSubTitleClassLabel()
         bottomView.addSubview(subtitleclassLabel)
         subtitleclassLabel.snp.makeConstraints { make in
@@ -215,12 +210,12 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
             make.leading.equalTo(bottomView.snp.leading).offset(20)
         }
         
-        setupMainClassView()
-        bottomView.addSubview(mainClassView)
-        mainClassView.snp.makeConstraints { make in
+        setupMain2ClassView()
+        bottomView.addSubview(subClassView)
+        subClassView.snp.makeConstraints { make in
             make.top.equalTo(subtitleclassLabel.snp.bottom).offset(7)
             make.leading.trailing.equalTo(bottomView).inset(10)
-            make.height.equalTo(UIConstants.classViewHeight) // 원하는 높이로 설정
+            make.height.equalTo(mainClassView.snp.height)
         }
     }
     
@@ -234,7 +229,7 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     
     func setupMainClassView() {
         let layout = CarouselLayout()
-        layout.itemSize = UIConstants.mainClassViewItemSize
+//        layout.itemSize = UIConstants.mainClassViewItemSize
         layout.spacing = UIConstants.mainClassViewSpacing
         
         mainClassView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -244,6 +239,20 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         mainClassView.showsHorizontalScrollIndicator = false
         mainClassView.showsVerticalScrollIndicator = false
         mainClassView.register(WineClassCell.self, forCellWithReuseIdentifier: WineClassCell.reuseIdentifier)
+    }
+    
+    func setupMain2ClassView() {
+        let layout = CarouselLayout()
+//        layout.itemSize = UIConstants.mainClassViewItemSize
+        layout.spacing = UIConstants.mainClassViewSpacing
+        
+        subClassView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        subClassView.backgroundColor = .clear
+        subClassView.delegate = self
+        subClassView.dataSource = self
+        subClassView.showsHorizontalScrollIndicator = false
+        subClassView.showsVerticalScrollIndicator = false
+        subClassView.register(WineClassCell.self, forCellWithReuseIdentifier: WineClassCell.reuseIdentifier)
     }
     
     func setupSubTitleClassLabel() {
@@ -304,6 +313,13 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         let video = videoInfo[indexPath.row]
         ClassVideoViewController.videoData = [video.video, video.title, video.description]
         navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // 동적으로 계산된 크기를 반환합니다.
+        let height = collectionView.frame.height * 0.95
+        
+        return CGSize(width: height*0.6, height: height)
     }
 }
 
