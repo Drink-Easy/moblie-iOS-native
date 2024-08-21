@@ -239,8 +239,6 @@ class ChooseTasteViewController: UIViewController, UICollectionViewDelegate, UIC
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            // make.height.equalTo(UIScreen.main.bounds.height * 1.7)
-            // make.bottom.equalTo(nextButton.snp.bottom).offset(50)
             make.height.equalTo(1500)
         }
     }
@@ -365,7 +363,7 @@ class ChooseTasteViewController: UIViewController, UICollectionViewDelegate, UIC
         contentView.addSubview(tasteView)
         tasteView.backgroundColor = .clear
         tasteView.layer.borderWidth = 2
-        tasteView.layer.borderColor = UIColor(hex: "F8F8FA")?.cgColor
+        tasteView.layer.borderColor = UIColor(hex: "0000001A")?.cgColor
         tasteView.layer.cornerRadius = 10
     }
 
