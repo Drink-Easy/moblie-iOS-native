@@ -42,22 +42,21 @@
 ## ⭐ Main Feature
 
 ## 💻 Getting Started
-1. **Prerequisites**
-    - **MacOS**: Any version (Latest version recommended)
-    - **Xcode**: Latest version
-    - **Simulator**: Latest version (iPhone 15 Pro or iPad series recommended)
+### **Prerequisites**
+  - **MacOS**: Any version (Latest version recommended)
+  - **Xcode**: Latest version
+  - **Simulator**: Latest version (iPhone 15 Pro or iPad series recommended)
+    
+### **Repository Clone**
+  ```bash
+git clone https://github.com/Drink-Easy/moblie-iOS-native.git
+cd moblie-iOS-native
+  ```
 
-2. **Repository Clone**
-    
-    ```bash
-    git clone https://github.com/Drink-Easy/moblie-iOS-native.git
-    cd moblie-iOS-native
-    ```
-    
-3. **Setup**
-    1. Open the `Drink-EG.xcodeproj` file in Xcode.
-    2. Verify the simulator version you want to use (iPhone 15 Pro or iPad series recommended).
-    3. Build and run the project. Please note that Kakao Login is currently unavailable.
+### **Setup**
+   1. Open the `Drink-EG.xcodeproj` file in Xcode.
+   2. Verify the simulator version you want to use (iPhone 15 Pro or iPad series recommended).
+   3. Build and run the project. Please note that Kakao Login is currently unavailable.
 
 ## 🔧 Stack
 
