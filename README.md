@@ -63,6 +63,13 @@ cd moblie-iOS-native
    3. Build and run the project. Please note that Kakao Login is currently unavailable.
 
 ## 🔧 Stack
+- UIKit
+- UserDefaults
+- Snapkit
+- Moya
+- KakaoOpenSDK
+- SDWebImage, YouTubeiOSPlayerHelper
+- SwiftyToaster
 
 ## :open_file_folder: Project Structure
 ```markdown
