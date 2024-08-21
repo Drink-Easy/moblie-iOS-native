@@ -39,9 +39,10 @@
 5. 와인 검색 및 최저가 비교 구매
 ## :baby_chick: Demo
 ### 주요 기능
-| ![취향]() | ![와인 검색]() | ![테이스팅노트]() | ![와인클래스]() |
+| ![취향]() | ![검색](https://github.com/user-attachments/assets/4c1cf1dd-6bfa-48ea-83af-a739325ea272) | ![테이스팅노트]() | ![와클](https://github.com/user-attachments/assets/ec3279a5-4888-4a31-9882-d1d545a1ef4a) |
 | --- | --- | --- | --- |
 | 취향 맞춤 추천 | 와인 검색 | 테이스팅 노트 | 와인 클래스 |
+
 
 ## ⭐ Main Feature
 
