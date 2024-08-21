@@ -22,7 +22,7 @@ class CustomButton: UIButton {
     private func setupButton() {
         // 버튼 타이틀 설정
         self.setTitle("내 보관함", for: .normal)
-        self.setTitleColor(.lightGray, for: .normal)
+        self.setTitleColor(.gray, for: .normal)
         
         // 버튼 배경색 설정
         self.backgroundColor = .white
