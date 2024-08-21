@@ -212,7 +212,16 @@ extension MypageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.contentView.backgroundColor = UIColor(hex: "#FF9F8E")
+            
+            // 1초 후에 색상을 원래대로 되돌리기 위해 타이머 설정
+            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
+                // 원래 색상으로 복원
+                UIView.animate(withDuration: 0.3) {
+                    cell.contentView.backgroundColor = UIColor(hex: "D9D9D9") // 원래 색상
+                }
+            }
         }
+        
         switch indexPath.section {
         case 0:
             switch indexPath.row {
@@ -222,9 +231,9 @@ extension MypageViewController: UITableViewDelegate {
                 bottomSheetVC.modalPresentationStyle = .overFullScreen
                 bottomSheetVC.modalTransitionStyle = .crossDissolve
                 present(bottomSheetVC, animated: true, completion: nil)
-//            case 1:
-//                let controller = MyPageSettingsViewController()
-//                navigationController?.pushViewController(controller, animated: true)
+            case 2:
+                let controller = MyPageWishListViewController()
+                navigationController?.pushViewController(controller, animated: true)
             default:
                 print("\(myPagefirstMenu[indexPath.row])")
             }
