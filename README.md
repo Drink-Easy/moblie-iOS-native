@@ -39,11 +39,9 @@
 5. 와인 검색 및 최저가 비교 구매
 ## :baby_chick: Demo
 ### 주요 기능
-| ![취향](https://github.com/user-attachments/assets/64a18104-89dd-47ed-b105-cc3f4773ed02) | ![검색](https://github.com/user-attachments/assets/4c1cf1dd-6bfa-48ea-83af-a739325ea272) | ![테이스팅노트]() | ![와클](https://github.com/user-attachments/assets/ec3279a5-4888-4a31-9882-d1d545a1ef4a) |
+| 🌟**취향 맞춤 추천** | 🔍**와인 검색** | 🗒️**테이스팅 노트** | 📺**와인 클래스** |
 | --- | --- | --- | --- |
-| 취향 맞춤 추천 | 와인 검색 | 테이스팅 노트 | 와인 클래스 |
-
-
+| ![취향](https://github.com/user-attachments/assets/64a18104-89dd-47ed-b105-cc3f4773ed02) | ![검색](https://github.com/user-attachments/assets/4c1cf1dd-6bfa-48ea-83af-a739325ea272) | ![테노](https://github.com/user-attachments/assets/69c987f1-9c60-42a8-9cc6-2f2788c4f9e1) | ![와클](https://github.com/user-attachments/assets/ec3279a5-4888-4a31-9882-d1d545a1ef4a) |
 
 ## ⭐ Main Feature
 
