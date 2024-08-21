@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SDWebImage
+import SwiftyToaster
 
 class WineOrderViewController: UIViewController {
     
@@ -198,9 +199,14 @@ class WineOrderViewController: UIViewController {
         b.backgroundColor = UIColor(hex: "#FA735B")
         b.layer.cornerRadius = 25
         b.layer.masksToBounds = true
+        b.addTarget(self, action: #selector(goToBuyButtonTapped), for: .touchUpInside)
         
         return b
     }()
+    
+    @objc private func goToBuyButtonTapped() {
+        Toaster.shared.makeToast("구매 완료 !")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

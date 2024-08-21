@@ -10,7 +10,7 @@ import SnapKit
 import Moya
 import Cosmos
 
-class RatingViewController: UIViewController {
+class RatingViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     let tastingnoteLabel = UILabel()
     let scrollView = UIScrollView()
@@ -36,6 +36,10 @@ class RatingViewController: UIViewController {
     var selectedWineImage: String?
     var selectedWineSort: String?
     var selectedWineArea: String?
+    var textValue = CGFloat(0)
+    var aromaCollectionView : UICollectionView!
+    var tasteCollectionView: UICollectionView!
+    var finishCollectionView: UICollectionView!
     
     let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
     
@@ -47,6 +51,13 @@ class RatingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+        
+        reviewText.delegate = self
+        
         setupNavigationBarButton()
         setupView()
         setupLabel()
@@ -54,11 +65,11 @@ class RatingViewController: UIViewController {
         setupTasteView()
         setupTasteViewConstraints()
         setupAromaLabel()
-        setupAromaLabelConstraints()
+        setupAromaCollectionView()
         setupTasteLabel()
-        setupTasteLabelConstraints()
+        setupTasteCollectionView()
         setupFinishLabel()
-        setupFinishLabelConstraints()
+        setupFinishCollectionView()
         setupRatingLabel()
         setupRatingLabelConstraints()
         setupRatingButton()
@@ -73,7 +84,54 @@ class RatingViewController: UIViewController {
         setupReviewTextConstraints()
         setupCompleteButton()
         setupCompleteButtonConstraints()
+        
+        setupKeyboardEvent()
     }
+    
+    func setupKeyboardEvent() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ sender: Notification) {
+        // keyboardFrame: 현재 동작하고 있는 이벤트에서 키보드의 frame을 받아옴
+        // currentTextField: 현재 응답을 받고있는 UITextField를 알아냅니다.
+        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let currentTextField = UIResponder.currentResponder as? UITextField else { return }
+        
+        // Y축으로 키보드의 상단 위치
+        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+        // 현재 선택한 텍스트 필드의 Frame 값
+        let convertedTextFieldFrame = view.convert(currentTextField.frame,
+                                                  from: currentTextField.superview)
+        // Y축으로 현재 텍스트 필드의 하단 위치
+        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
+        
+        // Y축으로 텍스트필드 하단 위치가 키보드 상단 위치보다 클 때 (즉, 텍스트필드가 키보드에 가려질 때가 되겠죠!)
+        if textFieldBottomY > keyboardTopY {
+            let textFieldTopY = convertedTextFieldFrame.origin.y
+            // 노가다를 통해서 모든 기종에 적절한 크기를 설정함.
+            let newFrame = textFieldTopY - keyboardTopY/1.6
+            view.frame.origin.y -= newFrame
+        }
+    }
+    
+    @objc func keyboardWillHide(_ sender: Notification) {
+        if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     
     func setupNavigationBarButton() {
         navigationItem.hidesBackButton = false
@@ -99,7 +157,7 @@ class RatingViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.greaterThanOrEqualTo(1500)
+            make.height.greaterThanOrEqualTo(1600)
         }
     }
     
@@ -131,7 +189,7 @@ class RatingViewController: UIViewController {
             make.top.equalTo(tastingnoteLabel.snp.bottom).offset(50)
             make.centerX.equalTo(contentView.snp.centerX)
             make.leading.equalTo(tastingnoteLabel.snp.leading)
-            make.height.greaterThanOrEqualTo(750)
+            make.height.greaterThanOrEqualTo(870)
         }
     }
     
@@ -141,53 +199,30 @@ class RatingViewController: UIViewController {
         aromaLabel.textAlignment = .center
         aromaLabel.font = UIFont(name: "Pretendard-SemiBold", size: 20)
         aromaLabel.textColor = .black
-    }
-    
-    func setupAromaLabelConstraints() {
+        
         aromaLabel.snp.makeConstraints { make in
             make.leading.equalTo(tasteView.snp.leading).offset(15)
             make.top.equalTo(tasteView.snp.top).offset(25)
         }
+    }
+    
+    func setupAromaCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 92, height: 33)
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
         
-        guard let selectedAromaOptions = selectedOptions["scentAroma"] else { return }
-        let count = selectedAromaOptions.count
+        aromaCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        aromaCollectionView.backgroundColor = .clear
+        aromaCollectionView.delegate = self
+        aromaCollectionView.dataSource = self
+        aromaCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "AromaOptionCell")
         
-        var previousButton: UIButton? = nil
-        
-        for i in 0..<count {
-            let button = UIButton(type: .system)
-            tasteView.addSubview(button)
-            button.setTitle("\(selectedAromaOptions[i])", for: .normal)
-            button.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-            button.setTitleColor(.black, for: .normal)
-            
-            button.backgroundColor = UIColor(hex: "FBCBC4")
-            button.layer.borderWidth = 2
-            button.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
-            button.layer.cornerRadius = 10
-            
-            
-            let titleSize = button.titleLabel!.intrinsicContentSize
-            
-            button.snp.makeConstraints { make in
-                make.width.equalTo(titleSize.width+37)
-                make.height.greaterThanOrEqualTo(33)
-                
-                if i % 3 == 0 {
-                    // 첫 번째 버튼이거나 새로운 줄의 첫 번째 버튼
-                    make.leading.equalTo(tasteView.snp.leading).offset(13)
-                    if i == 0 {
-                        make.top.equalTo(aromaLabel.snp.bottom).offset(10)
-                    } else {
-                        make.top.equalTo(previousButton!.snp.bottom).offset(10)  // 이전 줄의 첫 번째 버튼 아래
-                    }
-                } else {
-                    // 같은 줄의 다른 버튼들
-                    make.leading.equalTo(previousButton!.snp.trailing).offset(5)
-                    make.centerY.equalTo(previousButton!.snp.centerY)
-                }
-            }
-            previousButton = button
+        tasteView.addSubview(aromaCollectionView)
+        aromaCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(aromaLabel.snp.bottom).offset(9)
+            make.leading.trailing.equalTo(tasteView).inset(16)
+            make.height.greaterThanOrEqualTo(230)
         }
     }
     
@@ -197,53 +232,30 @@ class RatingViewController: UIViewController {
         tasteLabel.textAlignment = .center
         tasteLabel.font = UIFont(name: "Pretendard-SemiBold", size: 20)
         tasteLabel.textColor = .black
-    }
-    
-    func setupTasteLabelConstraints() {
+        
         tasteLabel.snp.makeConstraints { make in
             make.leading.equalTo(aromaLabel.snp.leading)
-            make.top.equalTo(aromaLabel.snp.bottom).offset(200)
+            make.top.equalTo(aromaCollectionView.snp.bottom).offset(20)
         }
+    }
+    
+    func setupTasteCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 92, height: 33)
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
         
-        guard let selectedTasteOptions = selectedOptions["scentTaste"] else { return }
-        let count = selectedTasteOptions.count
+        tasteCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        tasteCollectionView.backgroundColor = .clear
+        tasteCollectionView.delegate = self
+        tasteCollectionView.dataSource = self
+        tasteCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "TasteOptionCell")
         
-        var previousButton: UIButton? = nil
-        
-        for i in 0..<count {
-            let button = UIButton(type: .system)
-            tasteView.addSubview(button)
-            button.setTitle("\(selectedTasteOptions[i])", for: .normal)
-            button.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-            button.setTitleColor(.black, for: .normal)
-            
-            button.backgroundColor = UIColor(hex: "FBCBC4")
-            button.layer.borderWidth = 2
-            button.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
-            button.layer.cornerRadius = 10
-            
-            
-            let titleSize = button.titleLabel!.intrinsicContentSize
-            
-            button.snp.makeConstraints { make in
-                make.width.equalTo(titleSize.width+37)
-                make.height.greaterThanOrEqualTo(33)
-                
-                if i % 4 == 0 {
-                    // 첫 번째 버튼이거나 새로운 줄의 첫 번째 버튼
-                    make.leading.equalTo(tasteView.snp.leading).offset(13)
-                    if i == 0 {
-                        make.top.equalTo(tasteLabel.snp.bottom).offset(10)
-                    } else {
-                        make.top.equalTo(previousButton!.snp.bottom).offset(10)  // 이전 줄의 첫 번째 버튼 아래
-                    }
-                } else {
-                    // 같은 줄의 다른 버튼들
-                    make.leading.equalTo(previousButton!.snp.trailing).offset(5)
-                    make.centerY.equalTo(previousButton!.snp.centerY)
-                }
-            }
-            previousButton = button
+        tasteView.addSubview(tasteCollectionView)
+        tasteCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(tasteLabel.snp.bottom).offset(9)
+            make.leading.trailing.equalTo(tasteView).inset(16)
+            make.height.greaterThanOrEqualTo(230)
         }
     }
     
@@ -253,53 +265,30 @@ class RatingViewController: UIViewController {
         finishLabel.textAlignment = .center
         finishLabel.font = UIFont(name: "Pretendard-SemiBold", size: 20)
         finishLabel.textColor = .black
-    }
-    
-    func setupFinishLabelConstraints() {
+        
         finishLabel.snp.makeConstraints { make in
             make.leading.equalTo(tasteLabel.snp.leading)
-            make.top.equalTo(tasteLabel.snp.bottom).offset(200)
+            make.top.equalTo(tasteCollectionView.snp.bottom).offset(20)
         }
+    }
+    
+    func setupFinishCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 92, height: 33)
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
         
-        guard let selectedFinishOptions = selectedOptions["scentFinish"] else { return }
-        let count = selectedFinishOptions.count
+        finishCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        finishCollectionView.backgroundColor = .clear
+        finishCollectionView.delegate = self
+        finishCollectionView.dataSource = self
+        finishCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "FinishOptionCell")
         
-        var previousButton: UIButton? = nil
-        
-        for i in 0..<count {
-            let button = UIButton(type: .system)
-            tasteView.addSubview(button)
-            button.setTitle("\(selectedFinishOptions[i])", for: .normal)
-            button.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-            button.setTitleColor(.black, for: .normal)
-            
-            button.backgroundColor = UIColor(hex: "FBCBC4")
-            button.layer.borderWidth = 2
-            button.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
-            button.layer.cornerRadius = 10
-            
-            
-            let titleSize = button.titleLabel!.intrinsicContentSize
-            
-            button.snp.makeConstraints { make in
-                make.width.equalTo(titleSize.width+37)
-                make.height.greaterThanOrEqualTo(33)
-                
-                if i % 4 == 0 {
-                    // 첫 번째 버튼이거나 새로운 줄의 첫 번째 버튼
-                    make.leading.equalTo(tasteView.snp.leading).offset(13)
-                    if i == 0 {
-                        make.top.equalTo(finishLabel.snp.bottom).offset(10)
-                    } else {
-                        make.top.equalTo(previousButton!.snp.bottom).offset(10)  // 이전 줄의 첫 번째 버튼 아래
-                    }
-                } else {
-                    // 같은 줄의 다른 버튼들
-                    make.leading.equalTo(previousButton!.snp.trailing).offset(5)
-                    make.centerY.equalTo(previousButton!.snp.centerY)
-                }
-            }
-            previousButton = button
+        tasteView.addSubview(finishCollectionView)
+        finishCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(finishLabel.snp.bottom).offset(9)
+            make.leading.trailing.equalTo(tasteView).inset(16)
+            make.height.greaterThanOrEqualTo(230)
         }
     }
     
@@ -391,6 +380,7 @@ class RatingViewController: UIViewController {
         reviewText.layer.cornerRadius = 10
         reviewText.backgroundColor = UIColor(hex: "EAEAEA")
         reviewText.textAlignment = .center
+        reviewText.resignFirstResponder()
     }
     
     func setupReviewTextConstraints() {
@@ -551,5 +541,79 @@ class RatingViewController: UIViewController {
                     print("Failed to patch note: \(error)")
                 }
             }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            if collectionView == aromaCollectionView {
+                return selectedOptions["scentAroma"]?.count ?? 0
+            } else if collectionView == tasteCollectionView {
+                return selectedOptions["scentTaste"]?.count ?? 0
+            } else if collectionView == finishCollectionView {
+                return selectedOptions["scentFinish"]?.count ?? 0
+            }
+            return 0
+        }
+        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let reuseIdentifier: String
+        var option: String?
+        
+        if collectionView == aromaCollectionView {
+            reuseIdentifier = "AromaOptionCell"
+            option = selectedOptions["scentAroma"]?[indexPath.row]
+        } else if collectionView == tasteCollectionView {
+            reuseIdentifier = "TasteOptionCell"
+            option = selectedOptions["scentTaste"]?[indexPath.row]
+        } else {
+            reuseIdentifier = "FinishOptionCell"
+            option = selectedOptions["scentFinish"]?[indexPath.row]
+        }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let button = UIButton(type: .system)
+        button.setTitle(option, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = UIColor(hex: "FBCBC4")
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor(hex: "FA8D7B")?.cgColor
+        button.layer.cornerRadius = 10
+        button.frame = cell.contentView.bounds
+        button.layer.masksToBounds = true
+        
+        cell.contentView.addSubview(button)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let option: String
+        
+        if collectionView == aromaCollectionView {
+            option = selectedOptions["scentAroma"]?[indexPath.row] ?? ""
+        } else if collectionView == tasteCollectionView {
+            option = selectedOptions["scentTaste"]?[indexPath.row] ?? ""
+        } else {
+            option = selectedOptions["scentFinish"]?[indexPath.row] ?? ""
+        }
+        
+        // Calculate width based on the title size
+        let titleSize = option.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
+        return CGSize(width: titleSize.width + 37, height: 33)
+    }
+}
+
+
+
+extension UIView {
+    func selectedTextField() -> UITextField? {
+        for subview in subviews {
+            if let textField = subview as? UITextField, textField.isFirstResponder {
+                return textField
+            } else if let nestedSubview = subview.selectedTextField() {
+                return nestedSubview
+            }
+        }
+        return nil
     }
 }

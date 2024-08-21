@@ -61,9 +61,7 @@ extension SearchAPI: TargetType {
     
     // API 호출 시, header에 token 넣어서 전달
     var headers: [String : String]? {
-        let jwtToken = "jwt_token_here"
         return [
-            "Authorization": "Bearer \(jwtToken)",
             "Content-type": "application/json"
         ]
     }
