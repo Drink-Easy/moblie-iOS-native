@@ -10,7 +10,7 @@ import SnapKit
 import Moya
 import SwiftyToaster
 
-class MyPageWishListViewController: UIViewController {
+class MyPageWishListViewController: UIViewController, WishListCollectionViewCellDelegate {
     
     let provider = MoyaProvider<WishListAPI>(plugins: [CookiePlugin()])
     
@@ -30,7 +30,7 @@ class MyPageWishListViewController: UIViewController {
         layout.scrollDirection = .vertical
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(WineListCollectionViewCell.self, forCellWithReuseIdentifier: "WineListCollectionViewCell")
+        cv.register(WishListCollectionViewCell.self, forCellWithReuseIdentifier: "WishListCollectionViewCell")
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.showsVerticalScrollIndicator = false
         cv.delegate = self
@@ -89,7 +89,35 @@ class MyPageWishListViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-
+    
+    func wishDeleteButtonTapped(on cell: WishListCollectionViewCell) {
+        // 1. collectionView에서 indexPath를 찾습니다.
+        guard let indexPath = WineListCollectionView.indexPath(for: cell) else {
+            print("IndexPath not found for the given cell.")
+            return
+        }
+        
+        // 2. 선택된 와인을 가져옵니다.
+        let selectedWine = wishListResults[indexPath.row]
+        
+        // 3. 와인 ID를 사용하여 deleteWishWine 함수를 호출합니다.
+        deleteWishWine(wineId: selectedWine.id) { success in
+            if success {
+                print("Successfully deleted wine \(selectedWine.id) from wishlist.")
+                
+                // 4. 성공 시, 위시리스트에서 해당 와인을 제거합니다.
+                self.wishListResults.remove(at: indexPath.row)
+                
+                // 5. collectionView에서 해당 셀을 삭제합니다.
+                self.WineListCollectionView.deleteItems(at: [indexPath])
+                
+                self.WineListCollectionView.reloadData()
+            } else {
+                print("Failed to delete wine \(selectedWine.id) from wishlist.")
+                Toaster.shared.makeToast("와인 삭제에 실패했습니다.", .short)
+            }
+        }
+    }
 }
 
 extension MyPageWishListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
@@ -99,12 +127,12 @@ extension MyPageWishListViewController: UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WineListCollectionViewCell", for: indexPath) as! WineListCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishListCollectionViewCell", for: indexPath) as! WishListCollectionViewCell
+        
+        cell.delegate = self // 델리게이트 설정
         
         let wine = wishListResults[indexPath.row]
         cell.configure(wine: wine.wine)
-        
-        cell.likeButton.removeFromSuperview()
         
         return cell
     }
@@ -161,6 +189,27 @@ extension MyPageWishListViewController: UICollectionViewDataSource, UICollection
                 if let response = error.response {
                     print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
                 }
+                completion(false)
+            }
+        }
+    }
+    
+    func deleteWishWine(wineId: Int, completion: @escaping (Bool) -> Void) {
+        provider.request(.deleteWineLike(wineId: wineId)) { result in
+            switch result {
+            case .success(let response):
+                if let jsonString = String(data: response.data, encoding: .utf8) {
+                    print("Received JSON: \(jsonString)")
+                }
+                if response.statusCode == 200 {
+                    print("Wine Deleted")
+                    completion(true)
+                } else {
+                    print("Failed to delete wine with status code: \(response.statusCode)")
+                    completion(false)
+                }
+            case .failure(let error):
+                print("Request failed: \(error)")
                 completion(false)
             }
         }
