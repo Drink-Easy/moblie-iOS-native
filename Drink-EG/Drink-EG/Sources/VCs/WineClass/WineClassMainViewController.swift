@@ -301,6 +301,8 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = ClassVideoViewController()
+        let video = videoInfo[indexPath.row]
+        ClassVideoViewController.videoData = [video.video, video.title, video.description]
         navigationController?.pushViewController(controller, animated: true)
     }
 }

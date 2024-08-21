@@ -11,7 +11,7 @@ import SnapKit
 import YouTubeiOSPlayerHelper
 
 class ClassVideoViewController: UIViewController {
-    let tempString : String = "93sUSWbBnf0"
+    public static var videoData : [String] = []
     
     let youtubePlayer : YTPlayerView = YTPlayerView(frame: CGRect())
     
@@ -21,10 +21,12 @@ class ClassVideoViewController: UIViewController {
     }
     
     private func setupUI() {
-        youtubePlayer.load(withVideoId: tempString)
+        youtubePlayer.load(withVideoId: ClassVideoViewController.videoData[0])
         view.addSubview(youtubePlayer)
         youtubePlayer.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        print("title : \(ClassVideoViewController.videoData[1]) \n 설명 : \(ClassVideoViewController.videoData[2])")
     }
 }
