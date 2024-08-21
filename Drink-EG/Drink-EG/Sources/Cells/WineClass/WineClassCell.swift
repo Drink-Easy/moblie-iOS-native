@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class WineClassCell: UICollectionViewCell {
     static let reuseIdentifier = "WineClassCell"
@@ -35,7 +36,7 @@ class WineClassCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with image: UIImage) {
-        imageView.image = image
+    func configure(with urlString: String) {
+        imageView.sd_setImage(with: URL(string: urlString))
     }
 }
