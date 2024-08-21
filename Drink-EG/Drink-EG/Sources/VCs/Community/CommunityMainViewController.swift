@@ -62,6 +62,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: "CustomCollectionViewCell")
         return collectionView
     }()
@@ -78,6 +79,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
+        scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
     
@@ -210,7 +212,7 @@ class CommunityMainViewController : UIViewController, UITableViewDataSource, UIT
         lookaroundButton.backgroundColor = UIColor(hex: "FA735B")
         lookaroundButton.layer.cornerRadius = 16
         lookaroundButton.setTitleColor(.white, for: .normal)
-        lookaroundButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        lookaroundButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     }
     
     func setupLookAroundButtonConstraints() {

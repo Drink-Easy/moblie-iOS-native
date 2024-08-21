@@ -99,21 +99,25 @@ class WineListCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(imageView.snp.height)
         }
         
+        score.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().inset(11)
+        }
+        
         name.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.leading.equalTo(imageView.snp.trailing).offset(18)
-            make.width.lessThanOrEqualTo(220)
+            if traitCollection.userInterfaceIdiom == .pad {
+                make.trailing.equalTo(score.snp.leading).offset(-10)
+            } else {
+                make.width.lessThanOrEqualTo(220)
+            }
             make.height.lessThanOrEqualTo(55)
         }
         
         price.snp.makeConstraints { make in
             make.top.equalTo(name.snp.bottom).offset(3)
             make.leading.equalTo(name)
-        }
-        
-        score.snp.makeConstraints { make in
-            make.top.equalTo(name)
-            make.trailing.equalToSuperview().inset(11)
         }
         
         likeButton.snp.makeConstraints { make in

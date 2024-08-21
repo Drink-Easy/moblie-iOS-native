@@ -92,18 +92,6 @@ class WishListCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(imageView.snp.height)
         }
         
-        name.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.leading.equalTo(imageView.snp.trailing).offset(18)
-            make.width.lessThanOrEqualTo(220)
-            make.height.lessThanOrEqualTo(55)
-        }
-        
-        price.snp.makeConstraints { make in
-            make.top.equalTo(name.snp.bottom).offset(3)
-            make.leading.equalTo(name)
-        }
-        
         likeButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(7)
             make.trailing.equalToSuperview().inset(9)
@@ -111,9 +99,25 @@ class WishListCollectionViewCell: UICollectionViewCell {
         }
         
         deleteButton.snp.makeConstraints { make in
-            make.top.equalTo(name)
+            make.top.equalToSuperview().offset(16)
             make.centerX.equalTo(likeButton)
             make.width.height.equalTo(15)
+        }
+        
+        name.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.leading.equalTo(imageView.snp.trailing).offset(18)
+            if traitCollection.userInterfaceIdiom == .pad {
+                make.trailing.equalTo(deleteButton.snp.leading).offset(-10)
+            } else {
+                make.width.lessThanOrEqualTo(220)
+            }
+            make.height.lessThanOrEqualTo(55)
+        }
+        
+        price.snp.makeConstraints { make in
+            make.top.equalTo(name.snp.bottom).offset(3)
+            make.leading.equalTo(name)
         }
     }
     
