@@ -7,8 +7,12 @@
 
 import UIKit
 import SnapKit
+import Moya
+import SDWebImage
 
-class WineClassMainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+class WineClassMainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UICollectionViewDelegateFlowLayout {
+    
+    let provider = MoyaProvider<WineClassAPI>(plugins: [CookiePlugin()])
     
     var mainClassView: UICollectionView!
     var subClassView: UICollectionView!
@@ -20,7 +24,9 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     
     private let bottomView = UIView()
     
-    let ImageName: [String] = ["Castello Monaci", "Dos Copas", "Loxton", "Red Label", "Samos", "Vendredi"]
+    var videoInfo : [WineClassResponse] = []
+    
+//    let ImageName: [String] = ["Castello Monaci", "Dos Copas", "Loxton", "Red Label", "Samos", "Vendredi"]
     
     lazy var searchBar: UISearchBar = {
         let s = UISearchBar()
@@ -59,12 +65,20 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         view.backgroundColor = .white
         
         setupNavigationBarButton()
-        setupAllUI()
+        callGetAllClass { isSucess in
+            if isSucess {
+                self.setupAllUI()
+            } else {
+                print("400 서버 에러")
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -74,7 +88,28 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         setGradientColor(containerView)
         roundTopRightCorner(view: containerView, cornerRadius: 30)
         roundTopRightCorner(view: bottomView, cornerRadius: 30)
-        
+//        viewOuterShadow(view: containerView)
+        viewOuterShadow(view: bottomView)
+    }
+    
+    private func callGetAllClass(completion: @escaping (Bool) -> Void) {
+        provider.request(.getAllWineClass) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let data = try response.map(APIResponseWineClassResponse.self)
+//                    print(data)
+                    self.videoInfo = data.result
+                }
+                catch {
+                    completion(false)
+                }
+                completion(true)
+            case .failure(let error):
+                print("Request failed: \(error)")
+                completion(false)
+            }
+        }
     }
     
     func setupNavigationBarButton() {
@@ -132,52 +167,56 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         
         setupTitleClassLabel()
         
-        let button = CustomButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "square.and.arrow.down.on.square"), for: .normal)
+        button.tintColor = .black
         
-        let stackView = UIStackView(arrangedSubviews: [titleclassLabel, button])
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.distribution = .fillProportionally
+        containerView.addSubview(titleclassLabel)
+        containerView.addSubview(button)
+        titleclassLabel.snp.makeConstraints { l in
+            l.top.equalTo(containerView.snp.top).offset(20)
+            l.leading.equalTo(containerView.snp.leading).offset(20)
+            l.width.greaterThanOrEqualTo(30)
+        }
         
-        containerView.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(containerView.snp.top).offset(16)
-            make.leading.trailing.equalTo(containerView).inset(20)
+        button.snp.makeConstraints { b in
+            b.top.equalTo(titleclassLabel.snp.top)
+            b.trailing.equalTo(containerView.snp.trailing).inset(20)
+            b.height.equalTo(titleclassLabel.snp.height).multipliedBy(0.9)
         }
         
         setupMainClassView()
         containerView.addSubview(mainClassView)
         mainClassView.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(10)
+            make.top.equalTo(button.snp.bottom).offset(10)
             make.leading.trailing.equalTo(containerView).inset(10)
-            make.height.equalTo(UIConstants.classViewHeight) // 원하는 높이로 설정
+            make.height.equalTo(containerView.snp.height).multipliedBy(0.33)
         }
         
         bottomView.backgroundColor = .white // 원하는 배경색으로 변경
         roundTopRightCorner(view: bottomView, cornerRadius: 30)
-        bottomView.applyTopShadow()
+        viewOuterShadow(view: bottomView)
+//        bottomView.applyTopShadow()
         
         containerView.addSubview(bottomView)
         bottomView.snp.makeConstraints { make in
-            make.top.equalTo(mainClassView.snp.bottom).offset(10)
+            make.height.equalTo(containerView.snp.height).multipliedBy(0.55)
             make.leading.trailing.bottom.equalToSuperview()
         }
-        
         
         setupSubTitleClassLabel()
         bottomView.addSubview(subtitleclassLabel)
         subtitleclassLabel.snp.makeConstraints { make in
             make.top.equalTo(bottomView.snp.top).offset(20)
-            make.leading.equalTo(bottomView.snp.leading).offset(10)
+            make.leading.equalTo(bottomView.snp.leading).offset(20)
         }
         
-        setupMainClassView()
-        bottomView.addSubview(mainClassView)
-        mainClassView.snp.makeConstraints { make in
-            make.top.equalTo(subtitleclassLabel.snp.bottom).offset(10)
+        setupMain2ClassView()
+        bottomView.addSubview(subClassView)
+        subClassView.snp.makeConstraints { make in
+            make.top.equalTo(subtitleclassLabel.snp.bottom).offset(7)
             make.leading.trailing.equalTo(bottomView).inset(10)
-            make.height.equalTo(UIConstants.classViewHeight) // 원하는 높이로 설정
+            make.height.equalTo(mainClassView.snp.height)
         }
     }
     
@@ -191,14 +230,30 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
     
     func setupMainClassView() {
         let layout = CarouselLayout()
-        layout.itemSize = UIConstants.mainClassViewItemSize
+//        layout.itemSize = UIConstants.mainClassViewItemSize
         layout.spacing = UIConstants.mainClassViewSpacing
         
         mainClassView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         mainClassView.backgroundColor = .clear
         mainClassView.delegate = self
         mainClassView.dataSource = self
+        mainClassView.showsHorizontalScrollIndicator = false
+        mainClassView.showsVerticalScrollIndicator = false
         mainClassView.register(WineClassCell.self, forCellWithReuseIdentifier: WineClassCell.reuseIdentifier)
+    }
+    
+    func setupMain2ClassView() {
+        let layout = CarouselLayout()
+//        layout.itemSize = UIConstants.mainClassViewItemSize
+        layout.spacing = UIConstants.mainClassViewSpacing
+        
+        subClassView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        subClassView.backgroundColor = .clear
+        subClassView.delegate = self
+        subClassView.dataSource = self
+        subClassView.showsHorizontalScrollIndicator = false
+        subClassView.showsVerticalScrollIndicator = false
+        subClassView.register(WineClassCell.self, forCellWithReuseIdentifier: WineClassCell.reuseIdentifier)
     }
     
     func setupSubTitleClassLabel() {
@@ -217,6 +272,8 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         subClassView.backgroundColor = .clear
         subClassView.delegate = self
         subClassView.dataSource = self
+        subClassView.showsHorizontalScrollIndicator = false
+        subClassView.showsVerticalScrollIndicator = false
         subClassView.register(WineClassCell.self, forCellWithReuseIdentifier: WineClassCell.reuseIdentifier)
     }
     
@@ -231,17 +288,38 @@ class WineClassMainViewController: UIViewController, UICollectionViewDataSource,
         view.layer.mask = mask
     }
     
+    func viewOuterShadow(view: UIView) {
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 5)
+        view.layer.shadowRadius = 30
+        view.layer.shadowOpacity = 1
+    }
     // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return videoInfo.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WineClassCell.reuseIdentifier, for: indexPath) as! WineClassCell
-        let imageName = self.ImageName.randomElement()!
-        cell.configure(with: UIImage(named: imageName)!)
+        
+        let urlString = "https://img.youtube.com/vi/\(videoInfo[indexPath.row].video)/0.jpg"
+        cell.configure(with: urlString)
+        
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = ClassVideoViewController()
+        let video = videoInfo[indexPath.row]
+        ClassVideoViewController.videoData = [video.video, video.title, video.description]
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // 동적으로 계산된 크기를 반환합니다.
+        let height = collectionView.frame.height * 0.95
+        
+        return CGSize(width: height*0.6, height: height)
+    }
 }
-

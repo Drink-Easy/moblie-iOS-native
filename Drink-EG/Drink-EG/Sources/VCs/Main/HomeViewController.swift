@@ -17,8 +17,8 @@ class HomeViewController: UIViewController {
     let provider = MoyaProvider<SearchAPI>(plugins: [CookiePlugin()])
     let shoppingListManager = ShoppingListManager.shared
     
-    private var AdContents: [String] = ["ad1", "ad2"]
-    private var AdLinks: [String] = ["https://www.instagram.com/drinkeg.official?igsh=eGoyYzkxNmh5bXR5","https://github.com/Drink-Easy/moblie-iOS-native"]
+    private var AdContents: [String] = ["ad1", "ad2", "ad3"]
+    private var AdLinks: [String] = ["https://www.instagram.com/drinkeg.official?igsh=eGoyYzkxNmh5bXR5","https://www.7-eleven.co.kr/event/eventList.asp", "https://github.com/Drink-Easy/moblie-iOS-native"]
     private var RecomContents: [RecommendWineResponse] = []
     var name: String = ""
     
@@ -352,14 +352,19 @@ class HomeViewController: UIViewController {
         // UI setting
         cv.backgroundColor = .clear
         cv.layer.cornerRadius = 16
+        cv.layer.shadowOpacity = 0.3
+        cv.layer.shadowColor = UIColor.black.cgColor
+        cv.layer.shadowOffset = CGSize(width: 0, height: 2)
+        cv.layer.shadowRadius = 5
+        cv.layer.masksToBounds = false
         
         return cv
     }()
     
     lazy var pageControl: UIPageControl = {
         let p = UIPageControl()
-        p.pageIndicatorTintColor = UIColor(hue: 0, saturation: 0, brightness: 0.85, alpha: 1.0)
-        p.currentPageIndicatorTintColor = UIColor(hue: 0, saturation: 0, brightness: 0.46, alpha: 1.0)
+        p.pageIndicatorTintColor = UIColor(hex: "#D9D9D9")
+        p.currentPageIndicatorTintColor = UIColor(hex: "#FF7A6D")
         return p
     }()
     
@@ -428,7 +433,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.tag == 1 {
             let adURL = NSURL(string: AdLinks[indexPath.row])
-            let adSafariView: SFSafariViewController = SFSafariViewController(url: adURL as! URL)
+            let adSafariView: SFSafariViewController = SFSafariViewController(url: adURL! as URL)
             self.present(adSafariView, animated: true, completion: nil)
         }
         if collectionView.tag == 2 {
@@ -461,6 +466,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                     }
                     let responseData = try JSONDecoder().decode(APIResponseHomeResponse.self, from: response.data)
                     self.name = responseData.result.name
+                    SelectionManager.shared.userName = responseData.result.name
                     self.RecomContents = responseData.result.recommendWineDTOs
                     self.RecomCollectionView.reloadData()
                     completion(true)

@@ -17,7 +17,7 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
     let loginButton = UIButton(type: .system)
     
     let kakaoButton = UIButton(type: .system)
-    let appleButton = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
+    let appleButton = ASAuthorizationAppleIDButton(type: .default, style: .white)
     
     let joinButton = UIButton(type: .system)
     
@@ -67,12 +67,12 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
             make.width.lessThanOrEqualTo(165)
             make.height.equalTo(imageView.snp.width)
         }
-
+        
         let buttonStackView = UIStackView(arrangedSubviews: [kakaoButton, appleButton])
         buttonStackView.axis = .vertical
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 12
-                
+        
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(100)
@@ -82,7 +82,7 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
         
         view.addSubview(loginButton)
         loginButton.snp.makeConstraints { make in
-            make.top.equalTo(buttonStackView.snp.bottom).offset(70)
+            make.top.equalTo(buttonStackView.snp.bottom).offset(48)
             make.leading.trailing.equalTo(buttonStackView)
             make.height.equalTo(60)
         }
@@ -120,20 +120,19 @@ class SelectLoginViewController: UIViewController, ASAuthorizationControllerDele
     }
     
     private func configureKakaoButton() {
-        kakaoButton.setTitle("카카오 로그인", for: .normal)
-        kakaoButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        kakaoButton.setTitleColor(.white, for: .normal)
+        kakaoButton.setTitle("Sign in with Kakao", for: .normal)
+        kakaoButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 23)
+        kakaoButton.setTitleColor(UIColor(hex: "#191919"), for: .normal)
         kakaoButton.contentHorizontalAlignment = .center
         
         //카카오 이미지를 아이콘 포멧 이미지에 맞게 바꿈
         kakaoButton.setImage(UIImage(named: "kakao")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        kakaoButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -18, bottom: 0, right: 0)
-
-        kakaoButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
-        kakaoButton.layer.cornerRadius = 16
-        kakaoButton.layer.borderWidth = 2
-        kakaoButton.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
+        kakaoButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
         
+        kakaoButton.backgroundColor = UIColor(hex: "#FFEA75")
+        kakaoButton.layer.cornerRadius = 6
+//        kakaoButton.layer.borderWidth = 2
+//        kakaoButton.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
     }
     
     private func configureAppleButton() {

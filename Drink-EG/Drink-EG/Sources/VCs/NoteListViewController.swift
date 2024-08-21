@@ -262,6 +262,9 @@ class NoteListViewController: UIViewController, UICollectionViewDelegate, UIColl
             switch result {
             case .success(let response):
                 do {
+                    
+                    self.apiResult.removeAll()
+                    
                     let data = try response.map(AllNotesResponse.self)
                     self.cellCount = data.result.count
                     for note in data.result {

@@ -9,7 +9,13 @@ import UIKit
 import SnapKit
 import SDWebImage
 
+protocol WineListCollectionViewCellDelegate: AnyObject {
+    func LikeWineTapped(on cell: WineListCollectionViewCell)
+}
+
 class WineListCollectionViewCell: UICollectionViewCell {
+    
+    weak var delegate: WineListCollectionViewCellDelegate?
     
     private let likeImage = UIImage(named: "icon_like_fill")
     private let nlikeImage = UIImage(named: "icon_like_nfill")
@@ -58,6 +64,7 @@ class WineListCollectionViewCell: UICollectionViewCell {
             
         // 버튼이 클릭될 때마다, 버튼 이미지를 변환
         if sender.isSelected {
+            delegate?.LikeWineTapped(on: self)
             sender.setImage(likeImage?.withRenderingMode(.alwaysOriginal), for: .selected)
         } else {
             sender.setImage(nlikeImage?.withRenderingMode(.alwaysOriginal), for: .normal)

@@ -7,213 +7,163 @@
 
 import UIKit
 import SnapKit
+import Moya
+import SwiftyToaster
 
-
-
-class MyPageWishListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
-    private let items = [
-        ["title": "19charles", "imageName": "SampleImage", "rating": "4.5", "price": "165,000원"],
-        ["title": "19charles", "imageName": "SampleImage", "rating": "4.5", "price": "165,000원"],
-        ["title": "19charles", "imageName": "SampleImage", "rating": "4.5", "price": "165,000원"],
-        ["title": "19charles", "imageName": "SampleImage", "rating": "4.5", "price": "165,000원"],
-    ]
-
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.alwaysBounceVertical = true
-        return scrollView
-    }()
-
-    lazy var contentView: UIView = {
-        return UIView()
+class MyPageWishListViewController: UIViewController {
+    
+    let provider = MoyaProvider<WishListAPI>(plugins: [CookiePlugin()])
+    
+    var wishListResults: [WineList] = []
+    
+    private let label: UILabel = {
+        let l = UILabel()
+        l.text = "술킷 리스트"
+        l.font = .systemFont(ofSize: 28, weight: UIFont.Weight(700))
+        l.textColor = .black
+        l.numberOfLines = 0
+        return l
     }()
     
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "위시리스트"
-        label.font = UIFont.boldSystemFont(ofSize: 24)
-        label.textColor = .black
-        return label
+    lazy var WineListCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(WineListCollectionViewCell.self, forCellWithReuseIdentifier: "WineListCollectionViewCell")
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.showsVerticalScrollIndicator = false
+        cv.delegate = self
+        cv.dataSource = self
+        
+        cv.decelerationRate = .fast
+        cv.backgroundColor = .clear
+        cv.layer.cornerRadius = 10
+        
+        return cv
     }()
 
-    lazy var lowerCollectionStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.distribution = .fillEqually
-        return stackView
-    }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        setupScrollView()
-        setupView()
         setupNavigationBarButton()
-        setupWishCommunityLowerCollectionView()
-        setupStackViewConstraints()
-        setupTitleLabel()
-    }
-
-    func setupView() {
-        contentView.addSubview(lowerCollectionStackView)
-        contentView.addSubview(titleLabel)
-    }
-
-    func setupScrollView() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-
-        scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(view)
+ 
+        getWineList() { isSuccess in
+            if isSuccess {
+                self.WineListCollectionView.reloadData()
+                self.setupUI()
+            } else {
+                print("GET 호출 실패")
+                Toaster.shared.makeToast("400 Bad Request", .short)
+            }
         }
-
-
     }
-
+    
     func setupNavigationBarButton() {
-        navigationItem.hidesBackButton = true
+        navigationItem.hidesBackButton = false
         let backArrow = UIImage(systemName: "chevron.backward")
         let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.leftBarButtonItem = leftButton
         leftButton.tintColor = .black
     }
-
-    func setupTitleLabel() {
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(66)
-            make.leading.equalTo(view).offset(16)
-        }
-    }
-
+    
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
+    
+    private func setupUI() {
+        
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(27)
+        }
+        
+        view.addSubview(WineListCollectionView)
+        WineListCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(label.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
 
-    func setupWishCommunityLowerCollectionView() {
-        for item in items {
-            let cellView = WishCustomCellView()
-            cellView.configure(title: item["title"]!, imageName: item["imageName"]!, rating: item["rating"]!, price: item["price"]!)
-            cellView.layer.cornerRadius = 10
-            cellView.layer.masksToBounds = true
-            
-            lowerCollectionStackView.addArrangedSubview(cellView)
+}
 
-            cellView.snp.makeConstraints { make in
-                make.height.equalTo(120)
-                make.width.equalTo(366)
+extension MyPageWishListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return wishListResults.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WineListCollectionViewCell", for: indexPath) as! WineListCollectionViewCell
+        
+        let wine = wishListResults[indexPath.row]
+        cell.configure(wine: wine.wine)
+        
+        cell.likeButton.removeFromSuperview()
+        
+        return cell
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, trailingSwipeActionsConfigurationForItemAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { (action, view, completionHandler) in
+//            
+//            self.wishListResults.remove(at: indexPath.row)
+//            self.WineListCollectionView.deleteItems(at: [indexPath])
+//            
+//            completionHandler(true)
+//        }
+//        
+//        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+//        configuration.performsFirstActionWithFullSwipe = true
+//        return configuration
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 94)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedWine = wishListResults[indexPath.row]
+        WineListCollectionView.reloadData()
+
+        let wineInfoViewController = WineInfoViewController()
+        wineInfoViewController.name.text = selectedWine.wine.name
+        wineInfoViewController.wineImageURL = selectedWine.wine.imageUrl
+        wineInfoViewController.wineId = selectedWine.wine.wineId
+        navigationController?.pushViewController(wineInfoViewController, animated: true)
+    }
+    
+    func getWineList(completion: @escaping (Bool) -> Void) {
+        provider.request(.getWineList) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    
+                    if let jsonString = String(data: response.data, encoding: .utf8) {
+                        print("Received JSON: \(jsonString)")
+                    }
+                    
+                    let responseData = try JSONDecoder().decode(APIResponseWishListResponse.self, from: response.data)
+                    self.wishListResults = responseData.result
+                    self.WineListCollectionView.reloadData()
+                    completion(true)
+                } catch {
+                    print("Failed to decode response: \(error)")
+                    completion(false)
+                }
+            case.failure(let error):
+                print("Error: \(error.localizedDescription)")
+                if let response = error.response {
+                    print("Response Body: \(String(data: response.data, encoding: .utf8) ?? "")")
+                }
+                completion(false)
             }
         }
     }
-
-    func setupStackViewConstraints() {
-        lowerCollectionStackView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(24)
-            make.leading.equalTo(contentView.snp.leading).offset(16)
-            make.centerX.equalTo(contentView.snp.centerX)
-        }
-    }
-
-
-
 }
-
-class WishCustomCellView: UIView {
-    let titleLabel = UILabel()
-    let imageView = UIImageView()
-    let ratingLabel = UILabel()
-    let priceLabel = UILabel()
-    let likeButton = UIButton(type: .custom)
-    
-    private let likeImage = UIImage(systemName: "heart.circle")
-    private let nlikeImage = UIImage(systemName: "heart.fill")
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        layer.cornerRadius = 10
-        layer.masksToBounds = true
-        backgroundColor = UIColor.lightGray
-        
-    
-
-        addSubview(imageView)
-        addSubview(titleLabel)
-        addSubview(ratingLabel)
-        addSubview(priceLabel)
-        addSubview(likeButton)
-
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 10
-
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
-
-        ratingLabel.textColor = .black
-        ratingLabel.font = UIFont.systemFont(ofSize: 12)
-        
-        priceLabel.textColor = .black
-        priceLabel.font = UIFont.systemFont(ofSize: 16)
-        
-        configureLikeButton()
-        setupConstraints()
-    }
-
-    func setupConstraints() {
-        imageView.snp.makeConstraints { make in
-            make.width.height.equalTo(80)
-            make.leading.equalTo(snp.leading).offset(8)
-            make.centerY.equalTo(snp.centerY)
-        }
-
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(imageView.snp.trailing).offset(8)
-            make.top.equalTo(snp.top).offset(10)
-        }
-
-        ratingLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(snp.trailing).offset(-8)
-            make.top.equalTo(titleLabel.snp.top)
-        }
-        
-        priceLabel.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.leading)
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-        }
-        
-        likeButton.snp.makeConstraints { make in
-            make.trailing.equalTo(snp.trailing).offset(-8)
-            make.bottom.equalTo(snp.bottom).offset(-10)
-            make.width.height.equalTo(24)
-        }
-    }
-
-    func configure(title: String, imageName: String, rating: String, price: String) {
-        titleLabel.text = title
-        imageView.image = UIImage(named: imageName)
-        ratingLabel.text = rating
-        priceLabel.text = price 
-    }
-
-    private func configureLikeButton() {
-        likeButton.setImage(nlikeImage?.withRenderingMode(.alwaysOriginal), for: .normal)
-        likeButton.backgroundColor = .clear
-        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
-    }
-
-    @objc private func likeButtonTapped(_ sender: UIButton) {
-        sender.isSelected.toggle()
-        if sender.isSelected {
-            sender.setImage(likeImage?.withRenderingMode(.alwaysOriginal), for: .selected)
-        } else {
-            sender.setImage(nlikeImage?.withRenderingMode(.alwaysOriginal), for: .normal)
-        }
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
+            
