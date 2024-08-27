@@ -78,6 +78,8 @@
 		16C19ADE2C73AF6000E93FD0 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19ADD2C73AF6000E93FD0 /* UserDefaults.swift */; };
 		16C19AE12C74423300E93FD0 /* SwiftyToaster in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19AE02C74423300E93FD0 /* SwiftyToaster */; };
 		16C19AE62C74987600E93FD0 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19AE52C74987600E93FD0 /* YouTubeiOSPlayerHelper */; };
+		16C19B0B2C7DA80C00E93FD0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19B0A2C7DA80C00E93FD0 /* Realm */; };
+		16C19B0D2C7DA80C00E93FD0 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19B0C2C7DA80C00E93FD0 /* RealmSwift */; };
 		1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */; };
 		1F205A332C69FE9800E80659 /* JoinNLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */; };
 		1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */; };
@@ -312,6 +314,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16C19B0D2C7DA80C00E93FD0 /* RealmSwift in Frameworks */,
+				16C19B0B2C7DA80C00E93FD0 /* Realm in Frameworks */,
 				5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */,
 				5E22195E2C69DDB5005849FB /* SnapKit in Frameworks */,
 				16C19AE12C74423300E93FD0 /* SwiftyToaster in Frameworks */,
@@ -777,6 +781,8 @@
 				5E22197C2C6BB56F005849FB /* SDWebImageMapKit */,
 				16C19AE02C74423300E93FD0 /* SwiftyToaster */,
 				16C19AE52C74987600E93FD0 /* YouTubeiOSPlayerHelper */,
+				16C19B0A2C7DA80C00E93FD0 /* Realm */,
+				16C19B0C2C7DA80C00E93FD0 /* RealmSwift */,
 			);
 			productName = "Drink-EG";
 			productReference = 16B97CD02C4BEB0900D8B453 /* Drink-EG.app */;
@@ -816,6 +822,7 @@
 				5E2219792C6BB56F005849FB /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				16C19ADF2C74423300E93FD0 /* XCRemoteSwiftPackageReference "SwiftyToaster" */,
 				16C19AE42C74987600E93FD0 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
+				16C19B092C7DA80C00E93FD0 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 16B97CD12C4BEB0900D8B453 /* Products */;
 			projectDirPath = "";
@@ -1213,6 +1220,14 @@
 				minimumVersion = 1.0.4;
 			};
 		};
+		16C19B092C7DA80C00E93FD0 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		5E22195C2C69DDB5005849FB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1281,6 +1296,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 16C19AE42C74987600E93FD0 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
 			productName = YouTubeiOSPlayerHelper;
+		};
+		16C19B0A2C7DA80C00E93FD0 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 16C19B092C7DA80C00E93FD0 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		16C19B0C2C7DA80C00E93FD0 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 16C19B092C7DA80C00E93FD0 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		5E22195D2C69DDB5005849FB /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
