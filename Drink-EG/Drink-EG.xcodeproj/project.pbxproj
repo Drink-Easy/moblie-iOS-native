@@ -80,6 +80,7 @@
 		16C19AE62C74987600E93FD0 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19AE52C74987600E93FD0 /* YouTubeiOSPlayerHelper */; };
 		16C19B0B2C7DA80C00E93FD0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19B0A2C7DA80C00E93FD0 /* Realm */; };
 		16C19B0D2C7DA80C00E93FD0 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19B0C2C7DA80C00E93FD0 /* RealmSwift */; };
+		16C19B102C7DB73200E93FD0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19B0F2C7DB73200E93FD0 /* Then */; };
 		1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */; };
 		1F205A332C69FE9800E80659 /* JoinNLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A322C69FE9800E80659 /* JoinNLoginRequest.swift */; };
 		1F205A372C6A71BC00E80659 /* APIResponseLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F205A362C6A71BC00E80659 /* APIResponseLoginResponse.swift */; };
@@ -319,6 +320,7 @@
 				5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */,
 				5E22195E2C69DDB5005849FB /* SnapKit in Frameworks */,
 				16C19AE12C74423300E93FD0 /* SwiftyToaster in Frameworks */,
+				16C19B102C7DB73200E93FD0 /* Then in Frameworks */,
 				5E2219672C69DE78005849FB /* KakaoSDK in Frameworks */,
 				5E22197B2C6BB56F005849FB /* SDWebImage in Frameworks */,
 				5E2219612C69DDBF005849FB /* Alamofire in Frameworks */,
@@ -783,6 +785,7 @@
 				16C19AE52C74987600E93FD0 /* YouTubeiOSPlayerHelper */,
 				16C19B0A2C7DA80C00E93FD0 /* Realm */,
 				16C19B0C2C7DA80C00E93FD0 /* RealmSwift */,
+				16C19B0F2C7DB73200E93FD0 /* Then */,
 			);
 			productName = "Drink-EG";
 			productReference = 16B97CD02C4BEB0900D8B453 /* Drink-EG.app */;
@@ -823,6 +826,7 @@
 				16C19ADF2C74423300E93FD0 /* XCRemoteSwiftPackageReference "SwiftyToaster" */,
 				16C19AE42C74987600E93FD0 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
 				16C19B092C7DA80C00E93FD0 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				16C19B0E2C7DB73200E93FD0 /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = 16B97CD12C4BEB0900D8B453 /* Products */;
 			projectDirPath = "";
@@ -1228,6 +1232,14 @@
 				kind = branch;
 			};
 		};
+		16C19B0E2C7DB73200E93FD0 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		5E22195C2C69DDB5005849FB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1306,6 +1318,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 16C19B092C7DA80C00E93FD0 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		16C19B0F2C7DB73200E93FD0 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 16C19B0E2C7DB73200E93FD0 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 		5E22195D2C69DDB5005849FB /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
