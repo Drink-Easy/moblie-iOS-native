@@ -110,9 +110,21 @@ cd moblie-iOS-native
     └── Drink-EG.xcodeproj
 ```
 
-## 🔨 Server Architecture
-
 ## 👨‍💻 Role & Contribution
+드링키지 v1.0.0 
+- 작업 기간 : 2024.07. - 2024.08.22
+- 김도연
+    - UI : 와인 클래스, Splash Screen
+    - 기능 : 회원가입, 애플로그인 연동, 취향찾기 데이터 저장 및 API 통신, 장바구니 데이터 저장, 와인 클래스 API 통신, 마이페이지 기능
+- 이수현
+    - UI : 테이스팅 노트, 와인 모임
+    - 기능 : 테이스팅 노트 기능 및 API 통신, 와인 검색 API 통신
+- 이현주
+    - UI : 온보딩 페이지, 로그인/회원가입, 취향찾기, 메인 페이지, 와인 검색, 위시리스트
+    - 기능 : 로그인 API 통신, 와인 추천 API 통신, 와인 검색 및 장바구니 API 통신, 위시리스트 기능 개발
+- 이호연
+    - UI : 마이페이지
+
 
 ## 👨‍👩‍👧‍👦 Developer
 * 김도연 ([doyeonk429](https://github.com/doyeonk429))
