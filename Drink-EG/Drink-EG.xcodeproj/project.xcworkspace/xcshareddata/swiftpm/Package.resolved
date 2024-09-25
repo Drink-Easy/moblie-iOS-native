@@ -1,5 +1,5 @@
 {
-  "originHash" : "7d6da7879a36e62998b2994307c4bedd9a7fd70691a506962f99d482c7b278e9",
+  "originHash" : "4aa0c475def5b81c458c453101781d39b9557c8e27e03815f1a2d58989f11763",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -98,6 +98,15 @@
       "state" : {
         "revision" : "4ed905fdecf7426e3e7a7af03b09674980f9c1a7",
         "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "swipemenuviewcontroller",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yysskk/SwipeMenuViewController.git",
+      "state" : {
+        "revision" : "58cf049ea230aa1d281c59367916e5960cea1978",
+        "version" : "4.1.0"
       }
     },
     {

@@ -39,6 +39,7 @@
 		165401552C6FC5CD008A9DBF /* HomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401542C6FC5CD008A9DBF /* HomeResponse.swift */; };
 		165401572C6FC618008A9DBF /* APIResponseHomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165401562C6FC618008A9DBF /* APIResponseHomeResponse.swift */; };
 		16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16752F9C2C5A7FB90001907D /* HexCode.swift */; };
+		1694CE7E2CA3B31300AA22C8 /* SwipeMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 1694CE7D2CA3B31300AA22C8 /* SwipeMenuViewController */; };
 		16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD32C4BEB0900D8B453 /* AppDelegate.swift */; };
 		16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B97CD52C4BEB0900D8B453 /* SceneDelegate.swift */; };
 		16B97CDD2C4BEB0A00D8B453 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16B97CDC2C4BEB0A00D8B453 /* Assets.xcassets */; };
@@ -345,6 +346,7 @@
 				5E22196A2C69DEEA005849FB /* Toast in Frameworks */,
 				5E2219642C69DE43005849FB /* Moya in Frameworks */,
 				16C19AE62C74987600E93FD0 /* YouTubeiOSPlayerHelper in Frameworks */,
+				1694CE7E2CA3B31300AA22C8 /* SwipeMenuViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,6 +872,7 @@
 				16C19B0F2C7DB73200E93FD0 /* Then */,
 				164A0A102CA3AED700504BF1 /* SDWebImage */,
 				164A0A122CA3AED700504BF1 /* SDWebImageMapKit */,
+				1694CE7D2CA3B31300AA22C8 /* SwipeMenuViewController */,
 			);
 			productName = "Drink-EG";
 			productReference = 16B97CD02C4BEB0900D8B453 /* Drink-EG.app */;
@@ -911,6 +914,7 @@
 				16C19B092C7DA80C00E93FD0 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				16C19B0E2C7DB73200E93FD0 /* XCRemoteSwiftPackageReference "Then" */,
 				164A0A0F2CA3AED700504BF1 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				1694CE7C2CA3B31300AA22C8 /* XCRemoteSwiftPackageReference "SwipeMenuViewController" */,
 			);
 			productRefGroup = 16B97CD12C4BEB0900D8B453 /* Products */;
 			projectDirPath = "";
@@ -1302,6 +1306,14 @@
 				minimumVersion = 5.19.7;
 			};
 		};
+		1694CE7C2CA3B31300AA22C8 /* XCRemoteSwiftPackageReference "SwipeMenuViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yysskk/SwipeMenuViewController.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
 		16C19ADF2C74423300E93FD0 /* XCRemoteSwiftPackageReference "SwiftyToaster" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/noeyiz/SwiftyToaster.git";
@@ -1394,6 +1406,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 164A0A0F2CA3AED700504BF1 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
+		};
+		1694CE7D2CA3B31300AA22C8 /* SwipeMenuViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1694CE7C2CA3B31300AA22C8 /* XCRemoteSwiftPackageReference "SwipeMenuViewController" */;
+			productName = SwipeMenuViewController;
 		};
 		16C19AE02C74423300E93FD0 /* SwiftyToaster */ = {
 			isa = XCSwiftPackageProductDependency;
