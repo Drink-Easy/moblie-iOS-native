@@ -125,6 +125,7 @@
 		1FBD19552C6D2BF7005C16A8 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19542C6D2BF7005C16A8 /* ReviewListViewController.swift */; };
 		1FBD19572C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19562C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift */; };
 		1FC522272CA91ED000EC0635 /* TabBarShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC522262CA91ED000EC0635 /* TabBarShadow.swift */; };
+		1FC522292CA933FC00EC0635 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC522282CA933FC00EC0635 /* MenuCollectionViewCell.swift */; };
 		5E22192D2C69D592005849FB /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219242C69D592005849FB /* Pretendard-Bold.otf */; };
 		5E22192E2C69D592005849FB /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219252C69D592005849FB /* Pretendard-Black.otf */; };
 		5E22192F2C69D592005849FB /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219262C69D592005849FB /* Pretendard-Regular.otf */; };
@@ -294,6 +295,7 @@
 		1FBD19542C6D2BF7005C16A8 /* ReviewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
 		1FBD19562C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FC522262CA91ED000EC0635 /* TabBarShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarShadow.swift; sourceTree = "<group>"; };
+		1FC522282CA933FC00EC0635 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		5E2219242C69D592005849FB /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		5E2219252C69D592005849FB /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		5E2219262C69D592005849FB /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -670,6 +672,7 @@
 				1F598F022C581A7D000CE79F /* StartLoginCollectionViewCell.swift */,
 				1F598EEB2C524D2E000CE79F /* RecomCollectionViewCell.swift */,
 				1F205A302C68BB5200E80659 /* CartListCollectionViewCell.swift */,
+				1FC522282CA933FC00EC0635 /* MenuCollectionViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -975,6 +978,7 @@
 				5E23147F2C5901BB004E2013 /* (null) in Sources */,
 				16B97D162C4C0F6400D8B453 /* SavingVideoViewController.swift in Sources */,
 				165400F82C69EFBD008A9DBF /* WineNewsResponse.swift in Sources */,
+				1FC522292CA933FC00EC0635 /* MenuCollectionViewCell.swift in Sources */,
 				165400E92C69DDCB008A9DBF /* WineClassAPI.swift in Sources */,
 				1F598EEA2C5227C5000CE79F /* AdImageCollectionViewCell.swift in Sources */,
 				1F205A412C6B540600E80659 /* TasteTestSecondCollectionViewCell.swift in Sources */,
