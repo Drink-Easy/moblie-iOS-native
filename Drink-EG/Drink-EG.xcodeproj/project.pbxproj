@@ -78,7 +78,6 @@
 		16C19ADE2C73AF6000E93FD0 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19ADD2C73AF6000E93FD0 /* UserDefaults.swift */; };
 		16C19AE12C74423300E93FD0 /* SwiftyToaster in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19AE02C74423300E93FD0 /* SwiftyToaster */; };
 		16C19AE62C74987600E93FD0 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19AE52C74987600E93FD0 /* YouTubeiOSPlayerHelper */; };
-		16C19B0B2C7DA80C00E93FD0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19B0A2C7DA80C00E93FD0 /* Realm */; };
 		16C19B0D2C7DA80C00E93FD0 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19B0C2C7DA80C00E93FD0 /* RealmSwift */; };
 		16C19B102C7DB73200E93FD0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 16C19B0F2C7DB73200E93FD0 /* Then */; };
 		16C19B162C7DB88100E93FD0 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19B152C7DB88100E93FD0 /* Note.swift */; };
@@ -125,6 +124,7 @@
 		1FBD19532C6CFABB005C16A8 /* WineShopListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19522C6CFABB005C16A8 /* WineShopListCollectionViewCell.swift */; };
 		1FBD19552C6D2BF7005C16A8 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19542C6D2BF7005C16A8 /* ReviewListViewController.swift */; };
 		1FBD19572C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD19562C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift */; };
+		1FC522272CA91ED000EC0635 /* TabBarShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC522262CA91ED000EC0635 /* TabBarShadow.swift */; };
 		5E22192D2C69D592005849FB /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219242C69D592005849FB /* Pretendard-Bold.otf */; };
 		5E22192E2C69D592005849FB /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219252C69D592005849FB /* Pretendard-Black.otf */; };
 		5E22192F2C69D592005849FB /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2219262C69D592005849FB /* Pretendard-Regular.otf */; };
@@ -293,6 +293,7 @@
 		1FBD19522C6CFABB005C16A8 /* WineShopListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineShopListCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FBD19542C6D2BF7005C16A8 /* ReviewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
 		1FBD19562C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCollectionViewCell.swift; sourceTree = "<group>"; };
+		1FC522262CA91ED000EC0635 /* TabBarShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarShadow.swift; sourceTree = "<group>"; };
 		5E2219242C69D592005849FB /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		5E2219252C69D592005849FB /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		5E2219262C69D592005849FB /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -333,7 +334,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				16C19B0D2C7DA80C00E93FD0 /* RealmSwift in Frameworks */,
-				16C19B0B2C7DA80C00E93FD0 /* Realm in Frameworks */,
 				164A0A132CA3AED700504BF1 /* SDWebImageMapKit in Frameworks */,
 				5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */,
 				5E22195E2C69DDB5005849FB /* SnapKit in Frameworks */,
@@ -475,6 +475,7 @@
 				16C19AD12C73AE0200E93FD0 /* UIView.swift */,
 				16C19ADD2C73AF6000E93FD0 /* UserDefaults.swift */,
 				5E42B0172C74A39300DAB751 /* MovingTextField.swift */,
+				1FC522262CA91ED000EC0635 /* TabBarShadow.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -865,7 +866,6 @@
 				5E2219702C6B5B5B005849FB /* Cosmos */,
 				16C19AE02C74423300E93FD0 /* SwiftyToaster */,
 				16C19AE52C74987600E93FD0 /* YouTubeiOSPlayerHelper */,
-				16C19B0A2C7DA80C00E93FD0 /* Realm */,
 				16C19B0C2C7DA80C00E93FD0 /* RealmSwift */,
 				16C19B0F2C7DB73200E93FD0 /* Then */,
 				164A0A102CA3AED700504BF1 /* SDWebImage */,
@@ -965,6 +965,7 @@
 				16752F9D2C5A7FB90001907D /* HexCode.swift in Sources */,
 				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
 				1F8F99FA2C6F538300EAEF6C /* WineInfoResponse.swift in Sources */,
+				1FC522272CA91ED000EC0635 /* TabBarShadow.swift in Sources */,
 				5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */,
 				1F205A432C6B66EB00E80659 /* TasteTestThirdCollectionViewCell.swift in Sources */,
 				1F8FECB32C74777B00704491 /* WineLikeRequest.swift in Sources */,
@@ -1404,11 +1405,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 16C19AE42C74987600E93FD0 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
 			productName = YouTubeiOSPlayerHelper;
-		};
-		16C19B0A2C7DA80C00E93FD0 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 16C19B092C7DA80C00E93FD0 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
 		};
 		16C19B0C2C7DA80C00E93FD0 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
