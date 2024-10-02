@@ -20,7 +20,7 @@ class RecomCollectionViewCell: UICollectionViewCell {
     private let label1: UILabel = {
         let l1 = UILabel()
         l1.font = .systemFont(ofSize: 13, weight: .bold)
-        l1.textColor = .black
+        l1.textColor = .white
         l1.numberOfLines = 2
         //l1.adjustsFontSizeToFitWidth = true
         l1.lineBreakMode = .byTruncatingTail // 생략 부호(...)가 꼬리에 위치하도록 설정
@@ -29,7 +29,7 @@ class RecomCollectionViewCell: UICollectionViewCell {
         
     private let view: UIView = {
         let v = UIView()
-        v.backgroundColor = UIColor(hue: 0.0417, saturation: 0.19, brightness: 1, alpha: 0.7)
+        v.backgroundColor = UIColor(hue: 0.7389, saturation: 0.89, brightness: 0.69, alpha: 0.7)
         return v
     }()
     
