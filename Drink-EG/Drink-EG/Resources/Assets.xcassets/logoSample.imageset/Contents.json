@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "자막 중.png",
+      "filename" : "Rectangle 261.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "자막 중@2x.png",
+      "filename" : "Rectangle 261@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "자막 중@3x.png",
+      "filename" : "Rectangle 261@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
