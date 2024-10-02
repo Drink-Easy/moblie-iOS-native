@@ -1,5 +1,5 @@
 {
-  "originHash" : "7d6da7879a36e62998b2994307c4bedd9a7fd70691a506962f99d482c7b278e9",
+  "originHash" : "79dc566bbd8bf59453796d773da05d2d1dd2e8e9e0ecd280f78f98128b4dff7f",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -47,24 +47,6 @@
       }
     },
     {
-      "identity" : "realm-core",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-core.git",
-      "state" : {
-        "revision" : "c2552e1d36867cb42b28130e894a81fc17081062",
-        "version" : "14.12.0"
-      }
-    },
-    {
-      "identity" : "realm-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-swift.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "7ffcc1165fe335b793f59c5a4ff0d472fcc1625a"
-      }
-    },
-    {
       "identity" : "rxswift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReactiveX/RxSwift.git",
@@ -76,7 +58,7 @@
     {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImage",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "revision" : "8a1be70a625683bc04d6903e2935bf23f3c6d609",
         "version" : "5.19.7"
