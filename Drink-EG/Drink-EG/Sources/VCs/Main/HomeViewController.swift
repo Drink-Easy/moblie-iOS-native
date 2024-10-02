@@ -125,7 +125,7 @@ class HomeViewController: UIViewController {
             make.top.equalToSuperview().offset(1)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(view)
-            make.height.equalTo(AdImageCollectionView.snp.width).multipliedBy(326.0/393.0)
+            make.height.equalTo(AdImageCollectionView.snp.width).multipliedBy(326.0/390.0)
         }
         
         pageControl.snp.makeConstraints { make in
@@ -137,14 +137,13 @@ class HomeViewController: UIViewController {
         
         MenuCollectionView.snp.makeConstraints { make in
             make.top.equalTo(AdImageCollectionView.snp.bottom).offset(34)
-            make.centerX.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(35)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(32.5)
             make.height.greaterThanOrEqualTo(70)
         }
         
         contentView.addSubview(firstLine)
         
-        firstLine.snp.makeConstraints {make in
+        firstLine.snp.makeConstraints {make in      
             make.top.equalTo(MenuCollectionView.snp.bottom).offset(33)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(21)
         }
@@ -154,7 +153,7 @@ class HomeViewController: UIViewController {
         RecomCollectionView.snp.makeConstraints { make in
             make.top.equalTo(firstLine.snp.bottom).offset(8)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
-            make.leading.trailing.equalTo(AdImageCollectionView)
+            make.leading.trailing.equalTo(firstLine).offset(-5)
             make.height.greaterThanOrEqualTo(166)
             make.bottom.equalToSuperview().inset(20)
         }
@@ -227,7 +226,6 @@ class HomeViewController: UIViewController {
         
         cv.decelerationRate = .fast
         cv.backgroundColor = .clear
-        cv.layer.cornerRadius = 10
         
         return cv
     }()
@@ -332,6 +330,23 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return CGSize(width: collectionView.frame.height, height: collectionView.frame.height)
         }
         return CGSize.zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView.tag == 3 {
+            // 컬렉션 뷰에서 셀을 가운데에 정렬하기 위해 좌우 여백을 계산
+            let totalCellWidth = 100 * CGFloat(collectionView.numberOfItems(inSection: section)) // 셀 크기 * 셀 개수
+            let totalSpacingWidth = 10 * CGFloat(collectionView.numberOfItems(inSection: section) - 1) // 셀 사이 간격 * 간격 개수
+            
+            let totalContentWidth = totalCellWidth + totalSpacingWidth
+            let collectionViewWidth = collectionView.bounds.width
+            
+            // 가운데 정렬을 위해 남는 공간을 양쪽 여백으로 나누어 설정
+            let inset = max((collectionViewWidth - totalContentWidth) / 2.0, 0)
+            
+            return UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        }
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     func getHomeInfo(completion: @escaping (Bool) -> Void) {

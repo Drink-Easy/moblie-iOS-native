@@ -17,7 +17,7 @@ class MainTabBarViewController : UITabBarController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         var tabFrame = tabBar.frame
-        tabFrame.size.height = 93
+        tabFrame.size.height = 96
         tabFrame.origin.y = view.frame.size.height - 90
         tabBar.frame = tabFrame
     }
