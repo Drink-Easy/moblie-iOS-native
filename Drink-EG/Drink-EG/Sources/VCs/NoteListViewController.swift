@@ -10,236 +10,48 @@ import UIKit
 import SnapKit
 import Moya
 
-// Note, AllNotesResponse struct는 Datas > TastingNote 디렉토리로 이동하였습니다.
-// NewNoteFooter는 Models > CustomUIs 디렉토리로 이동하였습니다.
-
-// NoteListViewController는 사용자가 작성한 테이스팅 노트를 확인 및 새로 작성할 수 있는 뷰
-class NoteListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NewNoteFooterDelegate {
-   
-    let provider = MoyaProvider<TastingNoteAPI>(plugins: [CookiePlugin()])
+class NoteListViewController: UIViewController {
     
-    let noteListLabel = UILabel() // 노트 보관함 Label
-    var noteListGrid: UICollectionView! // 테이스팅 노트를 보관할 CollectionView
-    var apiResult: [[String: String]] = []
-    var cellCount: Int = 0
+    var wineCount: Int = 0
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        
-        setupAPI()
-    }
+    // Source -> cells -> TastingNote
+    private let noteListView = NoteListView()
+    // Source -> cells -> TastingNote
+    private let wineImageStackView = WineImageStackView()
+    private let myTastingNote = MyTastingNote()
     
     override func viewDidLoad() {
+        view.backgroundColor = UIColor(hex: ColorHex().background)
         super.viewDidLoad()
-        view.backgroundColor = .white
-        setupCollectionView()
-        setupView()
-        setupNavigationBarButton()
-        setupLabel()
-        setupNoteListLabelConstraints()
-        setupNoteCollectionViewConstraints()
+        setupUI()
     }
     
-    func setupView() { // 뷰 설정 함수
-        view.addSubview(noteListLabel)
-        view.addSubview(noteListGrid)
-    }
-    
-    func setupNavigationBarButton() {
-        navigationItem.hidesBackButton = false
-        let backArrow = UIImage(systemName: "")
-        let leftButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = leftButton
-        leftButton.tintColor = .black
-    }
-    
-    @objc func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    // MARK: 노트 보관함에 관한 UI
-    func setupLabel() { // Label의 기본 속성을 설정하는 함수
-        noteListLabel.text = "노트 보관함"
-        noteListLabel.font = .systemFont(ofSize: UIConstants.labelFontSize, weight: UIFont.Weight(rawValue: 700))
-        noteListLabel.textAlignment = .center
-        noteListLabel.textColor = .black
-    }
-    
-    func setupNoteListLabelConstraints() { // Label의 제약 조건을 설정하는 함수
-        noteListLabel.snp.makeConstraints{ make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(27)
+    func setupUI() {
+        view.addSubview(noteListView)
+        noteListView.updateTotalWineCount(count: wineCount)
+        noteListView.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(106)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.centerX.equalTo(view.snp.centerX)
+            make.height.equalTo(100) // 수정 필요
+        }
+        
+        view.addSubview(wineImageStackView)
+        wineImageStackView.snp.makeConstraints { make in
+            make.top.equalTo(noteListView.snp.bottom).offset(24)
+            make.leading.equalTo(noteListView.snp.leading)
+            make.centerX.equalTo(noteListView.snp.centerX)
+        }
+        
+        view.addSubview(myTastingNote)
+        myTastingNote.snp.makeConstraints { make in
+            make.top.equalTo(wineImageStackView.snp.bottom).offset(24)
+            make.leading.equalTo(wineImageStackView.snp.leading)
+            make.centerX.equalToSuperview()
         }
     }
     
-    // MARK: 작성한 테이스팅 노트를 보여주는 Grid에 관한 UI
-    func setupCollectionView() { // CollectionView의 기본 속성을 설정하는 함수
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 65, height: 65)
-        layout.minimumLineSpacing = 69
-        layout.minimumInteritemSpacing = 22
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.footerReferenceSize = CGSize(width: view.frame.width, height: 60)
-        
-        noteListGrid = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        noteListGrid.backgroundColor = .clear
-        noteListGrid.layer.cornerRadius = 36
-        noteListGrid.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner)
-        noteListGrid.layer.borderWidth = 1
-        noteListGrid.layer.borderColor = UIColor.clear.cgColor
-        
-
-        noteListGrid.dataSource = self
-        noteListGrid.delegate = self
-        noteListGrid.register(NoteCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        noteListGrid.register(NewNoteFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footer")
-        
-        let backgroundView = UIView()
-        backgroundView.layer.cornerRadius = 10
-        backgroundView.layer.masksToBounds = false
-        noteListGrid.backgroundView = backgroundView
-    }
     
-    func setupNoteCollectionViewConstraints() { // CollectionView의 제약 조건을 설정하는 함수
-        noteListGrid.snp.makeConstraints{ make in
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.top.equalTo(noteListLabel.snp.bottom).offset(35)
-        }
-    }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // CollectionView Cell 개수를 설정하는 함수
-        return cellCount
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { // 재사용 가능한 셀을 가져와서 NoteCollectionViewCell로 캐스팅
-        let cell = noteListGrid.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! NoteCollectionViewCell
-
-        let wineData = apiResult[indexPath.row]
-        
-        cell.nameLabel.text = wineData["name"]
-        cell.nameLabel.numberOfLines = 2
-        cell.nameLabel.font = UIFont(name: "Pretendard-Bold", size: 14)
-        cell.backgroundColor = .clear
-        if let imageUrl = wineData["imageUrl"], let url = URL(string: imageUrl) {
-            cell.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
-        } else {
-            cell.imageView.image = UIImage(named: "placeholder")
-        }
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { // 각 셀의 크기를 설정하는 함수
-        let numberOfItemsPerRow: CGFloat = 4
-        let spacingBetweenCells: CGFloat = 22
-        
-        let totalSpacing = (2 * spacingBetweenCells) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
-        
-        let width = (collectionView.bounds.width - totalSpacing) / numberOfItemsPerRow
-        let height = width * 1.6
-        
-        return CGSize(width: width, height: height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedNoteId = apiResult[indexPath.row]["noteId"] // noteId 가져오기
-        guard let noteId = Int(selectedNoteId ?? "") else { return }
-        
-        fetchNoteDetails(noteId: noteId)
-    }
-    
-    func fetchNoteDetails(noteId: Int) {
-        provider.request(TastingNoteAPI.getNoteID(noteId: noteId)) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    // JSON 데이터를 문자열로 변환하여 출력
-                    if let jsonString = String(data: response.data, encoding: .utf8) {
-                        print("Response JSON String: \(jsonString)")
-                    }
-                    
-                    // ResponseWrap 구조체로 디코딩
-                    let noteResponse = try JSONDecoder().decode(ResponseWrap.self, from: response.data)
-                    self.handleNoteData(noteResponse.result)
-                } catch {
-                    print("Failed to decode response: \(error)")
-                }
-            case .failure(let error):
-                print("Request failed: \(error)")
-            }
-        }
-    }
-    
-    func handleNoteData(_ data: NoteResponse) {
-        let scentData: [String: [String]] = [
-            "scentAroma": data.scentAroma.map { $0.unescapedString },
-            "scentTaste": data.scentTaste.map { $0.unescapedString },
-            "scentFinish": data.scentFinish.map { $0.unescapedString }
-        ]
-        
-        let dataList: [RadarChartData] = [
-            RadarChartData(type: .acid, value: data.acidity),
-            RadarChartData(type: .tannin, value: data.tannin),
-            RadarChartData(type: .alcohol, value: data.alcohol),
-            RadarChartData(type: .bodied, value: data.body),
-            RadarChartData(type: .sweetness, value: data.sugarContent)
-        ]
-        
-        let nextVC = CheckNoteViewController()
-        nextVC.reviewString = data.review?.unescapedString ?? ""
-        nextVC.value = data.satisfaction
-        nextVC.dataList = dataList
-        nextVC.selectedOptions = scentData
-        nextVC.selectedWineName = data.wineName
-        nextVC.selectedWineImage = data.imageUrl
-        nextVC.area = data.area
-        nextVC.sort = data.sort
-        
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
-    
-    // MARK: "새로 적기" 버튼에 관한 UI
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionFooter {
-            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footer", for: indexPath) as! NewNoteFooter
-            footer.delegate = self
-            return footer
-        }
-        return UICollectionReusableView()
-    }
-    
-    func didTapNewNoteButton() {
-
-        let nextVC = AddNewNoteViewController()
-        navigationController?.pushViewController(nextVC, animated: true)
-    }
-    
-    func setupAPI() {
-        provider.request(TastingNoteAPI.getAllNotes) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    
-                    self.apiResult.removeAll()
-                    
-                    let data = try response.map(AllNotesResponse.self)
-                    self.cellCount = data.result.count
-                    for note in data.result {
-                        let wineData: [String: String] = ["noteId": "\(note.noteId)", "name": note.name, "imageUrl": note.imageUrl]
-                        self.apiResult.append(wineData)
-                    }
-                    print(self.apiResult)
-                    print(self.cellCount)
-                    self.noteListGrid.reloadData()
-                    print("User Data: \(data)")
-                } catch {
-                    print("Failed to map data: \(error)")
-                }
-            case .failure(let error):
-                print("Request failed: \(error)")
-            }
-        }
-    }
 }

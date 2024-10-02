@@ -1,5 +1,5 @@
 {
-  "originHash" : "4aa0c475def5b81c458c453101781d39b9557c8e27e03815f1a2d58989f11763",
+  "originHash" : "79dc566bbd8bf59453796d773da05d2d1dd2e8e9e0ecd280f78f98128b4dff7f",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -47,24 +47,6 @@
       }
     },
     {
-      "identity" : "realm-core",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-core.git",
-      "state" : {
-        "revision" : "c2552e1d36867cb42b28130e894a81fc17081062",
-        "version" : "14.12.0"
-      }
-    },
-    {
-      "identity" : "realm-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-swift.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "7ffcc1165fe335b793f59c5a4ff0d472fcc1625a"
-      }
-    },
-    {
       "identity" : "rxswift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReactiveX/RxSwift.git",
@@ -76,7 +58,7 @@
     {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImage",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "revision" : "8a1be70a625683bc04d6903e2935bf23f3c6d609",
         "version" : "5.19.7"
@@ -98,15 +80,6 @@
       "state" : {
         "revision" : "4ed905fdecf7426e3e7a7af03b09674980f9c1a7",
         "version" : "1.0.2"
-      }
-    },
-    {
-      "identity" : "swipemenuviewcontroller",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/yysskk/SwipeMenuViewController.git",
-      "state" : {
-        "revision" : "58cf049ea230aa1d281c59367916e5960cea1978",
-        "version" : "4.1.0"
       }
     },
     {

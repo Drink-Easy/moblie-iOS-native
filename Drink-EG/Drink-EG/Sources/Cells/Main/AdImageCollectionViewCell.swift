@@ -25,8 +25,6 @@ class AdImageCollectionViewCell : UICollectionViewCell {
         
     private func setupUI() {
         self.contentView.addSubview(imageView)
-        self.contentView.layer.cornerRadius = 16
-        self.contentView.layer.masksToBounds = true
             
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
