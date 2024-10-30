@@ -17,12 +17,36 @@ class ClassSelectionViewController: UIViewController, UICollectionViewDelegate, 
     private var selectedIndexPath = IndexPath(item: 0, section: 0)
     
     // 더미 데이터 (각 탭에 대한 테이블 뷰 데이터)
-    private let tableViewData: [[String]] = [
-        ["Item 1", "Item 2", "Item 3"],
-        ["Red Wine 1", "Red Wine 2", "Red Wine 3"],
-        ["White Wine 1", "White Wine 2", "White Wine 3"],
-        ["Sparkling Wine 1", "Sparkling Wine 2", "Sparkling Wine 3"],
-        ["Other 1", "Other 2", "Other 3"]
+    private let totalClassData = [
+        [
+            (image: UIImage(named: "Red Label"), name: "[레드] Red Label_1", progress: 0.7),
+            (image: UIImage(named: "Red Label"), name: "[레드] Red Label_2", progress: 0.2),
+            (image: UIImage(named: "Red Label"), name: "[레드] Red Label_3", progress: 0.0),
+            (image: UIImage(named: "Dos Copas"), name: "[화이트] Dos Copas1", progress: 0.7),
+            (image: UIImage(named: "Dos Copas"), name: "[화이트] Dos Copas2", progress: 0.5),
+            (image: UIImage(named: "Dos Copas"), name: "[화이트] Dos Copas3", progress: 0.3),
+            
+        ],
+        [
+            (image: UIImage(named: "Red Label"), name: "[레드] Red Label_1", progress: 0.7),
+            (image: UIImage(named: "Red Label"), name: "[레드] Red Label_2", progress: 0.2),
+            (image: UIImage(named: "Red Label"), name: "[레드] Red Label_3", progress: 0.0)
+        ],
+        [
+            (image: UIImage(named: "Dos Copas"), name: "[화이트] Dos Copas1", progress: 0.7),
+            (image: UIImage(named: "Dos Copas"), name: "[화이트] Dos Copas2", progress: 0.5),
+            (image: UIImage(named: "Dos Copas"), name: "[화이트] Dos Copas3", progress: 0.3)
+        ],
+        [
+            (image: UIImage(named: "Red Label"), name: "[스파클링] Red Label_1", progress: 0.7),
+            (image: UIImage(named: "Red Label"), name: "[스파클링] Red Label_2", progress: 0.2),
+            (image: UIImage(named: "Red Label"), name: "[스파클링] Red Label_3", progress: 0.0)
+        ],
+        [
+            (image: UIImage(named: "Dos Copas"), name: "[기타] Dos Copas1", progress: 0.7),
+            (image: UIImage(named: "Dos Copas"), name: "[기타] Dos Copas2", progress: 0.5),
+            (image: UIImage(named: "Dos Copas"), name: "[기타] Dos Copas3", progress: 0.3)
+        ]
     ]
     
     private let searchBarView = SearchBarView()
@@ -49,7 +73,7 @@ class ClassSelectionViewController: UIViewController, UICollectionViewDelegate, 
     
     // 테이블 뷰
     private let tableView = UITableView().then {
-        $0.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+        $0.register(NewWineClassCell.self, forCellReuseIdentifier: "NewWineClassCell")
     }
     
     override func viewDidLoad() {
@@ -113,7 +137,7 @@ class ClassSelectionViewController: UIViewController, UICollectionViewDelegate, 
         
         // 테이블 뷰 레이아웃 설정
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(indicatorView.snp.bottom)
+            make.top.equalTo(indicatorView.snp.bottom).offset(10)
             make.left.equalTo(searchBarView.snp.left)
             make.right.equalTo(searchBarView.snp.right)
             make.bottom.equalToSuperview()
@@ -183,12 +207,15 @@ class ClassSelectionViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: - TableView DataSource & Delegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewData[selectedIndexPath.item].count
+        return totalClassData[selectedIndexPath.item].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
-        cell.textLabel?.text = tableViewData[selectedIndexPath.item][indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewWineClassCell", for: indexPath) as? NewWineClassCell else { return UITableViewCell() }
+        
+        let wineData = totalClassData[selectedIndexPath.item][indexPath.row]
+        cell.configure(with: wineData.image, name: wineData.name, progress: Float(wineData.progress))
+        
         return cell
     }
 }
