@@ -85,7 +85,7 @@ class ClassSelectionViewController: UIViewController, UICollectionViewDelegate, 
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().inset(16)
-            make.height.equalTo(50)                  // 적절한 높이 설정 (필요에 따라 조정 가능)
+            make.height.equalTo(50)
         }
         
         // 컬렉션 뷰 레이아웃

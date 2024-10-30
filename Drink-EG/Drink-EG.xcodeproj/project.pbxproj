@@ -88,6 +88,7 @@
 		16C19B182C7DB89300E93FD0 /* AllNotesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19B172C7DB89300E93FD0 /* AllNotesResponse.swift */; };
 		16C19B1A2C7DB8AE00E93FD0 /* NewNoteFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19B192C7DB8AE00E93FD0 /* NewNoteFooter.swift */; };
 		16C19B202C7DB9EA00E93FD0 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C19B1F2C7DB9EA00E93FD0 /* Shop.swift */; };
+		16C33F1F2CD200A500F2730A /* NewWineClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C33F1E2CD200A500F2730A /* NewWineClassCell.swift */; };
 		16D3E6152CB65F9C00124F6C /* ClassSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D3E6142CB65F9C00124F6C /* ClassSelectionViewController.swift */; };
 		16D3E6172CB66EEA00124F6C /* TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D3E6162CB66EEA00124F6C /* TabCell.swift */; };
 		16D3E6192CB6702A00124F6C /* WineCourseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D3E6182CB6702A00124F6C /* WineCourseTableCell.swift */; };
@@ -273,6 +274,7 @@
 		16C19B172C7DB89300E93FD0 /* AllNotesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesResponse.swift; sourceTree = "<group>"; };
 		16C19B192C7DB8AE00E93FD0 /* NewNoteFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteFooter.swift; sourceTree = "<group>"; };
 		16C19B1F2C7DB9EA00E93FD0 /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
+		16C33F1E2CD200A500F2730A /* NewWineClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWineClassCell.swift; sourceTree = "<group>"; };
 		16D3E6142CB65F9C00124F6C /* ClassSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSelectionViewController.swift; sourceTree = "<group>"; };
 		16D3E6162CB66EEA00124F6C /* TabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCell.swift; sourceTree = "<group>"; };
 		16D3E6182CB6702A00124F6C /* WineCourseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineCourseTableCell.swift; sourceTree = "<group>"; };
@@ -777,6 +779,7 @@
 				16C19AD72C73AE5E00E93FD0 /* WineClassCell.swift */,
 				16D3E6162CB66EEA00124F6C /* TabCell.swift */,
 				16D3E6182CB6702A00124F6C /* WineCourseTableCell.swift */,
+				16C33F1E2CD200A500F2730A /* NewWineClassCell.swift */,
 			);
 			path = WineClass;
 			sourceTree = "<group>";
@@ -1161,6 +1164,7 @@
 				5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */,
 				1654014C2C6F41B0008A9DBF /* ContentView.swift in Sources */,
 				1F8FECA72C74723A00704491 /* WishListAPI.swift in Sources */,
+				16C33F1F2CD200A500F2730A /* NewWineClassCell.swift in Sources */,
 				16C19B1A2C7DB8AE00E93FD0 /* NewNoteFooter.swift in Sources */,
 				5E2219442C69D5D0005849FB /* CreateNewCommViewController.swift in Sources */,
 				16C19AC02C73AB6300E93FD0 /* MyPageBusinessViewController.swift in Sources */,
