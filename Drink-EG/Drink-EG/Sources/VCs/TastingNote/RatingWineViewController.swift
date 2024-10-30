@@ -10,7 +10,7 @@ import UIKit
 class RatingWineViewController: UIViewController {
 
     let wineView = WineInfoView()
-    
+    let scrollView = UIScrollView()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,10 +18,19 @@ class RatingWineViewController: UIViewController {
     }
     
     func setupUI() {
-        view.addSubview(wineView)
-        view.backgroundColor = UIColor(hex: "#F8F8FA")
+        
+        view.addSubview(scrollView)
+        view.backgroundColor = UIColor(hex: "F8F8FA")
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        scrollView.addSubview(wineView)
+        wineView.backgroundColor = UIColor(hex: "F8F8FA")
         wineView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView)
+            make.height.equalTo(1000)
         }
     }
     
