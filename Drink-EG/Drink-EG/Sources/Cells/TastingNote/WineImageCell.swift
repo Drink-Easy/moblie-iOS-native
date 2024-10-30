@@ -23,6 +23,7 @@ class WineImageCell: UICollectionViewCell {
         l.font = UIFont(name: "Pretendard-Medium", size: 12)
         l.textColor = .black
         l.textAlignment = .center
+        l.text = "루이즈 로드레"
         return l
     }()
     
@@ -46,8 +47,8 @@ class WineImageCell: UICollectionViewCell {
         
         label.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.centerX.equalTo(imageView.snp.centerX)
+            // make.bottom.equalToSuperview()
         }
     }
     

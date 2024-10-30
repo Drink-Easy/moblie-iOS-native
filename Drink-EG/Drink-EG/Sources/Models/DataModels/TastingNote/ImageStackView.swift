@@ -14,5 +14,5 @@ struct ImageStackView {
 
 struct ImageCollectionView {
     let images = ["wine1", "wine2", "wine1", "wine2", "wine1"]
-    let label = ["1", "2", "3", "4", "5"]
+    let label = ["루이즈 로드레", "루이즈 로드레", "3", "4", "5"]
 }

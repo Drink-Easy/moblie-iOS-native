@@ -86,8 +86,10 @@ class MyTastingNote: UIView, UICollectionViewDataSource, UICollectionViewDelegat
     
     // UICollectionViewDelegateFlowLayout 메서드
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - 32) / 3 // 3열 구성
-        return CGSize(width: width, height: width * 1.5) // 셀 높이 비율 설정
+        // let width = (collectionView.bounds.width - 32) / 3 // 3열 구성
+        let width = 107
+        // return CGSize(width: width, height: width * 1.5) // 셀 높이 비율 설정
+        return CGSize(width: width, height: width)
     }
     
     required init? (coder: NSCoder) {
