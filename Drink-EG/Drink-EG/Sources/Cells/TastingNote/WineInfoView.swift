@@ -60,6 +60,21 @@ class WineInfoView: UIView {
         return w
     }()
     
+    private let graphView: UIView = {
+        let g = UIView()
+        g.backgroundColor = .white
+        g.layer.cornerRadius = 10
+        return g
+    }()
+    
+    private let graphLabel: UILabel = {
+        let g = UILabel()
+        g.text = "Graph"
+        g.font = UIFont.
+    }
+    
+    
+    
     func setupUI() {
         addSubview(wineName)
         wineName.snp.makeConstraints { make in
