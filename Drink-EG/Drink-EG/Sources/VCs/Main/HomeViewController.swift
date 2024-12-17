@@ -45,11 +45,20 @@ class HomeViewController: UIViewController {
         i.image = UIImage(named: "logoSample")
         return i
     }()
-    let searchButton: UIButton = {
+    
+    public lazy var searchButton: UIButton = {
         let b = UIButton()
         b.setImage(UIImage(named: "icon_search"), for: .normal)
         return b
     }()
+    
+    
+    @objc
+    private func goToSearch() {
+        let vc = SearchHomeViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     let firstLine = UILabel()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +74,7 @@ class HomeViewController: UIViewController {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         view.backgroundColor = .white
+        searchButton.addTarget(self, action: #selector(goToSearch), for: .touchUpInside)
         getHomeInfo { [weak self] isSuccess in
             if isSuccess {
                 self?.RecomCollectionView.reloadData()

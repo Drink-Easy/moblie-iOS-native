@@ -212,7 +212,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let homeViewController = HomeViewController()
             navigationController?.pushViewController(homeViewController, animated: true)
         }
-        
     }
     
     private func goToHomeView() {
@@ -269,7 +268,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         idTextField.layer.cornerRadius = 16
         idTextField.layer.borderWidth = 2
         idTextField.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
-        idTextField.setIdIcon(UIImage(named: "icon_person")!)
+        //idTextField.setIdIcon(UIImage(named: "icon_person")!)
         idTextField.returnKeyType = .done
         idTextField.clearButtonMode = .always
     }
@@ -283,7 +282,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         pwTextField.layer.cornerRadius = 16
         pwTextField.layer.borderWidth = 2
         pwTextField.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
-        pwTextField.setPwIcon(UIImage(named: "icon_lock")!)
+        //pwTextField.setPwIcon(UIImage(named: "icon_lock")!)
         pwTextField.returnKeyType = .done
         pwTextField.textContentType = .password
         pwTextField.isSecureTextEntry = true
@@ -298,12 +297,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         textField.backgroundColor = UIColor(hue: 0.0111, saturation: 0.61, brightness: 1, alpha: 0.2)
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor(hex: "#FF6F62")?.cgColor
-        if textField.tag == 1 {
-            textField.setIdIcon(UIImage(named: "icon_person_fill")!)
-        }
-        else if textField.tag == 2 {
-            textField.setPwIcon(UIImage(named: "icon_lock_fill")!)
-        }
+//        if textField.tag == 1 {
+//            textField.setIdIcon(UIImage(named: "icon_person_fill")!)
+//        }
+//        else if textField.tag == 2 {
+//            textField.setPwIcon(UIImage(named: "icon_lock_fill")!)
+//        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -311,12 +310,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         textField.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.26, alpha: 0.5)
         textField.layer.borderWidth = 2
         textField.layer.borderColor = UIColor.white.cgColor.copy(alpha: 0.1)
-        if textField.tag == 1 {
-            textField.setIdIcon(UIImage(named: "icon_person")!)
-        }
-        else if textField.tag == 2 {
-            textField.setPwIcon(UIImage(named: "icon_lock")!)
-        }
+//        if textField.tag == 1 {
+//            textField.setIdIcon(UIImage(named: "icon_person")!)
+//        }
+//        else if textField.tag == 2 {
+//            textField.setPwIcon(UIImage(named: "icon_lock")!)
+//        }
         
     }
     
