@@ -9,11 +9,17 @@ import Foundation
 import UIKit
 import SnapKit
 
-class MyTastingNote: UIView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MyTastingNote: UIView {
     
-    private let imageCollectionData = ImageCollectionView()
     
-    private var collectionView: UICollectionView!
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout().then {
+        $0.itemSize = .init(width: 107, height: 131)
+        $0.minimumInteritemSpacing = 10
+        $0.minimumLineSpacing = 48
+    }).then {
+        $0.backgroundColor = .clear
+        $0.register(NoteCollectionViewCell.self, forCellWithReuseIdentifier: NoteCollectionViewCell.identifier)
+    }
     
     private let vector: UIView = {
         let v = UIView()
@@ -40,7 +46,7 @@ class MyTastingNote: UIView, UICollectionViewDataSource, UICollectionViewDelegat
         addSubview(vector)
         vector.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(24)
             make.centerX.equalToSuperview()
             make.height.equalTo(1)
         }
@@ -55,41 +61,15 @@ class MyTastingNote: UIView, UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     func setupCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 48
-        layout.minimumInteritemSpacing = 10
-        
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(WineImageCell.self, forCellWithReuseIdentifier: "TastingNoteCell")
         
         addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(tastingNoteLabel.snp.bottom).offset(28)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(300)
+            make.leading.equalToSuperview().offset(24)
+            make.centerX.equalToSuperview()
+            // make.width.equalTo(341)
+            make.height.equalTo(500)
         }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ImageCollectionView().images.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TastingNoteCell", for: indexPath) as! WineImageCell
-        cell.configure(with: imageCollectionData, index: indexPath.item)
-        return cell
-    }
-    
-    // UICollectionViewDelegateFlowLayout 메서드
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // let width = (collectionView.bounds.width - 32) / 3 // 3열 구성
-        let width = 107
-        // return CGSize(width: width, height: width * 1.5) // 셀 높이 비율 설정
-        return CGSize(width: width, height: width)
     }
     
     required init? (coder: NSCoder) {

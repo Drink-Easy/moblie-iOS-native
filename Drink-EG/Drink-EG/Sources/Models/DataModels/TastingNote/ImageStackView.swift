@@ -6,13 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
 struct ImageStackView {
     let images = [("RedImage", "레드"), ("WhiteImage", "화이트"), ("SparklingImage", "스파클링"), ("RoseImage", "로제"), ("ETCImage", "기타")]
 
-}
-
-struct ImageCollectionView {
-    let images = ["wine1", "wine2", "wine1", "wine2", "wine1"]
-    let label = ["루이즈 로드레", "루이즈 로드레", "3", "4", "5"]
 }

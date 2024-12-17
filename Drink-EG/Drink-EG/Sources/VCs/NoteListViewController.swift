@@ -10,7 +10,22 @@ import UIKit
 import SnapKit
 import Moya
 
-class NoteListViewController: UIViewController {
+class NoteListViewController: UIViewController, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return TastingNoteModel.dummy().count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoteCollectionViewCell.identifier, for: indexPath) as? NoteCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        let list = TastingNoteModel.dummy()
+        cell.imageView.image = list[indexPath.row].images
+        cell.nameLabel.text = list[indexPath.row].label
+        return cell
+    }
+    
     
     var wineCount: Int = 0
     
@@ -24,6 +39,7 @@ class NoteListViewController: UIViewController {
         view.backgroundColor = UIColor(hex: ColorHex().background)
         super.viewDidLoad()
         setupUI()
+        setupDelegate()
     }
     
     func setupUI() {
@@ -46,9 +62,13 @@ class NoteListViewController: UIViewController {
         view.addSubview(myTastingNote)
         myTastingNote.snp.makeConstraints { make in
             make.top.equalTo(wineImageStackView.snp.bottom).offset(24)
-            make.leading.equalTo(wineImageStackView.snp.leading)
+            make.leading.trailing.equalToSuperview()
             make.centerX.equalToSuperview()
         }
+    }
+    
+    func setupDelegate() {
+        myTastingNote.collectionView.dataSource = self
     }
     
     

@@ -51,14 +51,5 @@ class WineImageCell: UICollectionViewCell {
             // make.bottom.equalToSuperview()
         }
     }
-    
-    func configure(with model: ImageCollectionView, index: Int) {
-        guard index < model.images.count, index < model.label.count else {
-            return // 배열 인덱스 범위 벗어나는 경우 처리
-        }
-        
-        imageView.image = UIImage(named: model.images[index])
-        label.text = model.label[index]
-    }
-    
+
 }

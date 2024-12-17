@@ -44,14 +44,14 @@ class PolygonChartView: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(hex: "EAEAEA") // 배경색 설정
+        self.backgroundColor = .clear // 배경색 설정
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.backgroundColor = UIColor(hex: "EAEAEA") // 배경색 설정
+        self.backgroundColor = UIColor(hex: "#B06FCD") // 배경색 설정
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
     }

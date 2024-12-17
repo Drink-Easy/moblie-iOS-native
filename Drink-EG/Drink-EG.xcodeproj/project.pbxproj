@@ -155,22 +155,16 @@
 		5E2219472C69D5D0005849FB /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22193E2C69D5D0005849FB /* CustomCollectionViewCell.swift */; };
 		5E2219482C69D5D0005849FB /* CommunityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22193F2C69D5D0005849FB /* CommunityListViewController.swift */; };
 		5E2219492C69D5D0005849FB /* CommunityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */; };
-		5E2219532C69D5E7005849FB /* NoteInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */; };
 		5E2219542C69D5E7005849FB /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194B2C69D5E7005849FB /* NoteListViewController.swift */; };
 		5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194C2C69D5E7005849FB /* CustomSlider.swift */; };
-		5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */; };
 		5E2219582C69D5E7005849FB /* PolygonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22194F2C69D5E7005849FB /* PolygonChartView.swift */; };
-		5E2219592C69D5E7005849FB /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */; };
 		5E22195A2C69D5E7005849FB /* CustomSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */; };
-		5E22195B2C69D5E7005849FB /* WriteNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */; };
 		5E22195E2C69DDB5005849FB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5E22195D2C69DDB5005849FB /* SnapKit */; };
 		5E2219612C69DDBF005849FB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219602C69DDBF005849FB /* Alamofire */; };
 		5E2219642C69DE43005849FB /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219632C69DE43005849FB /* Moya */; };
 		5E2219672C69DE78005849FB /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219662C69DE78005849FB /* KakaoSDK */; };
 		5E22196A2C69DEEA005849FB /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219692C69DEEA005849FB /* Toast */; };
-		5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22196D2C6B2EA0005849FB /* RatingViewController.swift */; };
 		5E2219712C6B5B5B005849FB /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 5E2219702C6B5B5B005849FB /* Cosmos */; };
-		5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2219722C6B661A005849FB /* CheckNoteViewController.swift */; };
 		5E23147F2C5901BB004E2013 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		5E42B0162C746B2800DAB751 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E42B0152C746B2800DAB751 /* PrivacyPolicyViewController.swift */; };
 		5E42B0182C74A39300DAB751 /* MovingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E42B0172C74A39300DAB751 /* MovingTextField.swift */; };
@@ -180,8 +174,17 @@
 		5E66EABD2CA7F98C00FAD76F /* WineImageStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E66EABC2CA7F98C00FAD76F /* WineImageStackView.swift */; };
 		5E66EAC12CA8212300FAD76F /* MyTastingNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E66EAC02CA8212300FAD76F /* MyTastingNote.swift */; };
 		5E66EAC32CA82B8D00FAD76F /* WineImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E66EAC22CA82B8D00FAD76F /* WineImageCell.swift */; };
+		5E7EBAEE2CE207F1007AFDCA /* DescriptionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7EBAED2CE207F1007AFDCA /* DescriptionUIView.swift */; };
+		5E7EBAF02CE20E22007AFDCA /* ChooseWineColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7EBAEF2CE20E22007AFDCA /* ChooseWineColorViewController.swift */; };
+		5E7EBAF22CE2142C007AFDCA /* ColorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7EBAF12CE2142C007AFDCA /* ColorStackView.swift */; };
+		5E7EBB402CE72CAB007AFDCA /* TastingNoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7EBB3F2CE72CAB007AFDCA /* TastingNoteModel.swift */; };
+		5E7EBC922CEB2729007AFDCA /* RecordGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7EBC912CEB2729007AFDCA /* RecordGraphView.swift */; };
+		5E7EBC942CEB2888007AFDCA /* RecordGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7EBC932CEB2888007AFDCA /* RecordGraphViewController.swift */; };
 		5EA2D46D2CD1DEA900CEC439 /* WineInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA2D46C2CD1DEA900CEC439 /* WineInfoView.swift */; };
 		5EA2D4712CD1E3E500CEC439 /* RatingWineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA2D4702CD1E3E500CEC439 /* RatingWineViewController.swift */; };
+		5EC68F732CD21C240080B813 /* TastedDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC68F722CD21C240080B813 /* TastedDateView.swift */; };
+		5EC68F752CD21DA20080B813 /* TastedDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC68F742CD21DA20080B813 /* TastedDateViewController.swift */; };
+		5EC692062CE2015A0080B813 /* ChooseWineColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC692052CE2015A0080B813 /* ChooseWineColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -343,17 +346,11 @@
 		5E22193E2C69D5D0005849FB /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		5E22193F2C69D5D0005849FB /* CommunityListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityListViewController.swift; sourceTree = "<group>"; };
 		5E2219402C69D5D0005849FB /* CommunityMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityMainViewController.swift; sourceTree = "<group>"; };
-		5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteInfoViewController.swift; path = ../NoteInfoViewController.swift; sourceTree = "<group>"; };
 		5E22194B2C69D5E7005849FB /* NoteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteListViewController.swift; path = ../NoteListViewController.swift; sourceTree = "<group>"; };
 		5E22194C2C69D5E7005849FB /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChooseTasteViewController.swift; path = ../ChooseTasteViewController.swift; sourceTree = "<group>"; };
 		5E22194F2C69D5E7005849FB /* PolygonChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonChartView.swift; sourceTree = "<group>"; };
-		5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddNewNoteViewController.swift; path = ../AddNewNoteViewController.swift; sourceTree = "<group>"; };
 		5E2219512C69D5E7005849FB /* CustomSuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSuggestionCell.swift; sourceTree = "<group>"; };
-		5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WriteNoteViewController.swift; path = ../WriteNoteViewController.swift; sourceTree = "<group>"; };
 		5E22196B2C6B2416005849FB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5E22196D2C6B2EA0005849FB /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
-		5E2219722C6B661A005849FB /* CheckNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNoteViewController.swift; sourceTree = "<group>"; };
 		5E42B0152C746B2800DAB751 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		5E42B0172C74A39300DAB751 /* MovingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingTextField.swift; sourceTree = "<group>"; };
 		5E66EAB52CA7EF3800FAD76F /* ColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHex.swift; sourceTree = "<group>"; };
@@ -362,8 +359,17 @@
 		5E66EABC2CA7F98C00FAD76F /* WineImageStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineImageStackView.swift; sourceTree = "<group>"; };
 		5E66EAC02CA8212300FAD76F /* MyTastingNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTastingNote.swift; sourceTree = "<group>"; };
 		5E66EAC22CA82B8D00FAD76F /* WineImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineImageCell.swift; sourceTree = "<group>"; };
+		5E7EBAED2CE207F1007AFDCA /* DescriptionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionUIView.swift; sourceTree = "<group>"; };
+		5E7EBAEF2CE20E22007AFDCA /* ChooseWineColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseWineColorViewController.swift; sourceTree = "<group>"; };
+		5E7EBAF12CE2142C007AFDCA /* ColorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorStackView.swift; sourceTree = "<group>"; };
+		5E7EBB3F2CE72CAB007AFDCA /* TastingNoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TastingNoteModel.swift; sourceTree = "<group>"; };
+		5E7EBC912CEB2729007AFDCA /* RecordGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordGraphView.swift; sourceTree = "<group>"; };
+		5E7EBC932CEB2888007AFDCA /* RecordGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordGraphViewController.swift; sourceTree = "<group>"; };
 		5EA2D46C2CD1DEA900CEC439 /* WineInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineInfoView.swift; sourceTree = "<group>"; };
 		5EA2D4702CD1E3E500CEC439 /* RatingWineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingWineViewController.swift; sourceTree = "<group>"; };
+		5EC68F722CD21C240080B813 /* TastedDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TastedDateView.swift; sourceTree = "<group>"; };
+		5EC68F742CD21DA20080B813 /* TastedDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TastedDateViewController.swift; sourceTree = "<group>"; };
+		5EC692052CE2015A0080B813 /* ChooseWineColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseWineColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -623,13 +629,10 @@
 			isa = PBXGroup;
 			children = (
 				5E22194B2C69D5E7005849FB /* NoteListViewController.swift */,
-				5E2219502C69D5E7005849FB /* AddNewNoteViewController.swift */,
-				5E2219522C69D5E7005849FB /* WriteNoteViewController.swift */,
-				5E22194A2C69D5E7005849FB /* NoteInfoViewController.swift */,
-				5E22194D2C69D5E7005849FB /* ChooseTasteViewController.swift */,
-				5E22196D2C6B2EA0005849FB /* RatingViewController.swift */,
-				5E2219722C6B661A005849FB /* CheckNoteViewController.swift */,
 				5EA2D4702CD1E3E500CEC439 /* RatingWineViewController.swift */,
+				5EC68F742CD21DA20080B813 /* TastedDateViewController.swift */,
+				5E7EBAEF2CE20E22007AFDCA /* ChooseWineColorViewController.swift */,
+				5E7EBC932CEB2888007AFDCA /* RecordGraphViewController.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
@@ -704,6 +707,7 @@
 			children = (
 				16BF5CCC2CB4064C0090BE93 /* SearchBarView.swift */,
 				16BF5CDE2CB410370090BE93 /* CustomTabBarView.swift */,
+				5E7EBAED2CE207F1007AFDCA /* DescriptionUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -775,6 +779,10 @@
 				5E66EAC02CA8212300FAD76F /* MyTastingNote.swift */,
 				5E66EAC22CA82B8D00FAD76F /* WineImageCell.swift */,
 				5EA2D46C2CD1DEA900CEC439 /* WineInfoView.swift */,
+				5EC68F722CD21C240080B813 /* TastedDateView.swift */,
+				5EC692052CE2015A0080B813 /* ChooseWineColor.swift */,
+				5E7EBAF12CE2142C007AFDCA /* ColorStackView.swift */,
+				5E7EBC912CEB2729007AFDCA /* RecordGraphView.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
@@ -917,6 +925,7 @@
 			isa = PBXGroup;
 			children = (
 				5E66EAB82CA7F40F00FAD76F /* ImageStackView.swift */,
+				5E7EBB3F2CE72CAB007AFDCA /* TastingNoteModel.swift */,
 			);
 			path = TastingNote;
 			sourceTree = "<group>";
@@ -1034,14 +1043,15 @@
 				5E66EAB62CA7EF3800FAD76F /* ColorHex.swift in Sources */,
 				1F205A392C6B33F700E80659 /* ThirdKindTasteTestViewController.swift in Sources */,
 				165400E22C69D6B9008A9DBF /* CookiePlugin.swift in Sources */,
+				5E7EBAF02CE20E22007AFDCA /* ChooseWineColorViewController.swift in Sources */,
 				1F598F0F2C5CBE70000CE79F /* FirstTasteTestViewController.swift in Sources */,
-				5E2219562C69D5E7005849FB /* ChooseTasteViewController.swift in Sources */,
 				1F8F99F82C6F52C600EAEF6C /* WineSearchResponse.swift in Sources */,
 				165400F62C69EF89008A9DBF /* WineNewsRequest.swift in Sources */,
 				16C19ACC2C73ACFF00E93FD0 /* NoteCollectionViewCell.swift in Sources */,
 				1654014E2C6F9582008A9DBF /* APIResponseNoteResponse.swift in Sources */,
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
 				16C19ADC2C73AE8D00E93FD0 /* CarouselLayout.swift in Sources */,
+				5E7EBC922CEB2729007AFDCA /* RecordGraphView.swift in Sources */,
 				16C19ABE2C73AB6300E93FD0 /* MyPageQnaViewController.swift in Sources */,
 				16D3E6192CB6702A00124F6C /* WineCourseTableCell.swift in Sources */,
 				1654010B2C6BACDC008A9DBF /* SelectionManager.swift in Sources */,
@@ -1051,7 +1061,6 @@
 				1F598F0B2C5CBD9E000CE79F /* EnterTasteTestViewController.swift in Sources */,
 				1F8F99FA2C6F538300EAEF6C /* WineInfoResponse.swift in Sources */,
 				1FC522272CA91ED000EC0635 /* TabBarShadow.swift in Sources */,
-				5E22196E2C6B2EA0005849FB /* RatingViewController.swift in Sources */,
 				1F205A432C6B66EB00E80659 /* TasteTestThirdCollectionViewCell.swift in Sources */,
 				1F8FECB32C74777B00704491 /* WineLikeRequest.swift in Sources */,
 				1FBD19572C6DDBAB005C16A8 /* ReviewListCollectionViewCell.swift in Sources */,
@@ -1098,18 +1107,21 @@
 				165401002C69F251008A9DBF /* WineClassResponse.swift in Sources */,
 				5E66EAC12CA8212300FAD76F /* MyTastingNote.swift in Sources */,
 				165401502C6F960A008A9DBF /* NoteResponse.swift in Sources */,
+				5EC692062CE2015A0080B813 /* ChooseWineColor.swift in Sources */,
 				16C19B182C7DB89300E93FD0 /* AllNotesResponse.swift in Sources */,
 				5E2219482C69D5D0005849FB /* CommunityListViewController.swift in Sources */,
 				5E2219492C69D5D0005849FB /* CommunityMainViewController.swift in Sources */,
 				16B97CD42C4BEB0900D8B453 /* AppDelegate.swift in Sources */,
 				165400F12C69DE22008A9DBF /* CommunityAPI.swift in Sources */,
 				1F598F112C5CBE7A000CE79F /* SecondTasteTestViewController.swift in Sources */,
-				5E2219592C69D5E7005849FB /* AddNewNoteViewController.swift in Sources */,
 				5E22195A2C69D5E7005849FB /* CustomSuggestionCell.swift in Sources */,
 				5E2219462C69D5D0005849FB /* SearchCommunityViewController.swift in Sources */,
+				5E7EBB402CE72CAB007AFDCA /* TastingNoteModel.swift in Sources */,
+				5E7EBAF22CE2142C007AFDCA /* ColorStackView.swift in Sources */,
 				1F8F99FE2C6FACF600EAEF6C /* WineReviewResponse.swift in Sources */,
 				165400F32C69DE2D008A9DBF /* CommentsAPI.swift in Sources */,
 				16B97CD62C4BEB0900D8B453 /* SceneDelegate.swift in Sources */,
+				5E7EBAEE2CE207F1007AFDCA /* DescriptionUIView.swift in Sources */,
 				16C19ACE2C73AD3000E93FD0 /* String.swift in Sources */,
 				16B97D082C4C0D8100D8B453 /* WineOrderViewController.swift in Sources */,
 				1F205A3B2C6B343300E80659 /* ThirdNationTasteTestViewController.swift in Sources */,
@@ -1136,10 +1148,12 @@
 				1F205A312C68BB5200E80659 /* CartListCollectionViewCell.swift in Sources */,
 				5E2219372C69D5AE005849FB /* UIColorToHexCode.swift in Sources */,
 				16BF5CCD2CB4064C0090BE93 /* SearchBarView.swift in Sources */,
+				5EC68F752CD21DA20080B813 /* TastedDateViewController.swift in Sources */,
 				16C19B202C7DB9EA00E93FD0 /* Shop.swift in Sources */,
 				165401092C6BA644008A9DBF /* MemberInfoAPI.swift in Sources */,
 				16C19B162C7DB88100E93FD0 /* Note.swift in Sources */,
 				16B97D062C4C0CF800D8B453 /* WineStoreListViewController.swift in Sources */,
+				5EC68F732CD21C240080B813 /* TastedDateView.swift in Sources */,
 				1F8FECB92C74E7DF00704491 /* APIResponsePostLikeResponse.swift in Sources */,
 				1F598EFF2C58151B000CE79F /* SelectLoginViewController.swift in Sources */,
 				16B97CFE2C4BFC2300D8B453 /* HomeViewController.swift in Sources */,
@@ -1155,7 +1169,6 @@
 				165400ED2C69DDF2008A9DBF /* WineNewsAPI.swift in Sources */,
 				1F8F9A002C6FADBE00EAEF6C /* APIResponseWineReviewResponse.swift in Sources */,
 				16C19AB02C73A3B100E93FD0 /* AppleLoginResponse.swift in Sources */,
-				5E2219532C69D5E7005849FB /* NoteInfoViewController.swift in Sources */,
 				165400FE2C69F218008A9DBF /* APIResponseWineClassResponse.swift in Sources */,
 				16B97D142C4C0F4100D8B453 /* ClassVideoViewController.swift in Sources */,
 				16C19ABD2C73AB6300E93FD0 /* MyPageSuggestViewController.swift in Sources */,
@@ -1169,15 +1182,14 @@
 				16B97D022C4BFC9800D8B453 /* SearchHomeViewController.swift in Sources */,
 				1F8FECB12C74775B00704491 /* WishListResponse.swift in Sources */,
 				16C19AD62C73AE3900E93FD0 /* UIConstants.swift in Sources */,
-				5E2219732C6B661A005849FB /* CheckNoteViewController.swift in Sources */,
 				1654014C2C6F41B0008A9DBF /* ContentView.swift in Sources */,
 				1F8FECA72C74723A00704491 /* WishListAPI.swift in Sources */,
 				16C33F1F2CD200A500F2730A /* NewWineClassCell.swift in Sources */,
+				5E7EBC942CEB2888007AFDCA /* RecordGraphViewController.swift in Sources */,
 				16C19B1A2C7DB8AE00E93FD0 /* NewNoteFooter.swift in Sources */,
 				5E2219442C69D5D0005849FB /* CreateNewCommViewController.swift in Sources */,
 				16C19AC02C73AB6300E93FD0 /* MyPageBusinessViewController.swift in Sources */,
 				5E2219472C69D5D0005849FB /* CustomCollectionViewCell.swift in Sources */,
-				5E22195B2C69D5E7005849FB /* WriteNoteViewController.swift in Sources */,
 				165401132C6E2BAA008A9DBF /* WineKnowledgeViewController.swift in Sources */,
 				165400EF2C69DDFF008A9DBF /* WineNewsBookmarkAPI.swift in Sources */,
 			);

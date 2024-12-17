@@ -15,6 +15,8 @@ class NoteCollectionViewCell: UICollectionViewCell { // 셀에 이미지와 labe
     let imageView = UIImageView() // CollectionView에 image와 label 추가
     let nameLabel = UILabel()
     
+    static let identifier = "NoteCollectionViewCell"
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(imageView)
@@ -27,7 +29,7 @@ class NoteCollectionViewCell: UICollectionViewCell { // 셀에 이미지와 labe
         nameLabel.textAlignment = .center
         nameLabel.font = UIFont.systemFont(ofSize: 12)
         nameLabel.textColor = .black
-        nameLabel.numberOfLines = 2
+        nameLabel.numberOfLines = 0
         
         imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
@@ -35,8 +37,10 @@ class NoteCollectionViewCell: UICollectionViewCell { // 셀에 이미지와 labe
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(5)
-            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(imageView.snp.bottom).offset(8)
+            make.leading.equalToSuperview()
+            make.centerX.equalTo(imageView.snp.centerX)
+            make.height.equalTo(16)
         }
         
         contentView.layer.cornerRadius = 10
