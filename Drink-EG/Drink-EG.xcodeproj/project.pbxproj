@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16449B872D23DD5C0083E075 /* WineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16449B862D23DD5C0083E075 /* WineData.swift */; };
 		164A0A112CA3AED700504BF1 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 164A0A102CA3AED700504BF1 /* SDWebImage */; };
 		164A0A132CA3AED700504BF1 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 164A0A122CA3AED700504BF1 /* SDWebImageMapKit */; };
 		165400E22C69D6B9008A9DBF /* CookiePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165400DF2C69D6B9008A9DBF /* CookiePlugin.swift */; };
@@ -196,6 +197,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		16449B862D23DD5C0083E075 /* WineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineData.swift; sourceTree = "<group>"; };
 		165400DF2C69D6B9008A9DBF /* CookiePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookiePlugin.swift; sourceTree = "<group>"; };
 		165400E42C69DDB6008A9DBF /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		165400E62C69DDBE008A9DBF /* TastingNoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TastingNoteAPI.swift; sourceTree = "<group>"; };
@@ -385,6 +387,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		16449B852D23DD4C0083E075 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				16449B862D23DD5C0083E075 /* WineData.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		165400F42C69EEE6008A9DBF /* Datas */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +561,7 @@
 		16B97CF02C4BF3F100D8B453 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				16449B852D23DD4C0083E075 /* Database */,
 				16BF5CCB2CB4063C0090BE93 /* Views */,
 				16B97CF42C4BF40900D8B453 /* Cells */,
 				165400F42C69EEE6008A9DBF /* Datas */,
@@ -1035,6 +1046,7 @@
 				16C19ACC2C73ACFF00E93FD0 /* NoteCollectionViewCell.swift in Sources */,
 				1654014E2C6F9582008A9DBF /* APIResponseNoteResponse.swift in Sources */,
 				5E2219552C69D5E7005849FB /* CustomSlider.swift in Sources */,
+				16449B872D23DD5C0083E075 /* WineData.swift in Sources */,
 				16C19ADC2C73AE8D00E93FD0 /* CarouselLayout.swift in Sources */,
 				16C19ABE2C73AB6300E93FD0 /* MyPageQnaViewController.swift in Sources */,
 				16D3E6192CB6702A00124F6C /* WineCourseTableCell.swift in Sources */,

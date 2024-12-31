@@ -11,6 +11,7 @@ import Moya
 import SDWebImage
 import SafariServices
 import SwiftyToaster
+import SwiftyToaster
 
 class HomeViewController: UIViewController {
     
